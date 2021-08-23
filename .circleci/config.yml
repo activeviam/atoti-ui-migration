@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@2.1.0
+
+commands:
+  login:
+    description: "Log in to Artifactory, allowing to install private @activeviam dependencies."
+    steps:
+      - run: npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email activeui@activeviam.com
+
+jobs:
+  build-and-test:
+    executor:
+      name: node/default
+      tag: "14.2.0"
+    resource_class: small
+    steps:
+      - checkout
+      - login
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
+
+workflows:
+  # Used to protect the main branch: it should block merging into main when failing.
+  # See https://github.com/activeviam/activeui-migration/settings/branch_protection_rules/15886613
+  check-pull-request:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              ignore:
+                - main
