@@ -9,13 +9,13 @@ These functions can be run through a [CLI](#cli-usage).
 With npm:
 
 ```shell
-npm install @activeviam/migration
+npm install @activeviam/activeui-migration
 ```
 
 With yarn:
 
 ```shell
-yarn add @activeviam/migration
+yarn add @activeviam/activeui-migration
 ```
 
 ## CLI Usage
