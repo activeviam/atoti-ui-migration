@@ -1,0 +1,59 @@
+{
+  "name": "@activeviam/migration",
+  "version": "5.0.1",
+  "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
+  "license": "UNLICENSED",
+  "author": "ActiveViam",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "migrate": "./bin.js"
+  },
+  "files": [
+    "bin.js",
+    "dist"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "lint": "activeui-sdk-scripts lint",
+    "test": "activeui-sdk-scripts test"
+  },
+  "eslintConfig": {
+    "extends": "activeui"
+  },
+  "dependencies": {
+    "@activeviam/activepivot-client": "5.0.1",
+    "@activeviam/chart": "5.0.1",
+    "@activeviam/content-client": "5.0.1",
+    "@activeviam/dashboard-base": "5.0.1",
+    "@activeviam/data-model": "5.0.1",
+    "@activeviam/kpi": "5.0.1",
+    "@activeviam/mdx": "5.0.1",
+    "@activeviam/plugin-widget-drillthrough-table": "5.0.1",
+    "@activeviam/plugin-widget-kpi": "5.0.1",
+    "@activeviam/plugin-widget-pivot-table": "5.0.1",
+    "@activeviam/plugin-widget-quick-filter": "5.0.1",
+    "@activeviam/plugin-widget-table": "5.0.1",
+    "@activeviam/plugin-widget-text-editor": "5.0.1",
+    "@activeviam/plugin-widget-tree-table": "5.0.1",
+    "@activeviam/table": "5.0.1",
+    "@activeviam/utils": "5.0.1",
+    "@activeviam/widget": "5.0.1",
+    "@types/lodash": "^4.14.168",
+    "immer": "^8.0.0",
+    "lodash": "^4.17.15",
+    "ts-essentials": "^6.0.5"
+  },
+  "devDependencies": {
+    "@activeviam/activeui-sdk-scripts": "5.0.1",
+    "@types/jest": "^26.0.14",
+    "css-loader": "^5.1.3",
+    "file-loader": "^6.2.0",
+    "fs-extra": "^9.0.0",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.0.3",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0",
+    "yargs": "^15.3.1"
+  }
+}

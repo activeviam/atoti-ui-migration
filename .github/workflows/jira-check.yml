@@ -1,0 +1,21 @@
+name: Jira Check
+on:
+  pull_request:
+    types:
+      # Check title when opened.
+      - opened
+      # Check title when edited.
+      - edited
+      # Check when new commits are pushed.
+      # Required to use as a status check.
+      - synchronize
+
+jobs:
+  jira-check:
+    runs-on: ubuntu-18.04
+    name: Jira Check
+    steps:
+      - name: Jira Check
+        uses: dylanvann/pull-request-title-check@v0.1.9
+        with:
+          pattern: '^(UI|APS)-(\d*) - '
