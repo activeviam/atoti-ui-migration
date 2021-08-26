@@ -1,5 +1,5 @@
 {
-  "name": "@activeviam/migration",
+  "name": "activeui-migration",
   "version": "5.0.1",
   "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
   "license": "UNLICENSED",
