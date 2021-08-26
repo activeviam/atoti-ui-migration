@@ -4,64 +4,32 @@
     "emitDeclarationOnly": false,
     "module": "CommonJS",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "target": "ESNext",
+    "composite": true,
+    "incremental": true,
+    "lib": ["DOM", "ESNext"],
+    "importHelpers": true,
+    "declarationMap": false,
+    "declaration": true,
+    "sourceMap": false,
+    "strict": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "isolatedModules": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
-  "extends": "../../tsconfig-base.json",
-  "include": ["./src"],
-  "references": [
-    {
-      "path": "../activeui-sdk-scripts/tsconfig.json"
-    },
-    {
-      "path": "../activepivot-client/tsconfig.json"
-    },
-    {
-      "path": "../chart/tsconfig.json"
-    },
-    {
-      "path": "../content-client/tsconfig.json"
-    },
-    {
-      "path": "../dashboard-base/tsconfig.json"
-    },
-    {
-      "path": "../data-model/tsconfig.json"
-    },
-    {
-      "path": "../kpi/tsconfig.json"
-    },
-    {
-      "path": "../mdx/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-drillthrough-table/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-kpi/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-pivot-table/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-quick-filter/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-table/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-text-editor/tsconfig.json"
-    },
-    {
-      "path": "../plugin-widget-tree-table/tsconfig.json"
-    },
-    {
-      "path": "../table/tsconfig.json"
-    },
-    {
-      "path": "../utils/tsconfig.json"
-    },
-    {
-      "path": "../widget/tsconfig.json"
-    }
-  ]
+  "include": ["./src"]
 }
