@@ -45,8 +45,8 @@
     "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
-    "@ant-design/icons": "^4.4.0",
     "@activeviam/activeui-sdk-scripts": "5.0.1",
+    "@ant-design/icons": "^4.4.0",
     "@types/jest": "^26.0.14",
     "antd": "4.12.2",
     "css-loader": "^5.1.3",
