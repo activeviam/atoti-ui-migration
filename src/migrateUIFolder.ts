@@ -46,6 +46,7 @@ const emptyUIFolder = {
     readers: ["ROLE_CS_ROOT"],
   },
   children: {
+    calculated_measures: _cloneDeep(emptyContentFolder),
     filters: _cloneDeep(emptyContentFolder),
     widgets: _cloneDeep(emptyContentFolder),
     dashboards: {
@@ -86,11 +87,11 @@ const emptyUIFolder = {
 
 const _getFolder = (
   record: ContentRecord | undefined,
-  path: string[],
+  path: string[]
 ): ContentRecord | undefined =>
   path.reduce<ContentRecord | undefined>(
     (acc, id) => acc?.children?.[id],
-    record,
+    record
   );
 
 const _ensureFolderExists = ({
@@ -114,7 +115,7 @@ const _ensureFolderExists = ({
         migratedRoot,
         pathToFolder.reduce<string[]>(
           (acc, id) => [...acc, "children", id],
-          [],
+          []
         ),
         {
           entry: legacyFolder.entry,
@@ -129,7 +130,7 @@ const _ensureFolderExists = ({
               },
             },
           },
-        },
+        }
       );
     }
   }
@@ -167,8 +168,8 @@ const accumulateStructure = ({
       if (dashboards[id] !== undefined) {
         _ensureFolderExists({
           legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot: migratedUIFolder.children?.dashboards?.children
-            ?.structure!,
+          migratedRoot:
+            migratedUIFolder.children?.dashboards?.children?.structure!,
           folders,
           path,
         });
@@ -191,8 +192,8 @@ const accumulateStructure = ({
       } else if (widgets[id] !== undefined) {
         _ensureFolderExists({
           legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot: migratedUIFolder.children?.widgets?.children
-            ?.structure!,
+          migratedRoot:
+            migratedUIFolder.children?.widgets?.children?.structure!,
           folders,
           path,
         });
@@ -218,8 +219,8 @@ const accumulateStructure = ({
       } else if (filters[id] !== undefined) {
         _ensureFolderExists({
           legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot: migratedUIFolder.children?.filters?.children
-            ?.structure!,
+          migratedRoot:
+            migratedUIFolder.children?.filters?.children?.structure!,
           folders,
           path,
         });
@@ -259,7 +260,7 @@ const accumulateStructure = ({
  */
 export function migrateUIFolder(
   legacyUIFolder: ContentRecord,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): ContentRecord {
   const migratedUIFolder = _cloneDeep(emptyUIFolder);
 
@@ -294,7 +295,7 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of filter ${id} ("${bookmark.name}"). Ignoring this filter. Error:\n${error.message}`,
+            `An error occurred during the migration of filter ${id} ("${bookmark.name}"). Ignoring this filter. Error:\n${error.message}`
           );
         }
       } else if (bookmark.value.containerKey === "dashboard") {
@@ -310,7 +311,7 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of dashboard ${id} ("${bookmark.name}"). Ignoring this dashboard. Error:\n${error.message}`,
+            `An error occurred during the migration of dashboard ${id} ("${bookmark.name}"). Ignoring this dashboard. Error:\n${error.message}`
           );
         }
       } else {
@@ -321,14 +322,14 @@ export function migrateUIFolder(
             entry: {
               ...entry,
               content: JSON.stringify(
-                _omit(migratedWidget, ["name", "widgetKey"]),
+                _omit(migratedWidget, ["name", "widgetKey"])
               ),
             },
           };
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of widget ${id} ("${bookmark.name}"). Ignoring this widget. Error:\n${error.message}`,
+            `An error occurred during the migration of widget ${id} ("${bookmark.name}"). Ignoring this widget. Error:\n${error.message}`
           );
         }
       }

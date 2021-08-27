@@ -3,6 +3,43 @@
 exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 1`] = `
 Object {
   "children": Object {
+    "calculated_measures": Object {
+      "children": Object {
+        "content": Object {
+          "children": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": Object {
+          "children": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": Object {
+        "isDirectory": true,
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
     "dashboards": Object {
       "children": Object {
         "content": Object {
@@ -1917,6 +1954,43 @@ Object {
 exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a small input 1`] = `
 Object {
   "children": Object {
+    "calculated_measures": Object {
+      "children": Object {
+        "content": Object {
+          "children": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": Object {
+          "children": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": Object {
+        "isDirectory": true,
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
     "dashboards": Object {
       "children": Object {
         "content": Object {
