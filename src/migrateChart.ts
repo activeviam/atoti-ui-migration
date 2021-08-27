@@ -2,13 +2,16 @@ import _mapValues from "lodash/mapValues";
 import _omit from "lodash/omit";
 import _isArray from "lodash/isArray";
 
-import type { PlotlyWidgetState } from "@activeviam/chart";
-import type { DataModel } from "@activeviam/data-model";
-
-import { MdxSelect, MdxString, parse, stringify } from "@activeviam/mdx";
+import type {
+  PlotlyWidgetState,
+  DataModel,
+  MdxSelect,
+  MdxString,
+  Query,
+} from "@activeviam/activeui-sdk";
+import { parse, stringify } from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
-import type { Query } from "@activeviam/activepivot-client";
 
 /**
  * Returns the converted chart widget state, ready to be used by ActiveUI 5.
@@ -17,12 +20,10 @@ export function migrateChart(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyChartState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): PlotlyWidgetState<"serialized"> {
-  const {
-    type: legacyChartType,
-    ...configuration
-  } = legacyChartState?.value?.body?.configuration;
+  const { type: legacyChartType, ...configuration } =
+    legacyChartState?.value?.body?.configuration;
   const name = legacyChartState?.name;
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.
@@ -51,9 +52,11 @@ export function migrateChart(
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
   // eslint-disable-next-line activeui/no-as
-  const query = (migratedQuery.mdx
-    ? { ...migratedQuery, mdx: stringify(migratedQuery.mdx) }
-    : migratedQuery) as Query<MdxString>;
+  const query = (
+    migratedQuery.mdx
+      ? { ...migratedQuery, mdx: stringify(migratedQuery.mdx) }
+      : migratedQuery
+  ) as Query<MdxString>;
 
   const filters = extractedFilters.map((filter) => stringify(filter));
 
@@ -77,7 +80,7 @@ export function migrateChart(
       return _isArray(attributeMapping.from)
         ? attributeMapping.from
         : [attributeMapping.from];
-    },
+    }
   );
   const subplots = {
     ...(mapping.row && { horizontalSubplots: mapping.rows }),
@@ -175,7 +178,7 @@ export function migrateChart(
     default: {
       // eslint-disable-next-line no-console
       console.warn(
-        `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`,
+        `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`
       );
       return {
         name: legacyChartState?.name,

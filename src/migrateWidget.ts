@@ -1,6 +1,5 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
+import type { AWidgetState, DataModel } from "@activeviam/activeui-sdk";
 import type { LegacyWidgetState } from "./migration.types";
-import type { DataModel } from "@activeviam/data-model";
 
 import { migrateChart } from "./migrateChart";
 import { migrateTable } from "./migrateTable";
@@ -14,7 +13,7 @@ import { migrateTextEditor } from "./migrateTextEditor";
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   switch (legacyWidgetState.value.containerKey) {
     case "chart":
@@ -33,7 +32,7 @@ export function migrateWidget(
     default:
       // eslint-disable-next-line no-console
       console.warn(
-        `Unsupported widgetKey: "${legacyWidgetState.value.containerKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It might not work correctly in ActiveUI5.`,
+        `Unsupported widgetKey: "${legacyWidgetState.value.containerKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It might not work correctly in ActiveUI5.`
       );
       return {
         name: legacyWidgetState?.name,

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { dataModelsForTests } from "@activeviam/data-model";
-import { stringify } from "@activeviam/mdx";
+import { stringify } from "@activeviam/activeui-sdk";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
@@ -17,7 +17,7 @@ describe("_migrateQuery", () => {
       _migrateQuery({ legacyQuery, cube });
       expect(console.warn).toHaveBeenCalledTimes(1);
       expect(console.warn).toHaveBeenCalledWith(
-        "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
+        "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'"
       );
       expect(_migrateQuery({ legacyQuery, cube })).toMatchInlineSnapshot(`
         Object {
@@ -53,14 +53,13 @@ describe("_migrateQuery", () => {
 
   it("strips filters from the MDX and returns them in the output", () => {
     const legacyQuery = {
-      mdx:
-        "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
+      mdx: "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
     };
     const { query, filters } = _migrateQuery({ legacyQuery, cube })!;
     expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
-      "[Currency].[Currency].[AllMember].[EUR]",
+      "[Currency].[Currency].[AllMember].[EUR]"
     );
   });
 });

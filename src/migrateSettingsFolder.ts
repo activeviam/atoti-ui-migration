@@ -4,8 +4,8 @@ import type {
   Activity,
   ContentRecord,
   Settings,
-} from "@activeviam/content-client";
-import type { MdxString } from "@activeviam/mdx";
+  MdxString,
+} from "@activeviam/activeui-sdk";
 
 const emptySettingsFolders = {
   organization_settings: {

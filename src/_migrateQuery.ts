@@ -1,14 +1,12 @@
-import type { UpdateMode } from "@activeviam/activepivot-client";
-import type { QueryContextEntry } from "@activeviam/dashboard-base";
-import type { Cube } from "@activeviam/data-model";
-import {
-  getFilters,
+import type {
+  QueryContextEntry,
+  Cube,
+  UpdateMode,
   Mdx,
   MdxDrillthrough,
   MdxSelect,
-  parse,
-  setFilters,
-} from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk";
+import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk";
 import {
   LegacyContextValues,
   _migrateContextValues,
@@ -51,16 +49,17 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   if (updateMode === "refresh-periodically") {
     // eslint-disable-next-line no-console
     console.warn(
-      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
+      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'"
     );
   }
   // The checks ensure that the migratedUpdateMode is necessarily defined.
-  const migratedUpdateMode = (!updateMode ||
-  updateMode === "refresh-periodically"
-    ? // On AUI4, the default update mode could have been defined through setting `queries.defaultUpdateMode`.
-      // It is not taken into account here.
-      "once"
-    : updateMode)!;
+  const migratedUpdateMode = (
+    !updateMode || updateMode === "refresh-periodically"
+      ? // On AUI4, the default update mode could have been defined through setting `queries.defaultUpdateMode`.
+        // It is not taken into account here.
+        "once"
+      : updateMode
+  )!;
 
   const queryContext = _migrateContextValues(contextValues);
 
@@ -74,7 +73,7 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
 
   const parsedMdx = parse<T>(mdx);
   const filters = getFilters(parsedMdx, { cube }).map(
-    ({ mdx: filterMdx }) => filterMdx,
+    ({ mdx: filterMdx }) => filterMdx
   );
   const mdxWithoutFilters = setFilters(parsedMdx, { filters: [], cube });
 

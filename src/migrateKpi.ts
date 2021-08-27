@@ -1,15 +1,19 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
-import type { DataModel, MemberCoordinates } from "@activeviam/data-model";
-import type { KpiComparison } from "@activeviam/kpi";
-import {
-  getSpecificCompoundIdentifier,
+import type {
+  AWidgetState,
+  DataModel,
+  MemberCoordinates,
+  KpiComparison,
   MdxSelect,
+  KpiWidgetState,
+} from "@activeviam/activeui-sdk";
+import {
   parse,
   stringify,
-  walkThroughMdx,
-} from "@activeviam/mdx";
-import { KpiWidgetState, pluginWidgetKpi } from "@activeviam/plugin-widget-kpi";
-import { serializeWidgetState, deriveMappingFromMdx } from "@activeviam/widget";
+  traverseMdx,
+  pluginWidgetKpi,
+  serializeWidgetState,
+  deriveMappingFromMdx,
+} from "@activeviam/activeui-sdk";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -21,7 +25,7 @@ export function migrateKpi(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyKpiState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyKpiState);
   const legacyMdx = legacyQuery.mdx
@@ -38,16 +42,16 @@ export function migrateKpi(
   let legacyMdxWithoutPagesAxis = legacyMdx;
   let comparison: KpiComparison | undefined = undefined;
   const pagesAxis = (legacyMdx?.axes || []).find(
-    ({ name }) => name === "PAGES",
+    ({ name }) => name === "PAGES"
   );
   if (pagesAxis) {
     const memberCoordinates: MemberCoordinates[] = [];
 
-    walkThroughMdx(pagesAxis, (mdx) => {
+    traverseMdx(pagesAxis, (mdx) => {
       if (mdx.elementType === "CompoundIdentifier") {
         const specificCompoundIdentifier = getSpecificCompoundIdentifier(
           mdx,
-          cube,
+          cube
         );
         if (specificCompoundIdentifier.type === "member") {
           const {

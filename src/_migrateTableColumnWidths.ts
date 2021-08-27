@@ -1,12 +1,14 @@
-import type { Cube } from "@activeviam/data-model";
+import type {
+  Cube,
+  DataVisualizationWidgetMapping,
+} from "@activeviam/activeui-sdk";
 import {
-  getSpecificCompoundIdentifier,
   isMdxCompoundIdentifier,
   isMdxFunction,
   parse,
   quote,
-} from "@activeviam/mdx";
-import type { DataVisualizationWidgetMapping } from "@activeviam/widget";
+} from "@activeviam/activeui-sdk";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
 
 interface LegacyColumn {
   key: string;
@@ -49,11 +51,8 @@ export function _migrateTableColumnWidths({
           break;
         }
         case "compositeHierarchy": {
-          const {
-            dimensionName,
-            hierarchyName,
-            levelName,
-          } = mapping.rows[0].hierarchies[0];
+          const { dimensionName, hierarchyName, levelName } =
+            mapping.rows[0].hierarchies[0];
           columnKey = quote(dimensionName, hierarchyName, levelName);
           break;
         }
@@ -68,7 +67,7 @@ export function _migrateTableColumnWidths({
         if (
           isMdxCompoundIdentifier(parsedColumnKey) &&
           ["level", "member", "measure"].includes(
-            getSpecificCompoundIdentifier(parsedColumnKey, cube).type,
+            getSpecificCompoundIdentifier(parsedColumnKey, cube).type
           )
         ) {
           columnKey = key;
@@ -78,8 +77,8 @@ export function _migrateTableColumnWidths({
             (arg) =>
               isMdxCompoundIdentifier(arg) &&
               ["member", "measure"].includes(
-                getSpecificCompoundIdentifier(arg, cube).type,
-              ),
+                getSpecificCompoundIdentifier(arg, cube).type
+              )
           )
         ) {
           // The column key is a tuple.

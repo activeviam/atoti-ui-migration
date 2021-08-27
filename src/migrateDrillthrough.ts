@@ -1,8 +1,10 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
-import type { DataModel } from "@activeviam/data-model";
-import { MdxDrillthrough, parse } from "@activeviam/mdx";
-import type { DrillthroughTableWidgetState } from "@activeviam/plugin-widget-drillthrough-table";
-import { serializeWidgetState } from "@activeviam/widget";
+import type {
+  AWidgetState,
+  DataModel,
+  MdxDrillthrough,
+  DrillthroughTableWidgetState,
+} from "@activeviam/activeui-sdk";
+import { serializeWidgetState, parse } from "@activeviam/activeui-sdk";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -14,7 +16,7 @@ export function migrateDrillthrough(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyDrillthroughState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyDrillthroughState);
   const legacyMdx = legacyQuery.mdx
@@ -41,12 +43,12 @@ export function migrateDrillthrough(
         (
           widths: { [columnKey: string]: number },
           width: number,
-          columnKey: string,
+          columnKey: string
         ) => {
           widths[columnKey] = width;
           return widths;
         },
-        {},
+        {}
       )
     : {};
 
