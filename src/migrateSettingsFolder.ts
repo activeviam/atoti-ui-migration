@@ -16,13 +16,6 @@ const emptySettingsFolders = {
       content: "{}",
     },
   },
-  user_roles: {
-    entry: {
-      isDirectory: true,
-      owners: ["ROLE_CS_ROOT"],
-      readers: ["ROLE_USER"],
-    },
-  },
   users: {
     entry: {
       isDirectory: true,
@@ -62,44 +55,36 @@ function migrateSettingsMap(legacySettingsMap: {
  * Returns the legacy settings map corresponding to the given legacy settings subfolder,
  * where the settings from the "permissions" file take precedence over those from the "preferences" file.
  */
-function getLegacySettingsMap(
-  legacySettingsSubfolder: ContentRecord,
-): { [settingKey: string]: any } {
+function getLegacySettingsMap(legacySettingsSubfolder: ContentRecord): {
+  [settingKey: string]: any;
+} {
   const { permissions: permissionsFile, preferences: preferencesFile } =
     legacySettingsSubfolder?.children || {};
-  const [permissions, preferences] = [
-    permissionsFile,
-    preferencesFile,
-  ].map((file) => (file ? JSON.parse(file.entry.content).map : {}));
+  const [permissions, preferences] = [permissionsFile, preferencesFile].map(
+    (file) => (file ? JSON.parse(file.entry.content).map : {})
+  );
   return { ...preferences, ...permissions };
 }
 
 /**
  * Returns the folders corresponding to the converted ActiveUI 4 settings folder, ready to be used by ActiveUI 5.
  */
-export function migrateSettingsFolder(
-  legacySettingsFolder?: ContentRecord,
-): {
+export function migrateSettingsFolder(legacySettingsFolder?: ContentRecord): {
   organization_settings: ContentRecord;
-  user_roles: ContentRecord;
   users: ContentRecord;
 } {
   const migratedSettingsFolders: {
     organization_settings: ContentRecord;
-    user_roles: ContentRecord;
     users: ContentRecord;
   } = _cloneDeep(emptySettingsFolders);
 
-  const {
-    default: legacyDefaultFolder,
-    roles: legacyRolesFolder,
-    users: legacyUsersFolder,
-  } = legacySettingsFolder?.children ?? {};
+  const { default: legacyDefaultFolder, users: legacyUsersFolder } =
+    legacySettingsFolder?.children ?? {};
 
   if (legacyDefaultFolder) {
     const legacyDefaultSettingsMap = getLegacySettingsMap(legacyDefaultFolder);
     const migratedDefaultSettingsMap = migrateSettingsMap(
-      legacyDefaultSettingsMap,
+      legacyDefaultSettingsMap
     );
     migratedSettingsFolders.organization_settings.entry = {
       content: JSON.stringify(migratedDefaultSettingsMap),
@@ -108,38 +93,13 @@ export function migrateSettingsFolder(
     };
   }
 
-  if (legacyRolesFolder?.children) {
-    migratedSettingsFolders.user_roles.children = _mapValues(
-      legacyRolesFolder.children,
-      (roleFolder, roleName) => {
-        const legacyRoleSettingsMap = getLegacySettingsMap(roleFolder);
-        const migratedRoleSettingsMap = migrateSettingsMap(
-          legacyRoleSettingsMap,
-        );
-        const migratedRoleFolder = {
-          entry: roleFolder.entry,
-          children: {
-            settings: {
-              entry: {
-                content: JSON.stringify(migratedRoleSettingsMap),
-                owners: [roleName],
-                readers: [roleName],
-              },
-            },
-          },
-        };
-        return migratedRoleFolder;
-      },
-    );
-  }
-
   if (legacyUsersFolder?.children) {
     migratedSettingsFolders.users.children = _mapValues(
       legacyUsersFolder.children,
       (userFolder, userName) => {
         const legacyUserSettingsMap = getLegacySettingsMap(userFolder);
         const migratedUserSettingsMap = migrateSettingsMap(
-          legacyUserSettingsMap,
+          legacyUserSettingsMap
         );
 
         const activity: Partial<Activity<"serialized">> = {};
@@ -169,7 +129,7 @@ export function migrateSettingsFolder(
           },
         };
         return migratedUserFolder;
-      },
+      }
     );
   }
 

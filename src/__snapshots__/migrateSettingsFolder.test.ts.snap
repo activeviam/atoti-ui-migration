@@ -1,22 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`migrateSettingsFolder returns an empty 'organization_settings' file and two empty folders 'users' and 'user_roles' when there is no settings folder 1`] = `
+exports[`migrateSettingsFolder returns an empty 'organization_settings' file and an empty 'users' folder when there is no settings folder 1`] = `
 Object {
   "organization_settings": Object {
     "entry": Object {
       "content": "{}",
       "isDirectory": false,
-      "owners": Array [
-        "ROLE_CS_ROOT",
-      ],
-      "readers": Array [
-        "ROLE_USER",
-      ],
-    },
-  },
-  "user_roles": Object {
-    "entry": Object {
-      "isDirectory": true,
       "owners": Array [
         "ROLE_CS_ROOT",
       ],
@@ -44,47 +33,6 @@ Object {
   "organization_settings": Object {
     "entry": Object {
       "content": "{\\"theme\\":\\"light-activeviam\\"}",
-      "owners": Array [
-        "ROLE_CS_ROOT",
-      ],
-      "readers": Array [
-        "ROLE_USER",
-      ],
-    },
-  },
-  "user_roles": Object {
-    "children": Object {
-      "ROLE_USER": Object {
-        "children": Object {
-          "settings": Object {
-            "entry": Object {
-              "content": "{\\"search.maxResults\\":7}",
-              "owners": Array [
-                "ROLE_USER",
-              ],
-              "readers": Array [
-                "ROLE_USER",
-              ],
-            },
-          },
-        },
-        "entry": Object {
-          "canRead": true,
-          "canWrite": true,
-          "isDirectory": true,
-          "lastEditor": "admin",
-          "owners": Array [
-            "ROLE_CS_ROOT",
-          ],
-          "readers": Array [
-            "ROLE_USER",
-          ],
-          "timestamp": 1607879735685,
-        },
-      },
-    },
-    "entry": Object {
-      "isDirectory": true,
       "owners": Array [
         "ROLE_CS_ROOT",
       ],

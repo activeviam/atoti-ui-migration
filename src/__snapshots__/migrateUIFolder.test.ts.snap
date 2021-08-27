@@ -1085,47 +1085,6 @@ Object {
         ],
       },
     },
-    "user_roles": Object {
-      "children": Object {
-        "ROLE_USER": Object {
-          "children": Object {
-            "settings": Object {
-              "entry": Object {
-                "content": "{\\"search.maxResults\\":7}",
-                "owners": Array [
-                  "ROLE_USER",
-                ],
-                "readers": Array [
-                  "ROLE_USER",
-                ],
-              },
-            },
-          },
-          "entry": Object {
-            "canRead": true,
-            "canWrite": true,
-            "isDirectory": true,
-            "lastEditor": "admin",
-            "owners": Array [
-              "ROLE_CS_ROOT",
-            ],
-            "readers": Array [
-              "ROLE_USER",
-            ],
-            "timestamp": 1607879735685,
-          },
-        },
-      },
-      "entry": Object {
-        "isDirectory": true,
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_USER",
-        ],
-      },
-    },
     "users": Object {
       "children": Object {
         "admin": Object {
@@ -2098,17 +2057,6 @@ Object {
     "organization_settings": Object {
       "entry": Object {
         "content": "{}",
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_USER",
-        ],
-      },
-    },
-    "user_roles": Object {
-      "entry": Object {
-        "isDirectory": true,
         "owners": Array [
           "ROLE_CS_ROOT",
         ],

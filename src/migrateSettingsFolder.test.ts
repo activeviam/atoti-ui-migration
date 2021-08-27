@@ -6,7 +6,7 @@ describe("migrateSettingsFolder", () => {
     expect(migrateSettingsFolder(legacySettingsFolder)).toMatchSnapshot();
   });
 
-  it("returns an empty 'organization_settings' file and two empty folders 'users' and 'user_roles' when there is no settings folder", () => {
+  it("returns an empty 'organization_settings' file and an empty 'users' folder when there is no settings folder", () => {
     expect(migrateSettingsFolder()).toMatchSnapshot();
   });
 });
