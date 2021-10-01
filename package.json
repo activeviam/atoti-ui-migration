@@ -2,7 +2,7 @@
   "name": "activeui-migration",
   "version": "5.0.0",
   "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/activeviam/activeui-migration"
