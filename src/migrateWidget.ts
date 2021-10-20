@@ -14,7 +14,7 @@ import { migrateTextEditor } from "./migrateTextEditor";
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   switch (legacyWidgetState.value.containerKey) {
     case "chart":
@@ -33,11 +33,12 @@ export function migrateWidget(
     default:
       // eslint-disable-next-line no-console
       console.warn(
-        `Unsupported widgetKey: "${legacyWidgetState.value.containerKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It might not work correctly in ActiveUI5.`,
+        `Unsupported widgetKey: "${legacyWidgetState.value.containerKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5.`
       );
       return {
-        name: legacyWidgetState?.name,
         ...legacyWidgetState?.value?.body,
+        name: legacyWidgetState?.name,
+        widgetKey: legacyWidgetState.value.containerKey,
       };
   }
 }

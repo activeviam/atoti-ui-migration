@@ -295,7 +295,7 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of filter ${id} ("${bookmark.name}"). Ignoring this filter. Error:\n${error.message}`
+            `An error occurred during the migration of filter ${id} ("${bookmark.name}"). Ignoring this filter. Error:\n${error.stack}`
           );
         }
       } else if (bookmark.value.containerKey === "dashboard") {
@@ -311,7 +311,7 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of dashboard ${id} ("${bookmark.name}"). Ignoring this dashboard. Error:\n${error.message}`
+            `An error occurred during the migration of dashboard ${id} ("${bookmark.name}"). Ignoring this dashboard. Error:\n${error.stack}`
           );
         }
       } else {
@@ -329,7 +329,7 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of widget ${id} ("${bookmark.name}"). Ignoring this widget. Error:\n${error.message}`
+            `An error occurred during the migration of widget ${id} ("${bookmark.name}"). Ignoring this widget. Error:\n${error.stack}`
           );
         }
       }
