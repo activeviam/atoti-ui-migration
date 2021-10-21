@@ -63,8 +63,8 @@ export function migrateKpi(
     comparison = {
       dimensionName: memberCoordinates[0].dimensionName,
       hierarchyName: memberCoordinates[0].hierarchyName,
-      referenceMemberNamePath: memberCoordinates[0].namePath,
-      comparedMemberNamePath: memberCoordinates[1].namePath,
+      comparedMemberNamePath: memberCoordinates[0].namePath,
+      referenceMemberNamePath: memberCoordinates[1].namePath,
     };
 
     // At this stage the page axis exists in the MDX, so the MDX is necessarily defined.
