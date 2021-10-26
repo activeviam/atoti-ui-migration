@@ -10,17 +10,19 @@ yargs
       args.option("input-path", {
         alias: "i",
         string: true,
+        demandOption: true,
         desc: "The path to the JSON export of the ActiveUI 4 /ui folder.",
       });
       args.option("output-path", {
         alias: "o",
         string: true,
-        desc:
-          "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
+        demandOption: true,
+        desc: "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
       });
       args.option("servers-path", {
         alias: "s",
         string: true,
+        demandOption: true,
         desc: "The path to the JSON file holding the servers information.",
       });
     },
@@ -37,7 +39,7 @@ yargs
       const servers = await fs.readJSON(serversPath);
       const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers);
       await fs.writeJSON(outputPath, migratedUIFolder, { spaces: 2 });
-    },
+    }
   )
   .demandCommand(1)
   .strict()
