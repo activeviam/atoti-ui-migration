@@ -1,0 +1,2046 @@
+{
+  "tutorial-server": {
+    "url": "https://activeui-tutorial-server.activeviam.com:9090/pivot",
+    "dataModel": {
+      "catalogs": [
+        {
+          "name": "atoti",
+          "cubes": [
+            {
+              "name": "Green-growth",
+              "caption": "Green-growth",
+              "measures": [
+                {
+                  "name": "Contribution of natural capital (percentage point).MEAN",
+                  "caption": "Contribution of natural capital (percentage point).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Water (% of total).MEAN",
+                  "caption": "Water (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "National expenditure on environmental protection (% of GDP).MEAN",
+                  "caption": "National expenditure on environmental protection (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Intact forest landscape (km2).MEAN",
+                  "caption": "Intact forest landscape (km2).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Women (% of total population).MEAN",
+                  "caption": "Women (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Renewable energy public R&D budget (% of total energy public R&D).MEAN",
+                  "caption": "Renewable energy public R&D budget (% of total energy public R&D).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Welfare costs of premature deaths from exposure to lead (% of GDP).MEAN",
+                  "caption": "Welfare costs of premature deaths from exposure to lead (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel public R&D budget (excluding CCS) (% of total energy public R&D).MEAN",
+                  "caption": "Fossil fuel public R&D budget (excluding CCS) (% of total energy public R&D).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Total freshwater abstraction (m3 per capita).MEAN",
+                  "caption": "Total freshwater abstraction (m3 per capita).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Residential electricity price (USD per kWh).MEAN",
+                  "caption": "Residential electricity price (USD per kWh).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Gain of natural and semi-natural vegetated land (% since 1992).MEAN",
+                  "caption": "Gain of natural and semi-natural vegetated land (% since 1992).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mortality from exposure to ambient ozone (per 1M inhabitant).MEAN",
+                  "caption": "Mortality from exposure to ambient ozone (per 1M inhabitant).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - environment sector (% of total allocable ODA).MEAN",
+                  "caption": "ODA - environment sector (% of total allocable ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Electricity support (% of total fossil fuel support).MEAN",
+                  "caption": "Electricity support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mean population exposure to PM2.5.MEAN",
+                  "caption": "Mean population exposure to PM2.5.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Diesel tax (USD per litre).MEAN",
+                  "caption": "Diesel tax (USD per litre).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Welfare costs of premature mortalities from exposure to ambient PM2.5 (% of GDP).MEAN",
+                  "caption": "Welfare costs of premature mortalities from exposure to ambient PM2.5 (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion of not-water to permanent water surface (% permanent water; since 1984).MEAN",
+                  "caption": "Conversion of not-water to permanent water surface (% permanent water; since 1984).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "TPES per capita (Tonne of oil equivalent).MEAN",
+                  "caption": "TPES per capita (Tonne of oil equivalent).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion of permanent to seasonal water surface (% permanent water; since 1984).MEAN",
+                  "caption": "Conversion of permanent to seasonal water surface (% permanent water; since 1984).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "CO2 emissions from air transport per capita (tonne).MEAN",
+                  "caption": "CO2 emissions from air transport per capita (tonne).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mortality from exposure to ambient PM2.5 (per 1M inhabitants).MEAN",
+                  "caption": "Mortality from exposure to ambient PM2.5 (per 1M inhabitants).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "GDP per unit of TPES (USD).MEAN",
+                  "caption": "GDP per unit of TPES (USD).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Petrol tax (USD per litre).MEAN",
+                  "caption": "Petrol tax (USD per litre).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Gas support (% of total fossil fuel support).MEAN",
+                  "caption": "Gas support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Development of environment-related technologies (inventions per capita).MEAN",
+                  "caption": "Development of environment-related technologies (inventions per capita).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Total renewable freshwater per capita (m3 per capita).MEAN",
+                  "caption": "Total renewable freshwater per capita (m3 per capita).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Percentage of population exposed to > 10 micrograms per m3.MEAN",
+                  "caption": "Percentage of population exposed to > 10 micrograms per m3.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Real GDP per capita (USD).MEAN",
+                  "caption": "Real GDP per capita (USD).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Labour tax revenue (% of total tax revenue).MEAN",
+                  "caption": "Labour tax revenue (% of total tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally related government R&D budget (% of total government R&D).MEAN",
+                  "caption": "Environmentally related government R&D budget (% of total government R&D).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Loss of natural and semi-natural vegetated land (% since 2004).MEAN",
+                  "caption": "Loss of natural and semi-natural vegetated land (% since 2004).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Demand-based CO2 intensity; energy-related CO2 per capita (tonne).MEAN",
+                  "caption": "Demand-based CO2 intensity; energy-related CO2 per capita (tonne).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Non-energy material productivity; GDP per unit of DMC (USD per kg).MEAN",
+                  "caption": "Non-energy material productivity; GDP per unit of DMC (USD per kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel consumer support (% of total tax revenue).MEAN",
+                  "caption": "Fossil fuel consumer support (% of total tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - all sectors - climate change mitigation (% of total ODA).MEAN",
+                  "caption": "ODA - all sectors - climate change mitigation (% of total ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Renewable electricity (% of total electricity generation).MEAN",
+                  "caption": "Renewable electricity (% of total electricity generation).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Intact forest landscape loss (% since 2000).MEAN",
+                  "caption": "Intact forest landscape loss (% since 2000).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mean feed-in tariff for solar PV electricity generation (USD).MEAN",
+                  "caption": "Mean feed-in tariff for solar PV electricity generation (USD).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel consumer support (% of total fossil fuel support).MEAN",
+                  "caption": "Fossil fuel consumer support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Net migration.SUM",
+                  "caption": "Net migration.SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion of permanent water to not-water surface (% of permanent water; since 1984).MEAN",
+                  "caption": "Conversion of permanent water to not-water surface (% of permanent water; since 1984).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy consumption in agriculture (% of total energy consumption).MEAN",
+                  "caption": "Energy consumption in agriculture (% of total energy consumption).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - water supply and sanitation sector (% of total allocable ODA).MEAN",
+                  "caption": "ODA - water supply and sanitation sector (% of total allocable ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Irrigated land (% of agricultural land).MEAN",
+                  "caption": "Irrigated land (% of agricultural land).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally related taxes (% of GDP).MEAN",
+                  "caption": "Environmentally related taxes (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Life expectancy at birth.MEAN",
+                  "caption": "Life expectancy at birth.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Cropland (% of total).MEAN",
+                  "caption": "Cropland (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Non-metallic minerals (% of DMC).MEAN",
+                  "caption": "Non-metallic minerals (% of DMC).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion from cropland to artificial surfaces (% since 1992).MEAN",
+                  "caption": "Conversion from cropland to artificial surfaces (% since 1992).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Adjustment for pollution abatement (percentage point).MEAN",
+                  "caption": "Adjustment for pollution abatement (percentage point).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Forest Birds (Index; 2000=100).MEAN",
+                  "caption": "Forest Birds (Index; 2000=100).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Coal support (% of total fossil fuel support).MEAN",
+                  "caption": "Coal support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Demand-based CO2 productivity; GDP per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "caption": "Demand-based CO2 productivity; GDP per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mean feed-in tariff for wind electricity generation (USD).MEAN",
+                  "caption": "Mean feed-in tariff for wind electricity generation (USD).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Municipal waste incinerated (% treated waste).MEAN",
+                  "caption": "Municipal waste incinerated (% treated waste).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Relative advantage in environment-related technology.MEAN",
+                  "caption": "Relative advantage in environment-related technology.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Biomass (% of DMC).MEAN",
+                  "caption": "Biomass (% of DMC).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Industry electricity price (USD per kWh).MEAN",
+                  "caption": "Industry electricity price (USD per kWh).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Threatened vascular plant species (% of total known species).MEAN",
+                  "caption": "Threatened vascular plant species (% of total known species).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Demand-based CO2 emissions (tonne).SUM",
+                  "caption": "Demand-based CO2 emissions (tonne).SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally adjusted multifactor productivity growth (percentage point).MEAN",
+                  "caption": "Environmentally adjusted multifactor productivity growth (percentage point).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion from natural and semi-natural land to cropland (% since 1992).MEAN",
+                  "caption": "Conversion from natural and semi-natural land to cropland (% since 1992).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "CO2 emissions from air transport per unit of GDP (kg).MEAN",
+                  "caption": "CO2 emissions from air transport per unit of GDP (kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Children per woman.MEAN",
+                  "caption": "Children per woman.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Municipal waste recycled or composted (% treated waste).MEAN",
+                  "caption": "Municipal waste recycled or composted (% treated waste).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Farmland Birds (Index; 2000=100).MEAN",
+                  "caption": "Farmland Birds (Index; 2000=100).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mortality from exposure to lead (per 1M inhabitant).MEAN",
+                  "caption": "Mortality from exposure to lead (per 1M inhabitant).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Water stress (total freshwater abstraction as % total internal renewable resources).MEAN",
+                  "caption": "Water stress (total freshwater abstraction as % total internal renewable resources).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy consumption in other sectors (% of total energy consumption).MEAN",
+                  "caption": "Energy consumption in other sectors (% of total energy consumption).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Total primary energy supply (index; 2000=100).MEAN",
+                  "caption": "Total primary energy supply (index; 2000=100).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel consumer support (% energy related tax revenue).MEAN",
+                  "caption": "Fossil fuel consumer support (% energy related tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Value added in industry (% of total value added).MEAN",
+                  "caption": "Value added in industry (% of total value added).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Metals (% of DMC).MEAN",
+                  "caption": "Metals (% of DMC).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Development of environment-related technologies (% of inventions worldwide).MEAN",
+                  "caption": "Development of environment-related technologies (% of inventions worldwide).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Seasonal surface water (% of total surface).MEAN",
+                  "caption": "Seasonal surface water (% of total surface).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Welfare costs of premature mortalities from exposure to residential radon (% of GDP).MEAN",
+                  "caption": "Welfare costs of premature mortalities from exposure to residential radon (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Built up area per capita (m2).MEAN",
+                  "caption": "Built up area per capita (m2).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Threatened bird species (% of total known species).MEAN",
+                  "caption": "Threatened bird species (% of total known species).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Development of environment-related technologies (% of all technologies).MEAN",
+                  "caption": "Development of environment-related technologies (% of all technologies).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "CO2 emissions per unit of GDP.MEAN",
+                  "caption": "CO2 emissions per unit of GDP.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population; ages 65 and above (% of total).MEAN",
+                  "caption": "Population; ages 65 and above (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Total primary energy supply (tonne of oil equivalent).SUM",
+                  "caption": "Total primary energy supply (tonne of oil equivalent).SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population density (inhabitants per km2).SUM",
+                  "caption": "Population density (inhabitants per km2).SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Water stress (total freshwater abstraction as % total available renewable resources).MEAN",
+                  "caption": "Water stress (total freshwater abstraction as % total available renewable resources).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Gain of natural and semi-natural vegetated land (% since 2004).MEAN",
+                  "caption": "Gain of natural and semi-natural vegetated land (% since 2004).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally related R&D expenditure (% of GDP).MEAN",
+                  "caption": "Environmentally related R&D expenditure (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - all sectors - biodiversity (% of total ODA).MEAN",
+                  "caption": "ODA - all sectors - biodiversity (% of total ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population connected to public sewerage (% of total population).MEAN",
+                  "caption": "Population connected to public sewerage (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Emissions priced > 60€ per tonne of CO2 (% of total emissions).MEAN",
+                  "caption": "Emissions priced > 60€ per tonne of CO2 (% of total emissions).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Production-based CO2 emissions (index; 2000=100).MEAN",
+                  "caption": "Production-based CO2 emissions (index; 2000=100).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Real GDP (Index; 2000=100).MEAN",
+                  "caption": "Real GDP (Index; 2000=100).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Petrol end-user price (USD per litre).MEAN",
+                  "caption": "Petrol end-user price (USD per litre).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally related ODA (% of total ODA).MEAN",
+                  "caption": "Environmentally related ODA (% of total ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion from natural and semi-natural land to artificial surfaces (% since 1992).MEAN",
+                  "caption": "Conversion from natural and semi-natural land to artificial surfaces (% since 1992).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Municipal waste disposed to landfills; % treated waste.MEAN",
+                  "caption": "Municipal waste disposed to landfills; % treated waste.MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Environmentally related taxes (% of total tax revenue).MEAN",
+                  "caption": "Environmentally related taxes (% of total tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Labour tax revenue (% of GDP).MEAN",
+                  "caption": "Labour tax revenue (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Value added in services (% of total value added).MEAN",
+                  "caption": "Value added in services (% of total value added).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Total fossil fuel support; % of total tax revenue.MEAN",
+                  "caption": "Total fossil fuel support; % of total tax revenue.MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Natural and semi-natural vegetated land (% of total).MEAN",
+                  "caption": "Natural and semi-natural vegetated land (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Marine protected area (% of total exclusive economic zone).MEAN",
+                  "caption": "Marine protected area (% of total exclusive economic zone).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "GDP per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "caption": "GDP per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Diesel end-user price (USD per litre).MEAN",
+                  "caption": "Diesel end-user price (USD per litre).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Permanent surface water (% of total surface).MEAN",
+                  "caption": "Permanent surface water (% of total surface).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Value added in agriculture (% of total value added).MEAN",
+                  "caption": "Value added in agriculture (% of total value added).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Emissions priced > 30€ per tonne of CO2 (% of total emissions).MEAN",
+                  "caption": "Emissions priced > 30€ per tonne of CO2 (% of total emissions).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Sales of pesticides per unit of agricultural land (kg).MEAN",
+                  "caption": "Sales of pesticides per unit of agricultural land (kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Renewable energy supply (excluding solid biofuels) (% of total energy supply).MEAN",
+                  "caption": "Renewable energy supply (excluding solid biofuels) (% of total energy supply).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Bare land (% of total).MEAN",
+                  "caption": "Bare land (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population; ages 15-64 (% of total).MEAN",
+                  "caption": "Population; ages 15-64 (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population.SUM",
+                  "caption": "Population.SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy consumption in services (% of total energy consumption).MEAN",
+                  "caption": "Energy consumption in services (% of total energy consumption).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy consumption in transport (% of total energy consumption).MEAN",
+                  "caption": "Energy consumption in transport (% of total energy consumption).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Intensity of use of forest resources.MEAN",
+                  "caption": "Intensity of use of forest resources.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Petroleum support (% of total fossil fuel support).MEAN",
+                  "caption": "Petroleum support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Forest resource stocks (m3).SUM",
+                  "caption": "Forest resource stocks (m3).SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Mortality from exposure to residential radon (per 1M inhabitant).MEAN",
+                  "caption": "Mortality from exposure to residential radon (per 1M inhabitant).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Terrestrial protected area (% of land area).MEAN",
+                  "caption": "Terrestrial protected area (% of land area).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Phosphorus balance per hectare (kg).MEAN",
+                  "caption": "Phosphorus balance per hectare (kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Loss of natural and semi-natural vegetated land (% since 1992).MEAN",
+                  "caption": "Loss of natural and semi-natural vegetated land (% since 1992).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Road transport-related tax revenue (% of total environmental tax revenue).MEAN",
+                  "caption": "Road transport-related tax revenue (% of total environmental tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy related tax revenue (% of total environmental tax revenue).MEAN",
+                  "caption": "Energy related tax revenue (% of total environmental tax revenue).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Municipal waste generated (kg per capita).MEAN",
+                  "caption": "Municipal waste generated (kg per capita).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population with access to improved drinking water sources (% of total population).MEAN",
+                  "caption": "Population with access to improved drinking water sources (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy-related CO2 per capita (Tonne).MEAN",
+                  "caption": "Energy-related CO2 per capita (Tonne).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Annual surface temperature (change since 1951-1980).MEAN",
+                  "caption": "Annual surface temperature (change since 1951-1980).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - all sectors - desertification (% of total ODA).MEAN",
+                  "caption": "ODA - all sectors - desertification (% of total ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Artificial surfaces (% of total).MEAN",
+                  "caption": "Artificial surfaces (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Demand-based CO2 productivity; disposable income per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "caption": "Demand-based CO2 productivity; disposable income per unit of energy-related CO2 emissions (USD per kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Net ODA provided (% of GNI).MEAN",
+                  "caption": "Net ODA provided (% of GNI).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - all sectors - climate change adaptation (% of total ODA).MEAN",
+                  "caption": "ODA - all sectors - climate change adaptation (% of total ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population connected to sewerage with tertiary treatment (% of total population).MEAN",
+                  "caption": "Population connected to sewerage with tertiary treatment (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Naturally regenerating forests (% of total forest area).MEAN",
+                  "caption": "Naturally regenerating forests (% of total forest area).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population with access to improved sanitation (% of total population).MEAN",
+                  "caption": "Population with access to improved sanitation (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "New built up area; % since 1990.MEAN",
+                  "caption": "New built up area; % since 1990.MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population connected to sewerage with secondary treatment (% of total population).MEAN",
+                  "caption": "Population connected to sewerage with secondary treatment (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Built up area (% of total land).MEAN",
+                  "caption": "Built up area (% of total land).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy consumption in industry (% of total energy consumption).MEAN",
+                  "caption": "Energy consumption in industry (% of total energy consumption).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Energy public RD&D budget (% of GDP).MEAN",
+                  "caption": "Energy public RD&D budget (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Production-based CO2 emissions (tonne).SUM",
+                  "caption": "Production-based CO2 emissions (tonne).SUM",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population; ages 0-14 (% of total).MEAN",
+                  "caption": "Population; ages 0-14 (% of total).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Threatened mammal species (% of total known species).MEAN",
+                  "caption": "Threatened mammal species (% of total known species).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Welfare costs of premature deaths from exposure to ambient ozone (% of GDP).MEAN",
+                  "caption": "Welfare costs of premature deaths from exposure to ambient ozone (% of GDP).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ODA - renewable energy sector (% of total allocable ODA).MEAN",
+                  "caption": "ODA - renewable energy sector (% of total allocable ODA).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "New built up area (% since 2000).MEAN",
+                  "caption": "New built up area (% since 2000).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel general services support (% of total fossil fuel support).MEAN",
+                  "caption": "Fossil fuel general services support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Forests with long-term management plans (% of total forest area).MEAN",
+                  "caption": "Forests with long-term management plans (% of total forest area).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Fossil fuel producer support (% of total fossil fuel support).MEAN",
+                  "caption": "Fossil fuel producer support (% of total fossil fuel support).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Percentage of population exposed to > 35 micrograms per m3.MEAN",
+                  "caption": "Percentage of population exposed to > 35 micrograms per m3.MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Nitrogen balance per hectare (kg).MEAN",
+                  "caption": "Nitrogen balance per hectare (kg).MEAN",
+                  "formatString": "#,###.00",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Conversion of seasonal to permanent water surface (% permanent water; since 1984).MEAN",
+                  "caption": "Conversion of seasonal to permanent water surface (% permanent water; since 1984).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Renewable energy supply (% of total energy supply).MEAN",
+                  "caption": "Renewable energy supply (% of total energy supply).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Population connected to sewerage with primary treatment (% of total population).MEAN",
+                  "caption": "Population connected to sewerage with primary treatment (% of total population).MEAN",
+                  "formatString": "#.##%",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "update.TIMESTAMP",
+                  "caption": "update.TIMESTAMP",
+                  "type": "Object",
+                  "visible": false
+                },
+                {
+                  "name": "contributors.COUNT",
+                  "caption": "contributors.COUNT",
+                  "formatString": "#,###",
+                  "type": "long",
+                  "visible": true
+                }
+              ],
+              "dimensions": [
+                {
+                  "name": "Countries",
+                  "caption": "Countries",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Country",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Country",
+                      "caption": "Country",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Continent_Name",
+                          "caption": "Continent_Name",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Country_Name",
+                          "caption": "Country_Name",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Green-growth",
+                  "caption": "Green-growth",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Flag Codes",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Flag Codes",
+                      "caption": "Flag Codes",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Flag Codes",
+                          "caption": "Flag Codes",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Year",
+                      "caption": "Year",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "Year",
+                          "caption": "Year",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Epoch",
+                  "caption": "Source Simulation",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Epoch",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Epoch",
+                      "caption": "Source Simulation",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "Branch",
+                          "caption": "Scenario",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "kpis": [],
+              "sets": [],
+              "defaultMembers": [
+                {
+                  "dimension": "Measures",
+                  "hierarchy": "Measures",
+                  "path": ["contributors.COUNT"],
+                  "captionPath": ["contributors.COUNT"]
+                },
+                {
+                  "dimension": "Green-growth",
+                  "hierarchy": "Year",
+                  "path": ["1990"],
+                  "captionPath": ["1990"]
+                },
+                {
+                  "dimension": "Epoch",
+                  "hierarchy": "Epoch",
+                  "path": ["Base"],
+                  "captionPath": ["Base"]
+                }
+              ],
+              "contextValues": [
+                {
+                  "name": "mdx.formatters.[Measures].[Municipal waste incinerated (% treated waste).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "queriesTimeLimit",
+                  "value": "30"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Electricity support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Welfare costs of premature deaths from exposure to lead (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Percentage of population exposed to > 10 micrograms per m3.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Real GDP per capita (USD).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Total primary energy supply (index; 2000=100).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Petrol end-user price (USD per litre).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Gas support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion from natural and semi-natural land to artificial surfaces (% since 1992).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Welfare costs of premature mortalities from exposure to ambient PM2.5 (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Production-based CO2 emissions (tonne).SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Development of environment-related technologies (% of inventions worldwide).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[GDP per unit of energy-related CO2 emissions (USD per kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel consumer support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Threatened vascular plant species (% of total known species).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Development of environment-related technologies (% of all technologies).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Naturally regenerating forests (% of total forest area).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Cropland (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "user-authentication",
+                  "value": "anonymousUser"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Intensity of use of forest resources.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[New built up area (% since 2000).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Threatened mammal species (% of total known species).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion from natural and semi-natural land to cropland (% since 1992).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[CO2 emissions per unit of GDP.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Renewable energy supply (excluding solid biofuels) (% of total energy supply).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy consumption in services (% of total energy consumption).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population connected to sewerage with tertiary treatment (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - environment sector (% of total allocable ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Forest resource stocks (m3).SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Intact forest landscape loss (% since 2000).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population; ages 15-64 (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Intact forest landscape (km2).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Value added in agriculture (% of total value added).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Real GDP (Index; 2000=100).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[New built up area; % since 1990.MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Adjustment for pollution abatement (percentage point).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Demand-based CO2 productivity; disposable income per unit of energy-related CO2 emissions (USD per kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Built up area (% of total land).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Municipal waste recycled or composted (% treated waste).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Value added in industry (% of total value added).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Nitrogen balance per hectare (kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Water stress (total freshwater abstraction as % total internal renewable resources).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[TPES per capita (Tonne of oil equivalent).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally related government R&D budget (% of total government R&D).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally related taxes (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mortality from exposure to residential radon (per 1M inhabitant).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Petroleum support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[National expenditure on environmental protection (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Road transport-related tax revenue (% of total environmental tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Welfare costs of premature mortalities from exposure to residential radon (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel consumer support (% of total tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "queriesResultLimit.transientSize",
+                  "value": "10000000"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Terrestrial protected area (% of land area).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Irrigated land (% of agricultural land).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - all sectors - climate change adaptation (% of total ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion of permanent to seasonal water surface (% permanent water; since 1984).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[CO2 emissions from air transport per capita (tonne).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Water stress (total freshwater abstraction as % total available renewable resources).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Women (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy related tax revenue (% of total environmental tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Emissions priced > 60€ per tonne of CO2 (% of total emissions).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion of seasonal to permanent water surface (% permanent water; since 1984).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy consumption in agriculture (% of total energy consumption).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally related taxes (% of total tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally related R&D expenditure (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mean population exposure to PM2.5.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.measureAliases.update.TIMESTAMP",
+                  "value": "update.TIMESTAMP"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Total fossil fuel support; % of total tax revenue.MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Total renewable freshwater per capita (m3 per capita).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Industry electricity price (USD per kWh).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - all sectors - climate change mitigation (% of total ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.cubeFormatter",
+                  "value": "en-US"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally related ODA (% of total ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mean feed-in tariff for solar PV electricity generation (USD).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Diesel tax (USD per litre).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Loss of natural and semi-natural vegetated land (% since 1992).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[CO2 emissions from air transport per unit of GDP (kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - all sectors - desertification (% of total ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Diesel end-user price (USD per litre).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Municipal waste generated (kg per capita).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Development of environment-related technologies (inventions per capita).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - renewable energy sector (% of total allocable ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mortality from exposure to ambient PM2.5 (per 1M inhabitants).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Environmentally adjusted multifactor productivity growth (percentage point).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Seasonal surface water (% of total surface).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Emissions priced > 30€ per tonne of CO2 (% of total emissions).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Marine protected area (% of total exclusive economic zone).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mean feed-in tariff for wind electricity generation (USD).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Farmland Birds (Index; 2000=100).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Forests with long-term management plans (% of total forest area).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population with access to improved sanitation (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy public RD&D budget (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Children per woman.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Net ODA provided (% of GNI).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Water (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population connected to sewerage with secondary treatment (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Contribution of natural capital (percentage point).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Total freshwater abstraction (m3 per capita).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Renewable electricity (% of total electricity generation).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Permanent surface water (% of total surface).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel producer support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Production-based CO2 emissions (index; 2000=100).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Metals (% of DMC).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion from cropland to artificial surfaces (% since 1992).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Built up area per capita (m2).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[GDP per unit of TPES (USD).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Forest Birds (Index; 2000=100).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Non-metallic minerals (% of DMC).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Demand-based CO2 intensity; energy-related CO2 per capita (tonne).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy consumption in transport (% of total energy consumption).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Artificial surfaces (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population; ages 0-14 (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Phosphorus balance per hectare (kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Natural and semi-natural vegetated land (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Welfare costs of premature deaths from exposure to ambient ozone (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy consumption in industry (% of total energy consumption).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Renewable energy public R&D budget (% of total energy public R&D).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - all sectors - biodiversity (% of total ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population connected to public sewerage (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel consumer support (% energy related tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Demand-based CO2 emissions (tonne).SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population.SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "subcube",
+                  "value": "rO0ABXNyAD5jb20ucXVhcnRldGZzLmJpei5waXZvdC5jb250ZXh0LnN1YmN1YmUuaW1wbC5TdWJDdWJlUHJvcGVydGllc6EZPtgenyqJAgAEWgANYWNjZXNzR3JhbnRlZEwAD2dyYW50ZWRNZWFzdXJlc3QAD0xqYXZhL3V0aWwvU2V0O0wADmdyYW50ZWRNZW1iZXJzdAAPTGphdmEvdXRpbC9NYXA7TAAMc3ViQ3ViZVRyZWVzcQB+AAJ4cgAyY29tLnF1YXJ0ZXRmcy5iaXoucGl2b3QuY29udGV4dC5pbXBsLkFDb250ZXh0VmFsdWWPkuKT2joKDQIAAHhwAXNyABFqYXZhLnV0aWwuSGFzaFNldLpEhZWWuLc0AwAAeHB3DAAAABA/QAAAAAAAAHhzcgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAAdwgAAAAQAAAAAHhzcQB+AAc/QAAAAAAAAHcIAAAAEAAAAAB4"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel general services support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "queriesResultLimit.intermediateSize",
+                  "value": "1000000"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Total primary energy supply (tonne of oil equivalent).SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Labour tax revenue (% of total tax revenue).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Demand-based CO2 productivity; GDP per unit of energy-related CO2 emissions (USD per kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Sales of pesticides per unit of agricultural land (kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy-related CO2 per capita (Tonne).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Biomass (% of DMC).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Relative advantage in environment-related technology.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population connected to sewerage with primary treatment (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.measureAliases.contributors.COUNT",
+                  "value": "contributors.COUNT"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Value added in services (% of total value added).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Renewable energy supply (% of total energy supply).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population density (inhabitants per km2).SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Municipal waste disposed to landfills; % treated waste.MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Labour tax revenue (% of GDP).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Threatened bird species (% of total known species).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mortality from exposure to lead (per 1M inhabitant).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Annual surface temperature (change since 1951-1980).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Petrol tax (USD per litre).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[contributors.COUNT]",
+                  "value": "INT[#,###]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Life expectancy at birth.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Energy consumption in other sectors (% of total energy consumption).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Residential electricity price (USD per kWh).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion of not-water to permanent water surface (% permanent water; since 1984).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population with access to improved drinking water sources (% of total population).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Percentage of population exposed to > 35 micrograms per m3.MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Gain of natural and semi-natural vegetated land (% since 2004).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Gain of natural and semi-natural vegetated land (% since 1992).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Conversion of permanent water to not-water surface (% of permanent water; since 1984).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Mortality from exposure to ambient ozone (per 1M inhabitant).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Non-energy material productivity; GDP per unit of DMC (USD per kg).MEAN]",
+                  "value": "DOUBLE[#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Bare land (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Loss of natural and semi-natural vegetated land (% since 2004).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Coal support (% of total fossil fuel support).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Population; ages 65 and above (% of total).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[ODA - water supply and sanitation sector (% of total allocable ODA).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Fossil fuel public R&D budget (excluding CCS) (% of total energy public R&D).MEAN]",
+                  "value": "DOUBLE[#.##%]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Net migration.SUM]",
+                  "value": "DOUBLE[#,###.00]"
+                }
+              ],
+              "measureGroups": []
+            }
+          ]
+        }
+      ],
+      "contextValues": [
+        {
+          "name": "queriesTimeLimit",
+          "type": "INTEGER",
+          "description": "The amount of time (in seconds) after which a running query is cancelled and its resources reclaimed."
+        },
+        {
+          "name": "mdx.memberNamePathStyle",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.formatters.$member_name$",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.defaultmembers.$hierarchy_name$",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.measureAliases",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.resultlimit",
+          "type": "INTEGER",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.casesensitive",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.aggressiveFormulaEvaluation",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.axispositionlimit",
+          "type": "INTEGER",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.unknowncolumnbehavior",
+          "type": "ENUM(SILENT,WARN,THROW)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "monitoring.executionTimingPrint",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "drillthrough.hiddencolumns",
+          "type": "ALL",
+          "category": "drillthrough"
+        },
+        {
+          "name": "queriesResultLimit.intermediateSize",
+          "type": "INTEGER",
+          "category": "queriesResultLimit"
+        },
+        {
+          "name": "mdx.hiddengrandtotals",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "monitoring.queryPlanSummary",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "monitoring.executionPlanPrint",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "mdx.disableepochdimension",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "monitoring.queryPlanCycleDetection",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "queriesResultLimit.transientSize",
+          "type": "LONG",
+          "category": "queriesResultLimit"
+        },
+        {
+          "name": "drillthrough.maxrows",
+          "type": "INTEGER",
+          "category": "drillthrough"
+        },
+        {
+          "name": "drillthrough.behavior",
+          "type": "ENUM(SILENT,WARN,THROW)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "monitoring.queryPlanExport",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "drillthrough.calculatedcolumnsets",
+          "type": "ENUM(VectorDrillthroughColumnSet)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "epoch.strict",
+          "type": "BOOL",
+          "category": "epoch"
+        },
+        {
+          "name": "mdx.lightcrossjoin",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.calculatedcolumns",
+          "type": "ENUM(CaptionDrillthroughColumn,MemberValueDrillthroughColumn,VectorDrillthroughColumn,NameDrillthroughColumn)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "mdx.cubeFormatter",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.ignorequeriedmeasure",
+          "type": "BOOL",
+          "category": "drillthrough"
+        },
+        {
+          "name": "mdx.hiddensubtotals",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.disablemdxcompilation",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "epoch.id",
+          "type": "LONG",
+          "category": "epoch"
+        },
+        {
+          "name": "mdx.ignoreinvalidmembers",
+          "type": "BOOL",
+          "category": "mdx"
+        }
+      ]
+    }
+  }
+}
