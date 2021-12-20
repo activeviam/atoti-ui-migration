@@ -26,7 +26,7 @@ import { pluginWidgetPlotlyStackedAreaChart } from "@activeviam/plugin-widget-pl
 import type {
   SerializedDataVisualizationWidgetMapping,
   WidgetPlugin,
-} from "@activeviam/widget";
+} from "@activeviam/plugin-widget";
 import type { PlotlyWidgetState } from "@activeviam/chart";
 import type { DataModel } from "@activeviam/data-model";
 
