@@ -1,5 +1,5 @@
 import { dataModelsForTests } from "@activeviam/data-model";
-import type { DataVisualizationWidgetMapping } from "@activeviam/widget";
+import type { DataVisualizationWidgetMapping } from "@activeviam/plugin-widget";
 import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
@@ -47,13 +47,11 @@ describe("_migrateTableColumnWidths", () => {
         width: 200,
       },
       {
-        key:
-          "([Geography].[City].[ALL].[AllMember].[Berlin],[CounterParty].[CounterParty].[ALL].[AllMember].[Unilever])",
+        key: "([Geography].[City].[ALL].[AllMember].[Berlin],[CounterParty].[CounterParty].[ALL].[AllMember].[Unilever])",
         width: 50,
       },
       {
-        key:
-          "([Measures].[pnl.SUM],[CounterParty].[CounterParty].[ALL].[AllMember].[Sumitomo])",
+        key: "([Measures].[pnl.SUM],[CounterParty].[CounterParty].[ALL].[AllMember].[Sumitomo])",
         width: 81,
       },
       {
@@ -98,7 +96,7 @@ describe("_migrateTableColumnWidths", () => {
   it("ignores columns whose key is neither a level, member, or tuple unique name", () => {
     const legacyColumns = [{ key: "Some static table data", width: 100 }];
     expect(_migrateTableColumnWidths({ legacyColumns, cube, mapping })).toEqual(
-      {},
+      {}
     );
   });
 
@@ -109,7 +107,7 @@ describe("_migrateTableColumnWidths", () => {
     expect(_migrateTableColumnWidths({ legacyColumns, cube, mapping })).toEqual(
       {
         "[Measures].[Measures]": 100,
-      },
+      }
     );
   });
 
@@ -124,7 +122,7 @@ describe("_migrateTableColumnWidths", () => {
           columns: [],
           measures: [],
         },
-      }),
+      })
     ).toEqual({});
 
     expect(
@@ -149,7 +147,7 @@ describe("_migrateTableColumnWidths", () => {
           columns: [],
           measures: [],
         },
-      }),
+      })
     ).toEqual({
       "[Geography].[City].[City]": 125,
     });
@@ -181,7 +179,7 @@ describe("_migrateTableColumnWidths", () => {
           columns: [],
           measures: [],
         },
-      }),
+      })
     ).toEqual({
       "[Booking].[Desk].[BusinessUnit]": 125,
     });
@@ -205,7 +203,7 @@ describe("_migrateTableColumnWidths", () => {
           columns: [],
           measures: [],
         },
-      }),
+      })
     ).toEqual({
       "[Measures].[Measures]": 125,
     });
@@ -214,8 +212,7 @@ describe("_migrateTableColumnWidths", () => {
   it("strips the wrapping parentheses from the tuple unique name identifying a column", () => {
     const legacyColumns = [
       {
-        key:
-          "([Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT])",
+        key: "([Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT])",
         width: 220,
       },
     ];
@@ -224,7 +221,7 @@ describe("_migrateTableColumnWidths", () => {
         legacyColumns,
         cube,
         mapping,
-      }),
+      })
     ).toEqual({
       "[Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT]": 220,
     });
