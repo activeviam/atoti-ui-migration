@@ -54,7 +54,9 @@ describe("migrateDashboard", () => {
           "filters": Array [],
           "mapping": Object {
             "horizontalSubplots": Array [],
-            "splitBy": Array [],
+            "splitBy": Array [
+              "ALL_MEASURES",
+            ],
             "values": Array [
               "[Measures].[pnlDelta.SUM]",
               "[Measures].[pnlVega.SUM]",
@@ -193,7 +195,7 @@ describe("migrateDashboard", () => {
   it("never returns a layout leaf", () => {
     // LegacyDashboardState has some attributes that are uninteresting to this test.
     // eslint-disable-next-line
-    const legacyEmptyDashboard = ({
+    const legacyEmptyDashboard = {
       value: {
         body: {
           pages: [
@@ -208,7 +210,7 @@ describe("migrateDashboard", () => {
           ],
         },
       },
-    } as unknown) as LegacyDashboardState;
+    } as unknown as LegacyDashboardState;
     const emptyDashboard = migrateDashboard(legacyEmptyDashboard, servers);
     expect(emptyDashboard).toMatchInlineSnapshot(`
       Object {
