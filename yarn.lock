@@ -215,6 +215,31 @@
     lodash "^4.17.15"
     react-reverse-portal "^2.0.1"
 
+"@activeviam/dashboard@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard/-/@activeviam/dashboard-5.0.1.tgz#5b6e1fbdeadeba3698f7935c924b995f45a9f9a9"
+  integrity sha1-W24fvereujaY95NckkuZX0Wp+ak=
+  dependencies:
+    "@activeviam/action" "5.0.1"
+    "@activeviam/dashboard-base" "5.0.1"
+    "@activeviam/filters" "5.0.1"
+    "@activeviam/mdx" "5.0.1"
+    "@activeviam/menu-item" "5.0.1"
+    "@activeviam/plugins-core" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/titlebar-button" "5.0.1"
+    "@activeviam/translation" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@emotion/core" "^10.0.27"
+    "@types/lodash" "^4.14.168"
+    "@types/react" "^16.9.34"
+    immer "^8.0.0"
+    lodash "^4.17.15"
+    react-error-boundary "^3.0.2"
+    ts-essentials "^6.0.5"
+
 "@activeviam/data-model-tree@5.0.1":
   version "5.0.1"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model-tree/-/@activeviam/data-model-tree-5.0.1.tgz#68fc87c85a826d38abb6e4f6a11d3a1d44f81b0d"
@@ -465,6 +490,380 @@
     lodash "^4.17.15"
     shallowequal "^1.1.0"
 
+"@activeviam/plugin-widget-plotly-100-stacked-area@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-area/-/@activeviam/plugin-widget-plotly-100-stacked-area-5.0.1.tgz#9ef8ccfd949bb9e025eb637798bacc220d69cdf3"
+  integrity sha1-nvjM/ZSbueAl62N3mLrMIg1pzfM=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-100-stacked-columns" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-area" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-100-stacked-bars@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-bars/-/@activeviam/plugin-widget-plotly-100-stacked-bars-5.0.1.tgz#ecb6407838c8b4c87c7eeb75e291633dafe0fc1e"
+  integrity sha1-7LZAeDjItMh8fut14pFjPa/g/B4=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-100-stacked-columns@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-columns/-/@activeviam/plugin-widget-plotly-100-stacked-columns-5.0.1.tgz#7f8d880d29e98c6b179e2827aa19ed76a07baa8c"
+  integrity sha1-f42IDSnpjGsXnignqhntdqB7qow=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-area@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-area/-/@activeviam/plugin-widget-plotly-area-5.0.1.tgz#92f9b5d17a1e5fa3fc4204471d33d6aa21c5c5fa"
+  integrity sha1-kvm10XoeX6P8QgRHHTPWqiHFxfo=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-line" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-bullet@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-bullet/-/@activeviam/plugin-widget-plotly-bullet-5.0.1.tgz#1590fc2c47f84a56452f5de37f6a6f5dd72b673a"
+  integrity sha1-FZD8LEf4SlZFL13jf2pvXdcrZzo=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-gauge" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-clustered-bars@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-bars/-/@activeviam/plugin-widget-plotly-clustered-bars-5.0.1.tgz#733b8c9ab7d11318473db0e52749a3d8dbb483c3"
+  integrity sha1-czuMmrfRExhHPbDlJ0mj2Nu0g8M=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-clustered-columns@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-columns/-/@activeviam/plugin-widget-plotly-clustered-columns-5.0.1.tgz#1c1d855e58d30da5d395e86c78a3d755cebd3f78"
+  integrity sha1-HB2FXljTDaXTlehseKPXVc69P3g=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-combo@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-combo/-/@activeviam/plugin-widget-plotly-combo-5.0.1.tgz#5b6d7f2438d4e30b579cae1c4bb8d0aef2ede02c"
+  integrity sha1-W21/JDjU4wtXnK4cS7jQrvLt4Cw=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-donut@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-donut/-/@activeviam/plugin-widget-plotly-donut-5.0.1.tgz#aaba33b85a3ce1861416dc2a64391a3c479ead0a"
+  integrity sha1-qrozuFo84YYUFtwqZDkaPEeerQo=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-pie" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-gauge@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-gauge/-/@activeviam/plugin-widget-plotly-gauge-5.0.1.tgz#9371b99f61090d5a0c2f785fcd326aa198a9c8a9"
+  integrity sha1-k3G5n2EJDVoML3hfzTJqoZipyKk=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/mdx" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-line@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-line/-/@activeviam/plugin-widget-plotly-line-5.0.1.tgz#ab3f19ea073ee25d824f8bfc7c8340be202f9746"
+  integrity sha1-qz8Z6gc+4l2CT4v8fINAviAvl0Y=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/mdx" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/translation" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@emotion/core" "^10.0.27"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    immer "^8.0.0"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-pie@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-pie/-/@activeviam/plugin-widget-plotly-pie-5.0.1.tgz#6eb7b27bad5ad8bfb75235e22410268e96063292"
+  integrity sha1-breye61a2L+3UjXiJBAmjpYGMpI=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/dashboard" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-radar@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-radar/-/@activeviam/plugin-widget-plotly-radar-5.0.1.tgz#17439c12a74687d10296559fd3d25375d72c5c3a"
+  integrity sha1-F0OcEqdGh9ECllWf09JTddcsXDo=
+  dependencies:
+    "@activeviam/activepivot-client" "5.0.1"
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-scatter@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-scatter/-/@activeviam/plugin-widget-plotly-scatter-5.0.1.tgz#b7014c2163e21a2567c39aef32336fc9dd11a673"
+  integrity sha1-twFMIWPiGiVnw5rvMjNvyd0RpnM=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/dashboard" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/translation" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-stacked-area@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-area/-/@activeviam/plugin-widget-plotly-stacked-area-5.0.1.tgz#dc625d7fce4f35f0f7beb0625efd473f2033a9e7"
+  integrity sha1-3GJdf85PNfD3vrBiXv1HPyAzqec=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-line" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-stacked-bars@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-bars/-/@activeviam/plugin-widget-plotly-stacked-bars-5.0.1.tgz#e576bf70c1aea2e473d2a588ba8a18aa4d4c1245"
+  integrity sha1-5Xa/cMGuouRz0qWIuooYqk1MEkU=
+  dependencies:
+    "@activeviam/activepivot-client" "5.0.1"
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-stacked-columns@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-columns/-/@activeviam/plugin-widget-plotly-stacked-columns-5.0.1.tgz#fa8a41dc844c866bb7e4a1ee80562b27469544b8"
+  integrity sha1-+opB3IRMhmu35KHugFYrJ0aVRLg=
+  dependencies:
+    "@activeviam/activepivot-client" "5.0.1"
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-treemap@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-treemap/-/@activeviam/plugin-widget-plotly-treemap-5.0.1.tgz#1e3bc5e58e88ed879bd33491d6884e25e9c4d81e"
+  integrity sha1-HjvF5Y6I7Yeb0zSR1ohOJenE2B4=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-waterfall@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-waterfall/-/@activeviam/plugin-widget-plotly-waterfall-5.0.1.tgz#8f9992330d4547e14091fe5dd86e19e837193c11"
+  integrity sha1-j5mSMw1FR+FAkf5d2G4Z6DcZPBE=
+  dependencies:
+    "@activeviam/chart" "5.0.1"
+    "@activeviam/client-react" "5.0.1"
+    "@activeviam/data-visualization" "5.0.1"
+    "@activeviam/icons" "5.0.1"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
+    "@activeviam/selection" "5.0.1"
+    "@activeviam/theme" "5.0.1"
+    "@activeviam/utils" "5.0.1"
+    "@activeviam/widget" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/plotly.js" "^1.54.6"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+    plotly.js "^1.58.3"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-quick-filter@5.0.1":
   version "5.0.1"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-quick-filter/-/@activeviam/plugin-widget-quick-filter-5.0.1.tgz#01945997cd0670a54410f8891694bb3fbd2b62eb"
@@ -596,6 +995,17 @@
   dependencies:
     "@activeviam/icons" "5.0.1"
     "@ant-design/colors" "^5.0.0"
+    "@types/react" "^16.9.34"
+
+"@activeviam/titlebar-button@5.0.1":
+  version "5.0.1"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/titlebar-button/-/@activeviam/titlebar-button-5.0.1.tgz#7d9f01c56fa7f5ee232fb49eaf68b4b0fad15925"
+  integrity sha1-fZ8BxW+n9e4jL7Ser2i0sPrRWSU=
+  dependencies:
+    "@activeviam/action" "5.0.1"
+    "@activeviam/dashboard-base" "5.0.1"
+    "@activeviam/mdx" "5.0.1"
+    "@activeviam/plugins-core" "5.0.1"
     "@types/react" "^16.9.34"
 
 "@activeviam/translation@5.0.1":
