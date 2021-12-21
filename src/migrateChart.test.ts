@@ -1,3 +1,4 @@
+import _cloneDeep from "lodash/cloneDeep";
 import { migrateChart } from "./migrateChart";
 import { emptyLegacyChart } from "./__test_resources__/emptyLegacyChart";
 import { legacyAreaChart } from "./__test_resources__/legacyAreaChart";
@@ -81,11 +82,12 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
-          "horizontalSubplots": undefined,
+          "horizontalSubplots": Array [],
+          "splitBy": Array [],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
-          "verticalSubplots": undefined,
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -107,9 +109,12 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "splitBy": Array [],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -131,9 +136,12 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "stackBy": Array [],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -155,9 +163,12 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "stackBy": Array [],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "yAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -179,12 +190,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
           "sliceBy": Array [
             "[Currency].[Currency].[Currency]",
           ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
         },
         "name": "Legacy pie chart",
         "query": Object {
@@ -206,12 +219,14 @@ describe("migrateChart", () => {
           "color": Array [
             "[Booking].[Desk].[LegalEntity]",
           ],
+          "horizontalSubplots": Array [],
           "size": Array [
             "[Measures].[pnl.FOREX]",
           ],
           "splitBy": Array [
             "[Currency].[Currency].[Currency]",
           ],
+          "verticalSubplots": Array [],
           "xValues": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -235,6 +250,13 @@ describe("migrateChart", () => {
     expect(migrateChart(emptyLegacyChart, servers)).toMatchInlineSnapshot(`
       Object {
         "filters": Array [],
+        "mapping": Object {
+          "horizontalSubplots": Array [],
+          "splitBy": Array [],
+          "values": Array [],
+          "verticalSubplots": Array [],
+          "xAxis": Array [],
+        },
         "name": "Untitled Chart",
         "query": Object {
           "updateMode": "once",
@@ -242,6 +264,40 @@ describe("migrateChart", () => {
         "queryContext": Array [],
         "serverKey": "my-server",
         "widgetKey": "plotly-line-chart",
+      }
+    `);
+  });
+
+  it("replaces undefined attributes in the ActiveUI 4 mapping by empty arrays of fields", () => {
+    // ActiveUI 5 needs every single attribute to be present in the widget's mapping, even if it does not contain any field.
+    const partialLegacyChartState = _cloneDeep(legacyChart);
+
+    // In this test, the following attributes are omitted instead of having an empty array of fields.
+    // This type of partial mapping works in ActiveUI 4, but not 5.
+    ["splitBy", "horizontalSubplots", "verticalSubplots"].forEach(
+      (attributeName) => {
+        delete partialLegacyChartState.value.body.configuration.mapping[
+          attributeName
+        ];
+      }
+    );
+
+    const chartState = migrateChart(partialLegacyChartState, servers);
+
+    // Notice that `splitBy`, `horizontalSubplots` and `verticalSubplots` are present in the migrated chart state,
+    // even though they are missing in the input legacy chart state.
+    expect(chartState.mapping).toMatchInlineSnapshot(`
+      Object {
+        "horizontalSubplots": Array [],
+        "splitBy": Array [],
+        "values": Array [
+          "[Measures].[pnlDelta.SUM]",
+          "[Measures].[pnlVega.SUM]",
+        ],
+        "verticalSubplots": Array [],
+        "xAxis": Array [
+          "[Currency].[Currency].[Currency]",
+        ],
       }
     `);
   });
