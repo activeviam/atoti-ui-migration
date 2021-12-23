@@ -27,7 +27,7 @@ export function migrateTextEditor(
    * - (.*) capturing group for anything between the single '$'.
    * - /g mandatory global flag when using "replaceAll".
    */
-  const textWithInlineKatexFormulasReplaced = (text as string).replaceAll(
+  const textWithInlineKatexFormulasReplaced = (text as string).replace(
     /(?<!\$)\$(?!\$)(.*)(?<!\$)\$(?!\$)/g,
     "`katex $1`"
   );
@@ -48,7 +48,7 @@ export function migrateTextEditor(
    * - s flag allowing "." to match new lines.
    */
   const textWithBlickKatexFormulasReplaced =
-    textWithInlineKatexFormulasReplaced.replaceAll(
+    textWithInlineKatexFormulasReplaced.replace(
       /\${2}(.*)\${2}/gs,
       "```katex\n$1\n```"
     );
