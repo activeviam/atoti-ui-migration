@@ -11,32 +11,33 @@
     orbit-camera-controller "^4.0.0"
     turntable-camera-controller "^3.0.0"
 
-"@activeviam/action@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/action/-/@activeviam/action-5.0.1.tgz#458c132646ee4e150b7646619252bb33c8143f6a"
-  integrity sha1-RYwTJkbuThULdkZhklK7M8gUP2o=
+"@activeviam/action@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/action/-/@activeviam/action-5.0.6-20211217124725-2ee3cb0.tgz#9c98cfb67967697e9b0d13990096533d248ff426"
+  integrity sha1-nJjPtnlnaX6bDROZAJZTPSSP9CY=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/activepivot-client@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activepivot-client/-/@activeviam/activepivot-client-5.0.1.tgz#b2f74f57d42f37b94a8da03104848a18ef9cdcdf"
-  integrity sha1-svdPV9QvN7lKjaAxBISKGO+c3N8=
+"@activeviam/activepivot-client@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activepivot-client/-/@activeviam/activepivot-client-5.0.6-20211217124725-2ee3cb0.tgz#f56dc1fa801253e4dcb9ccb6d321cb28a40014dd"
+  integrity sha1-9W3B+oASU+Tcucy20yHLKKQAFN0=
   dependencies:
-    "@activeviam/client" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
+    "@activeviam/client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
     "@babel/runtime" "^7.11.2"
     immer "^8.0.0"
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/activeui-sdk-scripts@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.1.tgz#07e9bd40ab1e0a7524c8019074d7a327121a5241"
-  integrity sha1-B+m9QKseCnUkyAGQdNejJxIaUkE=
+"@activeviam/activeui-sdk-scripts@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.6-20211217124725-2ee3cb0.tgz#ab8bd44bb77d023c669294799fe69608bb2183b6"
+  integrity sha1-q4vUS7d9AjxmkpR5n+aWCLshg7Y=
   dependencies:
     "@babel/cli" "^7.11.6"
     "@babel/core" "^7.12.16"
@@ -55,6 +56,7 @@
     babel-plugin-emotion "^10.0.33"
     babel-plugin-import "^1.13.3"
     clean-webpack-plugin "^3.0.0"
+    convert-array-to-csv "^2.0.0"
     css-loader "^5.1.3"
     css-minimizer-webpack-plugin "^1.3.0"
     dotenv "8.2.0"
@@ -66,6 +68,8 @@
     html-webpack-plugin "^5.1.0"
     is-ci "^2.0.0"
     jest "26.4.2"
+    jest-junit "^13.0.0"
+    license-webpack-plugin "^2.3.21"
     mini-css-extract-plugin "^1.3.9"
     pkg-dir "^4.1.0"
     prettier "^2.0.5"
@@ -74,7 +78,10 @@
     resolve "^1.20.0"
     rollup "^2.11.2"
     rollup-plugin-postcss "^3.1.8"
+    serve "^12.0.1"
     sort-package-json "^1.44.0"
+    start-server-and-test "^1.14.0"
+    style-loader "^3.3.1"
     terser-webpack-plugin "5.1.1"
     tslib "^2.0.0"
     webpack "^5.24.4"
@@ -83,62 +90,45 @@
     webpack-manifest-plugin "^3.1.0"
     yargs "^15.3.1"
 
-"@activeviam/calculated-measures@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/calculated-measures/-/@activeviam/calculated-measures-5.0.1.tgz#4a20510565b02818f42086be0cde3f3916f3fb36"
-  integrity sha1-SiBRBWWwKBj0IIa+DN4/ORbz+zY=
+"@activeviam/calculated-measures@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/calculated-measures/-/@activeviam/calculated-measures-5.0.6-20211217124725-2ee3cb0.tgz#18ab39d034a6002d35eb4335379e15ee36fdd2a2"
+  integrity sha1-GKs50DSmAC0160M1N54V7jb90qI=
   dependencies:
-    "@activeviam/content-client" "5.0.1"
-    "@activeviam/content-tree" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/editor" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/content-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/content-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@rehooks/component-size" "^1.0.3"
     lodash "^4.17.15"
     monaco-editor "^0.21.2"
 
-"@activeviam/cell-style@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/cell-style/-/@activeviam/cell-style-5.0.1.tgz#2607502a3b5bb236e93bb042888615682fd6bea1"
-  integrity sha1-JgdQKjtbsjbpO7BCiIYVaC/WvqE=
+"@activeviam/chart@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/chart/-/@activeviam/chart-5.0.6-20211217124725-2ee3cb0.tgz#8f3f9e094f6bda3d4cbfd516aacbefd84f5d9957"
+  integrity sha1-jz+eCU9r2j1Mv9UWqsvv2E9dmVc=
   dependencies:
-    "@types/lodash" "^4.14.168"
-    "@types/react" "^16.9.34"
-    lodash "^4.17.15"
-
-"@activeviam/cell@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/cell/-/@activeviam/cell-5.0.1.tgz#6d4f4d5c2887b2d720f193cc66c4a980cb7053b4"
-  integrity sha1-bU9NXCiHstcg8ZPMZsSpgMtwU7Q=
-  dependencies:
-    "@types/lodash" "^4.14.168"
-    "@types/react" "^16.9.34"
-    lodash "^4.17.15"
-
-"@activeviam/chart@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/chart/-/@activeviam/chart-5.0.1.tgz#8eb699a987b1d6ffae2ad4d383fc555f77225c98"
-  integrity sha1-jraZqYex1v+uKtTTg/xVX3ciXJg=
-  dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/plugins-core" "5.0.1"
-    "@activeviam/search" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/search" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
@@ -149,13 +139,13 @@
     react-plotly.js "^2.5.1"
     react-use "^15.3.4"
 
-"@activeviam/client-react@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client-react/-/@activeviam/client-react-5.0.1.tgz#65bc5dfdbf6e813e5e9e6f49e3037271f065426f"
-  integrity sha1-Zbxd/b9ugT5enm9J4wNycfBlQm8=
+"@activeviam/client-react@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client-react/-/@activeviam/client-react-5.0.6-20211217124725-2ee3cb0.tgz#777ac03d8a8225b5fddc221f6f1fc9ec806f12ed"
+  integrity sha1-d3rAPYqCJbX93CIfbx/J7IBvEu0=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@babel/runtime" "^7.11.2"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -163,35 +153,35 @@
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/client@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client/-/@activeviam/client-5.0.1.tgz#c3d804396e45ca616c074f088dff1567b6938f63"
-  integrity sha1-w9gEOW5FymFsB08Ijf8VZ7aTj2M=
+"@activeviam/client@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client/-/@activeviam/client-5.0.6-20211217124725-2ee3cb0.tgz#c961b7a21dd62351a2a0f69bfbbf3091bc29effb"
+  integrity sha1-yWG3oh3WI1GioPab+78wkbwp7/s=
   dependencies:
     tslib "^2.0.0"
 
-"@activeviam/content-client@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-client/-/@activeviam/content-client-5.0.1.tgz#96f9e2852f6c731c9c4660f129fc5877abd586f0"
-  integrity sha1-lvnihS9scxycRmDxKfxYd6vVhvA=
+"@activeviam/content-client@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-client/-/@activeviam/content-client-5.0.6-20211217124725-2ee3cb0.tgz#23e684197a8b787acb6f9b4632dbd6ab6a96da87"
+  integrity sha1-I+aEGXqLeHrLb5tGMtvWq2qW2oc=
   dependencies:
-    "@activeviam/client" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
+    "@activeviam/client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/content-tree@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-tree/-/@activeviam/content-tree-5.0.1.tgz#84370bd353575d7982c6d65e8898d86a726afaca"
-  integrity sha1-hDcL01NXXXmCxtZeiJjYanJq+so=
+"@activeviam/content-tree@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-tree/-/@activeviam/content-tree-5.0.6-20211217124725-2ee3cb0.tgz#6208ef66fbc9ae30a21347804e364197adc7f654"
+  integrity sha1-YgjvZvvJrjCiE0eATjZBl63H9lQ=
   dependencies:
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/content-client" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/tree" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/content-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -199,39 +189,40 @@
     lodash "^4.17.15"
     react-use "^15.3.4"
 
-"@activeviam/dashboard-base@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.0.1.tgz#2c11a4b9e4c43fabb0c35397594467ed43caa459"
-  integrity sha1-LBGkueTEP6uww1OXWURn7UPKpFk=
+"@activeviam/dashboard-base@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.0.6-20211217124725-2ee3cb0.tgz#ab9c81b9e091523355a35ca4f1d7a677e8d65e98"
+  integrity sha1-q5yBueCRUjNVo1yk8demd+jWXpg=
   dependencies:
-    "@activeviam/tabs" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/tabs" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     immer "^8.0.0"
     lodash "^4.17.15"
     react-reverse-portal "^2.0.1"
 
-"@activeviam/dashboard@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard/-/@activeviam/dashboard-5.0.1.tgz#5b6e1fbdeadeba3698f7935c924b995f45a9f9a9"
-  integrity sha1-W24fvereujaY95NckkuZX0Wp+ak=
+"@activeviam/dashboard@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard/-/@activeviam/dashboard-5.0.6-20211217124725-2ee3cb0.tgz#3e561282377a99416e8e9b2d8a5d91c340e8b10b"
+  integrity sha1-PlYSgjd6mUFujpstil2Rw0DosQs=
   dependencies:
-    "@activeviam/action" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/filters" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/menu-item" "5.0.1"
-    "@activeviam/plugins-core" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/titlebar-button" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/filters" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-menu-item" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-titlebar-button" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -240,52 +231,53 @@
     react-error-boundary "^3.0.2"
     ts-essentials "^6.0.5"
 
-"@activeviam/data-model-tree@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model-tree/-/@activeviam/data-model-tree-5.0.1.tgz#68fc87c85a826d38abb6e4f6a11d3a1d44f81b0d"
-  integrity sha1-aPyHyFqCbTirtuT2oR06HUT4Gw0=
+"@activeviam/data-model-tree@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model-tree/-/@activeviam/data-model-tree-5.0.6-20211217124725-2ee3cb0.tgz#83676f18b059c8bd4c83786580cd77c899c9a9aa"
+  integrity sha1-g2dvGLBZyL1Mg3hlgM13yJnJqao=
   dependencies:
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/search" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/tree" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/search" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/data-model@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model/-/@activeviam/data-model-5.0.1.tgz#633b3241c1351d25a917f7df18fc38117d9ada01"
-  integrity sha1-YzsyQcE1HSWpF/ffGPw4EX2a2gE=
+"@activeviam/data-model@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model/-/@activeviam/data-model-5.0.6-20211217124725-2ee3cb0.tgz#9e8319a4a30c22c2b03db3c54bd6dba11acd8566"
+  integrity sha1-noMZpKMMIsKwPbPFS9bboRrNhWY=
   dependencies:
     "@types/lodash" "^4.14.168"
     lodash "^4.17.15"
     ts-essentials "^6.0.5"
 
-"@activeviam/data-visualization@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-visualization/-/@activeviam/data-visualization-5.0.1.tgz#20c21df669c6c0d8a4c4e18f9524c9ff6fed8632"
-  integrity sha1-IMId9mnGwNikxOGPlSTJ/2/thjI=
+"@activeviam/data-visualization@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-visualization/-/@activeviam/data-visualization-5.0.6-20211217124725-2ee3cb0.tgz#149145ad59c3bdb7ae9959399cbf169d598aa629"
+  integrity sha1-FJFFrVnDvbeumVk5nL8WnVmKpik=
   dependencies:
-    "@activeviam/action" "5.0.1"
-    "@activeviam/calculated-measures" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/editor" "5.0.1"
-    "@activeviam/filters" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/calculated-measures" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/filters" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     immer "^8.0.0"
     lodash "^4.17.15"
@@ -293,36 +285,66 @@
     react-error-boundary "^3.0.2"
     redux-undo "^1.0.1"
 
-"@activeviam/editor@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/editor/-/@activeviam/editor-5.0.1.tgz#e7fe3c4f9616c3234bc6abf25c93faa85ebc8da7"
-  integrity sha1-5/48T5YWwyNLxqvyXJP6qF68jac=
+"@activeviam/drawer-style-editor@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/drawer-style-editor/-/@activeviam/drawer-style-editor-5.0.6-20211217124725-2ee3cb0.tgz#b93f02772e26e2dee32d464a70ddcafec3af51a7"
+  integrity sha1-uT8Cdy4m4t7jLUZKcN3K/sOvUac=
   dependencies:
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/theme" "5.0.1"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/drawer" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
+    "@ant-design/icons" "^4.4.0"
+    "@emotion/core" "^10.0.27"
+    "@testing-library/jest-dom" "^5.9.0"
+    "@testing-library/react" "^10.2.0"
+    "@testing-library/user-event" "13.0.16"
+    immer "^8.0.0"
+    lodash "^4.17.15"
+
+"@activeviam/drawer@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/drawer/-/@activeviam/drawer-5.0.6-20211217124725-2ee3cb0.tgz#65d7c4f80917a7b8b8ded1804831f35f75fa045c"
+  integrity sha1-ZdfE+AkXp7i43tGASDHzX3X6BFw=
+  dependencies:
+    "@ant-design/icons" "^4.4.0"
+    react "^17.0.0"
+    tree-to-flat-map "^1.0.1"
+
+"@activeviam/editor@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/editor/-/@activeviam/editor-5.0.6-20211217124725-2ee3cb0.tgz#586a8d136dd3a5c0cf43253aebe3457a73f4ee58"
+  integrity sha1-WGqNE23TpcDPQyU66+NFenP07lg=
+  dependencies:
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     lodash "^4.17.15"
     monaco-editor "^0.21.2"
 
-"@activeviam/filters@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/filters/-/@activeviam/filters-5.0.1.tgz#98b1b2675c4362ed99d8c8ffb18fbba171baef92"
-  integrity sha1-mLGyZ1xDYu2Z2Mj/sY+7oXG675I=
+"@activeviam/filters@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/filters/-/@activeviam/filters-5.0.6-20211217124725-2ee3cb0.tgz#202167960b93d79a68adedfb193f12d6564c66d8"
+  integrity sha1-ICFnlguT15pore37GT8S1lZMZtg=
   dependencies:
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/content-client" "5.0.1"
-    "@activeviam/content-tree" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/members-tree" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/tree" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/content-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/content-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/members-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@ant-design/icons" "^4.4.0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
@@ -332,10 +354,10 @@
     lodash "^4.17.15"
     react-window "^1.8.5"
 
-"@activeviam/icons@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/icons/-/@activeviam/icons-5.0.1.tgz#e6cb67855c11224d11f701e7236d467b065d2ab9"
-  integrity sha1-5stnhVwRIk0R9wHnI21GewZdKrk=
+"@activeviam/icons@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/icons/-/@activeviam/icons-5.0.6-20211217124725-2ee3cb0.tgz#b6506ba9cb6f398c49bf32b62e5ed6577af8564d"
+  integrity sha1-tlBrqctvOYxJvzK2Ll7WV3r4Vk0=
   dependencies:
     "@types/dedent" "^0.7.0"
     "@types/fs-extra" "^9.0.1"
@@ -344,93 +366,135 @@
     "@types/react-dom" "^16.9.8"
     tslib "^2.0.0"
 
-"@activeviam/kpi@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/kpi/-/@activeviam/kpi-5.0.1.tgz#c20ef759b85facf5a11b51b113da9fe5e5c162ec"
-  integrity sha1-wg73WbhfrPWhG1GxE9qf5eXBYuw=
+"@activeviam/kpi@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/kpi/-/@activeviam/kpi-5.0.6-20211217124725-2ee3cb0.tgz#f0dfe015a406f609befdcffa4017f4cacefa3b98"
+  integrity sha1-8N/gFaQG9gm+/c/6QBf0ys76O5g=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/mdx-lexer@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.0.1.tgz#85d55ca6f8522746d78a3e998024cd7fa6f8f69f"
-  integrity sha1-hdVcpvhSJ0bXij6ZgCTNf6b49p8=
+"@activeviam/mdx-lexer@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.0.6-20211217124725-2ee3cb0.tgz#37ec7e00927470111343e6d1695bd50eb47ca5e1"
+  integrity sha1-N+x+AJJ0cBETQ+bRaVvVDrR8peE=
 
-"@activeviam/mdx-parser@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.0.1.tgz#852fb3909c1eef5fef4106d4806ad36c58975229"
-  integrity sha1-hS+zkJwe71/vQQbUgGrTbFiXUik=
+"@activeviam/mdx-parser@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.0.6-20211217124725-2ee3cb0.tgz#b2aba70e5ede813085a98c526be58600a57efa01"
+  integrity sha1-squnDl7egTCFqYxSa+WGAKV++gE=
 
-"@activeviam/mdx@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.0.1.tgz#ca7c9ea7f5d05334433d2b3a14f7483c4e758ff1"
-  integrity sha1-ynyep/XQUzRDPSs6FPdIPE51j/E=
+"@activeviam/mdx@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.0.6-20211217124725-2ee3cb0.tgz#4dd1b10dbed978af4fba815624cc4227cdf58f1b"
+  integrity sha1-TdGxDb7ZeK9PuoFWJMxCJ831jxs=
   dependencies:
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/mdx-lexer" "5.0.1"
-    "@activeviam/mdx-parser" "5.0.1"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx-lexer" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx-parser" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     immer "^8.0.0"
     lodash "^4.17.15"
     utility-types "^3.10.0"
 
-"@activeviam/members-tree@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/members-tree/-/@activeviam/members-tree-5.0.1.tgz#5cd4ff0b40fb17a3a7d25b1467a7ab51a01f8f4e"
-  integrity sha1-XNT/C0D7F6On0lsUZ6erUaAfj04=
+"@activeviam/members-tree@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/members-tree/-/@activeviam/members-tree-5.0.6-20211217124725-2ee3cb0.tgz#1558164f140cc982b90338426eab2260d1c7e1dc"
+  integrity sha1-FVgWTxQMyYK5AzhCbqsiYNHH4dw=
   dependencies:
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/tree" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     immer "^8.0.0"
     lodash "^4.17.15"
 
-"@activeviam/menu-item@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/menu-item/-/@activeviam/menu-item-5.0.1.tgz#cc8c2c5b47122b85746612c13a4706c2977e0f36"
-  integrity sha1-zIwsW0cSK4V0ZhLBOkcGwpd+DzY=
+"@activeviam/plugin-cell-style@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style/-/@activeviam/plugin-cell-style-5.0.6-20211217124725-2ee3cb0.tgz#963c792281ea883d24c067bd97769dba9a61a26a"
+  integrity sha1-ljx5IoHqiD0kwGe9l3adupphomo=
   dependencies:
-    "@activeviam/selection" "5.0.1"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/plugin-widget-drillthrough-table@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-drillthrough-table/-/@activeviam/plugin-widget-drillthrough-table-5.0.1.tgz#547a4d2ec8e9d17d2544fd0110ec91dd7d2d651f"
-  integrity sha1-VHpNLsjp0X0lRP0BEOyR3X0tZR8=
+"@activeviam/plugin-cell@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell/-/@activeviam/plugin-cell-5.0.6-20211217124725-2ee3cb0.tgz#803ecba7fc87a9ffe0a73dc5e781a3b2d51f2823"
+  integrity sha1-gD7Lp/yHqf/gpz3F54GjstUfKCM=
   dependencies:
-    "@activeviam/cell" "5.0.1"
-    "@activeviam/cell-style" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/table" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/tree" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@types/lodash" "^4.14.168"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+
+"@activeviam/plugin-menu-item@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item/-/@activeviam/plugin-menu-item-5.0.6-20211217124725-2ee3cb0.tgz#652e6de5c9a2ca596144bc4dec021fa5a7f383fe"
+  integrity sha1-ZS5t5cmiyllhRLxN7AIfpafzg/4=
+  dependencies:
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@types/lodash" "^4.14.168"
+    "@types/react" "^16.9.34"
+    lodash "^4.17.15"
+
+"@activeviam/plugin-selection-listener@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-selection-listener/-/@activeviam/plugin-selection-listener-5.0.6-20211217124725-2ee3cb0.tgz#ed8acb2c08f98606e3c397b02def322800d113e8"
+  integrity sha1-7YrLLAj5hgbjw5ewLe8yKADRE+g=
+  dependencies:
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    react-error-boundary "^3.0.2"
+
+"@activeviam/plugin-titlebar-button@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button/-/@activeviam/plugin-titlebar-button-5.0.6-20211217124725-2ee3cb0.tgz#00f8a39d27be4038319bcc2f4ae605a16ce95ec7"
+  integrity sha1-APijnSe+QDgxm8wvSuYFoWzpXsc=
+  dependencies:
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    "@types/react" "^16.9.34"
+
+"@activeviam/plugin-widget-drillthrough-table@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-drillthrough-table/-/@activeviam/plugin-widget-drillthrough-table-5.0.6-20211217124725-2ee3cb0.tgz#2a37d96fc2552c401b16bc044752b4fa5040816f"
+  integrity sha1-KjfZb8JVLEAbFrwER1K0+lBAgW8=
+  dependencies:
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell-style" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     bowser "^2.8.1"
@@ -439,70 +503,73 @@
     lodash "^4.17.15"
     react-error-boundary "^3.0.2"
 
-"@activeviam/plugin-widget-kpi@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-kpi/-/@activeviam/plugin-widget-kpi-5.0.1.tgz#46a58d1031596ca49b674a17b019ddd47d38cfe6"
-  integrity sha1-RqWNEDFZbKSbZ0oXsBnd1H04z+Y=
+"@activeviam/plugin-widget-kpi@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-kpi/-/@activeviam/plugin-widget-kpi-5.0.6-20211217124725-2ee3cb0.tgz#f63611246a229b707f45b67f293a31fb561b71ad"
+  integrity sha1-9jYRJGoim3B/RbZ/KTox+1Ybca0=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/filters" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/kpi" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/filters" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/kpi" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
     react-error-boundary "^3.0.2"
 
-"@activeviam/plugin-widget-pivot-table@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-pivot-table/-/@activeviam/plugin-widget-pivot-table-5.0.1.tgz#ff87741e4f89407daaa8ff29a7a4465d63bd88cd"
-  integrity sha1-/4d0Hk+JQH2qqP8pp6RGXWO9iM0=
+"@activeviam/plugin-widget-pivot-table@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-pivot-table/-/@activeviam/plugin-widget-pivot-table-5.0.6-20211217124725-2ee3cb0.tgz#c7693d945669159927d98e060ee9555bc02d9ac1"
+  integrity sha1-x2k9lFZpFZkn2Y4GDulVW8AtmsE=
   dependencies:
-    "@activeviam/cell" "5.0.1"
-    "@activeviam/cell-style" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/editor" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/table" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/drawer-style-editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell-style" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
     shallowequal "^1.1.0"
 
-"@activeviam/plugin-widget-plotly-100-stacked-area@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-area/-/@activeviam/plugin-widget-plotly-100-stacked-area-5.0.1.tgz#9ef8ccfd949bb9e025eb637798bacc220d69cdf3"
-  integrity sha1-nvjM/ZSbueAl62N3mLrMIg1pzfM=
+"@activeviam/plugin-widget-plotly-100-stacked-area@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-area/-/@activeviam/plugin-widget-plotly-100-stacked-area-5.0.6-20211217124725-2ee3cb0.tgz#e9b2847e69f2cc1b933a6639247786ccb15990a6"
+  integrity sha1-6bKEfmnyzBuTOmY5JHeGzLFZkKY=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-100-stacked-columns" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-area" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-100-stacked-columns" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-area" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -510,20 +577,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-100-stacked-bars@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-bars/-/@activeviam/plugin-widget-plotly-100-stacked-bars-5.0.1.tgz#ecb6407838c8b4c87c7eeb75e291633dafe0fc1e"
-  integrity sha1-7LZAeDjItMh8fut14pFjPa/g/B4=
+"@activeviam/plugin-widget-plotly-100-stacked-bars@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-bars/-/@activeviam/plugin-widget-plotly-100-stacked-bars-5.0.6-20211217124725-2ee3cb0.tgz#1aef44e0127a3fcba2d20559858fcfe8a6a609c8"
+  integrity sha1-Gu9E4BJ6P8ui0gVZhY/P6KamCcg=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -531,20 +598,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-100-stacked-columns@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-columns/-/@activeviam/plugin-widget-plotly-100-stacked-columns-5.0.1.tgz#7f8d880d29e98c6b179e2827aa19ed76a07baa8c"
-  integrity sha1-f42IDSnpjGsXnignqhntdqB7qow=
+"@activeviam/plugin-widget-plotly-100-stacked-columns@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-columns/-/@activeviam/plugin-widget-plotly-100-stacked-columns-5.0.6-20211217124725-2ee3cb0.tgz#973874fa7662ca5c01d9978b45c3fa2fb117fdeb"
+  integrity sha1-lzh0+nZiylwB2ZeLRcP6L7EX/es=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -552,18 +619,18 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-area@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-area/-/@activeviam/plugin-widget-plotly-area-5.0.1.tgz#92f9b5d17a1e5fa3fc4204471d33d6aa21c5c5fa"
-  integrity sha1-kvm10XoeX6P8QgRHHTPWqiHFxfo=
+"@activeviam/plugin-widget-plotly-area@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-area/-/@activeviam/plugin-widget-plotly-area-5.0.6-20211217124725-2ee3cb0.tgz#0bd7ba908359afb4f5d782e35d77aa730f2fe86d"
+  integrity sha1-C9e6kINZr7T114LjXXeqcw8v6G0=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-line" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-line" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -571,18 +638,18 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-bullet@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-bullet/-/@activeviam/plugin-widget-plotly-bullet-5.0.1.tgz#1590fc2c47f84a56452f5de37f6a6f5dd72b673a"
-  integrity sha1-FZD8LEf4SlZFL13jf2pvXdcrZzo=
+"@activeviam/plugin-widget-plotly-bullet@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-bullet/-/@activeviam/plugin-widget-plotly-bullet-5.0.6-20211217124725-2ee3cb0.tgz#fffb6ec2d350245820a4e81e07661700810dcbb4"
+  integrity sha1-//tuwtNQJFggpOgeB2YXAIENy7Q=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-gauge" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-gauge" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -590,20 +657,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-clustered-bars@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-bars/-/@activeviam/plugin-widget-plotly-clustered-bars-5.0.1.tgz#733b8c9ab7d11318473db0e52749a3d8dbb483c3"
-  integrity sha1-czuMmrfRExhHPbDlJ0mj2Nu0g8M=
+"@activeviam/plugin-widget-plotly-clustered-bars@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-bars/-/@activeviam/plugin-widget-plotly-clustered-bars-5.0.6-20211217124725-2ee3cb0.tgz#c223938f11c8b75004b2cddf75e5b63f3ce6af2c"
+  integrity sha1-wiOTjxHIt1AEss3fdeW2Pzzmryw=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -611,20 +678,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-clustered-columns@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-columns/-/@activeviam/plugin-widget-plotly-clustered-columns-5.0.1.tgz#1c1d855e58d30da5d395e86c78a3d755cebd3f78"
-  integrity sha1-HB2FXljTDaXTlehseKPXVc69P3g=
+"@activeviam/plugin-widget-plotly-clustered-columns@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-columns/-/@activeviam/plugin-widget-plotly-clustered-columns-5.0.6-20211217124725-2ee3cb0.tgz#222e59e95eabb6466f270f87a93a8f8aa4d343f4"
+  integrity sha1-Ii5Z6V6rtkZvJw+HqTqPiqTTQ/Q=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -632,17 +699,17 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-combo@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-combo/-/@activeviam/plugin-widget-plotly-combo-5.0.1.tgz#5b6d7f2438d4e30b579cae1c4bb8d0aef2ede02c"
-  integrity sha1-W21/JDjU4wtXnK4cS7jQrvLt4Cw=
+"@activeviam/plugin-widget-plotly-combo@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-combo/-/@activeviam/plugin-widget-plotly-combo-5.0.6-20211217124725-2ee3cb0.tgz#d3f0268fdd3157638b47d79e6baa6b19f0e973f8"
+  integrity sha1-0/Amj90xV2OLR9eea6prGfDpc/g=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -650,18 +717,18 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-donut@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-donut/-/@activeviam/plugin-widget-plotly-donut-5.0.1.tgz#aaba33b85a3ce1861416dc2a64391a3c479ead0a"
-  integrity sha1-qrozuFo84YYUFtwqZDkaPEeerQo=
+"@activeviam/plugin-widget-plotly-donut@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-donut/-/@activeviam/plugin-widget-plotly-donut-5.0.6-20211217124725-2ee3cb0.tgz#79ad6f05345a5973fb873c892ac44744815b9714"
+  integrity sha1-ea1vBTRaWXP7hzyJKsRHRIFblxQ=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-pie" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-pie" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -669,18 +736,18 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-gauge@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-gauge/-/@activeviam/plugin-widget-plotly-gauge-5.0.1.tgz#9371b99f61090d5a0c2f785fcd326aa198a9c8a9"
-  integrity sha1-k3G5n2EJDVoML3hfzTJqoZipyKk=
+"@activeviam/plugin-widget-plotly-gauge@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-gauge/-/@activeviam/plugin-widget-plotly-gauge-5.0.6-20211217124725-2ee3cb0.tgz#79ea718c9356ff7d1b1572b08079c087b0ff9c66"
+  integrity sha1-eepxjJNW/30bFXKwgHnAh7D/nGY=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -688,20 +755,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-line@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-line/-/@activeviam/plugin-widget-plotly-line-5.0.1.tgz#ab3f19ea073ee25d824f8bfc7c8340be202f9746"
-  integrity sha1-qz8Z6gc+4l2CT4v8fINAviAvl0Y=
+"@activeviam/plugin-widget-plotly-line@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-line/-/@activeviam/plugin-widget-plotly-line-5.0.6-20211217124725-2ee3cb0.tgz#691fac7b278a4638cb74c126eed6b798e4307110"
+  integrity sha1-aR+seyeKRjjLdMEm7ta3mOQwcRA=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
@@ -711,16 +778,16 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-pie@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-pie/-/@activeviam/plugin-widget-plotly-pie-5.0.1.tgz#6eb7b27bad5ad8bfb75235e22410268e96063292"
-  integrity sha1-breye61a2L+3UjXiJBAmjpYGMpI=
+"@activeviam/plugin-widget-plotly-pie@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-pie/-/@activeviam/plugin-widget-plotly-pie-5.0.6-20211217124725-2ee3cb0.tgz#e4010a80d341bfeb589ab195ea2c389e328dee86"
+  integrity sha1-5AEKgNNBv+tYmrGV6iw4njKN7oY=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/dashboard" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -728,19 +795,19 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-radar@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-radar/-/@activeviam/plugin-widget-plotly-radar-5.0.1.tgz#17439c12a74687d10296559fd3d25375d72c5c3a"
-  integrity sha1-F0OcEqdGh9ECllWf09JTddcsXDo=
+"@activeviam/plugin-widget-plotly-radar@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-radar/-/@activeviam/plugin-widget-plotly-radar-5.0.6-20211217124725-2ee3cb0.tgz#84ca356f764fe1311cc3c8ee004d8e687ade45b7"
+  integrity sha1-hMo1b3ZP4TEcw8juAE2OaHreRbc=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -748,17 +815,17 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-scatter@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-scatter/-/@activeviam/plugin-widget-plotly-scatter-5.0.1.tgz#b7014c2163e21a2567c39aef32336fc9dd11a673"
-  integrity sha1-twFMIWPiGiVnw5rvMjNvyd0RpnM=
+"@activeviam/plugin-widget-plotly-scatter@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-scatter/-/@activeviam/plugin-widget-plotly-scatter-5.0.6-20211217124725-2ee3cb0.tgz#4a4fe0f892a4cb6227e1634db35b6ff197f5fd6f"
+  integrity sha1-Sk/g+JKky2In4WNNs1tv8Zf1/W8=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/dashboard" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/translation" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -766,18 +833,18 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-stacked-area@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-area/-/@activeviam/plugin-widget-plotly-stacked-area-5.0.1.tgz#dc625d7fce4f35f0f7beb0625efd473f2033a9e7"
-  integrity sha1-3GJdf85PNfD3vrBiXv1HPyAzqec=
+"@activeviam/plugin-widget-plotly-stacked-area@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-area/-/@activeviam/plugin-widget-plotly-stacked-area-5.0.6-20211217124725-2ee3cb0.tgz#3cec471cc2145a5e1cf51d62209af4947f5cff7a"
+  integrity sha1-POxHHMIUWl4c9R1iIJr0lH9c/3o=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-line" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-line" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -785,19 +852,19 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-stacked-bars@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-bars/-/@activeviam/plugin-widget-plotly-stacked-bars-5.0.1.tgz#e576bf70c1aea2e473d2a588ba8a18aa4d4c1245"
-  integrity sha1-5Xa/cMGuouRz0qWIuooYqk1MEkU=
+"@activeviam/plugin-widget-plotly-stacked-bars@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-bars/-/@activeviam/plugin-widget-plotly-stacked-bars-5.0.6-20211217124725-2ee3cb0.tgz#62bc54ba57444ec1115b576a7fa1afbfe3600fce"
+  integrity sha1-YrxUuldETsERW1dqf6Gvv+NgD84=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -805,19 +872,19 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-stacked-columns@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-columns/-/@activeviam/plugin-widget-plotly-stacked-columns-5.0.1.tgz#fa8a41dc844c866bb7e4a1ee80562b27469544b8"
-  integrity sha1-+opB3IRMhmu35KHugFYrJ0aVRLg=
+"@activeviam/plugin-widget-plotly-stacked-columns@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-columns/-/@activeviam/plugin-widget-plotly-stacked-columns-5.0.6-20211217124725-2ee3cb0.tgz#93ca7d12631a9d4bd33c2e570f55f19005f31019"
+  integrity sha1-k8p9EmManUvTPC5XD1XxkAXzEBk=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -825,17 +892,17 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-treemap@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-treemap/-/@activeviam/plugin-widget-plotly-treemap-5.0.1.tgz#1e3bc5e58e88ed879bd33491d6884e25e9c4d81e"
-  integrity sha1-HjvF5Y6I7Yeb0zSR1ohOJenE2B4=
+"@activeviam/plugin-widget-plotly-treemap@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-treemap/-/@activeviam/plugin-widget-plotly-treemap-5.0.6-20211217124725-2ee3cb0.tgz#2bb10e6844cb7a5c98e69487853c6e812557268d"
+  integrity sha1-K7EOaETLelyY5pSHhTxugSVXJo0=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -843,20 +910,20 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-plotly-waterfall@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-waterfall/-/@activeviam/plugin-widget-plotly-waterfall-5.0.1.tgz#8f9992330d4547e14091fe5dd86e19e837193c11"
-  integrity sha1-j5mSMw1FR+FAkf5d2G4Z6DcZPBE=
+"@activeviam/plugin-widget-plotly-waterfall@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-waterfall/-/@activeviam/plugin-widget-plotly-waterfall-5.0.6-20211217124725-2ee3cb0.tgz#fea4f7d71df95ef2f846f28fcf937c21516433f7"
+  integrity sha1-/qT31x35XvL4RvKPz5N8IVFkM/c=
   dependencies:
-    "@activeviam/chart" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/chart" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/lodash" "^4.14.168"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^16.9.34"
@@ -864,43 +931,45 @@
     plotly.js "^1.58.3"
     react-plotly.js "^2.5.1"
 
-"@activeviam/plugin-widget-quick-filter@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-quick-filter/-/@activeviam/plugin-widget-quick-filter-5.0.1.tgz#01945997cd0670a54410f8891694bb3fbd2b62eb"
-  integrity sha1-AZRZl80GcKVEEPiJFpS7P70rYus=
+"@activeviam/plugin-widget-quick-filter@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-quick-filter/-/@activeviam/plugin-widget-quick-filter-5.0.6-20211217124725-2ee3cb0.tgz#a129d6bb6290e3a1bb70d81fe84ad1af71c1146d"
+  integrity sha1-oSnWu2KQ46G7cNgf6ErRr3HBFG0=
   dependencies:
-    "@activeviam/activepivot-client" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/filters" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/filters" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/members-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     immer "^8.0.0"
     lodash "^4.17.15"
 
-"@activeviam/plugin-widget-table@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-table/-/@activeviam/plugin-widget-table-5.0.1.tgz#38343fc10ba9485b9d7b22fb5f7051b63189bf3a"
-  integrity sha1-ODQ/wQupSFudeyL7X3BRtjGJvzo=
+"@activeviam/plugin-widget-table@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-table/-/@activeviam/plugin-widget-table-5.0.6-20211217124725-2ee3cb0.tgz#fce8f0d91b3db86571cf2889512b3379dddc20f6"
+  integrity sha1-/Ojw2Rs9uGVxzyiJUSszed3cIPY=
   dependencies:
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-pivot-table" "5.0.1"
-    "@activeviam/table" "5.0.1"
+    "@activeviam/drawer-style-editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-pivot-table" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table" "5.0.6-20211217124725-2ee3cb0"
 
-"@activeviam/plugin-widget-text-editor@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-text-editor/-/@activeviam/plugin-widget-text-editor-5.0.1.tgz#091fc2c5da2d6c23a7447d510c7e0c03123ee330"
-  integrity sha1-CR/CxdotbCOnRH1RDH4MAxI+4zA=
+"@activeviam/plugin-widget-text-editor@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-text-editor/-/@activeviam/plugin-widget-text-editor-5.0.6-20211217124725-2ee3cb0.tgz#7a5895470ac078bc255eee3293871dd57c75d71d"
+  integrity sha1-eliVRwrAeLwlXu4yk4cd1Xx11x0=
   dependencies:
-    "@activeviam/editor" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/theme" "5.0.1"
+    "@activeviam/editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     antd "4.12.2"
     katex "^0.13.11"
@@ -908,36 +977,52 @@
     marked "^2.0.5"
     react-intl "^5.8.6"
 
-"@activeviam/plugin-widget-tree-table@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-tree-table/-/@activeviam/plugin-widget-tree-table-5.0.1.tgz#a56a7355105324a9de437a2571e62f63aa2be180"
-  integrity sha1-pWpzVRBTJKneQ3olceYvY6or4YA=
+"@activeviam/plugin-widget-tree-table@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-tree-table/-/@activeviam/plugin-widget-tree-table-5.0.6-20211217124725-2ee3cb0.tgz#8ae7ff0ae64a3db6e799b554e67e9ba732c5ee29"
+  integrity sha1-iuf/CuZKPbbnmbVU5n6bpzLF7ik=
   dependencies:
-    "@activeviam/cell" "5.0.1"
-    "@activeviam/cell-style" "5.0.1"
-    "@activeviam/data-visualization" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/plugin-widget-pivot-table" "5.0.1"
-    "@activeviam/table" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/drawer-style-editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-cell-style" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget-pivot-table" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@types/react" "^16.9.34"
 
-"@activeviam/plugins-core@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugins-core/-/@activeviam/plugins-core-5.0.1.tgz#fa4f03006a49a6c8b38e6eb565f53fed0e07f30f"
-  integrity sha1-+k8DAGpJpsizjm61ZfU/7Q4H8w8=
+"@activeviam/plugin-widget@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget/-/@activeviam/plugin-widget-5.0.6-20211217124725-2ee3cb0.tgz#db419a4519ccabc3f2b305be054a57227d5a2c8f"
+  integrity sha1-20GaRRnMq8PyswW+BUpXIn1aLI8=
+  dependencies:
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    react-error-boundary "^3.0.2"
+
+"@activeviam/plugins-core@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugins-core/-/@activeviam/plugins-core-5.0.6-20211217124725-2ee3cb0.tgz#277e19780ab2366b07d6a4cc047a6987f228a5eb"
+  integrity sha1-J34ZeAqyNmsH1qTMBHpph/Iopes=
   dependencies:
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
     tree-to-flat-map "^1.0.1"
 
-"@activeviam/search@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/search/-/@activeviam/search-5.0.1.tgz#46986a793ad2660d0a13229a95d4555675e66a11"
-  integrity sha1-RphqeTrSZg0KEyKaldRVVnXmahE=
+"@activeviam/search@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/search/-/@activeviam/search-5.0.6-20211217124725-2ee3cb0.tgz#ab51de7c6ad8ca68e0575e9fdd6a02fe3249bea5"
+  integrity sha1-q1HefGrYymjgV16f3WoC/jJJvqU=
   dependencies:
-    "@activeviam/theme" "5.0.1"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -946,74 +1031,76 @@
     lodash "^4.17.15"
     talisman "^0.21.0"
 
-"@activeviam/selection@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/selection/-/@activeviam/selection-5.0.1.tgz#74a72414464b5bbe2b7e6979f17609a3bfa4ffd7"
-  integrity sha1-dKckFEZLW74rfml58XYJo7+k/9c=
+"@activeviam/selection@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/selection/-/@activeviam/selection-5.0.6-20211217124725-2ee3cb0.tgz#c6789ec0c4bb0a48093b1d00bd12f41c990c7a20"
+  integrity sha1-xniewMS7CkgJOx0AvRL0HJkMeiA=
   dependencies:
     "@types/react" "^16.9.34"
 
-"@activeviam/table@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table/-/@activeviam/table-5.0.1.tgz#6b322d10922c8d0cd04973d17c6ba75e70d399f3"
-  integrity sha1-azItEJIsjQzQSXPRfGunXnDTmfM=
+"@activeviam/table-core@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table-core/-/@activeviam/table-core-5.0.6-20211217124725-2ee3cb0.tgz#f10b7eb76ffc19c47afbcda973b20ba0a6d717a2"
+  integrity sha1-8Qt+t2/8GcR6+82pc7ILoKbXF6I=
   dependencies:
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/widget" "5.0.1"
+    "@activeviam/activepivot-client" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+
+"@activeviam/table@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table/-/@activeviam/table-5.0.6-20211217124725-2ee3cb0.tgz#0f907b1c71c606ebac5f6cf41bcf87e18ca62a44"
+  integrity sha1-D5B7HHHGBuusX2z0G8+H4YymKkQ=
+  dependencies:
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-visualization" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/table-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/widget" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     bowser "^2.8.1"
     immer "^8.0.0"
     lodash "^4.17.15"
-    react-scroll-sync "^0.8.0"
+    react-scroll-sync "0.9.0"
     react-use "^15.3.4"
 
-"@activeviam/tabs@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tabs/-/@activeviam/tabs-5.0.1.tgz#9ee440aebd02943ca2ce1694ebd18b50c1069cc3"
-  integrity sha1-nuRArr0ClDyizhaU69GLUMEGnMM=
+"@activeviam/tabs@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tabs/-/@activeviam/tabs-5.0.6-20211217124725-2ee3cb0.tgz#b4741ca41717b8b167e2e6fb402bfc0e3ec6c3b3"
+  integrity sha1-tHQcpBcXuLFn4ub7QCv8Dj7Gw7M=
   dependencies:
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/theme@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/theme/-/@activeviam/theme-5.0.1.tgz#43392bb2c173669865d07254b2149505e02f16a7"
-  integrity sha1-QzkrssFzZphl0HJUshSVBeAvFqc=
+"@activeviam/theme@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/theme/-/@activeviam/theme-5.0.6-20211217124725-2ee3cb0.tgz#3ff6411e19481efeb00453639f5f699da7e0f2f3"
+  integrity sha1-P/ZBHhlIHv6wBFNjn19pnafg8vM=
   dependencies:
-    "@activeviam/icons" "5.0.1"
+    "@activeviam/icons" "5.0.6-20211217124725-2ee3cb0"
     "@ant-design/colors" "^5.0.0"
     "@types/react" "^16.9.34"
 
-"@activeviam/titlebar-button@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/titlebar-button/-/@activeviam/titlebar-button-5.0.1.tgz#7d9f01c56fa7f5ee232fb49eaf68b4b0fad15925"
-  integrity sha1-fZ8BxW+n9e4jL7Ser2i0sPrRWSU=
+"@activeviam/translation@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/translation/-/@activeviam/translation-5.0.6-20211217124725-2ee3cb0.tgz#325e12579a724b62d2a1f9f34dd88400aa67ef29"
+  integrity sha1-Ml4SV5pyS2LSofnzTdiEAKpn7yk=
   dependencies:
-    "@activeviam/action" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/plugins-core" "5.0.1"
-    "@types/react" "^16.9.34"
-
-"@activeviam/translation@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/translation/-/@activeviam/translation-5.0.1.tgz#497a69a6699f7fe69c2be1eb898d06d9ae038df6"
-  integrity sha1-SXpppmmff+acK+HriY0G2a4DjfY=
-  dependencies:
-    "@activeviam/utils" "5.0.1"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
     "@types/fs-extra" "^9.0.1"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -1021,17 +1108,17 @@
     lodash "^4.17.15"
     tree-to-flat-map "^1.0.1"
 
-"@activeviam/tree@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tree/-/@activeviam/tree-5.0.1.tgz#7b41f121c6d89a8b8eb4670cab8bfe5b84dff013"
-  integrity sha1-e0HxIcbYmouOtGcMq4v+W4Tf8BM=
+"@activeviam/tree@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tree/-/@activeviam/tree-5.0.6-20211217124725-2ee3cb0.tgz#1eb7599ec29811d5e60c2986bdfe5a5896c5b44c"
+  integrity sha1-HrdZnsKYEdXmDCmGvf5aWJbFtEw=
   dependencies:
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/search" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/search" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -1039,21 +1126,21 @@
     lodash "^4.17.15"
     react-window "^1.8.5"
 
-"@activeviam/utils-react@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils-react/-/@activeviam/utils-react-5.0.1.tgz#7a71ac21992e43d61e6371fedaa8b012a0a6cf1c"
-  integrity sha1-enGsIZkuQ9YeY3H+2qiwEqCmzxw=
+"@activeviam/utils-react@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils-react/-/@activeviam/utils-react-5.0.6-20211217124725-2ee3cb0.tgz#703e59e94d27ff651fc5bcfeac3db4140b269b50"
+  integrity sha1-cD5Z6U0n/2Ufxbz+rD20FAsmm1A=
   dependencies:
-    "@activeviam/utils" "5.0.1"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/utils@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils/-/@activeviam/utils-5.0.1.tgz#af6461f73245c416c1f1a2453f64bc016bfc9f06"
-  integrity sha1-r2Rh9zJFxBbB8aJFP2S8AWv8nwY=
+"@activeviam/utils@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils/-/@activeviam/utils-5.0.6-20211217124725-2ee3cb0.tgz#4e5d328bf37bce60dfb30c4665f37db237487083"
+  integrity sha1-Tl0yi/N7zmDfswxGZfN9sjdIcIM=
   dependencies:
     "@types/lodash" "^4.14.168"
     bowser "^2.8.1"
@@ -1061,42 +1148,43 @@
     lodash "^4.17.15"
     ts-essentials "^6.0.5"
 
-"@activeviam/widget@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/widget/-/@activeviam/widget-5.0.1.tgz#31b55b0d0f3334acf858201f35a438aa674f7599"
-  integrity sha1-MbVbDQ8zNKz4WCAfNaQ4qmdPdZk=
+"@activeviam/widget@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/widget/-/@activeviam/widget-5.0.6-20211217124725-2ee3cb0.tgz#8b9ce990b1dc591acbc587463706929c4f40b14d"
+  integrity sha1-i5zpkLHcWRrLxYdGNwaSnE9AsU0=
   dependencies:
-    "@activeviam/action" "5.0.1"
-    "@activeviam/client-react" "5.0.1"
-    "@activeviam/dashboard-base" "5.0.1"
-    "@activeviam/data-model" "5.0.1"
-    "@activeviam/data-model-tree" "5.0.1"
-    "@activeviam/editor" "5.0.1"
-    "@activeviam/filters" "5.0.1"
-    "@activeviam/icons" "5.0.1"
-    "@activeviam/mdx" "5.0.1"
-    "@activeviam/menu-item" "5.0.1"
-    "@activeviam/plugins-core" "5.0.1"
-    "@activeviam/search" "5.0.1"
-    "@activeviam/selection" "5.0.1"
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/translation" "5.0.1"
-    "@activeviam/utils" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
-    "@activeviam/wizard" "5.0.1"
+    "@activeviam/action" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/client-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/dashboard-base" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/data-model-tree" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/editor" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/filters" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/mdx" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-menu-item" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-selection-listener" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugin-widget" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/plugins-core" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/search" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/selection" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/translation" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/wizard" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/react" "^16.9.34"
     immer "^8.0.0"
     lodash "^4.17.15"
     react-error-boundary "^3.0.2"
 
-"@activeviam/wizard@5.0.1":
-  version "5.0.1"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/wizard/-/@activeviam/wizard-5.0.1.tgz#02de0dee660a0eee82ba941e02597e641e92ca7a"
-  integrity sha1-At4N7mYKDu6CupQeAll+ZB6Syno=
+"@activeviam/wizard@5.0.6-20211217124725-2ee3cb0":
+  version "5.0.6-20211217124725-2ee3cb0"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/wizard/-/@activeviam/wizard-5.0.6-20211217124725-2ee3cb0.tgz#fecd72a945e9d7f3d8c07dc730e14e56944a809c"
+  integrity sha1-/s1yqUXp1/PYwH3HMOFOVpRKgJw=
   dependencies:
-    "@activeviam/theme" "5.0.1"
-    "@activeviam/utils-react" "5.0.1"
+    "@activeviam/theme" "5.0.6-20211217124725-2ee3cb0"
+    "@activeviam/utils-react" "5.0.6-20211217124725-2ee3cb0"
     "@emotion/core" "^10.0.27"
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
@@ -1181,6 +1269,13 @@
   integrity sha512-9pzDqyc6OLDaqe+zbACgFkb6fKMNG6CObKpnYXChRsvYGyEdc7CA2BaqeOM+vOtCS5ndmJicPJhKAwYRI6UfFw==
   dependencies:
     "@babel/highlight" "^7.14.5"
+
+"@babel/code-frame@^7.10.4":
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.16.0.tgz#0dfc80309beec8411e65e706461c408b0bb9b431"
+  integrity sha512-IF4EOMEV+bfYwOmNxGzSnjR2EmQod7f1UXOpZM3l4i4o4QNwzjtJAu/HxdjHq0aYBvdqMuQEY1eg0nqW9ZPORA==
+  dependencies:
+    "@babel/highlight" "^7.16.0"
 
 "@babel/compat-data@^7.13.11", "@babel/compat-data@^7.14.7", "@babel/compat-data@^7.15.0":
   version "7.15.0"
@@ -1391,6 +1486,11 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
   integrity sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==
 
+"@babel/helper-validator-identifier@^7.15.7":
+  version "7.15.7"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.15.7.tgz#220df993bfe904a4a6b02ab4f3385a5ebf6e2389"
+  integrity sha512-K4JvCtQqad9OY2+yTU8w+E82ywk/fe+ELNlt1G8z3bVGlZfn/hOcQQsUhGhW/N+tb3fxK800wLtKOE/aM0m72w==
+
 "@babel/helper-validator-option@^7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-option/-/helper-validator-option-7.14.5.tgz#6e72a1fff18d5dfcb878e1e62f1a021c4b72d5a3"
@@ -1421,6 +1521,15 @@
   integrity sha512-qf9u2WFWVV0MppaL877j2dBtQIDgmidgjGk5VIMw3OadXvYaXn66U1BFlH2t4+t3i+8PhedppRv+i40ABzd+gg==
   dependencies:
     "@babel/helper-validator-identifier" "^7.14.5"
+    chalk "^2.0.0"
+    js-tokens "^4.0.0"
+
+"@babel/highlight@^7.16.0":
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.16.0.tgz#6ceb32b2ca4b8f5f361fb7fd821e3fddf4a1725a"
+  integrity sha512-t8MH41kUQylBtu2+4IQA3atqevA2lRgqA2wyVB/YiWmsDSuylZZuXOUy9ric30hfzauEFfdsuk/eXTRrGrfd0g==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.15.7"
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
@@ -2105,10 +2214,25 @@
     "@babel/helper-validator-option" "^7.14.5"
     "@babel/plugin-transform-typescript" "^7.15.0"
 
+"@babel/runtime-corejs3@^7.10.2":
+  version "7.16.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.16.5.tgz#9057d879720c136193f0440bc400088212a74894"
+  integrity sha512-F1pMwvTiUNSAM8mc45kccMQxj31x3y3P+tA/X8hKNWp3/hUsxdGxZ3D3H8JIkxtfA8qGkaBTKvcmvStaYseAFw==
+  dependencies:
+    core-js-pure "^3.19.0"
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.1", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.4", "@babel/runtime@^7.11.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.15.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
   integrity sha512-OvwMLqNXkCXSz1kSm58sEsNuhqOx/fKpnUnKnFB5v8uDda5bLNEHNgKPvhDN6IU0LDcnHQ90LlJ0Q6jnyBSIBA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.10.3":
+  version "7.16.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.5.tgz#7f3e34bf8bdbbadf03fbb7b1ea0d929569c9487a"
+  integrity sha512-TXWihFIS3Pyv5hzR7j6ihmeLkZfrXGxAr5UfSl8CHf+6q/wpiYDkUau0czckpYG8QmnCIuPpdLtuA9VmuGGyMA==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -2336,6 +2460,18 @@
     intl-messageformat "9.9.1"
     tslib "^2.1.0"
 
+"@hapi/hoek@^9.0.0":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.1.tgz#9551142a1980503752536b5050fd99f4a7f13b17"
+  integrity sha512-gfta+H8aziZsm8pZa0vj04KO6biEiisppNgA1kbJvFrrWu9Vm7eaUEy76DIxsuTaWvti5fkJVhllWc6ZTE+Mdw==
+
+"@hapi/topo@^5.0.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-5.1.0.tgz#dc448e332c6c6e37a4dc02fd84ba8d44b9afb012"
+  integrity sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
@@ -2535,6 +2671,17 @@
     "@types/istanbul-reports" "^3.0.0"
     "@types/node" "*"
     "@types/yargs" "^15.0.0"
+    chalk "^4.0.0"
+
+"@jest/types@^27.4.2":
+  version "27.4.2"
+  resolved "https://registry.yarnpkg.com/@jest/types/-/types-27.4.2.tgz#96536ebd34da6392c2b7c7737d693885b5dd44a5"
+  integrity sha512-j35yw0PMTPpZsUoOBiuHzr1zTYoad1cVIE0ajEjcrJONxxrko/IRGKkXx3os0Nsi4Hu3+5VmDbVfq5WhG/pWAg==
+  dependencies:
+    "@types/istanbul-lib-coverage" "^2.0.0"
+    "@types/istanbul-reports" "^3.0.0"
+    "@types/node" "*"
+    "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
 "@mapbox/geojson-rewind@^0.5.0":
@@ -2737,6 +2884,23 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@sideway/address@^4.1.3":
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.3.tgz#d93cce5d45c5daec92ad76db492cc2ee3c64ab27"
+  integrity sha512-8ncEUtmnTsMmL7z1YPB47kPUq7LpKWJNFPsRzHiIajGC5uXlWGn+AmkYPcHNl8S4tcEGx+cnORnNYaw2wvL+LQ==
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
+
+"@sideway/formula@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@sideway/formula/-/formula-3.0.0.tgz#fe158aee32e6bd5de85044be615bc08478a0a13c"
+  integrity sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg==
+
+"@sideway/pinpoint@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
+  integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.3.tgz#3802ddd21a50a949b6721ddd72da36e67e7f1b2d"
@@ -2750,6 +2914,50 @@
   integrity sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
+
+"@testing-library/dom@^7.22.3":
+  version "7.31.2"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.31.2.tgz#df361db38f5212b88555068ab8119f5d841a8c4a"
+  integrity sha512-3UqjCpey6HiTZT92vODYLPxTBWlM8ZOOjr3LX5F37/VRipW2M1kX6I/Cm4VXzteZqfGfagg8yXywpcOgQBlNsQ==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@babel/runtime" "^7.12.5"
+    "@types/aria-query" "^4.2.0"
+    aria-query "^4.2.2"
+    chalk "^4.1.0"
+    dom-accessibility-api "^0.5.6"
+    lz-string "^1.4.4"
+    pretty-format "^26.6.2"
+
+"@testing-library/jest-dom@^5.9.0":
+  version "5.16.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.16.1.tgz#3db7df5ae97596264a7da9696fe14695ba02e51f"
+  integrity sha512-ajUJdfDIuTCadB79ukO+0l8O+QwN0LiSxDaYUTI4LndbbUsGi6rWU1SCexXzBA2NSjlVB9/vbkasQIL3tmPBjw==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    "@types/testing-library__jest-dom" "^5.9.1"
+    aria-query "^5.0.0"
+    chalk "^3.0.0"
+    css "^3.0.0"
+    css.escape "^1.5.1"
+    dom-accessibility-api "^0.5.6"
+    lodash "^4.17.15"
+    redent "^3.0.0"
+
+"@testing-library/react@^10.2.0":
+  version "10.4.9"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.9.tgz#9faa29c6a1a217bf8bbb96a28bd29d7a847ca150"
+  integrity sha512-pHZKkqUy0tmiD81afs8xfiuseXfU/N7rAX3iKjeZYje86t9VaB0LrxYVa+OOsvkrveX5jCK3IjajVn2MbePvqA==
+  dependencies:
+    "@babel/runtime" "^7.10.3"
+    "@testing-library/dom" "^7.22.3"
+
+"@testing-library/user-event@13.0.16":
+  version "13.0.16"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-13.0.16.tgz#c027a9656f1984cf05f9c94c8f7168c06e85792c"
+  integrity sha512-plXL8lGR2H0xm0fHE0Dfz37ke2UtBI1wAmaWIo6BP7+pGt+BxdBQrITHAMGcac0a3PtBi5CXNPth8S53ISO1Ew==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -2791,6 +2999,11 @@
   integrity sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==
   dependencies:
     "@turf/helpers" "^6.5.0"
+
+"@types/aria-query@^4.2.0":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
+  integrity sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==
 
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.15"
@@ -2914,6 +3127,14 @@
   integrity sha512-c3mAZEuK0lvBp8tmuL74XRKn1+y2dcwOUpH7x4WrF6gk1GIgiluDRgMYQtw2OFcBvAJWlt6ASU3tSqxp0Uu0Aw==
   dependencies:
     "@types/istanbul-lib-report" "*"
+
+"@types/jest@*":
+  version "27.0.3"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-27.0.3.tgz#0cf9dfe9009e467f70a342f0f94ead19842a783a"
+  integrity sha512-cmmwv9t7gBYt7hNKH5Spu7Kuu/DotGa+Ff+JGRKZ4db5eh8PnKS4LuebJ3YLUoyOyIHraTGyULn23YtEAm0VSg==
+  dependencies:
+    jest-diff "^27.0.0"
+    pretty-format "^27.0.0"
 
 "@types/jest@^26.0.14":
   version "26.0.24"
@@ -3039,6 +3260,13 @@
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.8.tgz#b94a4391c85666c7b73299fd3ad79d4faa435310"
   integrity sha512-ipixuVrh2OdNmauvtT51o3d8z12p6LtFW9in7U79der/kwejjdNchQC5UMn5u/KxNoM7VHHOs/l8KS8uHxhODQ==
 
+"@types/testing-library__jest-dom@^5.9.1":
+  version "5.14.2"
+  resolved "https://registry.yarnpkg.com/@types/testing-library__jest-dom/-/testing-library__jest-dom-5.14.2.tgz#564fb2b2dc827147e937a75b639a05d17ce18b44"
+  integrity sha512-vehbtyHUShPxIa9SioxDwCvgxukDMH//icJG90sXQBUm5lJOHLT5kNeU9tnivhnA/TkOFMzGIXN2cTc4hY8/kg==
+  dependencies:
+    "@types/jest" "*"
+
 "@types/uglify-js@*":
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.13.1.tgz#5e889e9e81e94245c75b6450600e1c5ea2878aea"
@@ -3054,6 +3282,15 @@
     "@types/node" "*"
     "@types/source-list-map" "*"
     source-map "^0.7.3"
+
+"@types/webpack-sources@^0.1.5":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@types/webpack-sources/-/webpack-sources-0.1.9.tgz#da69b06eb34f6432e6658acb5a6893c55d983920"
+  integrity sha512-bvzMnzqoK16PQIC8AYHNdW45eREJQMd6WG/msQWX5V2+vZmODCOPb4TJcbgRljTZZTwTM4wUMcsI8FftNA7new==
+  dependencies:
+    "@types/node" "*"
+    "@types/source-list-map" "*"
+    source-map "^0.6.1"
 
 "@types/webpack@^4.4.31":
   version "4.41.30"
@@ -3083,6 +3320,13 @@
   version "15.0.14"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-15.0.14.tgz#26d821ddb89e70492160b66d10a0eb6df8f6fb06"
   integrity sha512-yEJzHoxf6SyQGhBhIYGXQDSCkJjB6HohDShto7m8vaKg9Yp0Yn8+71J9eakh2bnPg6BfsH9PRMhiRTZnd4eXGQ==
+  dependencies:
+    "@types/yargs-parser" "*"
+
+"@types/yargs@^16.0.0":
+  version "16.0.4"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-16.0.4.tgz#26aad98dd2c2a38e421086ea9ad42b9e51642977"
+  integrity sha512-T8Yc9wt/5LbJyCaLiHPReJa0kApcIgJ7Bn735GjItUfh08Z1pJvu8QZqb9s+mMvKV6WUQRV7K2R46YbjMXTTJw==
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -3239,6 +3483,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zeit/schemas@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@zeit/schemas/-/schemas-2.6.0.tgz#004e8e553b4cd53d538bd38eac7bcbf58a867fe3"
+  integrity sha512-uUrgZ8AxS+Lio0fZKAipJjAh415JyrOZowliZAzmnJSsf7piVL5w+G0+gFJ0KSu3QRhvui/7zuvpLz03YjXAhg==
+
 a-big-triangle@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/a-big-triangle/-/a-big-triangle-1.0.3.tgz#eefd30b02a8f525e8b1f72bb6bb1b0c16751c794"
@@ -3343,7 +3592,7 @@ ajv-keywords@^3.1.0, ajv-keywords@^3.5.2:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.5.2.tgz#31f29da5ab6e00d1c2d329acf7b5929614d5014d"
   integrity sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
+ajv@6.12.6, ajv@^6.1.0, ajv@^6.10.0, ajv@^6.12.4, ajv@^6.12.5:
   version "6.12.6"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -3389,6 +3638,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+ansi-align@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"
+  integrity sha1-w2rsy6VjuJzrVW82kPCx2eNUf38=
+  dependencies:
+    string-width "^2.0.0"
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -3416,6 +3672,11 @@ ansi-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
   integrity sha1-w7M6te42DYbg5ijwRorn7yfWVN8=
 
+ansi-regex@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
+  integrity sha1-7QMXwyIGT3lGbAKWa922Bas32Zg=
+
 ansi-regex@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-4.1.0.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
@@ -3425,6 +3686,11 @@ ansi-regex@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
   integrity sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==
+
+ansi-regex@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
+  integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
 
 ansi-styles@^2.2.1:
   version "2.2.1"
@@ -3444,6 +3710,11 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   integrity sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
   dependencies:
     color-convert "^2.0.1"
+
+ansi-styles@^5.0.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
+  integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
 antd@4.12.2:
   version "4.12.2"
@@ -3509,12 +3780,35 @@ anymatch@^3.0.0, anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
+arch@^2.1.1:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/arch/-/arch-2.2.0.tgz#1bc47818f305764f23ab3306b0bfc086c5a29d11"
+  integrity sha512-Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==
+
+arg@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/arg/-/arg-2.0.0.tgz#c06e7ff69ab05b3a4a03ebe0407fac4cba657545"
+  integrity sha512-XxNTUzKnz1ctK3ZIcI2XUPlD96wbHP2nGqkPKpvk/HNRlPveYrXIVSTk9m3LcqOgDPg3B1nMvdV/K8wZd7PG4w==
+
 argparse@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+aria-query@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-4.2.2.tgz#0d2ca6c9aceb56b8977e9fed6aed7e15bbd2f83b"
+  integrity sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==
+  dependencies:
+    "@babel/runtime" "^7.10.2"
+    "@babel/runtime-corejs3" "^7.10.2"
+
+aria-query@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-5.0.0.tgz#210c21aaf469613ee8c9a62c7f86525e058db52c"
+  integrity sha512-V+SM7AbUwJ+EBnB8+DXs0hPZHO0W6pqBcc0dW90OwtVG02PswOu/teuARoLQjdDOH+t9pJgGnW5/Qmouf3gPJg==
 
 arr-diff@^4.0.0:
   version "4.0.0"
@@ -3651,6 +3945,13 @@ atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+
+axios@^0.21.1:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
 
 babel-jest@26.3.0:
   version "26.3.0"
@@ -3897,6 +4198,11 @@ bl@^2.2.1:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
+bluebird@3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+  integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
+
 bn.js@^4.11.6:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
@@ -3952,6 +4258,19 @@ box-intersect@^1.0.1:
   dependencies:
     bit-twiddle "^1.0.2"
     typedarray-pool "^1.1.0"
+
+boxen@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/boxen/-/boxen-1.3.0.tgz#55c6c39a8ba58d9c61ad22cd877532deb665a20b"
+  integrity sha512-TNPjfTr432qx7yOjQyaXm3dSR0MH9vXp7eT1BFSl/C51g+EFnOR9hTg1IreahGBmDNCehscshe45f+C1TBZbLw==
+  dependencies:
+    ansi-align "^2.0.0"
+    camelcase "^4.0.0"
+    chalk "^2.0.1"
+    cli-boxes "^1.0.0"
+    string-width "^2.0.0"
+    term-size "^1.2.0"
+    widest-line "^2.0.0"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -4120,6 +4439,11 @@ camel-case@^4.1.1:
     pascal-case "^3.1.2"
     tslib "^2.0.3"
 
+camelcase@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
+  integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
+
 camelcase@^5.0.0, camelcase@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
@@ -4173,7 +4497,16 @@ cell-orientation@^1.0.1:
   resolved "https://registry.yarnpkg.com/cell-orientation/-/cell-orientation-1.0.1.tgz#b504ad96a66ad286d9edd985a2253d03b80d2850"
   integrity sha1-tQStlqZq0obZ7dmFoiU9A7gNKFA=
 
-chalk@2.4.2, chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
+chalk@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
+  integrity sha512-ObN6h1v2fTJSmUXoS3nMQ92LbDK9be4TV+6G+omQlGJFdcUX5heKi1LZ1YnRMIgwTLEj3E24bT6tYni50rlCfQ==
+  dependencies:
+    ansi-styles "^3.2.1"
+    escape-string-regexp "^1.0.5"
+    supports-color "^5.3.0"
+
+chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -4193,6 +4526,14 @@ chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
@@ -4205,6 +4546,11 @@ char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
+
+check-more-types@2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/check-more-types/-/check-more-types-2.24.0.tgz#1420ffb10fd444dcfc79b43891bbfffd32a84600"
+  integrity sha1-FCD/sQ/URNz8ebQ4kbv//TKoRgA=
 
 chokidar@^2.1.8:
   version "2.1.8"
@@ -4328,10 +4674,24 @@ clean-webpack-plugin@^3.0.0:
     "@types/webpack" "^4.4.31"
     del "^4.1.1"
 
+cli-boxes@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cli-boxes/-/cli-boxes-1.0.0.tgz#4fa917c3e59c94a004cd61f8ee509da651687143"
+  integrity sha1-T6kXw+WclKAEzWH47lCdplFocUM=
+
 clipboard-polyfill@^3.0.1:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/clipboard-polyfill/-/clipboard-polyfill-3.0.3.tgz#159ea0768e20edc7ffda404bd13c54c73de4ff40"
   integrity sha512-hts0o01ZkwjA1qHA5gFePzAj/780W7v+eyN3GdaCRyDnapzcPsKRV5aodv77gcr40NDIcyNjNmc+HvfKV+jD0g==
+
+clipboardy@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-2.3.0.tgz#3c2903650c68e46a91b388985bc2774287dba290"
+  integrity sha512-mKhiIL2DrQIsuXMgBgnfEHOZOryC7kY7YO//TN6c63wlEm3NG5tz+YgY5rVi29KCmq/QQjKYvM7a19+MDOTHOQ==
+  dependencies:
+    arch "^2.1.1"
+    execa "^1.0.0"
+    is-wsl "^2.1.1"
 
 cliui@^5.0.0:
   version "5.0.0"
@@ -4579,12 +4939,25 @@ component-emitter@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
   integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
 
-compressible@~2.0.16:
+compressible@~2.0.14, compressible@~2.0.16:
   version "2.0.18"
   resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
   integrity sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
   dependencies:
     mime-db ">= 1.43.0 < 2"
+
+compression@1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.3.tgz#27e0e176aaf260f7f2c2813c3e440adb9f1993db"
+  integrity sha512-HSjyBG5N1Nnz7tF2+O7A9XUhyjru71/fwgNb7oIsEVHR0WShfs2tIS/EySLgiTe98aOK18YDlMXpzjCXY/n9mg==
+  dependencies:
+    accepts "~1.3.5"
+    bytes "3.0.0"
+    compressible "~2.0.14"
+    debug "2.6.9"
+    on-headers "~1.0.1"
+    safe-buffer "5.1.2"
+    vary "~1.1.2"
 
 compression@^1.7.4:
   version "1.7.4"
@@ -4652,6 +5025,11 @@ const-pinf-float64@^1.0.0:
   resolved "https://registry.yarnpkg.com/const-pinf-float64/-/const-pinf-float64-1.0.0.tgz#f6efb0d79f9c0986d3e79f2923abf9b70b63d726"
   integrity sha1-9u+w15+cCYbT558pI6v5twtj1yY=
 
+content-disposition@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/content-disposition/-/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
+  integrity sha1-DPaLud318r55YcOoUXjLhdunjLQ=
+
 content-disposition@0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/content-disposition/-/content-disposition-0.5.3.tgz#e130caf7e7279087c5616c2007d0485698984fbd"
@@ -4663,6 +5041,11 @@ content-type@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
+
+convert-array-to-csv@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/convert-array-to-csv/-/convert-array-to-csv-2.0.0.tgz#3a7f4548a169a3efc5857d0da28c5cfb57a93173"
+  integrity sha512-dxUINCt28k6WbXGMoB+AaKjGY0Y6GkKwZmT+kvD4nJgVCOKsnIQ3G6n0v2II1lG4NwXQk6EWZ+pPDub9wcqqMg==
 
 convert-source-map@^1.1.0, convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.6.0, convert-source-map@^1.7.0:
   version "1.8.0"
@@ -4710,6 +5093,11 @@ core-js-compat@^3.14.0, core-js-compat@^3.16.0:
     browserslist "^4.16.8"
     semver "7.0.0"
 
+core-js-pure@^3.19.0:
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.20.0.tgz#7253feccf8bb05b72c153ddccdbe391ddbffbe03"
+  integrity sha512-qsrbIwWSEEYOM7z616jAVgwhuDDtPLwZSpUsU3vyUkHYqKTf/uwOJBZg2V7lMurYWkpVlaVOxBrfX0Q3ppvjfg==
+
 core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -4749,6 +5137,15 @@ cross-spawn@7.0.3, cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+cross-spawn@^5.0.1:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
+  integrity sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=
+  dependencies:
+    lru-cache "^4.0.1"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
 
 cross-spawn@^6.0.0:
   version "6.0.5"
@@ -4929,6 +5326,20 @@ css-what@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-5.0.1.tgz#3efa820131f4669a8ac2408f9c32e7c7de9f4cad"
   integrity sha512-FYDTSHb/7KXsWICVsxdmiExPjCfRC4qRFBdVwv7Ax9hMnvMmEjP9RfxTEZ3qPZGmADDn2vAKSo9UcN1jKVYscg==
+
+css.escape@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"
+  integrity sha1-QuJ9T6BK4y+TGktNQZH6nN3ul8s=
+
+css@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/css/-/css-3.0.0.tgz#4447a4d58fdd03367c516ca9f64ae365cee4aa5d"
+  integrity sha512-DG9pFfwOrzc+hawpmqX/dHYHJG+Bsdb0klhyi1sDneOgGOXy9wQIC8hzyVp1e4NRYDBdxcylvywPkkXCHAzTyQ==
+  dependencies:
+    inherits "^2.0.4"
+    source-map "^0.6.1"
+    source-map-resolve "^0.6.0"
 
 csscolorparser@~1.0.3:
   version "1.0.3"
@@ -5169,7 +5580,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@4, debug@4.3.2, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
   integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
@@ -5209,6 +5620,11 @@ deep-equal@^1.0.1:
     object-is "^1.0.1"
     object-keys "^1.1.1"
     regexp.prototype.flags "^1.2.0"
+
+deep-extend@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
+  integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
 
 deep-is@^0.1.3, deep-is@~0.1.3:
   version "0.1.3"
@@ -5331,6 +5747,11 @@ diff-sequences@^26.6.2:
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-26.6.2.tgz#48ba99157de1923412eed41db6b6d4aa9ca7c0b1"
   integrity sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==
 
+diff-sequences@^27.4.0:
+  version "27.4.0"
+  resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-27.4.0.tgz#d783920ad8d06ec718a060d00196dfef25b132a5"
+  integrity sha512-YqiQzkrsmHMH5uuh8OdQFU9/ZpADnwzml8z0O5HvRNda+5UZsaX/xN+AAxfR2hWq1Y7HZnAzO9J5lJXOuDz2Ww==
+
 dir-glob@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/dir-glob/-/dir-glob-3.0.1.tgz#56dbf73d992a4a93ba1584f4534063fd2e41717f"
@@ -5373,6 +5794,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+dom-accessibility-api@^0.5.6:
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.5.10.tgz#caa6d08f60388d0bb4539dd75fe458a9a1d0014c"
+  integrity sha512-Xu9mD0UjrJisTmv7lmVSDMagQcU9R5hwAbxsaAE/35XPnPLJobbuREfV/rraiSaEj/UOvgrzQs66zyTWTlyd+g==
 
 dom-align@^1.7.0:
   version "1.12.2"
@@ -5492,7 +5918,7 @@ dup@^1.0.0:
   resolved "https://registry.yarnpkg.com/dup/-/dup-1.0.0.tgz#51fc5ac685f8196469df0b905e934b20af5b4029"
   integrity sha1-UfxaxoX4GWRp3wuQXpNLIK9bQCk=
 
-duplexer@^0.1.1:
+duplexer@^0.1.1, duplexer@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
   integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
@@ -5880,6 +6306,19 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+event-stream@=3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
+  integrity sha1-SrTJoPWlTbkzi0w02Gv86PSzVXE=
+  dependencies:
+    duplexer "~0.1.1"
+    from "~0"
+    map-stream "~0.1.0"
+    pause-stream "0.0.11"
+    split "0.3"
+    stream-combiner "~0.0.4"
+    through "~2.3.1"
+
 eventemitter3@^4.0.0, eventemitter3@^4.0.4:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
@@ -5901,6 +6340,34 @@ exec-sh@^0.3.2:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.6.tgz#ff264f9e325519a60cb5e273692943483cca63bc"
   integrity sha512-nQn+hI3yp+oD0huYhKwvYI32+JFeq+XkNcD1GAo3Y/MjxsfVGmrrzrnzjWiNY6f+pUCP440fThsFh5gZrRAU/w==
+
+execa@5.1.1, execa@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-5.1.1.tgz#f80ad9cbf4298f7bd1d4c9555c21e93741c411dd"
+  integrity sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==
+  dependencies:
+    cross-spawn "^7.0.3"
+    get-stream "^6.0.0"
+    human-signals "^2.1.0"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.1"
+    onetime "^5.1.2"
+    signal-exit "^3.0.3"
+    strip-final-newline "^2.0.0"
+
+execa@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
+  integrity sha1-lEvs00zEHuMqY6n68nrVpl/Fl3c=
+  dependencies:
+    cross-spawn "^5.0.1"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
 
 execa@^1.0.0:
   version "1.0.0"
@@ -5928,21 +6395,6 @@ execa@^4.0.0, execa@^4.0.1:
     npm-run-path "^4.0.0"
     onetime "^5.1.0"
     signal-exit "^3.0.2"
-    strip-final-newline "^2.0.0"
-
-execa@^5.0.0:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-5.1.1.tgz#f80ad9cbf4298f7bd1d4c9555c21e93741c411dd"
-  integrity sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==
-  dependencies:
-    cross-spawn "^7.0.3"
-    get-stream "^6.0.0"
-    human-signals "^2.1.0"
-    is-stream "^2.0.0"
-    merge-stream "^2.0.0"
-    npm-run-path "^4.0.1"
-    onetime "^5.1.2"
-    signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
 exit@^0.1.2:
@@ -6099,6 +6551,13 @@ fast-shallow-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fast-shallow-equal/-/fast-shallow-equal-1.0.0.tgz#d4dcaf6472440dcefa6f88b98e3251e27f25628b"
   integrity sha512-HPtaa38cPgWvaCFmRNhlc6NG7pv6NUHqjPgVAkWGoB9mQMwYB27/K0CvOM5Czy+qpT3e8XJ6Q4aPAnzpNpzNaw==
+
+fast-url-parser@1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/fast-url-parser/-/fast-url-parser-1.1.3.tgz#f4af3ea9f34d8a271cf58ad2b3759f431f0b318d"
+  integrity sha1-9K8+qfNNiicc9YrSs3WfQx8LMY0=
+  dependencies:
+    punycode "^1.3.2"
 
 fastest-levenshtein@^1.0.12:
   version "1.0.12"
@@ -6258,6 +6717,11 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.2.tgz#cecb825047c00f5e66b142f90fed4f515dec789b"
   integrity sha512-yLR6WaE2lbF0x4K2qE2p9PEXKLDjUjnR/xmjS3wHAYxtlsI9MLLBJUZirAHKzUZDGLxje7w/cXR49WOUo4rbsA==
 
+follow-redirects@^1.14.0:
+  version "1.14.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.6.tgz#8cfb281bbc035b3c067d6cd975b0f6ade6e855cd"
+  integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
+
 font-atlas@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/font-atlas/-/font-atlas-2.1.0.tgz#aa2d6dcf656a6c871d66abbd3dfbea2f77178348"
@@ -6328,6 +6792,11 @@ from2@^2.3.0:
   dependencies:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
+
+from@~0:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/from/-/from-0.1.7.tgz#83c60afc58b9c56997007ed1a768b3ab303a44fe"
+  integrity sha1-g8YK/Fi5xWmXAH7Rp2izqzA6RP4=
 
 fs-extra@^9.0.0:
   version "9.1.0"
@@ -6429,6 +6898,11 @@ get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
+
+get-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+  integrity sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=
 
 get-stream@^4.0.0:
   version "4.1.0"
@@ -7557,7 +8031,7 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
-ini@^1.3.5:
+ini@^1.3.5, ini@~1.3.0:
   version "1.3.8"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
@@ -8175,6 +8649,16 @@ jest-diff@^26.0.0, jest-diff@^26.6.2:
     jest-get-type "^26.3.0"
     pretty-format "^26.6.2"
 
+jest-diff@^27.0.0:
+  version "27.4.2"
+  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-27.4.2.tgz#786b2a5211d854f848e2dcc1e324448e9481f36f"
+  integrity sha512-ujc9ToyUZDh9KcqvQDkk/gkbf6zSaeEg9AiBxtttXW59H/AcqEYp1ciXAtJp+jXWva5nAf/ePtSsgWwE5mqp4Q==
+  dependencies:
+    chalk "^4.0.0"
+    diff-sequences "^27.4.0"
+    jest-get-type "^27.4.0"
+    pretty-format "^27.4.2"
+
 jest-docblock@^26.0.0:
   version "26.0.0"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-26.0.0.tgz#3e2fa20899fc928cb13bd0ff68bd3711a36889b5"
@@ -8223,6 +8707,11 @@ jest-get-type@^26.3.0:
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-26.3.0.tgz#e97dc3c3f53c2b406ca7afaed4493b1d099199e0"
   integrity sha512-TpfaviN1R2pQWkIihlfEanwOXK0zcxrKEE4MlU6Tn7keoXdN6/3gK/xl0yEh8DOunn5pOVGKf8hB4R9gVh04ig==
 
+jest-get-type@^27.4.0:
+  version "27.4.0"
+  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-27.4.0.tgz#7503d2663fffa431638337b3998d39c5e928e9b5"
+  integrity sha512-tk9o+ld5TWq41DkK14L4wox4s2D9MtTpKaAVzXfr5CUKm5ZK2ExcaFE0qls2W71zE/6R2TxxrK9w2r6svAFDBQ==
+
 jest-haste-map@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-26.6.2.tgz#dd7e60fe7dc0e9f911a23d79c5ff7fb5c2cafeaa"
@@ -8267,6 +8756,16 @@ jest-jasmine2@^26.6.3:
     jest-util "^26.6.2"
     pretty-format "^26.6.2"
     throat "^5.0.0"
+
+jest-junit@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/jest-junit/-/jest-junit-13.0.0.tgz#479be347457aad98ae8a5983a23d7c3ec526c9a3"
+  integrity sha512-JSHR+Dhb32FGJaiKkqsB7AR3OqWKtldLd6ZH2+FJ8D4tsweb8Id8zEVReU4+OlrRO1ZluqJLQEETm+Q6/KilBg==
+  dependencies:
+    mkdirp "^1.0.4"
+    strip-ansi "^6.0.1"
+    uuid "^8.3.2"
+    xml "^1.0.1"
 
 jest-leak-detector@^26.6.2:
   version "26.6.2"
@@ -8495,6 +8994,17 @@ jest@26.4.2:
     import-local "^3.0.2"
     jest-cli "^26.4.2"
 
+joi@^17.4.0:
+  version "17.5.0"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-17.5.0.tgz#7e66d0004b5045d971cf416a55fb61d33ac6e011"
+  integrity sha512-R7hR50COp7StzLnDi4ywOXHrBrgNXuUUfJWIR5lPY5Bm/pOD3jZaTwpluUXVLRWcoWZxkrHBBJ5hLxgnlehbdw==
+  dependencies:
+    "@hapi/hoek" "^9.0.0"
+    "@hapi/topo" "^5.0.0"
+    "@sideway/address" "^4.1.3"
+    "@sideway/formula" "^3.0.0"
+    "@sideway/pinpoint" "^2.0.0"
+
 js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
@@ -8662,6 +9172,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+lazy-ass@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/lazy-ass/-/lazy-ass-1.6.0.tgz#7999655e8646c17f089fdd187d150d3324d54513"
+  integrity sha1-eZllXoZGwX8In90YfRUNMyTVRRM=
+
 lerp@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/lerp/-/lerp-1.0.3.tgz#a18c8968f917896de15ccfcc28d55a6b731e776e"
@@ -8687,6 +9202,14 @@ levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+license-webpack-plugin@^2.3.21:
+  version "2.3.21"
+  resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-2.3.21.tgz#152f5e82d5f51f8bab78905731f2b8042aa5691b"
+  integrity sha512-rVaYU9TddZN3ao8M/0PrRSCdTp2EW6VQymlgsuScld1vef0Ou7fALx3ePe83KLP3xAEDcPK5fkqUVqGBnbz1zQ==
+  dependencies:
+    "@types/webpack-sources" "^0.1.5"
+    webpack-sources "^1.2.0"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
@@ -8795,12 +9318,25 @@ lower-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
+lru-cache@^4.0.1:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
+  integrity sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==
+  dependencies:
+    pseudomap "^1.0.2"
+    yallist "^2.1.2"
+
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+lz-string@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
+  integrity sha1-wNjq82BZ9wV5bh40SBHPTEmNOiY=
 
 magic-string@^0.25.7:
   version "0.25.7"
@@ -8842,6 +9378,11 @@ map-limit@0.0.1:
   integrity sha1-63lhAxwPDo0AG/LVb6toXViCLzg=
   dependencies:
     once "~1.3.0"
+
+map-stream@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
+  integrity sha1-5WqpTEyAVaFkBKBnS3jyFffI4ZQ=
 
 map-visit@^1.0.0:
   version "1.0.0"
@@ -9017,6 +9558,18 @@ mime-db@1.49.0, "mime-db@>= 1.43.0 < 2":
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.49.0.tgz#f3dfde60c99e9cf3bc9701d687778f537001cbed"
   integrity sha512-CIc8j9URtOVApSFCQIF+VBkX1RwXp/oMMOrqdyXSBXq5RWNEsRfyj1kiRnQgmNXmHxPoFIxOroKA3zcU9P+nAA==
 
+mime-db@~1.33.0:
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
+  integrity sha512-BHJ/EKruNIqJf/QahvxwQZXKygOQ256myeN/Ew+THcAa5q+PjyTTMMeNQC4DZw5AwfvelsUrA6B67NKMqXDbzQ==
+
+mime-types@2.1.18:
+  version "2.1.18"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
+  integrity sha512-lc/aahn+t4/SWV/qcmumYjymLsWfN3ELhpmVuUFjgsORruuZPVSwAQryq+HHGvO/SI2KVX26bx+En+zhM8g8hQ==
+  dependencies:
+    mime-db "~1.33.0"
+
 mime-types@^2.1.12, mime-types@^2.1.27, mime-types@~2.1.17, mime-types@~2.1.24:
   version "2.1.32"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.32.tgz#1d00e89e7de7fe02008db61001d9e02852670fd5"
@@ -9038,6 +9591,11 @@ mimic-fn@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
+
+min-indent@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
+  integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
 mini-css-extract-plugin@^1.3.9:
   version "1.6.2"
@@ -9576,7 +10134,7 @@ on-finished@~2.3.0:
   dependencies:
     ee-first "1.1.1"
 
-on-headers@~1.0.2:
+on-headers@~1.0.1, on-headers@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.2.tgz#772b0ae6aaa525c399e489adfad90c403eb3c28f"
   integrity sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
@@ -9843,7 +10401,7 @@ path-is-absolute@^1.0.0:
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
 
-path-is-inside@^1.0.2:
+path-is-inside@1.0.2, path-is-inside@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
   integrity sha1-NlQX3t5EQw0cEa9hAn+s8HS9/FM=
@@ -9868,10 +10426,22 @@ path-to-regexp@0.1.7:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
+path-to-regexp@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.2.1.tgz#90b617025a16381a879bc82a38d4e8bdeb2bcf45"
+  integrity sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==
+
 path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
+
+pause-stream@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/pause-stream/-/pause-stream-0.0.11.tgz#fe5a34b0cbce12b5aa6a2b403ee2e73b602f1445"
+  integrity sha1-/lo0sMvOErWqaitAPuLnO2AvFEU=
+  dependencies:
+    through "~2.3"
 
 pbf@^3.2.1:
   version "3.2.1"
@@ -10522,6 +11092,16 @@ pretty-format@^26.0.0, pretty-format@^26.6.2:
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
 
+pretty-format@^27.0.0, pretty-format@^27.4.2:
+  version "27.4.2"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-27.4.2.tgz#e4ce92ad66c3888423d332b40477c87d1dac1fb8"
+  integrity sha512-p0wNtJ9oLuvgOQDEIZ9zQjZffK7KtyR6Si0jnXULIDwrlNF8Cuir3AZP0hHv0jmKuNN/edOnbMjnzd4uTcmWiw==
+  dependencies:
+    "@jest/types" "^27.4.2"
+    ansi-regex "^5.0.1"
+    ansi-styles "^5.0.0"
+    react-is "^17.0.1"
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -10563,7 +11143,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2:
+prop-types@^15.5.7, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10590,6 +11170,18 @@ prr@~1.0.1:
   resolved "https://registry.yarnpkg.com/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
   integrity sha1-0/wRS6BplaRexok/SEzrHXj19HY=
 
+ps-tree@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ps-tree/-/ps-tree-1.2.0.tgz#5e7425b89508736cdd4f2224d028f7bb3f722ebd"
+  integrity sha512-0VnamPPYHl4uaU/nSFeZZpR21QAWRz+sRv4iW9+v/GS/J5U5iZB5BNN6J0RMoOvdx2gWM2+ZFMIm58q24e4UYA==
+  dependencies:
+    event-stream "=3.3.4"
+
+pseudomap@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
+  integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
+
 psl@^1.1.33:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.8.0.tgz#9326f8bcfb013adcc005fdff056acce020e51c24"
@@ -10607,6 +11199,11 @@ punycode@1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.3.2.tgz#9653a036fb7c1ee42342f2325cceefea3926c48d"
   integrity sha1-llOgNvt8HuQjQvIyXM7v6jkmxI0=
+
+punycode@^1.3.2:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
+  integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
 
 punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
@@ -10680,6 +11277,11 @@ randombytes@^2.1.0:
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
   dependencies:
     safe-buffer "^5.1.0"
+
+range-parser@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
+  integrity sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=
 
 range-parser@^1.2.1, range-parser@~1.2.1:
   version "1.2.1"
@@ -11077,6 +11679,16 @@ rc-virtual-list@^3.0.1, rc-virtual-list@^3.2.0:
     rc-resize-observer "^1.0.0"
     rc-util "^5.0.7"
 
+rc@^1.0.1, rc@^1.1.6:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
+  integrity sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
+  dependencies:
+    deep-extend "^0.6.0"
+    ini "~1.3.0"
+    minimist "^1.2.0"
+    strip-json-comments "~2.0.1"
+
 react-dev-utils@^11.0.2:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
@@ -11176,10 +11788,12 @@ react-reverse-portal@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-reverse-portal/-/react-reverse-portal-2.1.0.tgz#3c572e1c0d9e49b8febf4bf2fd43b9819ce6f508"
   integrity sha512-ck1igNI4tUFozJ89X7qqFtWy1wSL7WEd/5iZbjBjyf+6vjZ3leg4JJxdVPbFt9+zwMLcQSPsIkw9xGu9E+VqCQ==
 
-react-scroll-sync@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/react-scroll-sync/-/react-scroll-sync-0.8.0.tgz#61fabed2afc47d41e6938819d620799da3610548"
-  integrity sha512-Ms9srm41UM+lWexuqdocXjqaqqt6ZRSFxcudgB0sYhC7Or+m12WemTwY8BaQCRf7hA8zHDk55FHvMkqsH7gF+w==
+react-scroll-sync@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-scroll-sync/-/react-scroll-sync-0.9.0.tgz#81ddea7a667092807c0150924a201eceed5979fe"
+  integrity sha512-IaMUSTbarj9mhjVtBl9I45Er8gQqV8rdb9A0eK77JJ8MvnLcFIlnoiXVx1NS9ACy9QELq7xCTxdIVEdhDV9R0Q==
+  dependencies:
+    prop-types "^15.5.7"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -11303,6 +11917,14 @@ recursive-readdir@2.2.2:
   dependencies:
     minimatch "3.0.4"
 
+redent@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/redent/-/redent-3.0.0.tgz#e557b7998316bb53c9f1f56fa626352c6963059f"
+  integrity sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==
+  dependencies:
+    indent-string "^4.0.0"
+    strip-indent "^3.0.0"
+
 reduce-simplicial-complex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/reduce-simplicial-complex/-/reduce-simplicial-complex-1.0.0.tgz#74d696a2f835f7a6dcd92065fd8c5181f2edf8bc"
@@ -11385,6 +12007,21 @@ regexpu-core@^4.7.1:
     regjsparser "^0.6.4"
     unicode-match-property-ecmascript "^1.0.4"
     unicode-match-property-value-ecmascript "^1.2.0"
+
+registry-auth-token@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/registry-auth-token/-/registry-auth-token-3.3.2.tgz#851fd49038eecb586911115af845260eec983f20"
+  integrity sha512-JL39c60XlzCVgNrO+qq68FoNb56w/m7JYvGR2jT5iR1xBrUA3Mfx5Twk5rqTThPmQKMWydGmq8oFtDlxfrmxnQ==
+  dependencies:
+    rc "^1.1.6"
+    safe-buffer "^5.0.1"
+
+registry-url@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/registry-url/-/registry-url-3.1.0.tgz#3d4ef870f73dde1d77f0cf9a381432444e174942"
+  integrity sha1-PU74cPc93h138M+aOBQyRE4XSUI=
+  dependencies:
+    rc "^1.0.1"
 
 regjsgen@^0.5.1:
   version "0.5.2"
@@ -11770,6 +12407,13 @@ rw@^1.3.3:
   resolved "https://registry.yarnpkg.com/rw/-/rw-1.3.3.tgz#3f862dfa91ab766b14885ef4d01124bfda074fb4"
   integrity sha1-P4Yt+pGrdmsUiF700BEkv9oHT7Q=
 
+rxjs@^7.1.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.4.0.tgz#a12a44d7eebf016f5ff2441b87f28c9a51cebc68"
+  integrity sha512-7SQDi7xeTMCJpqViXh8gL/lebcwlp3d831F05+9B44A4B0WfsEwUQHR64gsH1kvJ+Ep/J9K2+n1hVl1CsGN23w==
+  dependencies:
+    tslib "~2.1.0"
+
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
@@ -11943,6 +12587,20 @@ serialize-javascript@^6.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+serve-handler@6.1.3:
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/serve-handler/-/serve-handler-6.1.3.tgz#1bf8c5ae138712af55c758477533b9117f6435e8"
+  integrity sha512-FosMqFBNrLyeiIDvP1zgO6YoTzFYHxLDEIavhlmQ+knB2Z7l1t+kGLHkZIDN7UVWqQAmKI3D20A6F6jo3nDd4w==
+  dependencies:
+    bytes "3.0.0"
+    content-disposition "0.5.2"
+    fast-url-parser "1.1.3"
+    mime-types "2.1.18"
+    minimatch "3.0.4"
+    path-is-inside "1.0.2"
+    path-to-regexp "2.2.1"
+    range-parser "1.2.0"
+
 serve-index@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/serve-index/-/serve-index-1.9.1.tgz#d3768d69b1e7d82e5ce050fff5b453bea12a9239"
@@ -11965,6 +12623,21 @@ serve-static@1.14.1:
     escape-html "~1.0.3"
     parseurl "~1.3.3"
     send "0.17.1"
+
+serve@^12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/serve/-/serve-12.0.1.tgz#5b0e05849f5ed9b8aab0f30a298c3664bba052bb"
+  integrity sha512-CQ4ikLpxg/wmNM7yivulpS6fhjRiFG6OjmP8ty3/c1SBnSk23fpKmLAV4HboTA2KrZhkUPlDfjDhnRmAjQ5Phw==
+  dependencies:
+    "@zeit/schemas" "2.6.0"
+    ajv "6.12.6"
+    arg "2.0.0"
+    boxen "1.3.0"
+    chalk "2.4.1"
+    clipboardy "2.3.0"
+    compression "1.7.3"
+    serve-handler "6.1.3"
+    update-check "1.5.2"
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -12242,6 +12915,14 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
+source-map-resolve@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.6.0.tgz#3d9df87e236b53f16d01e58150fc7711138e5ed2"
+  integrity sha512-KXBr9d/fO/bWo97NXsPIAW1bFSBOuCnjbNTBMO7N59hsv5i9yzRDfcYwwt0l04+VqnKC+EwzvJZIP/qkuMgR/w==
+  dependencies:
+    atob "^2.1.2"
+    decode-uri-component "^0.2.0"
+
 source-map-support@^0.5.6, source-map-support@~0.5.12, source-map-support@~0.5.19:
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
@@ -12344,6 +13025,13 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
+split@0.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/split/-/split-0.3.3.tgz#cd0eea5e63a211dfff7eb0f091c4133e2d0dd28f"
+  integrity sha1-zQ7qXmOiEd//frDwkcQTPi0N0o8=
+  dependencies:
+    through "2"
+
 sprintf-js@^1.0.3:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
@@ -12407,6 +13095,19 @@ stacktrace-js@^2.0.2:
     stack-generator "^2.0.5"
     stacktrace-gps "^3.0.4"
 
+start-server-and-test@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/start-server-and-test/-/start-server-and-test-1.14.0.tgz#c57f04f73eac15dd51733b551d775b40837fdde3"
+  integrity sha512-on5ELuxO2K0t8EmNj9MtVlFqwBMxfWOhu4U7uZD1xccVpFlOQKR93CSe0u98iQzfNxRyaNTb/CdadbNllplTsw==
+  dependencies:
+    bluebird "3.7.2"
+    check-more-types "2.24.0"
+    debug "4.3.2"
+    execa "5.1.1"
+    lazy-ass "1.6.0"
+    ps-tree "1.2.0"
+    wait-on "6.0.0"
+
 static-eval@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/static-eval/-/static-eval-2.1.0.tgz#a16dbe54522d7fa5ef1389129d813fd47b148014"
@@ -12426,6 +13127,13 @@ static-extend@^0.1.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+
+stream-combiner@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/stream-combiner/-/stream-combiner-0.0.4.tgz#4d5e433c185261dde623ca3f44c586bcf5c4ad14"
+  integrity sha1-TV5DPBhSYd3mI8o/RMWGvPXErRQ=
+  dependencies:
+    duplexer "~0.1.1"
 
 stream-shift@^1.0.0:
   version "1.0.1"
@@ -12464,6 +13172,14 @@ string-to-arraybuffer@^1.0.0:
   dependencies:
     atob-lite "^2.0.0"
     is-base64 "^0.1.0"
+
+string-width@^2.0.0, string-width@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-2.1.1.tgz#ab93f27a8dc13d28cac815c462143a6d9012ae9e"
+  integrity sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==
+  dependencies:
+    is-fullwidth-code-point "^2.0.0"
+    strip-ansi "^4.0.0"
 
 string-width@^3.0.0, string-width@^3.1.0:
   version "3.1.0"
@@ -12532,12 +13248,26 @@ strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   dependencies:
     ansi-regex "^2.0.0"
 
+strip-ansi@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-4.0.0.tgz#a8479022eb1ac368a871389b635262c505ee368f"
+  integrity sha1-qEeQIusaw2iocTibY1JixQXuNo8=
+  dependencies:
+    ansi-regex "^3.0.0"
+
 strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-5.2.0.tgz#8c9a536feb6afc962bdfa5b104a5091c1ad9c0ae"
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
+
+strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-bom@^4.0.0:
   version "4.0.0"
@@ -12554,10 +13284,22 @@ strip-final-newline@^2.0.0:
   resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
 
+strip-indent@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-3.0.0.tgz#c32e1cee940b6b3432c771bc2c54bcce73cd3001"
+  integrity sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==
+  dependencies:
+    min-indent "^1.0.0"
+
 strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+strip-json-comments@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+  integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
 strongly-connected-components@^1.0.1:
   version "1.0.1"
@@ -12576,6 +13318,11 @@ style-loader@^1.2.1:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^2.7.0"
+
+style-loader@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-3.3.1.tgz#057dfa6b3d4d7c7064462830f9113ed417d38575"
+  integrity sha512-GPcQ+LDJbrcxHORTRes6Jy2sfvK2kS6hpSfI/fXhPt+spVzxF6LJ1dHLN9zIGmVaaP044YKaIatFaufENRiDoQ==
 
 stylehacks@^4.0.0:
   version "4.0.3"
@@ -12756,6 +13503,13 @@ tar@^6.0.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
+term-size@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
+  integrity sha1-RYuDiH8oj8Vtb/+/rSYuJmOO+mk=
+  dependencies:
+    execa "^0.7.0"
+
 terminal-link@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/terminal-link/-/terminal-link-2.1.1.tgz#14a64a27ab3c0df933ea546fba55f2d078edc994"
@@ -12852,6 +13606,11 @@ through2@^2.0.1:
   dependencies:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
+
+through@2, through@~2.3, through@~2.3.1:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+  integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
 thunky@^1.0.2:
   version "1.1.0"
@@ -13032,6 +13791,11 @@ tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+
+tslib@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 turntable-camera-controller@^3.0.0:
   version "3.0.1"
@@ -13249,6 +14013,14 @@ upath@^1.1.1:
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
 
+update-check@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/update-check/-/update-check-1.5.2.tgz#2fe09f725c543440b3d7dabe8971f2d5caaedc28"
+  integrity sha512-1TrmYLuLj/5ZovwUS7fFd1jMH3NnFDN1y1A8dboedIDt7zs/zJMo6TwwlhYKkSeEwzleeiSBV5/3c9ufAQWDaQ==
+  dependencies:
+    registry-auth-token "3.3.2"
+    registry-url "3.1.0"
+
 update-diff@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/update-diff/-/update-diff-1.1.0.tgz#f510182d81ee819fb82c3a6b22b62bbdeda7808f"
@@ -13366,7 +14138,7 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.0:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
@@ -13509,6 +14281,17 @@ w3c-xmlserializer@^2.0.0:
   integrity sha512-4tzD0mF8iSiMiNs30BiLO3EpfGLZUT2MSX/G+o7ZywDzliWQ3OPtTZ0PTC3B3ca1UAf4cJMHB+2Bf56EriJuRA==
   dependencies:
     xml-name-validator "^3.0.0"
+
+wait-on@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/wait-on/-/wait-on-6.0.0.tgz#7e9bf8e3d7fe2daecbb7a570ac8ca41e9311c7e7"
+  integrity sha512-tnUJr9p5r+bEYXPUdRseolmz5XqJTTj98JgOsfBn7Oz2dxfE2g3zw1jE+Mo8lopM3j3et/Mq1yW7kKX6qw7RVw==
+  dependencies:
+    axios "^0.21.1"
+    joi "^17.4.0"
+    lodash "^4.17.21"
+    minimist "^1.2.5"
+    rxjs "^7.1.0"
 
 walker@^1.0.7, walker@~1.0.5:
   version "1.0.7"
@@ -13659,7 +14442,7 @@ webpack-merge@^5.7.3:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
 
-webpack-sources@^1.1.0, webpack-sources@^1.4.3:
+webpack-sources@^1.1.0, webpack-sources@^1.2.0, webpack-sources@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"
   integrity sha512-lgTS3Xhv1lCOKo7SA5TjKXMjpSM4sBjNV5+q2bqesbSPs5FjGmU6jjtBSkX9b4qW87vDIsCIlUPOEhbZrMdjeQ==
@@ -13775,6 +14558,13 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
+widest-line@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/widest-line/-/widest-line-2.0.1.tgz#7438764730ec7ef4381ce4df82fb98a53142a3fc"
+  integrity sha512-Ba5m9/Fa4Xt9eb2ELXt77JxVDV8w7qQrH0zS/TWSJdLyAwQjWoOzpzj5lwVftDz6n/EOu3tNACS84v509qwnJA==
+  dependencies:
+    string-width "^2.1.1"
+
 wildcard@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/wildcard/-/wildcard-2.0.0.tgz#a77d20e5200c6faaac979e4b3aadc7b3dd7f8fec"
@@ -13849,6 +14639,11 @@ xml-name-validator@^3.0.0:
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
 
+xml@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
+  integrity sha1-eLpyAgApxbyHuKgaPPzXS0ovweU=
+
 xmlchars@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
@@ -13868,6 +14663,11 @@ y18n@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.3.tgz#b5f259c82cd6e336921efd7bfd8bf560de9eeedf"
   integrity sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==
+
+yallist@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
+  integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
 
 yallist@^4.0.0:
   version "4.0.0"

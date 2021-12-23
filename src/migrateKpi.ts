@@ -6,7 +6,7 @@ import {
   MdxSelect,
   parse,
   stringify,
-  walkThroughMdx,
+  traverseMdx,
 } from "@activeviam/mdx";
 import { KpiWidgetState, pluginWidgetKpi } from "@activeviam/plugin-widget-kpi";
 import { serializeWidgetState, deriveMappingFromMdx } from "@activeviam/widget";
@@ -21,7 +21,7 @@ export function migrateKpi(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyKpiState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyKpiState);
   const legacyMdx = legacyQuery.mdx
@@ -38,17 +38,16 @@ export function migrateKpi(
   let legacyMdxWithoutPagesAxis = legacyMdx;
   let comparison: KpiComparison | undefined = undefined;
   const pagesAxis = (legacyMdx?.axes || []).find(
-    ({ name }) => name === "PAGES",
+    ({ name }) => name === "PAGES"
   );
   if (pagesAxis) {
     const memberCoordinates: MemberCoordinates[] = [];
 
-    walkThroughMdx(pagesAxis, (mdx) => {
+    traverseMdx(pagesAxis, (mdx) => {
       if (mdx.elementType === "CompoundIdentifier") {
-        const specificCompoundIdentifier = getSpecificCompoundIdentifier(
-          mdx,
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
           cube,
-        );
+        });
         if (specificCompoundIdentifier.type === "member") {
           const {
             dimensionName,
