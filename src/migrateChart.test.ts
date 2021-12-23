@@ -17,7 +17,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "splitBy": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[pnlDelta.SUM]",
             "[Measures].[pnlVega.SUM]",
@@ -83,7 +85,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "splitBy": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -110,7 +114,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "splitBy": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -137,7 +143,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "stackBy": Array [],
+          "stackBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -164,7 +172,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "stackBy": Array [],
+          "stackBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -252,7 +262,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "splitBy": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [],
           "verticalSubplots": Array [],
           "xAxis": Array [],
@@ -289,7 +301,9 @@ describe("migrateChart", () => {
     expect(chartState.mapping).toMatchInlineSnapshot(`
       Object {
         "horizontalSubplots": Array [],
-        "splitBy": Array [],
+        "splitBy": Array [
+          "ALL_MEASURES",
+        ],
         "values": Array [
           "[Measures].[pnlDelta.SUM]",
           "[Measures].[pnlVega.SUM]",
@@ -300,5 +314,20 @@ describe("migrateChart", () => {
         ],
       }
     `);
+  });
+
+  it("ensures that the returned mapping contains the ALL_MEASURES tile if the widget supports measures redirection", () => {
+    // Some widgets support measures redirection.
+    // For instance, the line chart does: measures are on "splitBy" by default, but the user can choose to move them to "X Axis" or subplots.
+    // Some widgets do not support it.
+    // For instance, the scatter plot does not: each measure on it is dedicated to a specific attribute (x, y or size).
+    //
+    // ActiveUI 4 charts did not have this capability: "all measures" could never be moved.
+    // For this ActiveUI 5 feature to work, charts supporting measures redirection in ActiveUI 5 should see the "ALL_MEASURES" tile added to their mapping during the migration.
+
+    const migratedChartState = migrateChart(legacyChart, servers);
+
+    // Even though the ALL_MEASURES tile is missing in the legacy chart state, the migrated state does contain it.
+    expect(migratedChartState.mapping.splitBy).toContain("ALL_MEASURES");
   });
 });

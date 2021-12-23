@@ -91,18 +91,13 @@ function _getMigratedWidgetKey(legacyChartType: string): string | undefined {
 /**
  * Returns the mapping of the ActiveUI 5 widget, corresponding to `legacyMapping`.
  * Returns undefined if the migration script is not able to determine which ActiveUI 5 widget the legacy chart should be migrated to.
+ * Does not cater for the potentially missing ALL_MEASURES tile.
  */
 function _getMigratedChartMapping(
   legacyMapping: any,
-  legacyChartType: string
+  legacyChartType: string,
+  widgetPlugin: WidgetPlugin
 ): SerializedDataVisualizationWidgetMapping {
-  const migratedWidgetKey = _getMigratedWidgetKey(legacyChartType);
-
-  if (migratedWidgetKey === undefined) {
-    return legacyMapping;
-  }
-
-  const widgetPlugin = chartPlugins[migratedWidgetKey];
   const emptyMapping: SerializedDataVisualizationWidgetMapping = {};
 
   Object.keys(widgetPlugin.attributes ?? {}).forEach((attributeName) => {
@@ -175,6 +170,57 @@ function _getMigratedChartMapping(
 }
 
 /**
+ * Returns a new chart mapping corresponding to `mapping` where the ALL_MEASURES tile was added, if applicable.
+ * Does not mutate `mapping`.
+ */
+function _addAllMeasuresToMapping(
+  mapping: SerializedDataVisualizationWidgetMapping,
+  widgetPlugin: WidgetPlugin
+): SerializedDataVisualizationWidgetMapping {
+  const attributes = widgetPlugin.attributes ?? {};
+  const doesAlreadyContainTheAllMeasuresTile = Object.values(mapping).some(
+    (fields) => fields?.includes("ALL_MEASURES")
+  );
+
+  if (
+    !widgetPlugin.doesSupportMeasuresRedirection ||
+    doesAlreadyContainTheAllMeasuresTile
+  ) {
+    // The widget does not support measures redirection (like a scatter plot for instance).
+    // Or the legacy mapping already contained the "ALL_MEASURES" tile.
+    // => either way, this tile should not be added.
+    return mapping;
+  }
+
+  const targetAttributeName = Object.keys(attributes).find((attributeName) => {
+    const attribute = attributes[attributeName];
+    const selectedFields = mapping[attributeName];
+
+    // When widget plugins do not specify a maximum number of fields for one of their attributes,
+    // it means that they support an infinity of fields for this attribute.
+    const maxNumberOfFields =
+      attribute?.maxNumberOfFields === undefined
+        ? Infinity
+        : attribute?.maxNumberOfFields;
+
+    return (
+      attribute?.role === "secondaryOrdinal" &&
+      selectedFields.length < Number(maxNumberOfFields)
+    );
+  });
+
+  if (targetAttributeName === undefined) {
+    // `mapping` does not contain a single suitable slot for the ALL_MEASURES tile.
+    return mapping;
+  }
+
+  return {
+    ...mapping,
+    [targetAttributeName]: [...mapping[targetAttributeName], "ALL_MEASURES"],
+  };
+}
+
+/**
  * Returns the converted chart widget state, ready to be used by ActiveUI 5.
  */
 export function migrateChart(
@@ -236,7 +282,17 @@ export function migrateChart(
 
   const filters = extractedFilters.map((filter) => stringify(filter));
 
-  const mapping = _getMigratedChartMapping(legacyMapping, legacyChartType);
+  const widgetPlugin = chartPlugins[migratedWidgetKey];
+
+  const mappingDisregardingAllMeasures = _getMigratedChartMapping(
+    legacyMapping,
+    legacyChartType,
+    widgetPlugin
+  );
+  const mapping = _addAllMeasuresToMapping(
+    mappingDisregardingAllMeasures,
+    widgetPlugin
+  );
 
   return {
     ...configuration,
