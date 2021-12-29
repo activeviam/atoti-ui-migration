@@ -1,6 +1,6 @@
 import _forEach from "lodash/forEach";
 import _map from "lodash/map";
-import type { QueryContextEntry } from "@activeviam/dashboard-base";
+import type { QueryContextEntry } from "@activeviam/content-client";
 
 export interface LegacyContextValues {
   [key: string]: string | number | boolean;
@@ -15,7 +15,7 @@ export function _migrateContextValues(
   legacyContextValues:
     | { [cubeName: string]: LegacyContextValues }
     | LegacyContextValues
-    | undefined,
+    | undefined
 ): QueryContextEntry[] {
   const mergedContextValues: LegacyContextValues = {};
   _forEach(legacyContextValues, (value, key) => {
