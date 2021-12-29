@@ -1,5 +1,5 @@
 import type { UpdateMode } from "@activeviam/activepivot-client";
-import type { QueryContextEntry } from "@activeviam/dashboard-base";
+import type { QueryContextEntry } from "@activeviam/content-client";
 import type { Cube } from "@activeviam/data-model";
 import {
   getFilters,
