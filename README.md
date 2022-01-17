@@ -96,7 +96,7 @@ At this stage, your `migration` folder looks like this:
 Open a terminal in it and run:
 
 ```
-npm run migrate -i "content of ui.json" -o migrated-content.json -s servers.json
+npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json
 ```
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in ActiveUI 5.
