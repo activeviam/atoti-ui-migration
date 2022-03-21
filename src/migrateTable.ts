@@ -1,11 +1,17 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
-import type { DataModel } from "@activeviam/data-model";
-import { MdxSelect, parse } from "@activeviam/mdx";
-import { pluginWidgetPivotTable } from "@activeviam/plugin-widget-pivot-table";
-import { pluginWidgetTable } from "@activeviam/plugin-widget-table";
-import { pluginWidgetTreeTable } from "@activeviam/plugin-widget-tree-table";
-import type { TableWidgetState } from "@activeviam/table";
-import { serializeWidgetState, deriveMappingFromMdx } from "@activeviam/widget";
+import type {
+  AWidgetState,
+  DataModel,
+  MdxSelect,
+  TableWidgetState,
+} from "@activeviam/activeui-sdk";
+import {
+  serializeWidgetState,
+  deriveMappingFromMdx,
+  parse,
+  pluginWidgetPivotTable,
+  pluginWidgetTable,
+  pluginWidgetTreeTable,
+} from "@activeviam/activeui-sdk";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -18,7 +24,7 @@ export function migrateTable(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyTableState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyTableState);
   const legacyMdx = legacyQuery.mdx
@@ -42,7 +48,7 @@ export function migrateTable(
   const legacyCellRenderers =
     legacyTableState.value.body?.configuration?.tabular?.cellRenderers ?? [];
   const widgetPlugin = legacyColumnsGroups.some(
-    (columnsGroup: any) => columnsGroup?.cellFactory?.key === "treeCells",
+    (columnsGroup: any) => columnsGroup?.cellFactory?.key === "treeCells"
   )
     ? pluginWidgetTreeTable
     : legacyCellRenderers.includes("pivot-layout")

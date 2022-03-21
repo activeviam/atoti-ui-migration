@@ -1,4 +1,4 @@
-import { MdxSelect, parse, stringify } from "@activeviam/mdx";
+import { MdxSelect, parse, stringify } from "@activeviam/activeui-sdk";
 import { _findErroneousUnionNode } from "./_findErroneousUnionNode";
 import { dataModelsForTests } from "@activeviam/data-model";
 

@@ -1,5 +1,5 @@
+import type { TextEditorWidgetState } from "@activeviam/activeui-sdk";
 import type { LegacyWidgetState } from "./migration.types";
-import { TextEditorWidgetState } from "@activeviam/plugin-widget-text-editor";
 
 /**
  * Returns the converted Text Editor widget state, ready to be used by ActiveUI 5.

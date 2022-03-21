@@ -1,4 +1,4 @@
-import { MdxFunction, parse } from "@activeviam/mdx";
+import { MdxFunction, parse } from "@activeviam/activeui-sdk";
 import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";
 import { dataModelsForTests } from "@activeviam/data-model";
 

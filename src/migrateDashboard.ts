@@ -4,7 +4,8 @@ import _range from "lodash/range";
 import type {
   DashboardState,
   DashboardPageState,
-} from "@activeviam/dashboard-base";
+  DataModel
+} from "@activeviam/activeui-sdk";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
 import { migrateWidget } from "./migrateWidget";
 
@@ -12,7 +13,6 @@ import type {
   LegacyDashboardState,
   LegacyDashboardPage,
 } from "./migration.types";
-import type { DataModel } from "@activeviam/data-model";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 

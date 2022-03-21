@@ -1,15 +1,20 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
-import type { DataModel, MemberCoordinates } from "@activeviam/data-model";
-import type { KpiComparison } from "@activeviam/kpi";
-import {
-  getSpecificCompoundIdentifier,
+import type {
+  AWidgetState,
+  DataModel,
+  MemberCoordinates,
+  KpiComparison,
   MdxSelect,
+  KpiWidgetState,
+} from "@activeviam/activeui-sdk";
+import {
   parse,
   stringify,
   traverseMdx,
-} from "@activeviam/mdx";
-import { KpiWidgetState, pluginWidgetKpi } from "@activeviam/plugin-widget-kpi";
-import { serializeWidgetState, deriveMappingFromMdx } from "@activeviam/widget";
+  pluginWidgetKpi,
+  serializeWidgetState,
+  deriveMappingFromMdx,
+} from "@activeviam/activeui-sdk";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";

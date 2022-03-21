@@ -2,12 +2,14 @@ import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _omit from "lodash/omit";
 
-import type { ContentRecord } from "@activeviam/content-client";
-import type { DataModel } from "@activeviam/data-model";
+import type {
+  ContentRecord,
+  DataModel,
+  MdxString,
+} from "@activeviam/activeui-sdk";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
-import type { MdxString } from "@activeviam/mdx";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 

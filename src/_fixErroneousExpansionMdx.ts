@@ -5,10 +5,10 @@ import produce from "immer";
 import {
   MdxSelect,
   MdxDrillthrough,
-  isMdxDrillthrough,
   getLevels,
-} from "@activeviam/mdx";
-import { Cube } from "@activeviam/data-model";
+  Cube,
+} from "@activeviam/activeui-sdk";
+import { isMdxDrillthrough } from "@activeviam/mdx";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
 import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";

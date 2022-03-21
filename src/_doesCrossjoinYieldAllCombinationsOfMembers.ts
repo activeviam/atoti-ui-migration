@@ -1,10 +1,10 @@
-import { Cube, LevelCoordinates } from "@activeviam/data-model";
 import {
-  findLevels,
-  getSpecificCompoundIdentifier,
+  Cube,
+  LevelCoordinates,
   isMdxCompoundIdentifier,
   MdxFunction,
-} from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk";
+import { findLevels, getSpecificCompoundIdentifier } from "@activeviam/mdx";
 
 /**
  * Returns whether `crossjoin` yields all combinations of members of the hierarchies expressed on the axis.

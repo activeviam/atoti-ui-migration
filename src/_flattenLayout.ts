@@ -1,4 +1,4 @@
-import type { Layout, LayoutLeaf } from "@activeviam/dashboard-base";
+import type { Layout, LayoutLeaf } from "@activeviam/activeui-sdk";
 
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import type { LegacyLayout, LegacyLayoutLeaf } from "./migration.types";

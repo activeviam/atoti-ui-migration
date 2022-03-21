@@ -1,6 +1,5 @@
-import type { AWidgetState } from "@activeviam/dashboard-base";
+import type { AWidgetState, DataModel } from "@activeviam/activeui-sdk";
 import type { LegacyWidgetState } from "./migration.types";
-import type { DataModel } from "@activeviam/data-model";
 
 import { migrateChart } from "./migrateChart";
 import { migrateTable } from "./migrateTable";

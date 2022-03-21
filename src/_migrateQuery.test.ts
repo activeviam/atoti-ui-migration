@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { dataModelsForTests } from "@activeviam/data-model";
-import { stringify } from "@activeviam/mdx";
+import { stringify } from "@activeviam/activeui-sdk";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];

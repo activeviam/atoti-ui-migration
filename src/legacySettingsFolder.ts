@@ -1,4 +1,4 @@
-import type { ContentRecord } from "@activeviam/content-client";
+import type { ContentRecord } from "@activeviam/activeui-sdk";
 
 const defaultPreferences = {
   allow: [],

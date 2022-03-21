@@ -1,10 +1,11 @@
-import { Cube, LevelCoordinates } from "@activeviam/data-model";
 import {
-  findDescendant,
+  Cube,
+  LevelCoordinates,
   isMdxFunction,
   Mdx,
   MdxFunction,
-} from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk";
+import { findDescendant } from "@activeviam/mdx";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
 import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";

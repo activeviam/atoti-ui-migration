@@ -1,14 +1,12 @@
-import type { UpdateMode } from "@activeviam/activepivot-client";
-import type { QueryContextEntry } from "@activeviam/content-client";
-import type { Cube } from "@activeviam/data-model";
-import {
-  getFilters,
+import type {
+  QueryContextEntry,
+  Cube,
+  UpdateMode,
   Mdx,
   MdxDrillthrough,
   MdxSelect,
-  parse,
-  setFilters,
-} from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk";
+import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk";
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import {
   LegacyContextValues,

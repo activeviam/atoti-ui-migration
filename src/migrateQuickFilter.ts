@@ -3,11 +3,10 @@ import _findKey from "lodash/findKey";
 import {
   Cube,
   DataModel,
-  getHierarchy,
   LevelCoordinates,
-} from "@activeviam/data-model";
-import { QuickFilterWidgetState } from "@activeviam/plugin-widget-quick-filter";
-import { getTargetCube } from "@activeviam/widget";
+  QuickFilterWidgetState,
+} from "@activeviam/activeui-sdk";
+import { getTargetCube, getHierarchy } from "@activeviam/activeui-sdk";
 
 const _getMode = ({
   displayedAsSelect,
@@ -51,7 +50,7 @@ export function migrateQuickFilter(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyQuickFilterState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): QuickFilterWidgetState<"serialized"> {
   const {
     cube: cubeName,

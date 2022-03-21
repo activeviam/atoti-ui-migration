@@ -1,5 +1,5 @@
 import _cloneDeep from "lodash/cloneDeep";
-import { MdxSelect, parse, stringify } from "@activeviam/mdx";
+import { MdxSelect, parse, stringify } from "@activeviam/activeui-sdk";
 
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import { dataModelsForTests } from "@activeviam/data-model";

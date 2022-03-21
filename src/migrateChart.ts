@@ -2,38 +2,40 @@ import _keyBy from "lodash/keyBy";
 import _mapValues from "lodash/mapValues";
 import _omit from "lodash/omit";
 import _isArray from "lodash/isArray";
-
-import { pluginWidgetPlotlyLineChart } from "@activeviam/plugin-widget-plotly-line";
-import { pluginWidgetPlotly100StackedBarChart } from "@activeviam/plugin-widget-plotly-100-stacked-bars";
-import { pluginWidgetPlotlyClusteredBarChart } from "@activeviam/plugin-widget-plotly-clustered-bars";
-import { pluginWidgetPlotlyRadarChart } from "@activeviam/plugin-widget-plotly-radar";
-import { pluginWidgetPlotlyStackedColumnChart } from "@activeviam/plugin-widget-plotly-stacked-columns";
-import { pluginWidgetPlotly100StackedColumnChart } from "@activeviam/plugin-widget-plotly-100-stacked-columns";
-import { pluginWidgetPlotlyClusteredColumnChart } from "@activeviam/plugin-widget-plotly-clustered-columns";
-import { pluginWidgetPlotlyWaterfallChart } from "@activeviam/plugin-widget-plotly-waterfall";
-import { pluginWidgetPlotlyPieChart } from "@activeviam/plugin-widget-plotly-pie";
-import { pluginWidgetPlotlyStackedBarChart } from "@activeviam/plugin-widget-plotly-stacked-bars";
-import { pluginWidgetPlotlyDonutChart } from "@activeviam/plugin-widget-plotly-donut";
-import { pluginWidgetPlotlyScatterPlot } from "@activeviam/plugin-widget-plotly-scatter";
-import { pluginWidgetPlotlyComboChart } from "@activeviam/plugin-widget-plotly-combo";
-import { pluginWidgetPlotlyAreaChart } from "@activeviam/plugin-widget-plotly-area";
-import { pluginWidgetPlotly100StackedAreaChart } from "@activeviam/plugin-widget-plotly-100-stacked-area";
-import { pluginWidgetPlotlyGaugeChart } from "@activeviam/plugin-widget-plotly-gauge";
-import { pluginWidgetPlotlyBulletChart } from "@activeviam/plugin-widget-plotly-bullet";
-import { pluginWidgetPlotlyTreeMap } from "@activeviam/plugin-widget-plotly-treemap";
-import { pluginWidgetPlotlyStackedAreaChart } from "@activeviam/plugin-widget-plotly-stacked-area";
-
+import {
+  parse,
+  stringify,
+  pluginWidgetPlotlyLineChart,
+  pluginWidgetPlotly100StackedBarChart,
+  pluginWidgetPlotlyClusteredBarChart,
+  pluginWidgetPlotlyRadarChart,
+  pluginWidgetPlotlyStackedColumnChart,
+  pluginWidgetPlotly100StackedColumnChart,
+  pluginWidgetPlotlyClusteredColumnChart,
+  pluginWidgetPlotlyWaterfallChart,
+  pluginWidgetPlotlyPieChart,
+  pluginWidgetPlotlyStackedBarChart,
+  pluginWidgetPlotlyDonutChart,
+  pluginWidgetPlotlyScatterPlot,
+  pluginWidgetPlotlyComboChart,
+  pluginWidgetPlotlyAreaChart,
+  pluginWidgetPlotly100StackedAreaChart,
+  pluginWidgetPlotlyGaugeChart,
+  pluginWidgetPlotlyBulletChart,
+  pluginWidgetPlotlyTreeMap,
+  pluginWidgetPlotlyStackedAreaChart,
+} from "@activeviam/activeui-sdk";
 import type {
-  SerializedDataVisualizationWidgetMapping,
+  PlotlyWidgetState,
+  DataModel,
+  MdxSelect,
+  MdxString,
+  Query,
   WidgetPlugin,
-} from "@activeviam/plugin-widget";
-import type { PlotlyWidgetState } from "@activeviam/chart";
-import type { DataModel } from "@activeviam/data-model";
-
-import { MdxSelect, MdxString, parse, stringify } from "@activeviam/mdx";
+  SerializedDataVisualizationWidgetMapping,
+} from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
-import type { Query } from "@activeviam/activepivot-client";
 
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [
