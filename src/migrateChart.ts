@@ -1,17 +1,226 @@
+import _keyBy from "lodash/keyBy";
 import _mapValues from "lodash/mapValues";
 import _omit from "lodash/omit";
 import _isArray from "lodash/isArray";
-
+import {
+  parse,
+  stringify,
+  pluginWidgetPlotlyLineChart,
+  pluginWidgetPlotly100StackedBarChart,
+  pluginWidgetPlotlyClusteredBarChart,
+  pluginWidgetPlotlyRadarChart,
+  pluginWidgetPlotlyStackedColumnChart,
+  pluginWidgetPlotly100StackedColumnChart,
+  pluginWidgetPlotlyClusteredColumnChart,
+  pluginWidgetPlotlyWaterfallChart,
+  pluginWidgetPlotlyPieChart,
+  pluginWidgetPlotlyStackedBarChart,
+  pluginWidgetPlotlyDonutChart,
+  pluginWidgetPlotlyScatterPlot,
+  pluginWidgetPlotlyComboChart,
+  pluginWidgetPlotlyAreaChart,
+  pluginWidgetPlotly100StackedAreaChart,
+  pluginWidgetPlotlyGaugeChart,
+  pluginWidgetPlotlyBulletChart,
+  pluginWidgetPlotlyTreeMap,
+  pluginWidgetPlotlyStackedAreaChart,
+} from "@activeviam/activeui-sdk";
 import type {
   PlotlyWidgetState,
   DataModel,
   MdxSelect,
   MdxString,
   Query,
+  WidgetPlugin,
+  SerializedDataVisualizationWidgetMapping,
 } from "@activeviam/activeui-sdk";
-import { parse, stringify } from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
+
+const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
+  [
+    pluginWidgetPlotlyLineChart,
+    pluginWidgetPlotly100StackedBarChart,
+    pluginWidgetPlotlyClusteredBarChart,
+    pluginWidgetPlotlyRadarChart,
+    pluginWidgetPlotlyStackedColumnChart,
+    pluginWidgetPlotly100StackedColumnChart,
+    pluginWidgetPlotlyClusteredColumnChart,
+    pluginWidgetPlotlyWaterfallChart,
+    pluginWidgetPlotlyPieChart,
+    pluginWidgetPlotlyStackedBarChart,
+    pluginWidgetPlotlyDonutChart,
+    pluginWidgetPlotlyScatterPlot,
+    pluginWidgetPlotlyComboChart,
+    pluginWidgetPlotlyAreaChart,
+    pluginWidgetPlotly100StackedAreaChart,
+    pluginWidgetPlotlyGaugeChart,
+    pluginWidgetPlotlyBulletChart,
+    pluginWidgetPlotlyTreeMap,
+    pluginWidgetPlotlyStackedAreaChart,
+  ],
+  "key"
+);
+
+/**
+ * Returns the key of the ActiveUI 5 widget corresponding to the ActiveUI 4 chart identified by `legacyChartType`.
+ * Returns undefined if the migration script is not able to determine which ActiveUI 5 widget the legacy chart should be migrated to.
+ */
+function _getMigratedWidgetKey(legacyChartType: string): string | undefined {
+  if (legacyChartType.startsWith("plotly-")) {
+    return legacyChartType;
+  }
+
+  switch (legacyChartType) {
+    case "combo-line":
+      return "plotly-line-chart";
+    case "combo-line-area":
+      return "plotly-area-chart";
+    case "combo-histogram":
+      return "plotly-stacked-column-chart";
+    case "combo-horizontal-histogram":
+      return "plotly-stacked-bar-chart";
+    case "pie":
+      return "plotly-pie-chart";
+    case "scatter":
+      return "plotly-scatter-plot";
+    default: {
+      return undefined;
+    }
+  }
+}
+
+/**
+ * Returns the mapping of the ActiveUI 5 widget, corresponding to `legacyMapping`.
+ * Returns undefined if the migration script is not able to determine which ActiveUI 5 widget the legacy chart should be migrated to.
+ * Does not cater for the potentially missing ALL_MEASURES tile.
+ */
+function _getMigratedChartMapping(
+  legacyMapping: any,
+  legacyChartType: string,
+  widgetPlugin: WidgetPlugin
+): SerializedDataVisualizationWidgetMapping {
+  const emptyMapping: SerializedDataVisualizationWidgetMapping = {};
+
+  Object.keys(widgetPlugin.attributes ?? {}).forEach((attributeName) => {
+    emptyMapping[attributeName] = [];
+  });
+
+  if (legacyChartType.startsWith("plotly-")) {
+    return {
+      ...emptyMapping,
+      ...legacyMapping,
+    };
+  }
+
+  const flattenedMapping = _mapValues(legacyMapping, (attributeMapping) => {
+    return _isArray(attributeMapping.from)
+      ? attributeMapping.from
+      : [attributeMapping.from];
+  });
+
+  const commonMapping = {
+    ...emptyMapping,
+    horizontalSubplots: flattenedMapping.rows ?? [],
+    verticalSubplots: flattenedMapping.columns ?? [],
+  };
+
+  switch (legacyChartType) {
+    case "combo-line":
+      return {
+        ...commonMapping,
+        xAxis: flattenedMapping.x,
+        values: flattenedMapping.y,
+      };
+    case "combo-line-area":
+      return {
+        ...commonMapping,
+        xAxis: flattenedMapping.x,
+        values: flattenedMapping.y,
+      };
+    case "combo-histogram":
+      return {
+        ...commonMapping,
+        xAxis: flattenedMapping.x,
+        values: flattenedMapping.y,
+      };
+    case "combo-horizontal-histogram":
+      return {
+        ...commonMapping,
+        yAxis: flattenedMapping.y,
+        values: flattenedMapping.x,
+      };
+    case "pie":
+      return {
+        ...commonMapping,
+        values: flattenedMapping.angle,
+        sliceBy: flattenedMapping.color,
+      };
+    case "scatter":
+      return {
+        ...commonMapping,
+        xValues: flattenedMapping.x,
+        yValues: flattenedMapping.y,
+        size: flattenedMapping.r,
+        color: flattenedMapping.color,
+        splitBy: flattenedMapping.cardinality,
+      };
+    default: {
+      return legacyMapping;
+    }
+  }
+}
+
+/**
+ * Returns a new chart mapping corresponding to `mapping` where the ALL_MEASURES tile was added, if applicable.
+ * Does not mutate `mapping`.
+ */
+function _addAllMeasuresToMapping(
+  mapping: SerializedDataVisualizationWidgetMapping,
+  widgetPlugin: WidgetPlugin
+): SerializedDataVisualizationWidgetMapping {
+  const attributes = widgetPlugin.attributes ?? {};
+  const doesAlreadyContainTheAllMeasuresTile = Object.values(mapping).some(
+    (fields) => fields?.includes("ALL_MEASURES")
+  );
+
+  if (
+    !widgetPlugin.doesSupportMeasuresRedirection ||
+    doesAlreadyContainTheAllMeasuresTile
+  ) {
+    // The widget does not support measures redirection (like a scatter plot for instance).
+    // Or the legacy mapping already contained the "ALL_MEASURES" tile.
+    // => either way, this tile should not be added.
+    return mapping;
+  }
+
+  const targetAttributeName = Object.keys(attributes).find((attributeName) => {
+    const attribute = attributes[attributeName];
+    const selectedFields = mapping[attributeName];
+
+    // When widget plugins do not specify a maximum number of fields for one of their attributes,
+    // it means that they support an infinity of fields for this attribute.
+    const maxNumberOfFields =
+      attribute?.maxNumberOfFields === undefined
+        ? Infinity
+        : attribute?.maxNumberOfFields;
+
+    return (
+      attribute?.role === "secondaryOrdinal" &&
+      selectedFields.length < Number(maxNumberOfFields)
+    );
+  });
+
+  if (targetAttributeName === undefined) {
+    // `mapping` does not contain a single suitable slot for the ALL_MEASURES tile.
+    return mapping;
+  }
+
+  return {
+    ...mapping,
+    [targetAttributeName]: [...mapping[targetAttributeName], "ALL_MEASURES"],
+  };
+}
 
 /**
  * Returns the converted chart widget state, ready to be used by ActiveUI 5.
@@ -22,9 +231,24 @@ export function migrateChart(
   legacyChartState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): PlotlyWidgetState<"serialized"> {
-  const { type: legacyChartType, ...configuration } =
-    legacyChartState?.value?.body?.configuration;
-  const name = legacyChartState?.name;
+  const widgetName = legacyChartState?.name;
+  const {
+    type,
+    mapping: legacyMapping,
+    ...configuration
+  } = legacyChartState?.value?.body?.configuration;
+  const legacyChartType = type || "plotly-line-chart";
+
+  const migratedWidgetKey = _getMigratedWidgetKey(legacyChartType);
+
+  if (migratedWidgetKey === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`
+    );
+
+    return legacyChartState;
+  }
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.
   // TypeScript does not recognize that the legacy query has an `mdx` attribute.
@@ -60,130 +284,26 @@ export function migrateChart(
 
   const filters = extractedFilters.map((filter) => stringify(filter));
 
-  const type = legacyChartType || "plotly-line-chart";
+  const widgetPlugin = chartPlugins[migratedWidgetKey];
 
-  if (type.startsWith("plotly-")) {
-    return {
-      ...configuration,
-      name,
-      query,
-      filters,
-      queryContext,
-      serverKey,
-      widgetKey: type,
-    };
-  }
-
-  const mapping = _mapValues(
-    legacyChartState?.value?.body?.configuration?.mapping,
-    (attributeMapping) => {
-      return _isArray(attributeMapping.from)
-        ? attributeMapping.from
-        : [attributeMapping.from];
-    }
+  const mappingDisregardingAllMeasures = _getMigratedChartMapping(
+    legacyMapping,
+    legacyChartType,
+    widgetPlugin
   );
-  const subplots = {
-    ...(mapping.row && { horizontalSubplots: mapping.rows }),
-    ...(mapping.column && { verticalSubplots: mapping.rows }),
-  };
+  const mapping = _addAllMeasuresToMapping(
+    mappingDisregardingAllMeasures,
+    widgetPlugin
+  );
 
-  switch (type) {
-    case "combo-line":
-      return {
-        mapping: {
-          xAxis: mapping.x,
-          values: mapping.y,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-line-chart",
-      };
-    case "combo-line-area":
-      return {
-        mapping: {
-          xAxis: mapping.x,
-          values: mapping.y,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-area-chart",
-      };
-    case "combo-histogram":
-      return {
-        mapping: {
-          xAxis: mapping.x,
-          values: mapping.y,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-stacked-column-chart",
-      };
-    case "combo-horizontal-histogram":
-      return {
-        mapping: {
-          yAxis: mapping.y,
-          values: mapping.x,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-stacked-bar-chart",
-      };
-    case "pie":
-      return {
-        mapping: {
-          values: mapping.angle,
-          sliceBy: mapping.color,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-pie-chart",
-      };
-    case "scatter":
-      return {
-        mapping: {
-          xValues: mapping.x,
-          yValues: mapping.y,
-          size: mapping.r,
-          color: mapping.color,
-          splitBy: mapping.cardinality,
-          ...subplots,
-        },
-        query,
-        filters,
-        queryContext,
-        serverKey,
-        name,
-        widgetKey: "plotly-scatter-plot",
-      };
-    default: {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`
-      );
-      return {
-        name: legacyChartState?.name,
-        ...legacyChartState?.value?.body,
-      };
-    }
-  }
+  return {
+    ...configuration,
+    mapping,
+    query,
+    filters,
+    queryContext,
+    serverKey,
+    name: widgetName,
+    widgetKey: migratedWidgetKey,
+  };
 }

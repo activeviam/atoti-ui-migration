@@ -13,8 +13,7 @@ describe("migrateWidget", () => {
         body: {
           query: {
             updateMode: "once",
-            mdx:
-              "SELECT NON EMPTY Crossjoin([Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]",
+            mdx: "SELECT NON EMPTY Crossjoin([Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]",
           },
           configuration: {
             type: "plotly-line-chart",
@@ -38,6 +37,7 @@ describe("migrateWidget", () => {
           "horizontalSubplots": Array [],
           "splitBy": Array [
             "[Booking].[Desk].[LegalEntity]",
+            "ALL_MEASURES",
           ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
@@ -75,11 +75,12 @@ describe("migrateWidget", () => {
       expect(migrateWidget(legacyWidgetState, servers)).toMatchInlineSnapshot(`
         Object {
           "name": "Untitled page context values",
+          "widgetKey": "context-values",
         }
       `);
       expect(console.warn).toHaveBeenCalledTimes(1);
       expect(console.warn).toHaveBeenCalledWith(
-        `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It might not work correctly in ActiveUI5.`,
+        `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5.`
       );
     } finally {
       console.warn = warn;

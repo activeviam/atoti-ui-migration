@@ -7,6 +7,7 @@ import type {
   MdxSelect,
 } from "@activeviam/activeui-sdk";
 import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk";
+import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import {
   LegacyContextValues,
   _migrateContextValues,
@@ -72,10 +73,11 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   }
 
   const parsedMdx = parse<T>(mdx);
-  const filters = getFilters(parsedMdx, { cube }).map(
+  const fixedMdx = _fixErroneousExpansionMdx(parsedMdx, cube);
+  const filters = getFilters(fixedMdx, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx
   );
-  const mdxWithoutFilters = setFilters(parsedMdx, { filters: [], cube });
+  const mdxWithoutFilters = setFilters(fixedMdx, { filters: [], cube });
 
   // TODO UI-5036 Migrate query ranges.
   return {

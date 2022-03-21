@@ -51,13 +51,13 @@ describe("migrateKpi", () => {
         "comparison": Object {
           "comparedMemberNamePath": Array [
             "AllMember",
-            "LegalEntityB",
+            "LegalEntityA",
           ],
           "dimensionName": "Booking",
           "hierarchyName": "Desk",
           "referenceMemberNamePath": Array [
             "AllMember",
-            "LegalEntityA",
+            "LegalEntityB",
           ],
         },
         "filters": Array [],

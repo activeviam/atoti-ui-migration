@@ -1,3 +1,4 @@
+import _cloneDeep from "lodash/cloneDeep";
 import { migrateChart } from "./migrateChart";
 import { emptyLegacyChart } from "./__test_resources__/emptyLegacyChart";
 import { legacyAreaChart } from "./__test_resources__/legacyAreaChart";
@@ -16,7 +17,9 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
-          "splitBy": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[pnlDelta.SUM]",
             "[Measures].[pnlVega.SUM]",
@@ -81,11 +84,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
-          "horizontalSubplots": undefined,
+          "horizontalSubplots": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
-          "verticalSubplots": undefined,
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -107,9 +113,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -131,9 +142,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "stackBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "xAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -155,9 +171,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
+          "stackBy": Array [
+            "ALL_MEASURES",
+          ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
           "yAxis": Array [
             "[Currency].[Currency].[Currency]",
           ],
@@ -179,12 +200,14 @@ describe("migrateChart", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
+          "horizontalSubplots": Array [],
           "sliceBy": Array [
             "[Currency].[Currency].[Currency]",
           ],
           "values": Array [
             "[Measures].[contributors.COUNT]",
           ],
+          "verticalSubplots": Array [],
         },
         "name": "Legacy pie chart",
         "query": Object {
@@ -206,12 +229,14 @@ describe("migrateChart", () => {
           "color": Array [
             "[Booking].[Desk].[LegalEntity]",
           ],
+          "horizontalSubplots": Array [],
           "size": Array [
             "[Measures].[pnl.FOREX]",
           ],
           "splitBy": Array [
             "[Currency].[Currency].[Currency]",
           ],
+          "verticalSubplots": Array [],
           "xValues": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -235,6 +260,15 @@ describe("migrateChart", () => {
     expect(migrateChart(emptyLegacyChart, servers)).toMatchInlineSnapshot(`
       Object {
         "filters": Array [],
+        "mapping": Object {
+          "horizontalSubplots": Array [],
+          "splitBy": Array [
+            "ALL_MEASURES",
+          ],
+          "values": Array [],
+          "verticalSubplots": Array [],
+          "xAxis": Array [],
+        },
         "name": "Untitled Chart",
         "query": Object {
           "updateMode": "once",
@@ -244,5 +278,56 @@ describe("migrateChart", () => {
         "widgetKey": "plotly-line-chart",
       }
     `);
+  });
+
+  it("replaces undefined attributes in the ActiveUI 4 mapping by empty arrays of fields", () => {
+    // ActiveUI 5 needs every single attribute to be present in the widget's mapping, even if it does not contain any field.
+    const partialLegacyChartState = _cloneDeep(legacyChart);
+
+    // In this test, the following attributes are omitted instead of having an empty array of fields.
+    // This type of partial mapping works in ActiveUI 4, but not 5.
+    ["splitBy", "horizontalSubplots", "verticalSubplots"].forEach(
+      (attributeName) => {
+        delete partialLegacyChartState.value.body.configuration.mapping[
+          attributeName
+        ];
+      }
+    );
+
+    const chartState = migrateChart(partialLegacyChartState, servers);
+
+    // Notice that `splitBy`, `horizontalSubplots` and `verticalSubplots` are present in the migrated chart state,
+    // even though they are missing in the input legacy chart state.
+    expect(chartState.mapping).toMatchInlineSnapshot(`
+      Object {
+        "horizontalSubplots": Array [],
+        "splitBy": Array [
+          "ALL_MEASURES",
+        ],
+        "values": Array [
+          "[Measures].[pnlDelta.SUM]",
+          "[Measures].[pnlVega.SUM]",
+        ],
+        "verticalSubplots": Array [],
+        "xAxis": Array [
+          "[Currency].[Currency].[Currency]",
+        ],
+      }
+    `);
+  });
+
+  it("ensures that the returned mapping contains the ALL_MEASURES tile if the widget supports measures redirection", () => {
+    // Some widgets support measures redirection.
+    // For instance, the line chart does: measures are on "splitBy" by default, but the user can choose to move them to "X Axis" or subplots.
+    // Some widgets do not support it.
+    // For instance, the scatter plot does not: each measure on it is dedicated to a specific attribute (x, y or size).
+    //
+    // ActiveUI 4 charts did not have this capability: "all measures" could never be moved.
+    // For this ActiveUI 5 feature to work, charts supporting measures redirection in ActiveUI 5 should see the "ALL_MEASURES" tile added to their mapping during the migration.
+
+    const migratedChartState = migrateChart(legacyChart, servers);
+
+    // Even though the ALL_MEASURES tile is missing in the legacy chart state, the migrated state does contain it.
+    expect(migratedChartState.mapping.splitBy).toContain("ALL_MEASURES");
   });
 });

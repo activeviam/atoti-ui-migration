@@ -67,7 +67,7 @@ export function _migrateTableColumnWidths({
         if (
           isMdxCompoundIdentifier(parsedColumnKey) &&
           ["level", "member", "measure"].includes(
-            getSpecificCompoundIdentifier(parsedColumnKey, cube).type
+            getSpecificCompoundIdentifier(parsedColumnKey, { cube }).type
           )
         ) {
           columnKey = key;
@@ -77,7 +77,7 @@ export function _migrateTableColumnWidths({
             (arg) =>
               isMdxCompoundIdentifier(arg) &&
               ["member", "measure"].includes(
-                getSpecificCompoundIdentifier(arg, cube).type
+                getSpecificCompoundIdentifier(arg, { cube }).type
               )
           )
         ) {

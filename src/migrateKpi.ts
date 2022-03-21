@@ -14,6 +14,7 @@ import {
   serializeWidgetState,
   deriveMappingFromMdx,
 } from "@activeviam/activeui-sdk";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -49,10 +50,9 @@ export function migrateKpi(
 
     traverseMdx(pagesAxis, (mdx) => {
       if (mdx.elementType === "CompoundIdentifier") {
-        const specificCompoundIdentifier = getSpecificCompoundIdentifier(
-          mdx,
-          cube
-        );
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
+          cube,
+        });
         if (specificCompoundIdentifier.type === "member") {
           const {
             dimensionName,
@@ -67,8 +67,8 @@ export function migrateKpi(
     comparison = {
       dimensionName: memberCoordinates[0].dimensionName,
       hierarchyName: memberCoordinates[0].hierarchyName,
-      referenceMemberNamePath: memberCoordinates[0].namePath,
-      comparedMemberNamePath: memberCoordinates[1].namePath,
+      comparedMemberNamePath: memberCoordinates[0].namePath,
+      referenceMemberNamePath: memberCoordinates[1].namePath,
     };
 
     // At this stage the page axis exists in the MDX, so the MDX is necessarily defined.

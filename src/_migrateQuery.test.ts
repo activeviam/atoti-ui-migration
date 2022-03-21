@@ -62,4 +62,61 @@ describe("_migrateQuery", () => {
       "[Currency].[Currency].[AllMember].[EUR]"
     );
   });
+
+  it("removes the useless (and dangerous) parts of the queries created when users collapse and re-expand a member in ActiveUI 4", () => {
+    const legacyQuery = {
+      mdx: `SELECT
+        NON EMPTY Hierarchize(
+          Union(
+            Crossjoin(
+              Hierarchize(
+                DrilldownLevel(
+                  [Currency].[Currency].[ALL].[AllMember]
+                )
+              ),
+              Hierarchize(
+                DrilldownLevel(
+                  [Geography].[City].[ALL].[AllMember]
+                )
+              )
+            ),
+            Crossjoin(
+              [Currency].[Currency].[ALL].[AllMember].[EUR],
+              Descendants(
+                {
+                  [Geography].[City].[ALL].[AllMember]
+                },
+                [Geography].[City].[City]
+              )
+            )
+          )
+        ) ON ROWS
+        FROM [EquityDerivativesCube]
+        CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS`,
+    };
+
+    const {
+      query: { mdx },
+    } = _migrateQuery({ legacyQuery, cube })!;
+
+    expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
+      "SELECT
+        NON EMPTY Hierarchize(
+          Crossjoin(
+            Hierarchize(
+              DrilldownLevel(
+                [Currency].[Currency].[ALL].[AllMember]
+              )
+            ),
+            Hierarchize(
+              DrilldownLevel(
+                [Geography].[City].[ALL].[AllMember]
+              )
+            )
+          )
+        ) ON ROWS
+        FROM [EquityDerivativesCube]
+        CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
+    `);
+  });
 });
