@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@activeviam/activeui-sdk": "5.0.10",
+    "@activeviam/content-server-initialization": "5.0.10",
     "@activeviam/data-model": "5.0.10",
     "@activeviam/mdx": "5.0.10",
     "@types/lodash": "^4.14.168",
