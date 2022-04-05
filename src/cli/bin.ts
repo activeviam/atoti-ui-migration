@@ -39,6 +39,9 @@ yargs
       const servers = await fs.readJSON(serversPath);
       const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers);
       await fs.writeJSON(outputPath, migratedUIFolder, { spaces: 2 });
+      // FIXME Rely on yargs instead of having to call process.exit manually.
+      // See https://support.activeviam.com/jira/browse/UI-7198
+      process.exit(0);
     }
   )
   .demandCommand(1)
