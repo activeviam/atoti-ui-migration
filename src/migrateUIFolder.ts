@@ -7,85 +7,12 @@ import type {
   DataModel,
   MdxString,
 } from "@activeviam/activeui-sdk";
+import { emptyUIFolder } from "@activeviam/content-server-initialization";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
-
-const emptyChildren: { [key: string]: ContentRecord } = {};
-
-const emptyContentFolder = {
-  entry: {
-    isDirectory: true,
-    owners: ["ROLE_CS_ROOT"],
-    readers: ["ROLE_CS_ROOT"],
-  },
-  children: {
-    content: {
-      children: _cloneDeep(emptyChildren),
-      entry: {
-        isDirectory: true,
-        owners: ["ROLE_USER"],
-        readers: ["ROLE_USER"],
-      },
-    },
-    structure: {
-      children: _cloneDeep(emptyChildren),
-      entry: {
-        isDirectory: true,
-        owners: ["ROLE_USER"],
-        readers: ["ROLE_USER"],
-      },
-    },
-  },
-};
-
-const emptyUIFolder = {
-  entry: {
-    isDirectory: true,
-    owners: ["ROLE_CS_ROOT"],
-    readers: ["ROLE_CS_ROOT"],
-  },
-  children: {
-    calculated_measures: _cloneDeep(emptyContentFolder),
-    filters: _cloneDeep(emptyContentFolder),
-    widgets: _cloneDeep(emptyContentFolder),
-    dashboards: {
-      entry: {
-        isDirectory: true,
-        owners: ["ROLE_CS_ROOT"],
-        readers: ["ROLE_CS_ROOT"],
-      },
-      children: {
-        content: {
-          children: _cloneDeep(emptyChildren),
-          entry: {
-            isDirectory: true,
-            owners: ["ROLE_USER"],
-            readers: ["ROLE_USER"],
-          },
-        },
-        structure: {
-          children: _cloneDeep(emptyChildren),
-          entry: {
-            isDirectory: true,
-            owners: ["ROLE_USER"],
-            readers: ["ROLE_USER"],
-          },
-        },
-        thumbnails: {
-          children: _cloneDeep(emptyChildren),
-          entry: {
-            isDirectory: true,
-            owners: ["ROLE_USER"],
-            readers: ["ROLE_USER"],
-          },
-        },
-      },
-    },
-  },
-};
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -264,7 +191,7 @@ export function migrateUIFolder(
   legacyUIFolder: ContentRecord,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): ContentRecord {
-  const migratedUIFolder = _cloneDeep(emptyUIFolder);
+  const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
@@ -288,7 +215,7 @@ export function migrateUIFolder(
         try {
           const migratedFilter = migrateFilter(bookmark);
           filters[id] = migratedFilter;
-          migratedUIFolder.children.filters.children.content.children[id] = {
+          migratedUIFolder.children!.filters.children!.content.children![id] = {
             entry: {
               ...entry,
               content: JSON.stringify(migratedFilter.content),
@@ -297,14 +224,19 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of filter ${id} ("${bookmark.name}"). Ignoring this filter. Error:\n${error.stack}`
+            `An error occurred during the migration of filter ${id} ("${
+              bookmark.name
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            }"). Ignoring this filter. Error:\n${(error as Error).stack}`
           );
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         try {
           const migratedDashboard = migrateDashboard(bookmark, servers);
           dashboards[id] = migratedDashboard;
-          migratedUIFolder.children.dashboards.children.content.children[id] = {
+          migratedUIFolder.children!.dashboards.children!.content.children![
+            id
+          ] = {
             entry: {
               ...entry,
               content: JSON.stringify(_omit(migratedDashboard, ["name"])),
@@ -313,14 +245,17 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of dashboard ${id} ("${bookmark.name}"). Ignoring this dashboard. Error:\n${error.stack}`
+            `An error occurred during the migration of dashboard ${id} ("${
+              bookmark.name
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            }"). Ignoring this dashboard. Error:\n${(error as Error).stack}`
           );
         }
       } else {
         try {
           const migratedWidget = migrateWidget(bookmark, servers);
           widgets[id] = migratedWidget;
-          migratedUIFolder.children.widgets.children.content.children[id] = {
+          migratedUIFolder.children!.widgets.children!.content.children![id] = {
             entry: {
               ...entry,
               content: JSON.stringify(
@@ -331,7 +266,10 @@ export function migrateUIFolder(
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of widget ${id} ("${bookmark.name}"). Ignoring this widget. Error:\n${error.stack}`
+            `An error occurred during the migration of widget ${id} ("${
+              bookmark.name
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            }"). Ignoring this widget. Error:\n${(error as Error).stack}`
           );
         }
       }
