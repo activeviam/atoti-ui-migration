@@ -54,6 +54,7 @@ describe("migrateDashboard", () => {
           "filters": Array [],
           "mapping": Object {
             "horizontalSubplots": Array [],
+            "secondaryValues": Array [],
             "splitBy": Array [
               "ALL_MEASURES",
             ],
