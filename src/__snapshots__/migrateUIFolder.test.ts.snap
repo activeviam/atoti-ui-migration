@@ -1111,32 +1111,9 @@ Object {
         ],
       },
     },
-    "organization_permissions": Object {
-      "entry": Object {
-        "content": "{}",
-        "isDirectory": false,
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_CS_ROOT",
-        ],
-      },
-    },
     "organization_settings": Object {
       "entry": Object {
         "content": "{\\"theme\\":\\"light-activeviam\\"}",
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_USER",
-        ],
-      },
-    },
-    "user_roles": Object {
-      "entry": Object {
-        "isDirectory": true,
         "owners": Array [
           "ROLE_CS_ROOT",
         ],
@@ -2151,32 +2128,9 @@ Object {
         ],
       },
     },
-    "organization_permissions": Object {
-      "entry": Object {
-        "content": "{}",
-        "isDirectory": false,
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_CS_ROOT",
-        ],
-      },
-    },
     "organization_settings": Object {
       "entry": Object {
         "content": "{}",
-        "owners": Array [
-          "ROLE_CS_ROOT",
-        ],
-        "readers": Array [
-          "ROLE_USER",
-        ],
-      },
-    },
-    "user_roles": Object {
-      "entry": Object {
-        "isDirectory": true,
         "owners": Array [
           "ROLE_CS_ROOT",
         ],
