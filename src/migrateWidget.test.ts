@@ -35,6 +35,7 @@ describe("migrateWidget", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
+          "secondaryValues": Array [],
           "splitBy": Array [
             "[Booking].[Desk].[LegalEntity]",
             "ALL_MEASURES",

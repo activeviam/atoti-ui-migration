@@ -29,16 +29,16 @@
     "extends": "activeui"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk": "5.0.8",
-    "@activeviam/data-model": "5.0.8",
-    "@activeviam/mdx": "5.0.8",
+    "@activeviam/activeui-sdk": "5.0.10",
+    "@activeviam/data-model": "5.0.10",
+    "@activeviam/mdx": "5.0.10",
     "@types/lodash": "^4.14.168",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",
     "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
-    "@activeviam/activeui-sdk-scripts": "5.0.8",
+    "@activeviam/activeui-sdk-scripts": "5.0.10",
     "@ant-design/icons": "^4.4.0",
     "@types/jest": "^26.0.14",
     "antd": "4.12.2",

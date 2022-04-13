@@ -17,6 +17,7 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
+          "secondaryValues": Array [],
           "splitBy": Array [
             "ALL_MEASURES",
           ],
@@ -85,6 +86,7 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
+          "secondaryValues": Array [],
           "splitBy": Array [
             "ALL_MEASURES",
           ],
@@ -114,6 +116,7 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
+          "secondaryValues": Array [],
           "splitBy": Array [
             "ALL_MEASURES",
           ],
@@ -262,6 +265,7 @@ describe("migrateChart", () => {
         "filters": Array [],
         "mapping": Object {
           "horizontalSubplots": Array [],
+          "secondaryValues": Array [],
           "splitBy": Array [
             "ALL_MEASURES",
           ],
@@ -301,6 +305,7 @@ describe("migrateChart", () => {
     expect(chartState.mapping).toMatchInlineSnapshot(`
       Object {
         "horizontalSubplots": Array [],
+        "secondaryValues": Array [],
         "splitBy": Array [
           "ALL_MEASURES",
         ],
