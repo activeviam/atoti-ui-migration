@@ -1,29 +1,19 @@
 import _cloneDeep from "lodash/cloneDeep";
 import _mapValues from "lodash/mapValues";
+import _pick from "lodash/pick";
 import type {
   Activity,
   ContentRecord,
   Settings,
   MdxString,
 } from "@activeviam/activeui-sdk";
+import { emptyUIFolder } from "@activeviam/content-server-initialization";
 
-const emptySettingsFolders = {
-  organization_settings: {
-    entry: {
-      isDirectory: false,
-      owners: ["ROLE_CS_ROOT"],
-      readers: ["ROLE_USER"],
-      content: "{}",
-    },
-  },
-  users: {
-    entry: {
-      isDirectory: true,
-      owners: ["ROLE_USER"],
-      readers: ["ROLE_USER"],
-    },
-  },
-};
+const emptySettingsFolders = _pick(
+  emptyUIFolder.children,
+  "organization_settings",
+  "users"
+);
 
 /**
  * Returns the converted settings map, ready to be used by ActiveUI 5.
