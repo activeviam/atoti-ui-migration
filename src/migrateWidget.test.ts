@@ -81,7 +81,7 @@ describe("migrateWidget", () => {
       `);
       expect(console.warn).toHaveBeenCalledTimes(1);
       expect(console.warn).toHaveBeenCalledWith(
-        `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5.`
+        `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
       );
     } finally {
       console.warn = warn;

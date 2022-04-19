@@ -1305,6 +1305,22 @@ Object {
                 "timestamp": 1607879735685,
               },
             },
+            "0xb": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
             "1fe": Object {
               "entry": Object {
                 "canRead": true,

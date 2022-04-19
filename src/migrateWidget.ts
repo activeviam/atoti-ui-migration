@@ -34,7 +34,7 @@ export function migrateWidget(
     default:
       // eslint-disable-next-line no-console
       console.warn(
-        `Unsupported widgetKey: "${widgetPluginKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5.`
+        `Unsupported widgetKey: "${widgetPluginKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
       );
       return {
         ...legacyWidgetState?.value?.body,
