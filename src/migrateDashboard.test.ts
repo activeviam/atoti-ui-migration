@@ -1,4 +1,6 @@
+import _map from "lodash/map";
 import _mapValues from "lodash/mapValues";
+import _intersection from "lodash/intersection";
 import { legacyDashboard } from "./__test_resources__/legacyDashboard";
 import { migrateDashboard } from "./migrateDashboard";
 import { LegacyDashboardState } from "./migration.types";
@@ -126,6 +128,10 @@ describe("migrateDashboard", () => {
           "serverKey": "my-server",
           "widgetKey": "quick-filter",
         },
+        "4": Object {
+          "name": "Page filters",
+          "widgetKey": "filters",
+        },
       }
     `);
   });
@@ -136,19 +142,29 @@ describe("migrateDashboard", () => {
       Object {
         "children": Array [
           Object {
-            "leafKey": "3",
-            "size": 0.3,
+            "leafKey": "4",
+            "size": 0.2,
           },
           Object {
-            "leafKey": "1",
-            "size": 0.27999999999999997,
-          },
-          Object {
-            "leafKey": "2",
-            "size": 0.42,
+            "children": Array [
+              Object {
+                "leafKey": "3",
+                "size": 0.3,
+              },
+              Object {
+                "leafKey": "1",
+                "size": 0.27999999999999997,
+              },
+              Object {
+                "leafKey": "2",
+                "size": 0.42,
+              },
+            ],
+            "direction": "column",
+            "size": 0.8,
           },
         ],
-        "direction": "column",
+        "direction": "row",
       }
     `);
   });
@@ -234,6 +250,41 @@ describe("migrateDashboard", () => {
           "p-0",
         ],
         "queryContext": Array [],
+      }
+    `);
+  });
+
+  it("removes the specified widget keys, and adapts the layout", () => {
+    const keysOfWidgetPluginsToRemove = ["filters"];
+
+    const dashboard = migrateDashboard(
+      legacyDashboard,
+      servers,
+      keysOfWidgetPluginsToRemove
+    );
+
+    const { content, layout } = dashboard.pages["p-0"];
+    const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
+    expect(
+      _intersection(widgetPluginKeys, keysOfWidgetPluginsToRemove)
+    ).toHaveLength(0);
+    expect(layout).toMatchInlineSnapshot(`
+      Object {
+        "children": Array [
+          Object {
+            "leafKey": "3",
+            "size": 0.3,
+          },
+          Object {
+            "leafKey": "1",
+            "size": 0.27999999999999997,
+          },
+          Object {
+            "leafKey": "2",
+            "size": 0.42,
+          },
+        ],
+        "direction": "column",
       }
     `);
   });

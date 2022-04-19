@@ -13,6 +13,7 @@ import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
+import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -186,10 +187,15 @@ const accumulateStructure = ({
 
 /**
  * Returns the converted UI folder, ready to be used by ActiveUI 5.
+ *
+ * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
+ * - for a matching saved ActiveUI 4 widget, no ActiveUI 5 file is created.
+ * - for a saved ActiveUI 4 dashboard including a matching widget, the widget is removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  */
 export function migrateUIFolder(
   legacyUIFolder: ContentRecord,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  keysOfWidgetPluginsToRemove?: string[]
 ): ContentRecord {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
@@ -232,7 +238,11 @@ export function migrateUIFolder(
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         try {
-          const migratedDashboard = migrateDashboard(bookmark, servers);
+          const migratedDashboard = migrateDashboard(
+            bookmark,
+            servers,
+            keysOfWidgetPluginsToRemove
+          );
           dashboards[id] = migratedDashboard;
           migratedUIFolder.children!.dashboards.children!.content.children![
             id
@@ -253,6 +263,14 @@ export function migrateUIFolder(
         }
       } else {
         try {
+          if (
+            keysOfWidgetPluginsToRemove?.includes(
+              _getLegacyWidgetPluginKey(bookmark)
+            )
+          ) {
+            continue;
+          }
+
           const migratedWidget = migrateWidget(bookmark, servers);
           widgets[id] = migratedWidget;
           migratedUIFolder.children!.widgets.children!.content.children![id] = {
