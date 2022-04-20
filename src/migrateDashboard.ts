@@ -22,9 +22,7 @@ import type {
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
 import { _migrateUnsupportedWidget } from "./_migrateUnsupportedWidget";
-import { UnsupportedWidgetsInDashboardError } from "./errors/UnsupportedWidgetsInDashboardError";
 
 /**
  * Returns the layout path to the leaf uniquely identified by `leafKey`, or `undefined` if no leaf has this key.
@@ -91,25 +89,20 @@ export function migrateDashboard({
           dashboardLeafKey,
         ];
       } else {
-        try {
-          content[dashboardLeafKey] = migrateWidget({
-            legacyWidgetState: widget.bookmark,
-            servers,
-          });
-        } catch (e) {
-          if (e instanceof UnsupportedWidgetError) {
-            unsupportedWidgets[pageKey] = {
-              ...(unsupportedWidgets[pageKey] ?? {}),
-              [e.widgetPluginKey]: [
-                ...(unsupportedWidgets[pageKey]?.[e.widgetPluginKey] ?? []),
-                e.widgetName,
-              ],
-            };
-            content[dashboardLeafKey] = _migrateUnsupportedWidget(
-              widget.bookmark
-            );
-          }
-          throw e;
+        const [migratedWidget, isSupportedByDefaultInActiveUI5] = migrateWidget(
+          widget.bookmark,
+          servers
+        );
+        content[dashboardLeafKey] = migratedWidget;
+        if (!isSupportedByDefaultInActiveUI5) {
+          const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
+          unsupportedWidgets[pageKey] = {
+            ...(unsupportedWidgets[pageKey] ?? {}),
+            [widgetPluginKey]: [
+              ...(unsupportedWidgets[pageKey]?.[widgetPluginKey] ?? []),
+              widget.bookmark.name,
+            ],
+          };
         }
       }
     });
@@ -182,12 +175,15 @@ export function migrateDashboard({
   );
 
   if (!_isEmpty(unsupportedWidgets)) {
-    throw new UnsupportedWidgetsInDashboardError({
-      dashboardName: legacyDashboardState.name,
-      dashboardId,
-      unsupportedWidgets,
-      migratedStateOfDashboardWithUnsupportedWidgets: serializedDashboard,
-    });
+    console.warn(
+      `Found unsupported widgets while migrating dashboard "${
+        legacyDashboardState.name
+      }"${dashboardId ? ` (with id ${dashboardId})` : ""}:\n${JSON.stringify(
+        unsupportedWidgets,
+        null,
+        2
+      )}.\nThese widgets will be copied as is and will most likely not work in ActiveUI 5.\nAlternatively, you can use the --remove-widgets CLI option to remove them.`
+    );
   }
 
   return serializedDashboard;

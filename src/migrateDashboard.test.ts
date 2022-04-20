@@ -7,6 +7,12 @@ import { LegacyDashboardState } from "./migration.types";
 import { servers } from "./__test_resources__/servers";
 
 describe("migrateDashboard", () => {
+  beforeEach(() => {
+    // Do not clutter the test output with expected warnings.
+    // The tests that explicitly check for warnings can still spy on console.warn.
+    console.warn = jest.fn();
+  });
+
   it("turns the pages content from arrays into maps", () => {
     const dashboard = migrateDashboard({
       legacyDashboardState: legacyDashboard,
@@ -240,7 +246,10 @@ describe("migrateDashboard", () => {
         },
       },
     } as unknown as LegacyDashboardState;
-    const emptyDashboard = migrateDashboard(legacyEmptyDashboard, servers);
+    const emptyDashboard = migrateDashboard({
+      legacyDashboardState: legacyEmptyDashboard,
+      servers,
+    });
     expect(emptyDashboard).toMatchInlineSnapshot(`
       Object {
         "filters": Array [],
@@ -298,6 +307,28 @@ describe("migrateDashboard", () => {
         ],
         "direction": "column",
       }
+    `);
+  });
+
+  it("warns in the console if some widgets in the migrated dashboard have no core equivalent in ActiveUI 5 and will not be supported by default", () => {
+    const consoleWarnSpy = jest.spyOn(console, "warn");
+    migrateDashboard({
+      legacyDashboardState: legacyDashboard,
+      servers,
+      dashboardId: "eef",
+    });
+    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(consoleWarnSpy.mock.calls[0][0]).toMatchInlineSnapshot(`
+      "Found unsupported widgets while migrating dashboard \\"1 page, 4 widgets\\" (with id eef):
+      {
+        \\"p-0\\": {
+          \\"filters\\": [
+            \\"Page filters\\"
+          ]
+        }
+      }.
+      These widgets will be copied as is and will most likely not work in ActiveUI 5.
+      Alternatively, you can use the --remove-widgets CLI option to remove them."
     `);
   });
 });

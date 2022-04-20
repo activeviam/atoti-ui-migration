@@ -14,7 +14,6 @@ import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -255,7 +254,6 @@ export function migrateUIFolder(
             },
           };
         } catch (error) {
-          // TODO handle error
           // eslint-disable-next-line no-console
           console.error(
             `An error occurred during the migration of dashboard "${
@@ -276,11 +274,16 @@ export function migrateUIFolder(
             continue;
           }
 
-          const migratedWidget = migrateWidget({
-            legacyWidgetState: bookmark,
-            servers,
-            widgetId: id,
-          });
+          const [migratedWidget, isSupportedByDefaultInActiveUI5] =
+            migrateWidget(bookmark, servers);
+
+          if (!isSupportedByDefaultInActiveUI5) {
+            const widgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
+            console.warn(
+              `Unsupported widgetKey: "${widgetPluginKey}". The widget "${bookmark.name}" (with id ${id}) will be copied as is and will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
+            );
+          }
+
           widgets[id] = migratedWidget;
           migratedUIFolder.children!.widgets.children!.content.children![id] = {
             entry: {
@@ -291,21 +294,15 @@ export function migrateUIFolder(
             },
           };
         } catch (error) {
-          if (error instanceof UnsupportedWidgetError) {
-            // TODO also need to accumulate the widget.
-            // eslint-disable-next-line no-console
-            console.warn(error);
-          } else {
-            // eslint-disable-next-line no-console
-            console.error(
-              `An error occurred during the migration of widget "${
-                bookmark.name
-              }" (with id ${id}). Ignoring this widget. Error:\n${
-                // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-                (error as Error).stack
-              }`
-            );
-          }
+          // eslint-disable-next-line no-console
+          console.error(
+            `An error occurred during the migration of widget "${
+              bookmark.name
+            }" (with id ${id}). Ignoring this widget. Error:\n${
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+              (error as Error).stack
+            }`
+          );
         }
       }
     }

@@ -8,44 +8,31 @@ import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
 import { _migrateUnsupportedWidget } from "./_migrateUnsupportedWidget";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
  */
-export function migrateWidget({
-  legacyWidgetState,
-  servers,
-  widgetId,
-}: {
-  legacyWidgetState: LegacyWidgetState;
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
-  widgetId?: string;
-}): AWidgetState<"serialized"> {
+export function migrateWidget(
+  legacyWidgetState: LegacyWidgetState,
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+): [AWidgetState<"serialized">, boolean] {
   const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
   switch (widgetPluginKey) {
     case "chart":
-      return migrateChart(legacyWidgetState, servers);
+      return [migrateChart(legacyWidgetState, servers), true];
     case "tabular-view":
     case "pivot-table":
-      return migrateTable(legacyWidgetState, servers);
+      return [migrateTable(legacyWidgetState, servers), true];
     case "featured-values":
-      return migrateKpi(legacyWidgetState, servers);
+      return [migrateKpi(legacyWidgetState, servers), true];
     case "quick-filter":
-      return migrateQuickFilter(legacyWidgetState, servers);
+      return [migrateQuickFilter(legacyWidgetState, servers), true];
     case "drillthrough":
-      return migrateDrillthrough(legacyWidgetState, servers);
+      return [migrateDrillthrough(legacyWidgetState, servers), true];
     case "rich-text-editor":
-      return migrateTextEditor(legacyWidgetState);
+      return [migrateTextEditor(legacyWidgetState), true];
     default:
-      const migratedStateOfUnsupportedWidget =
-        _migrateUnsupportedWidget(legacyWidgetState);
-      throw new UnsupportedWidgetError({
-        widgetPluginKey,
-        widgetName: legacyWidgetState.name,
-        widgetId,
-        migratedStateOfUnsupportedWidget,
-      });
+      return [_migrateUnsupportedWidget(legacyWidgetState), false];
   }
 }
