@@ -14,6 +14,7 @@ import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -238,11 +239,12 @@ export function migrateUIFolder(
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         try {
-          const migratedDashboard = migrateDashboard(
-            bookmark,
+          const migratedDashboard = migrateDashboard({
+            legacyDashboardState: bookmark,
             servers,
-            keysOfWidgetPluginsToRemove
-          );
+            keysOfWidgetPluginsToRemove,
+            dashboardId: id,
+          });
           dashboards[id] = migratedDashboard;
           migratedUIFolder.children!.dashboards.children!.content.children![
             id
@@ -253,12 +255,15 @@ export function migrateUIFolder(
             },
           };
         } catch (error) {
+          // TODO handle error
           // eslint-disable-next-line no-console
           console.error(
-            `An error occurred during the migration of dashboard ${id} ("${
+            `An error occurred during the migration of dashboard "${
               bookmark.name
+            }" (with id ${id}). Ignoring this dashboard. Error:\n${
               // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this dashboard. Error:\n${(error as Error).stack}`
+              (error as Error).stack
+            }`
           );
         }
       } else {
@@ -271,7 +276,11 @@ export function migrateUIFolder(
             continue;
           }
 
-          const migratedWidget = migrateWidget(bookmark, servers);
+          const migratedWidget = migrateWidget({
+            legacyWidgetState: bookmark,
+            servers,
+            widgetId: id,
+          });
           widgets[id] = migratedWidget;
           migratedUIFolder.children!.widgets.children!.content.children![id] = {
             entry: {
@@ -282,13 +291,21 @@ export function migrateUIFolder(
             },
           };
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(
-            `An error occurred during the migration of widget ${id} ("${
-              bookmark.name
-              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this widget. Error:\n${(error as Error).stack}`
-          );
+          if (error instanceof UnsupportedWidgetError) {
+            // TODO also need to accumulate the widget.
+            // eslint-disable-next-line no-console
+            console.warn(error);
+          } else {
+            // eslint-disable-next-line no-console
+            console.error(
+              `An error occurred during the migration of widget "${
+                bookmark.name
+              }" (with id ${id}). Ignoring this widget. Error:\n${
+                // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+                (error as Error).stack
+              }`
+            );
+          }
         }
       }
     }

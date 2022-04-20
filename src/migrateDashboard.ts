@@ -1,6 +1,7 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
 import _reduce from "lodash/reduce";
+import _isEmpty from "lodash/isEmpty";
 
 import {
   DashboardState,
@@ -21,6 +22,9 @@ import type {
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
+import { _migrateUnsupportedWidget } from "./_migrateUnsupportedWidget";
+import { UnsupportedWidgetsInDashboardError } from "./errors/UnsupportedWidgetsInDashboardError";
 
 /**
  * Returns the layout path to the leaf uniquely identified by `leafKey`, or `undefined` if no leaf has this key.
@@ -53,16 +57,26 @@ function findPathToLeaf(layout: Layout, leafKey: string): number[] | undefined {
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated: they are removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  */
-export function migrateDashboard(
-  legacyDashboardState: LegacyDashboardState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  keysOfWidgetPluginsToRemove?: string[]
-): DashboardState<"serialized"> {
+export function migrateDashboard({
+  legacyDashboardState,
+  servers,
+  keysOfWidgetPluginsToRemove,
+  dashboardId,
+}: {
+  legacyDashboardState: LegacyDashboardState;
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+  keysOfWidgetPluginsToRemove?: string[];
+  dashboardId?: string;
+}): DashboardState<"serialized"> {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
 
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
+  } = {};
+
+  const unsupportedWidgets: {
+    [pageKey: string]: { [widgetKey: string]: string[] };
   } = {};
 
   body.pages.forEach((legacyPage: LegacyDashboardPage, index: number) => {
@@ -77,7 +91,26 @@ export function migrateDashboard(
           dashboardLeafKey,
         ];
       } else {
-        content[dashboardLeafKey] = migrateWidget(widget.bookmark, servers);
+        try {
+          content[dashboardLeafKey] = migrateWidget({
+            legacyWidgetState: widget.bookmark,
+            servers,
+          });
+        } catch (e) {
+          if (e instanceof UnsupportedWidgetError) {
+            unsupportedWidgets[pageKey] = {
+              ...(unsupportedWidgets[pageKey] ?? {}),
+              [e.widgetPluginKey]: [
+                ...(unsupportedWidgets[pageKey]?.[e.widgetPluginKey] ?? []),
+                e.widgetName,
+              ],
+            };
+            content[dashboardLeafKey] = _migrateUnsupportedWidget(
+              widget.bookmark
+            );
+          }
+          throw e;
+        }
       }
     });
 
@@ -144,5 +177,18 @@ export function migrateDashboard(
     deserializedDashboard
   );
 
-  return serializeDashboardState(dashboardWithWidgetsRemoved);
+  const serializedDashboard = serializeDashboardState(
+    dashboardWithWidgetsRemoved
+  );
+
+  if (!_isEmpty(unsupportedWidgets)) {
+    throw new UnsupportedWidgetsInDashboardError({
+      dashboardName: legacyDashboardState.name,
+      dashboardId,
+      unsupportedWidgets,
+      migratedStateOfDashboardWithUnsupportedWidgets: serializedDashboard,
+    });
+  }
+
+  return serializedDashboard;
 }

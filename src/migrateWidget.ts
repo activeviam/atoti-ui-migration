@@ -8,14 +8,21 @@ import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { UnsupportedWidgetError } from "./errors/UnsupportedWidgetError";
+import { _migrateUnsupportedWidget } from "./_migrateUnsupportedWidget";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
  */
-export function migrateWidget(
-  legacyWidgetState: LegacyWidgetState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
-): AWidgetState<"serialized"> {
+export function migrateWidget({
+  legacyWidgetState,
+  servers,
+  widgetId,
+}: {
+  legacyWidgetState: LegacyWidgetState;
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+  widgetId?: string;
+}): AWidgetState<"serialized"> {
   const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
   switch (widgetPluginKey) {
     case "chart":
@@ -32,14 +39,13 @@ export function migrateWidget(
     case "rich-text-editor":
       return migrateTextEditor(legacyWidgetState);
     default:
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Unsupported widgetKey: "${widgetPluginKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
-      );
-      return {
-        ...legacyWidgetState?.value?.body,
-        name: legacyWidgetState?.name,
-        widgetKey: widgetPluginKey,
-      };
+      const migratedStateOfUnsupportedWidget =
+        _migrateUnsupportedWidget(legacyWidgetState);
+      throw new UnsupportedWidgetError({
+        widgetPluginKey,
+        widgetName: legacyWidgetState.name,
+        widgetId,
+        migratedStateOfUnsupportedWidget,
+      });
   }
 }
