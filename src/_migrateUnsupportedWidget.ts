@@ -2,7 +2,7 @@ import { LegacyWidgetState } from "./migration.types";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 
 /**
- * Returns the migrated widget state of a widget that is not supported by ActiveUI 5.
+ * Returns an optimistic ActiveUI5-compatible state of an ActiveUI 4 widget that is not supported by default ActiveUI 5.
  */
 export function _migrateUnsupportedWidget(
   legacyWidgetState: LegacyWidgetState
