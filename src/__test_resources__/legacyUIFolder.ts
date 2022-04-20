@@ -1,9 +1,10 @@
+import { ContentRecord } from "@activeviam/activeui-sdk";
 import { legacySettingsFolder } from "../legacySettingsFolder";
 
 /**
  * The content of a legacy /ui folder on a Content Server, useful for unit tests.
  */
-export const legacyUIFolder = {
+export const legacyUIFolder: ContentRecord = {
   entry: {
     isDirectory: true,
     owners: ["admin"],

@@ -257,6 +257,20 @@ describe("migrateDashboard", () => {
   it("removes the specified widget keys, and adapts the layout", () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
 
+    // Safeguard to make sure that the test makes sense: before checking that the key has been removed in the migrated dashboard, check that it's here in the first place in the legacy dashboard.
+    const widgetPluginKeysInLegacyDashboard: string[] = [];
+    legacyDashboard.value.body.pages.forEach((page) =>
+      page.content.forEach(({ bookmark }) =>
+        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey)
+      )
+    );
+    expect(
+      _intersection(
+        widgetPluginKeysInLegacyDashboard,
+        keysOfWidgetPluginsToRemove
+      )
+    ).toStrictEqual(["filters"]);
+
     const dashboard = migrateDashboard(
       legacyDashboard,
       servers,
