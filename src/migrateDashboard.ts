@@ -1,14 +1,15 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
 import _reduce from "lodash/reduce";
+import { produce } from "immer";
 
 import {
   DashboardState,
   DashboardPageState,
   DataModel,
-  Layout,
   removeWidget,
   deserializeDashboardState,
+  getLayoutPath,
   serializeDashboardState,
 } from "@activeviam/activeui-sdk";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
@@ -21,28 +22,6 @@ import type {
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-
-/**
- * Returns the layout path to the leaf uniquely identified by `leafKey`, or `undefined` if no leaf has this key.
- */
-function findPathToLeaf(layout: Layout, leafKey: string): number[] | undefined {
-  for (let childIndex = 0; childIndex < layout.children.length; childIndex++) {
-    const child = layout.children[childIndex];
-
-    if ("leafKey" in child) {
-      if (child.leafKey === leafKey) {
-        return [childIndex];
-      }
-    } else {
-      const pathInChild = findPathToLeaf(child, leafKey);
-      if (pathInChild) {
-        return [childIndex, ...pathInChild];
-      }
-    }
-  }
-
-  return undefined;
-}
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5.
@@ -121,27 +100,24 @@ export function migrateDashboard(
 
   const deserializedDashboard = deserializeDashboardState(dashboard);
 
-  const dashboardWithWidgetsRemoved = _reduce(
-    keysOfLeavesToRemove,
-    (dashboardAccumulator, keysToRemove, pageKey) => {
-      const layout = dashboardAccumulator.pages[pageKey].layout;
-      return keysToRemove.reduce(
-        (dashboardAccumulatorForCurrentPage, leafKey) => {
-          const layoutPath = findPathToLeaf(layout, leafKey);
-          if (!layoutPath) {
-            return dashboardAccumulatorForCurrentPage;
-          }
-          return removeWidget({
-            dashboardState: dashboardAccumulatorForCurrentPage,
-            pageKey,
-            leafKey,
+  const dashboardWithWidgetsRemoved = produce(
+    deserializedDashboard,
+    (draft) => {
+      draft.pagesOrder.forEach((pageKey) => {
+        keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
+          const layoutPath = getLayoutPath(
+            draft.pages[pageKey].layout,
+            leafKey
+          );
+          draft.pages[pageKey] = removeWidget({
+            dashboardState: draft,
             layoutPath,
-          });
-        },
-        dashboardAccumulator
-      );
-    },
-    deserializedDashboard
+            leafKey,
+            pageKey,
+          }).pages[pageKey];
+        });
+      });
+    }
   );
 
   return serializeDashboardState(dashboardWithWidgetsRemoved);
