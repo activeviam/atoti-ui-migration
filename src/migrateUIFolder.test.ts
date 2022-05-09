@@ -67,7 +67,7 @@ describe("migrateUIFolder", () => {
         widgetPluginKeysInLegacyDashboard,
         keysOfWidgetPluginsToRemove
       )
-    ).toStrictEqual(["filters"]);
+    ).not.toHaveLength(0);
     expect(
       _intersection(widgetPluginKeys, keysOfWidgetPluginsToRemove)
     ).toHaveLength(0);
