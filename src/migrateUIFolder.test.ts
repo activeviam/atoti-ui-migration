@@ -8,6 +8,9 @@ import { servers } from "./__test_resources__/servers";
 import { ContentRecord } from "@activeviam/activeui-sdk";
 import { LegacyDashboardState } from "./migration.types";
 
+/**
+ *  Returns whether `contentRecord` has a descendant with the id `recordId`.
+ */
 const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
   _some(
     contentRecord.children,
