@@ -36,7 +36,7 @@ describe("migrateUIFolder", () => {
       keysOfWidgetPluginsToRemove
     );
 
-    // In the Activeui 4 folder, the file with id `0xb` represents a saved Page Filters widget.
+    // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
     // It is removed from the ActiveUI 5 UI folder.
     const savedContentInLegacyUIFolder: ContentRecord =
       legacyUIFolder.children!.bookmarks;
