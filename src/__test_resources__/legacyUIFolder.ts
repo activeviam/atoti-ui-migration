@@ -1,9 +1,10 @@
+import { ContentRecord } from "@activeviam/activeui-sdk";
 import { legacySettingsFolder } from "../legacySettingsFolder";
 
 /**
  * The content of a legacy /ui folder on a Content Server, useful for unit tests.
  */
-export const legacyUIFolder = {
+export const legacyUIFolder: ContentRecord = {
   entry: {
     isDirectory: true,
     owners: ["admin"],
@@ -488,6 +489,32 @@ export const legacyUIFolder = {
                 canWrite: true,
               },
             },
+            "0xb": {
+              entry: {
+                content:
+                  '{"name":"Page filters","type":"container","value":{"style":{},"showTitleBar":true,"body":{},"containerKey":"filters"}}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+            eef: {
+              entry: {
+                content:
+                  '{"name":"1 page, 4 widgets","type":"container","value":{"style":{},"showTitleBar":false,"body":{"pages":[{"content":[{"key":"1","bookmark":{"name":"Tree table","type":"container","writable":true,"value":{"body":{"serverUrl":"http://localhost:9090","mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM (SELECT {[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]} ON COLUMNS FROM (SELECT TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT]) ON COLUMNS FROM [EquityDerivativesCube])) CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues":{"queriesTimeLimit":60,"mdx.casesensitive":true,"mdx.defaultmembers.[Geography].[City]":"[AllMember].[Berlin]"},"updateMode":"once","ranges":{"row":{"chunkSize":2000,"thresholdPercentage":0.1},"column":{"chunkSize":50,"thresholdPercentage":0.2}},"configuration":{"tabular":{"pinnedHeaderSelector":"member","sortingMode":"non-breaking","addButtonFilter":"numeric","cellRenderers":["tree-layout"],"statisticsShown":true,"columnsGroups":[{"captionProducer":"firstColumn","cellFactory":"kpi-status","selector":"kpi-status"},{"captionProducer":"firstColumn","cellFactory":"lookup","selector":"lookup"},{"captionProducer":"expiry","cellFactory":"expiry","selector":"kpi-expiry"},{"captionProducer":"columnMerge","cellFactory":{"args":{},"key":"treeCells"},"selector":"member"}],"hideAddButton":true,"defaultOptions":{},"expansion":{"automaticExpansion":true},"columns":[{"key":"c-treeCells-member","width":250}]}}},"containerKey":"pivot-table"}}},{"key":"2","bookmark":{"name":"Chart","type":"container","writable":true,"value":{"containerKey":"chart","body":{"configuration":{"type":"plotly-line-chart","plotly":{"data":{"overridesByTraceKey":{"[Measures].[pnlVega.SUM]":{"name":"Taux de marge","yaxis":"y2"}}},"layout":{"xaxis":{"showticklabels":false,"showgrid":false,"showline":false},"yaxis":{"showticklabels":true,"showline":false},"yaxis2":{"showticklabels":true,"showline":true,"side":"right","range":[-1000,1000],"overlaying":"y"},"margin":{"t":20,"l":20,"r":20,"b":20}}},"mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"],"splitBy":[],"horizontalSubplots":[],"verticalSubplots":[]},"switchedTo":"plotly-line-chart"},"query":{"serverUrl":"http://localhost:9090","mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]","contextValues":{},"updateMode":"once"}}}}},{"key":"3","bookmark":{"name":"Quick filter","type":"container","writable":true,"value":{"containerKey":"quick-filter","body":{"configuration":{"displayedAsSelect":false,"multipleSelection":true},"filterKey":"explicit","levelDetails":{"cube":"EquityDerivativesCube","dimension":"Currency","hierarchy":"Currency","level":"Currency","caption":"Currency"}}}}},{"key":"4","bookmark":{"name":"Page filters","value":{"containerKey":"filters","showTitleBar":false,"body":{}},"type":"container","writable":false}}],"layout":{"children":{"0":{"size":0.2,"ck":"4"},"1":{"size":0.8,"children":{"0":{"ck":"3","size":0.3},"1":{"children":{"0":{"ck":"1","size":0.4},"1":{"ck":"2","size":0.6}},"direction":"column","size":0.7}},"direction":"column"}},"direction":"row"},"name":"Start page","contextValues":{"EquityDerivativesCube":{"mdx.lightCrossjoin":true},"EquityDerivativesCubeDist":{"mdx.aggressiveFormulaEvaluation":true}}}],"contextValues":{"EquityDerivativesCube":{"queriesTimeLimit":60,"mdx.casesensitive":true,"mdx.defaultmembers.[Geography].[City]":"[AllMember].[Berlin]"},"EquityDerivativesCubeDist":{"mdx.casesensitive":false,"mdx.defaultmembers.[Geography].[City]":"[AllMember].[Paris]"}}},"containerKey":"dashboard"},"writable":true}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
           },
         },
         i18n: {
@@ -536,6 +563,28 @@ export const legacyUIFolder = {
             canWrite: true,
           },
           children: {
+            "0xb": {
+              entry: {
+                isDirectory: true,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+            eef: {
+              entry: {
+                isDirectory: true,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
             e2b: {
               entry: {
                 isDirectory: true,

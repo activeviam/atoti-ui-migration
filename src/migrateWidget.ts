@@ -7,6 +7,7 @@ import { migrateKpi } from "./migrateKpi";
 import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
+import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
@@ -15,7 +16,8 @@ export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
-  switch (legacyWidgetState.value.containerKey) {
+  const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
+  switch (widgetPluginKey) {
     case "chart":
       return migrateChart(legacyWidgetState, servers);
     case "tabular-view":
@@ -32,12 +34,12 @@ export function migrateWidget(
     default:
       // eslint-disable-next-line no-console
       console.warn(
-        `Unsupported widgetKey: "${legacyWidgetState.value.containerKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5.`
+        `Unsupported widgetKey: "${widgetPluginKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
       );
       return {
         ...legacyWidgetState?.value?.body,
         name: legacyWidgetState?.name,
-        widgetKey: legacyWidgetState.value.containerKey,
+        widgetKey: widgetPluginKey,
       };
   }
 }

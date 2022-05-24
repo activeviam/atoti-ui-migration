@@ -9,35 +9,46 @@ yargs
     (args) => {
       args.option("input-path", {
         alias: "i",
-        string: true,
+        type: "string",
         demandOption: true,
         desc: "The path to the JSON export of the ActiveUI 4 /ui folder.",
       });
       args.option("output-path", {
         alias: "o",
-        string: true,
+        type: "string",
         demandOption: true,
         desc: "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
       });
       args.option("servers-path", {
         alias: "s",
-        string: true,
+        type: "string",
         demandOption: true,
         desc: "The path to the JSON file holding the servers information.",
+      });
+      args.option("remove-widgets", {
+        type: "array",
+        demandOption: false,
+        desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
       });
     },
     async ({
       inputPath,
       outputPath,
       serversPath,
+      removeWidgets: keysOfWidgetPluginsToRemove,
     }: {
       inputPath: string;
       outputPath: string;
       serversPath: string;
+      removeWidgets: string[];
     }) => {
       const legacyUIFolder = await fs.readJSON(inputPath);
       const servers = await fs.readJSON(serversPath);
-      const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers);
+      const migratedUIFolder = migrateUIFolder(
+        legacyUIFolder,
+        servers,
+        keysOfWidgetPluginsToRemove
+      );
       await fs.writeJSON(outputPath, migratedUIFolder, { spaces: 2 });
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198

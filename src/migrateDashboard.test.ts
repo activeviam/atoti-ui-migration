@@ -1,3 +1,4 @@
+import _map from "lodash/map";
 import _mapValues from "lodash/mapValues";
 import { legacyDashboard } from "./__test_resources__/legacyDashboard";
 import { migrateDashboard } from "./migrateDashboard";
@@ -126,6 +127,10 @@ describe("migrateDashboard", () => {
           "serverKey": "my-server",
           "widgetKey": "quick-filter",
         },
+        "4": Object {
+          "name": "Page filters",
+          "widgetKey": "filters",
+        },
       }
     `);
   });
@@ -136,19 +141,29 @@ describe("migrateDashboard", () => {
       Object {
         "children": Array [
           Object {
-            "leafKey": "3",
-            "size": 0.3,
+            "leafKey": "4",
+            "size": 0.2,
           },
           Object {
-            "leafKey": "1",
-            "size": 0.27999999999999997,
-          },
-          Object {
-            "leafKey": "2",
-            "size": 0.42,
+            "children": Array [
+              Object {
+                "leafKey": "3",
+                "size": 0.3,
+              },
+              Object {
+                "leafKey": "1",
+                "size": 0.27999999999999997,
+              },
+              Object {
+                "leafKey": "2",
+                "size": 0.42,
+              },
+            ],
+            "direction": "column",
+            "size": 0.8,
           },
         ],
-        "direction": "column",
+        "direction": "row",
       }
     `);
   });
@@ -234,6 +249,52 @@ describe("migrateDashboard", () => {
           "p-0",
         ],
         "queryContext": Array [],
+      }
+    `);
+  });
+
+  it("removes the specified widget keys, and adapts the layout", () => {
+    const keysOfWidgetPluginsToRemove = ["filters"];
+
+    // Safeguard to make sure that the test makes sense: before checking that the key has been removed in the migrated dashboard, check that it's here in the first place in the legacy dashboard.
+    const widgetPluginKeysInLegacyDashboard: string[] = [];
+    legacyDashboard.value.body.pages.forEach((page) =>
+      page.content.forEach(({ bookmark }) =>
+        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey)
+      )
+    );
+    expect(widgetPluginKeysInLegacyDashboard).toEqual(
+      expect.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
+
+    const dashboard = migrateDashboard(
+      legacyDashboard,
+      servers,
+      keysOfWidgetPluginsToRemove
+    );
+
+    const { content, layout } = dashboard.pages["p-0"];
+    const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
+    expect(widgetPluginKeys).toEqual(
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
+    expect(layout).toMatchInlineSnapshot(`
+      Object {
+        "children": Array [
+          Object {
+            "leafKey": "3",
+            "size": 0.3,
+          },
+          Object {
+            "leafKey": "1",
+            "size": 0.27999999999999997,
+          },
+          Object {
+            "leafKey": "2",
+            "size": 0.42,
+          },
+        ],
+        "direction": "column",
       }
     `);
   });

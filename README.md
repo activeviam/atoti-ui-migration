@@ -101,6 +101,15 @@ npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in ActiveUI 5.
 
+Optionally, you can pass an extra `--remove-widgets` option to remove all ActiveUI 4 widgets with the given keys during the migration.
+For example, suppose you have 200 ActiveUI 4 bookmarks in which you use Page Filters and/or Page Context Values.
+These plugins are not supported anymore in ActiveUI 5 as it was deemed a better user experience to remove them altogether.
+If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
+
+```
+npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json --remove-widgets "filters" "context-values"
+```
+
 ### Test the migrated content
 
 Use the Content Manager again, this time to import this migrated content.

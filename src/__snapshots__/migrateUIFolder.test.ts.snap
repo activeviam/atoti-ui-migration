@@ -268,6 +268,22 @@ Object {
                 "timestamp": 1607879735685,
               },
             },
+            "eef": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{\\"pages\\":{\\"p-0\\":{\\"layout\\":{\\"children\\":[{\\"size\\":0.2,\\"leafKey\\":\\"4\\"},{\\"size\\":0.8,\\"children\\":[{\\"size\\":0.3,\\"leafKey\\":\\"3\\"},{\\"size\\":0.27999999999999997,\\"leafKey\\":\\"1\\"},{\\"size\\":0.42,\\"leafKey\\":\\"2\\"}],\\"direction\\":\\"column\\"}],\\"direction\\":\\"row\\"},\\"name\\":\\"Start page\\",\\"contextValues\\":{\\"EquityDerivativesCube\\":{\\"mdx.lightCrossjoin\\":true},\\"EquityDerivativesCubeDist\\":{\\"mdx.aggressiveFormulaEvaluation\\":true}},\\"content\\":{\\"1\\":{\\"query\\":{\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\",\\"updateMode\\":\\"once\\"},\\"filters\\":[\\"TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])\\",\\"{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]}\\"],\\"queryContext\\":[{\\"key\\":\\"queriesTimeLimit\\",\\"value\\":60},{\\"key\\":\\"mdx.casesensitive\\",\\"value\\":true},{\\"key\\":\\"mdx.defaultmembers.[Geography].[City]\\",\\"value\\":\\"[AllMember].[Berlin]\\"}],\\"mapping\\":{\\"rows\\":[\\"[Currency].[Currency].[Currency]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[contributors.COUNT]\\"]},\\"name\\":\\"Tree table\\",\\"serverKey\\":\\"my-server\\",\\"widgetKey\\":\\"tree-table\\",\\"columnWidths\\":{\\"[Currency].[Currency].[Currency]\\":250}},\\"2\\":{\\"plotly\\":{\\"data\\":{\\"overridesByTraceKey\\":{\\"[Measures].[pnlVega.SUM]\\":{\\"name\\":\\"Taux de marge\\",\\"yaxis\\":\\"y2\\"}}},\\"layout\\":{\\"xaxis\\":{\\"showticklabels\\":false,\\"showgrid\\":false,\\"showline\\":false},\\"yaxis\\":{\\"showticklabels\\":true,\\"showline\\":false},\\"yaxis2\\":{\\"showticklabels\\":true,\\"showline\\":true,\\"side\\":\\"right\\",\\"range\\":[-1000,1000],\\"overlaying\\":\\"y\\"},\\"margin\\":{\\"t\\":20,\\"l\\":20,\\"r\\":20,\\"b\\":20}}},\\"switchedTo\\":\\"plotly-line-chart\\",\\"mapping\\":{\\"xAxis\\":[\\"[Currency].[Currency].[Currency]\\"],\\"values\\":[\\"[Measures].[pnlDelta.SUM]\\",\\"[Measures].[pnlVega.SUM]\\"],\\"secondaryValues\\":[],\\"splitBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"query\\":{\\"mdx\\":\\"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]\\",\\"updateMode\\":\\"once\\"},\\"filters\\":[],\\"queryContext\\":[],\\"serverKey\\":\\"my-server\\",\\"name\\":\\"Chart\\",\\"widgetKey\\":\\"plotly-line-chart\\"},\\"3\\":{\\"mode\\":\\"checkbox\\",\\"name\\":\\"Quick filter\\",\\"levelCoordinates\\":{\\"dimensionName\\":\\"Currency\\",\\"hierarchyName\\":\\"Currency\\",\\"levelName\\":\\"Currency\\"},\\"cubeName\\":\\"EquityDerivativesCube\\",\\"serverKey\\":\\"my-server\\",\\"widgetKey\\":\\"quick-filter\\"},\\"4\\":{\\"name\\":\\"Page filters\\",\\"widgetKey\\":\\"filters\\"}},\\"filters\\":[],\\"queryContext\\":[{\\"key\\":\\"mdx.lightCrossjoin\\",\\"value\\":true},{\\"key\\":\\"mdx.aggressiveFormulaEvaluation\\",\\"value\\":true}]}},\\"pagesOrder\\":[\\"p-0\\"],\\"filters\\":[],\\"queryContext\\":[{\\"key\\":\\"queriesTimeLimit\\",\\"value\\":60},{\\"key\\":\\"mdx.casesensitive\\",\\"value\\":false},{\\"key\\":\\"mdx.defaultmembers.[Geography].[City]\\",\\"value\\":\\"[AllMember].[Paris]\\"}]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
             "f06": Object {
               "entry": Object {
                 "canRead": true,
@@ -907,6 +923,39 @@ Object {
                 "timestamp": 1607879735685,
               },
             },
+            "eef": Object {
+              "children": Object {
+                "eef_metadata": Object {
+                  "entry": Object {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{\\"name\\":\\"1 page, 4 widgets\\"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": Array [
+                      "admin",
+                    ],
+                    "readers": Array [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
             "fba": Object {
               "children": Object {
                 "fba_metadata": Object {
@@ -1111,9 +1160,32 @@ Object {
         ],
       },
     },
+    "organization_permissions": Object {
+      "entry": Object {
+        "content": "{}",
+        "isDirectory": false,
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
     "organization_settings": Object {
       "entry": Object {
         "content": "{\\"theme\\":\\"light-activeviam\\"}",
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "user_roles": Object {
+      "entry": Object {
+        "isDirectory": true,
         "owners": Array [
           "ROLE_CS_ROOT",
         ],
@@ -1222,6 +1294,22 @@ Object {
                 "canRead": true,
                 "canWrite": true,
                 "content": "{\\"mode\\":\\"multi-select\\",\\"levelCoordinates\\":{\\"dimensionName\\":\\"Currency\\",\\"hierarchyName\\":\\"Currency\\",\\"levelName\\":\\"Currency\\"},\\"cubeName\\":\\"EquityDerivativesCube\\",\\"serverKey\\":\\"my-server\\"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "0xb": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{}",
                 "isDirectory": false,
                 "lastEditor": "admin",
                 "owners": Array [
@@ -1461,6 +1549,39 @@ Object {
                     "canRead": true,
                     "canWrite": true,
                     "content": "{\\"name\\":\\"Quick filter\\",\\"widgetKey\\":\\"quick-filter\\"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": Array [
+                      "admin",
+                    ],
+                    "readers": Array [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "0xb": Object {
+              "children": Object {
+                "0xb_metadata": Object {
+                  "entry": Object {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{\\"name\\":\\"Page filters\\",\\"widgetKey\\":\\"filters\\"}",
                     "isDirectory": true,
                     "lastEditor": "admin",
                     "owners": Array [
@@ -2128,9 +2249,32 @@ Object {
         ],
       },
     },
+    "organization_permissions": Object {
+      "entry": Object {
+        "content": "{}",
+        "isDirectory": false,
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
     "organization_settings": Object {
       "entry": Object {
         "content": "{}",
+        "owners": Array [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": Array [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "user_roles": Object {
+      "entry": Object {
+        "isDirectory": true,
         "owners": Array [
           "ROLE_CS_ROOT",
         ],
