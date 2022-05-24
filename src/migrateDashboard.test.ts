@@ -1,6 +1,5 @@
 import _map from "lodash/map";
 import _mapValues from "lodash/mapValues";
-import _intersection from "lodash/intersection";
 import { legacyDashboard } from "./__test_resources__/legacyDashboard";
 import { migrateDashboard } from "./migrateDashboard";
 import { LegacyDashboardState } from "./migration.types";
@@ -264,12 +263,9 @@ describe("migrateDashboard", () => {
         widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey)
       )
     );
-    expect(
-      _intersection(
-        widgetPluginKeysInLegacyDashboard,
-        keysOfWidgetPluginsToRemove
-      )
-    ).not.toHaveLength(0);
+    expect(widgetPluginKeysInLegacyDashboard).toEqual(
+      expect.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
 
     const dashboard = migrateDashboard(
       legacyDashboard,
@@ -279,9 +275,9 @@ describe("migrateDashboard", () => {
 
     const { content, layout } = dashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
-    expect(
-      _intersection(widgetPluginKeys, keysOfWidgetPluginsToRemove)
-    ).toHaveLength(0);
+    expect(widgetPluginKeys).toEqual(
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
     expect(layout).toMatchInlineSnapshot(`
       Object {
         "children": Array [

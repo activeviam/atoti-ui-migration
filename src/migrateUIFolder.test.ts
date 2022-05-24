@@ -62,15 +62,12 @@ describe("migrateUIFolder", () => {
     );
     const { content, layout } = migratedDashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
-    expect(
-      _intersection(
-        widgetPluginKeysInLegacyDashboard,
-        keysOfWidgetPluginsToRemove
-      )
-    ).not.toHaveLength(0);
-    expect(
-      _intersection(widgetPluginKeys, keysOfWidgetPluginsToRemove)
-    ).toHaveLength(0);
+    expect(widgetPluginKeysInLegacyDashboard).toEqual(
+      expect.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
+    expect(widgetPluginKeys).toEqual(
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove)
+    );
     expect(layout).toMatchInlineSnapshot(`
       Object {
         "children": Array [
