@@ -103,7 +103,7 @@ export function migrateDashboard(
   const dashboardWithWidgetsRemoved = produce(
     deserializedDashboard,
     (draft) => {
-      draft.pagesOrder.forEach((pageKey) => {
+      Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
         keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
           const layoutPath = getLayoutPath(
             draft.pages[pageKey].layout,
