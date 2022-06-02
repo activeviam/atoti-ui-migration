@@ -31,6 +31,10 @@ module.exports = {
         test: /\.ttf$/i,
         use: ["file-loader"],
       },
+      {
+        test: /\.woff.?$/i,
+        use: ["file-loader"],
+      },
     ],
   },
   output: {
