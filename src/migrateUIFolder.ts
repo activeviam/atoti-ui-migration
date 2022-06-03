@@ -297,7 +297,7 @@ export function migrateUIFolder(
       }
     } else {
       console.error(
-        `The 'content' folder contains a corrupted object of id '${id}' (no content found).`
+        `File '${id}' in the 'content' is corrupt: it has no content. Remove the file or fix its content.`
       );
     }
   }
