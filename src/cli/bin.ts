@@ -1,6 +1,7 @@
 import yargs from "yargs";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
+import { migratePivotFolder } from "../migratePivotFolder";
 
 yargs
   .command(
@@ -30,26 +31,43 @@ yargs
         demandOption: false,
         desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
       });
+      args.option("pivot-input-path", {
+        alias: "p",
+        type: "string",
+        demandOption: false,
+        desc: "The path to the JSON export of the ActiveUI 4 /pivot folder",
+      });
     },
     async ({
       inputPath,
       outputPath,
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
+      pivotInputPath,
     }: {
       inputPath: string;
       outputPath: string;
       serversPath: string;
       removeWidgets: string[];
+      pivotInputPath?: string;
     }) => {
       const legacyUIFolder = await fs.readJSON(inputPath);
+      const legacyPivotFolder = pivotInputPath
+        ? await fs.readJSON(pivotInputPath)
+        : undefined;
       const servers = await fs.readJSON(serversPath);
       const migratedUIFolder = migrateUIFolder(
         legacyUIFolder,
         servers,
         keysOfWidgetPluginsToRemove
       );
-      await fs.writeJSON(outputPath, migratedUIFolder, { spaces: 2 });
+      const migratedUIFolderWithCalculatedMeasures = legacyPivotFolder
+        ? await migratePivotFolder(legacyPivotFolder, migratedUIFolder, servers)
+        : migratedUIFolder;
+
+      await fs.writeJSON(outputPath, migratedUIFolderWithCalculatedMeasures, {
+        spaces: 2,
+      });
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198
       process.exit(0);
