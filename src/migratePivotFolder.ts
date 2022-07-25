@@ -1,7 +1,7 @@
-import { ContentRecord, DataModel } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk";
 import xml2js from "xml2js";
-import { v4 as uuid } from "uuid";
 import _cloneDeep from "lodash/cloneDeep";
+import { generateId } from "./generateId";
 
 /**
  * Extracts and parses the XML calculated measure objects from the given pivot folder.
@@ -34,7 +34,7 @@ const getCalculatedMeasuresFromPivotFolder = async (
           calculatedMeasureEntries.map(async (cmEntry) => {
             const [_, entry] = cmEntry;
             const result = await parser.parseStringPromise(entry.entry.content);
-            const id = uuid().substring(24, 27);
+            const id = generateId();
 
             return { id, ...result.calculatedMember["$"] };
           })
@@ -63,88 +63,117 @@ export async function migratePivotFolder(
     ? await getCalculatedMeasuresFromPivotFolder(calculatedMeasuresRoot)
     : undefined;
 
-  console.log({ calculatedMeasuresToMigrate });
-
-  // Now that we have the measures, we need to assign the structure and content for each of them.
   const migratedCalculatedMeasuresEntry =
-    migratedUIFolderWithCalculatedMeasures.children?.calculated_measures;
+    (migratedUIFolderWithCalculatedMeasures.children &&
+      migratedUIFolderWithCalculatedMeasures.children.calculated_measures) || {
+      entry: { isDirectory: true },
+      children: {
+        content: { children: {} },
+        structure: { children: {} },
+      },
+    };
 
   // The entry for the calculated measures already exists, just add them under children.content and children.structure
-  if (
-    migratedCalculatedMeasuresEntry &&
-    migratedCalculatedMeasuresEntry.children
-  ) {
-    const calculatedMeasuresNames = calculatedMeasuresToMigrate?.map(
-      (measure) => ({ [measure.id]: measure.uniqueName })
-    );
-    const measuresContentEntries = calculatedMeasuresToMigrate
-      ? calculatedMeasuresToMigrate
-          .map((measure) => {
-            return {
-              [measure.id]: {
-                entry: {
-                  content: JSON.stringify({
-                    expression: measure.expression,
-                    properties: [
-                      `FORMAT_STRING=${measure.formatStringExpression}`,
-                    ],
-                  }),
-                  isDirectory: false,
-                },
+
+  const calculatedMeasuresNames = calculatedMeasuresToMigrate?.map(
+    (measure) => ({ [measure.id]: measure.uniqueName })
+  );
+  const measuresContentEntries = calculatedMeasuresToMigrate
+    ? calculatedMeasuresToMigrate
+        .map((measure) => {
+          return {
+            [measure.id]: {
+              entry: {
+                content: JSON.stringify({
+                  expression: measure.expression,
+                  properties: [
+                    `FORMAT_STRING=${measure.formatStringExpression}`,
+                  ],
+                }),
+                isDirectory: false,
               },
-            };
-          })
-          .reduce((acc, currentCM) => {
-            return { ...acc, ...currentCM };
-          }, {})
-      : {};
-
-    const measuresStructureEntries = (calculatedMeasuresNames || [])
-      ?.map((measure) => {
-        const [[id, name]] = Object.entries(measure);
-
-        return {
-          [id]: {
-            entry: {
-              isDirectory: true,
             },
-            children: {
-              [`${id}_metadata`]: {
-                entry: {
-                  content: JSON.stringify({
-                    name,
-                  }),
-                  isDirectory: false,
-                },
+          };
+        })
+        .reduce((acc, currentCM) => {
+          return { ...acc, ...currentCM };
+        }, {})
+    : {};
+
+  const measuresStructureEntries = (calculatedMeasuresNames || [])
+    ?.map((measure) => {
+      const [[id, name]] = Object.entries(measure);
+
+      return {
+        [id]: {
+          entry: {
+            isDirectory: true,
+          },
+          children: {
+            [`${id}_metadata`]: {
+              entry: {
+                content: JSON.stringify({
+                  name,
+                }),
+                isDirectory: false,
               },
             },
           },
-        };
-      })
-      .reduce((acc, currentCM) => {
-        return { ...acc, ...currentCM };
-      }, {});
+        },
+      };
+    })
+    .reduce((acc, currentCM) => {
+      return { ...acc, ...currentCM };
+    }, {});
 
-    const migratedMeasuresContent =
-      migratedCalculatedMeasuresEntry.children.content;
+  const migratedMeasuresContent =
+    // @ts-ignore This is safe to ingore due to the typecheck above that ensures that `migratedCalculatedMeasuresEntry.children` will not be undefined.
+    migratedCalculatedMeasuresEntry.children.content;
 
-    const migratedMeasuresStructure =
-      migratedCalculatedMeasuresEntry.children.structure;
+  const migratedMeasuresStructure =
+    // @ts-ignore This is safe to ingore due to the typecheck above that ensures that `migratedCalculatedMeasuresEntry.children` will not be undefined.
+    migratedCalculatedMeasuresEntry.children.structure;
 
-    // @ts-ignore
-    migratedMeasuresStructure.children = {
-      ...migratedMeasuresStructure.children,
-      ...measuresStructureEntries,
-    };
+  migratedMeasuresStructure.children = {
+    ...migratedMeasuresStructure.children,
+    ...measuresStructureEntries,
+  };
 
-    // @ts-ignore
-    migratedMeasuresContent.children = {
-      ...migratedMeasuresContent.children,
-      ...measuresContentEntries,
-    };
+  migratedMeasuresContent.children = {
+    ...migratedMeasuresContent.children,
+    ...measuresContentEntries,
+  };
 
-    return migratedUIFolderWithCalculatedMeasures;
-  }
+  migratedUIFolderWithCalculatedMeasures.children = {
+    ...migratedUIFolderWithCalculatedMeasures.children,
+    calculated_measures: {
+      entry: {
+        isDirectory: true,
+        readers: ["ROLE_USER"],
+        owners: ["ROLE_USER"],
+        ...(migratedUIFolderWithCalculatedMeasures.children?.calculated_measures
+          ?.entry || {}),
+      },
+      children: {
+        content: {
+          entry: {
+            isDirectory: true,
+            readers: ["ROLE_USER"],
+            owners: ["ROLE_USER"],
+          },
+          ...migratedMeasuresContent,
+        },
+        structure: {
+          entry: {
+            isDirectory: true,
+            readers: ["ROLE_USER"],
+            owners: ["ROLE_USER"],
+          },
+          ...migratedMeasuresStructure,
+        },
+      },
+    },
+  };
 
-  return migratedUIFolder;
+  return migratedUIFolderWithCalculatedMeasures;
 }

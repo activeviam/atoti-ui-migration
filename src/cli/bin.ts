@@ -62,7 +62,7 @@ yargs
         keysOfWidgetPluginsToRemove
       );
       const migratedUIFolderWithCalculatedMeasures = legacyPivotFolder
-        ? await migratePivotFolder(legacyPivotFolder, migratedUIFolder, servers)
+        ? await migratePivotFolder(legacyPivotFolder, migratedUIFolder)
         : migratedUIFolder;
 
       await fs.writeJSON(outputPath, migratedUIFolderWithCalculatedMeasures, {
