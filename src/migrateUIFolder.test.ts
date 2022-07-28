@@ -19,12 +19,12 @@ const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
 
 describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", () => {
-    const migratedUIFolder = migrateUIFolder(smallLegacyUIFolder, servers);
+    const migratedUIFolder = migrateUIFolder(smallLegacyUIFolder, servers, []);
     expect(migratedUIFolder).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", () => {
-    const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers);
+    const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers, []);
     expect(migratedUIFolder).toMatchSnapshot();
   });
 
@@ -33,6 +33,7 @@ describe("migrateUIFolder", () => {
     const migratedUIFolder = migrateUIFolder(
       legacyUIFolder,
       servers,
+      [],
       keysOfWidgetPluginsToRemove
     );
 

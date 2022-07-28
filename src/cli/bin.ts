@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
-import { migratePivotFolder } from "../migratePivotFolder";
+import { getCalculatedMeasures } from "../getCalculatedMeasures";
 
 yargs
   .command(
@@ -35,7 +35,7 @@ yargs
         alias: "p",
         type: "string",
         demandOption: false,
-        desc: "The path to the JSON export of the ActiveUI 4 /pivot folder",
+        desc: "The path to the JSON export of the /pivot folder on the content server.",
       });
     },
     async ({
@@ -56,16 +56,22 @@ yargs
         ? await fs.readJSON(pivotInputPath)
         : undefined;
       const servers = await fs.readJSON(serversPath);
+
+      const entitlements = legacyPivotFolder.children?.entitlements;
+      const calculatedMeasuresRoot = entitlements?.children?.cm;
+
+      const calculatedMeasures = calculatedMeasuresRoot
+        ? await getCalculatedMeasures(calculatedMeasuresRoot)
+        : [];
+
       const migratedUIFolder = migrateUIFolder(
         legacyUIFolder,
         servers,
+        calculatedMeasures,
         keysOfWidgetPluginsToRemove
       );
-      const migratedUIFolderWithCalculatedMeasures = legacyPivotFolder
-        ? await migratePivotFolder(legacyPivotFolder, migratedUIFolder)
-        : migratedUIFolder;
 
-      await fs.writeJSON(outputPath, migratedUIFolderWithCalculatedMeasures, {
+      await fs.writeJSON(outputPath, migratedUIFolder, {
         spaces: 2,
       });
       // FIXME Rely on yargs instead of having to call process.exit manually.

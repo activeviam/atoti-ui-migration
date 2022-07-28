@@ -14,6 +14,8 @@ import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { generateId } from "./generateId";
+import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -195,6 +197,11 @@ const accumulateStructure = ({
 export function migrateUIFolder(
   legacyUIFolder: ContentRecord,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  calculatedMeasures: {
+    expression: string;
+    formatStringExpression: string;
+    uniqueName: string;
+  }[],
   keysOfWidgetPluginsToRemove?: string[]
 ): ContentRecord {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
@@ -207,6 +214,18 @@ export function migrateUIFolder(
       metaData: { name: string };
     };
   } = {};
+  const calculated_measures: {
+    expression: string;
+    formatStringExpression: string;
+    uniqueName: string;
+    id: string;
+  }[] = calculatedMeasures
+    ? calculatedMeasures.map((measure) => ({
+        ...measure,
+        id: generateId(),
+      }))
+    : [];
+
   const folders: { [folderId: string]: { name: string } } = {};
 
   const legacyContent =
@@ -305,6 +324,7 @@ export function migrateUIFolder(
 
   migratedUIFolder.children = {
     ...migratedUIFolder.children,
+    calculated_measures: migrateCalculatedMeasures(calculated_measures),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
 
