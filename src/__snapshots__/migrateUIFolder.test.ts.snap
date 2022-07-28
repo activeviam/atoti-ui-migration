@@ -33,10 +33,10 @@ Object {
       "entry": Object {
         "isDirectory": true,
         "owners": Array [
-          "ROLE_CS_ROOT",
+          "ROLE_USER",
         ],
         "readers": Array [
-          "ROLE_CS_ROOT",
+          "ROLE_USER",
         ],
       },
     },
@@ -2105,10 +2105,10 @@ Object {
       "entry": Object {
         "isDirectory": true,
         "owners": Array [
-          "ROLE_CS_ROOT",
+          "ROLE_USER",
         ],
         "readers": Array [
-          "ROLE_CS_ROOT",
+          "ROLE_USER",
         ],
       },
     },
