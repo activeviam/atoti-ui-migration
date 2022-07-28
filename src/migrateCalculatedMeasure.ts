@@ -1,8 +1,14 @@
-interface LegacyCalculatedMeasure {
+import { generateId } from "./generateId";
+
+export interface LegacyCalculatedMeasure {
   expression: string;
   formatStringExpression: string;
   uniqueName: string;
-  id: string;
+  canRead: boolean;
+  canWrite: boolean;
+  owners: string[];
+  readers: string[];
+  isDirectory: boolean;
 }
 
 /**
@@ -11,18 +17,50 @@ interface LegacyCalculatedMeasure {
 export function migrateCalculatedMeasure(
   legacyCalculatedMeasure: LegacyCalculatedMeasure
 ) {
+  const { canRead, canWrite, owners, readers, uniqueName } =
+    legacyCalculatedMeasure;
+
+  const id = generateId();
+
   return {
-    [legacyCalculatedMeasure.id]: {
-      entry: {
-        isDirectory: false,
-        content: JSON.stringify({
-          expression: legacyCalculatedMeasure.expression,
-          properties: [
-            `FORMAT_STRING=${legacyCalculatedMeasure.formatStringExpression}`,
-          ],
-        }),
-        owners: ["ROLE_USER"],
-        readers: ["ROLE_USER"],
+    content: {
+      [id]: {
+        entry: {
+          canRead,
+          canWrite,
+          owners,
+          readers,
+          isDirectory: false,
+          content: JSON.stringify({
+            expression: legacyCalculatedMeasure.expression,
+            properties: [
+              `FORMAT_STRING=${legacyCalculatedMeasure.formatStringExpression}`,
+            ],
+          }),
+        },
+      },
+    },
+    structure: {
+      [id]: {
+        entry: {
+          isDirectory: true,
+          canRead,
+          canWrite,
+          owners,
+          readers,
+        },
+        children: {
+          [`${id}_metadata`]: {
+            entry: {
+              content: JSON.stringify({ name: uniqueName }),
+              owners,
+              readers,
+              isDirectory: false,
+              canRead,
+              canWrite,
+            },
+          },
+        },
       },
     },
   };

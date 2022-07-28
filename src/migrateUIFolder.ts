@@ -14,8 +14,8 @@ import { migrateWidget } from "./migrateWidget";
 import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { generateId } from "./generateId";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
+import { getCalculatedMeasures } from "./getCalculatedMeasures";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -194,16 +194,19 @@ const accumulateStructure = ({
  * - for a matching saved ActiveUI 4 widget, no ActiveUI 5 file is created.
  * - for a saved ActiveUI 4 dashboard including a matching widget, the widget is removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  */
-export function migrateUIFolder(
+export async function migrateUIFolder(
   legacyUIFolder: ContentRecord,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  calculatedMeasures: {
-    expression: string;
-    formatStringExpression: string;
-    uniqueName: string;
-  }[],
-  keysOfWidgetPluginsToRemove?: string[]
-): ContentRecord {
+  keysOfWidgetPluginsToRemove?: string[],
+  legacyPivotFolder?: ContentRecord
+): Promise<ContentRecord> {
+  const entitlements = legacyPivotFolder?.children?.entitlements;
+  const calculatedMeasuresFolder = entitlements?.children?.cm;
+
+  const calculatedMeasures = calculatedMeasuresFolder
+    ? await getCalculatedMeasures(calculatedMeasuresFolder)
+    : [];
+
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
   const dashboards: { [dashboardId: string]: any } = {};
@@ -214,17 +217,6 @@ export function migrateUIFolder(
       metaData: { name: string };
     };
   } = {};
-  const calculated_measures: {
-    expression: string;
-    formatStringExpression: string;
-    uniqueName: string;
-    id: string;
-  }[] = calculatedMeasures
-    ? calculatedMeasures.map((measure) => ({
-        ...measure,
-        id: generateId(),
-      }))
-    : [];
 
   const folders: { [folderId: string]: { name: string } } = {};
 
@@ -324,7 +316,14 @@ export function migrateUIFolder(
 
   migratedUIFolder.children = {
     ...migratedUIFolder.children,
-    calculated_measures: migrateCalculatedMeasures(calculated_measures),
+    ...(calculatedMeasuresFolder
+      ? {
+          calculated_measures: migrateCalculatedMeasures(
+            calculatedMeasures,
+            calculatedMeasuresFolder
+          ),
+        }
+      : {}),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
 

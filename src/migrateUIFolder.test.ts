@@ -18,22 +18,24 @@ const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
   );
 
 describe("migrateUIFolder", () => {
-  it("returns a valid ActiveUI5 /ui folder on a small input", () => {
-    const migratedUIFolder = migrateUIFolder(smallLegacyUIFolder, servers, []);
+  it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
+    const migratedUIFolder = await migrateUIFolder(
+      smallLegacyUIFolder,
+      servers
+    );
     expect(migratedUIFolder).toMatchSnapshot();
   });
 
-  it("returns a valid ActiveUI5 /ui folder on a real life input", () => {
-    const migratedUIFolder = migrateUIFolder(legacyUIFolder, servers, []);
+  it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
+    const migratedUIFolder = await migrateUIFolder(legacyUIFolder, servers);
     expect(migratedUIFolder).toMatchSnapshot();
   });
 
-  it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", () => {
+  it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
-    const migratedUIFolder = migrateUIFolder(
+    const migratedUIFolder = await migrateUIFolder(
       legacyUIFolder,
       servers,
-      [],
       keysOfWidgetPluginsToRemove
     );
 

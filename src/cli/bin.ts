@@ -1,7 +1,6 @@
 import yargs from "yargs";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
-import { getCalculatedMeasures } from "../getCalculatedMeasures";
 
 yargs
   .command(
@@ -57,18 +56,11 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const entitlements = legacyPivotFolder.children?.entitlements;
-      const calculatedMeasuresRoot = entitlements?.children?.cm;
-
-      const calculatedMeasures = calculatedMeasuresRoot
-        ? await getCalculatedMeasures(calculatedMeasuresRoot)
-        : [];
-
-      const migratedUIFolder = migrateUIFolder(
+      const migratedUIFolder = await migrateUIFolder(
         legacyUIFolder,
         servers,
-        calculatedMeasures,
-        keysOfWidgetPluginsToRemove
+        keysOfWidgetPluginsToRemove,
+        legacyPivotFolder
       );
 
       await fs.writeJSON(outputPath, migratedUIFolder, {
