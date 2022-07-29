@@ -1,6 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk";
 import xml2js from "xml2js";
-import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasure";
+import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";
 
 /**
  * Extracts and parses the XML calculated measure objects from the /pivot/entitlements/cm folder.

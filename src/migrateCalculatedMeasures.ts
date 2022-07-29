@@ -2,6 +2,15 @@ import { ContentRecord } from "@activeviam/activeui-sdk";
 import { getCalculatedMeasures } from "./getCalculatedMeasures";
 import { generateId } from "./generateId";
 
+export interface LegacyCalculatedMeasure {
+  expression: string;
+  formatStringExpression: string;
+  uniqueName: string;
+  owners: string[];
+  readers: string[];
+  isDirectory: boolean;
+}
+
 /**
  * Returns the converted content record tree for the calculted measures, ready to be used in ActiveUI 5.
  */
