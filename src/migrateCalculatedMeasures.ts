@@ -1,16 +1,20 @@
 import { ContentRecord } from "@activeviam/activeui-sdk";
-import {
-  migrateCalculatedMeasure,
-  LegacyCalculatedMeasure,
-} from "./migrateCalculatedMeasure";
+import { migrateCalculatedMeasure } from "./migrateCalculatedMeasure";
+import { getCalculatedMeasures } from "./getCalculatedMeasures";
 
 /**
  * Returns the converted content record tree for the calculted measures, ready to be used in ActiveUI 5.
  */
-export function migrateCalculatedMeasures(
-  legacyCalculatedMeasures: LegacyCalculatedMeasure[],
-  calculatedMeasuresFolder: ContentRecord
-): ContentRecord {
+export async function migrateCalculatedMeasures(
+  legacyPivotFolder: ContentRecord
+): Promise<ContentRecord> {
+  const entitlements = legacyPivotFolder?.children?.entitlements;
+  const calculatedMeasuresFolder = entitlements?.children?.cm!;
+
+  const legacyCalculatedMeasures = calculatedMeasuresFolder
+    ? await getCalculatedMeasures(calculatedMeasuresFolder)
+    : [];
+
   const migratedCalculatedMeasures = legacyCalculatedMeasures.map(
     (legacyMeasure) => migrateCalculatedMeasure(legacyMeasure)
   );

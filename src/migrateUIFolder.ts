@@ -15,7 +15,6 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import { getCalculatedMeasures } from "./getCalculatedMeasures";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -200,13 +199,6 @@ export async function migrateUIFolder(
   keysOfWidgetPluginsToRemove?: string[],
   legacyPivotFolder?: ContentRecord
 ): Promise<ContentRecord> {
-  const entitlements = legacyPivotFolder?.children?.entitlements;
-  const calculatedMeasuresFolder = entitlements?.children?.cm;
-
-  const calculatedMeasures = calculatedMeasuresFolder
-    ? await getCalculatedMeasures(calculatedMeasuresFolder)
-    : [];
-
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
   const dashboards: { [dashboardId: string]: any } = {};
@@ -316,11 +308,10 @@ export async function migrateUIFolder(
 
   migratedUIFolder.children = {
     ...migratedUIFolder.children,
-    ...(calculatedMeasuresFolder
+    ...(legacyPivotFolder
       ? {
-          calculated_measures: migrateCalculatedMeasures(
-            calculatedMeasures,
-            calculatedMeasuresFolder
+          calculated_measures: await migrateCalculatedMeasures(
+            legacyPivotFolder
           ),
         }
       : {}),

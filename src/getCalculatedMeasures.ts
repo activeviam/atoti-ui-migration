@@ -22,15 +22,12 @@ export const getCalculatedMeasures = async (
                 cmEntry.entry.content
               );
 
-              const { owners, readers, isDirectory, canRead, canWrite } =
-                cmEntry.entry;
+              const { owners, readers, isDirectory } = cmEntry.entry;
 
               const calculatedMeasure = {
                 owners,
                 readers,
                 isDirectory,
-                canRead,
-                canWrite,
                 /*
                   xml2js parses the given XML and returns an object of the shape:
 

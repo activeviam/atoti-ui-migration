@@ -4,8 +4,6 @@ export interface LegacyCalculatedMeasure {
   expression: string;
   formatStringExpression: string;
   uniqueName: string;
-  canRead: boolean;
-  canWrite: boolean;
   owners: string[];
   readers: string[];
   isDirectory: boolean;
@@ -17,8 +15,7 @@ export interface LegacyCalculatedMeasure {
 export function migrateCalculatedMeasure(
   legacyCalculatedMeasure: LegacyCalculatedMeasure
 ) {
-  const { canRead, canWrite, owners, readers, uniqueName } =
-    legacyCalculatedMeasure;
+  const { owners, readers, uniqueName } = legacyCalculatedMeasure;
 
   const id = generateId();
 
@@ -26,8 +23,6 @@ export function migrateCalculatedMeasure(
     content: {
       [id]: {
         entry: {
-          canRead,
-          canWrite,
           owners,
           readers,
           isDirectory: false,
@@ -44,8 +39,6 @@ export function migrateCalculatedMeasure(
       [id]: {
         entry: {
           isDirectory: true,
-          canRead,
-          canWrite,
           owners,
           readers,
         },
@@ -56,8 +49,6 @@ export function migrateCalculatedMeasure(
               owners,
               readers,
               isDirectory: false,
-              canRead,
-              canWrite,
             },
           },
         },
