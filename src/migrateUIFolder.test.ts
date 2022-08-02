@@ -7,6 +7,7 @@ import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 import { servers } from "./__test_resources__/servers";
 import { ContentRecord } from "@activeviam/activeui-sdk";
 import { LegacyDashboardState } from "./migration.types";
+import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
@@ -16,6 +17,18 @@ const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
     contentRecord.children,
     (child, childId) => childId === recordId || hasRecord(child, recordId)
   );
+
+jest.mock(`./generateId`, () => {
+  let counter = 0;
+  return {
+    generateId: jest.fn(() => {
+      const id = `00${counter}`;
+      counter += 1;
+
+      return id;
+    }),
+  };
+});
 
 describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
@@ -28,6 +41,17 @@ describe("migrateUIFolder", () => {
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
     const migratedUIFolder = await migrateUIFolder(legacyUIFolder, servers);
+    expect(migratedUIFolder).toMatchSnapshot();
+  });
+
+  it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
+    const migratedUIFolder = await migrateUIFolder(
+      legacyUIFolder,
+      servers,
+      undefined,
+      smallLegacyPivotFolder
+    );
+
     expect(migratedUIFolder).toMatchSnapshot();
   });
 

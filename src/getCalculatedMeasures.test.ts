@@ -1,5 +1,4 @@
 import { getCalculatedMeasures } from "./getCalculatedMeasures";
-import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 
 describe("getCalculatedMeasures", () => {
   it("returns an empty array when the calculated measures folder contains no children", async () => {
