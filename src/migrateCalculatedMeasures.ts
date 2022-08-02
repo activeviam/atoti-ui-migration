@@ -24,12 +24,12 @@ export async function migrateCalculatedMeasures(
     ? await getCalculatedMeasures(calculatedMeasuresFolder)
     : [];
 
-  const contentFolder = {
+  const contentFolder: ContentRecord = {
     entry: { isDirectory: true, owners: ["ROLE_USER"], readers: ["ROLE_USER"] },
-    children: {} as { [id: string]: ContentRecord },
+    children: {},
   };
 
-  const structureFolder = {
+  const structureFolder: ContentRecord = {
     entry: { isDirectory: true, owners: ["ROLE_USER"], readers: ["ROLE_USER"] },
     children: {} as { [id: string]: ContentRecord },
   };
@@ -40,6 +40,7 @@ export async function migrateCalculatedMeasures(
 
     const id = generateId();
 
+    // @ts-ignore `children` will always be defined since it's hardcoded as an empty object above.
     contentFolder.children[id] = {
       entry: {
         owners,
@@ -52,6 +53,7 @@ export async function migrateCalculatedMeasures(
       },
     };
 
+    // @ts-ignore `children` will always be defined since it's hardcoded as an empty object above.
     structureFolder.children[id] = {
       entry: {
         isDirectory: true,
