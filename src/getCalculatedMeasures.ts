@@ -1,5 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk";
 import xml2js from "xml2js";
+import _flatMap from "lodash/flatMap";
 import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";
 
 /**
@@ -14,8 +15,9 @@ export const getCalculatedMeasures = async (
 
   if (calculatedMeasuresFolder?.children) {
     await Promise.all(
-      Object.values(calculatedMeasuresFolder?.children).map(
-        async ({ children = {} }) => {
+      // Legacy calculated measures are grouped by cube in `/pivot/entitlements/cm`. But they are flattened in ActiveUI 5.
+      _flatMap(calculatedMeasuresFolder.children, async ({ children }) => {
+        if (children) {
           const measures = await Promise.all(
             Object.values(children).map(async (cmEntry) => {
               const result = await parser.parseStringPromise(
@@ -43,10 +45,9 @@ export const getCalculatedMeasures = async (
               return calculatedMeasure;
             })
           );
-
           calculatedMeasures.push(...measures);
         }
-      )
+      })
     );
   }
 

@@ -18,7 +18,7 @@ export async function migrateCalculatedMeasures(
   legacyPivotFolder: ContentRecord
 ): Promise<ContentRecord> {
   const entitlements = legacyPivotFolder?.children?.entitlements;
-  const calculatedMeasuresFolder = entitlements?.children?.cm!;
+  const calculatedMeasuresFolder = entitlements?.children?.cm;
 
   const legacyCalculatedMeasures = calculatedMeasuresFolder
     ? await getCalculatedMeasures(calculatedMeasuresFolder)
@@ -26,12 +26,12 @@ export async function migrateCalculatedMeasures(
 
   const contentFolder = {
     entry: { isDirectory: true, owners: ["ROLE_USER"], readers: ["ROLE_USER"] },
-    children: {},
+    children: {} as { [id: string]: ContentRecord },
   };
 
   const structureFolder = {
     entry: { isDirectory: true, owners: ["ROLE_USER"], readers: ["ROLE_USER"] },
-    children: {},
+    children: {} as { [id: string]: ContentRecord },
   };
 
   legacyCalculatedMeasures.forEach((legacyMeasure) => {
@@ -40,37 +40,31 @@ export async function migrateCalculatedMeasures(
 
     const id = generateId();
 
-    contentFolder.children = {
-      ...contentFolder.children,
-      [id]: {
-        entry: {
-          owners,
-          readers,
-          isDirectory: false,
-          content: JSON.stringify({
-            expression,
-            properties: [`FORMAT_STRING=${formatStringExpression}`],
-          }),
-        },
+    contentFolder.children[id] = {
+      entry: {
+        owners,
+        readers,
+        isDirectory: false,
+        content: JSON.stringify({
+          expression,
+          properties: [`FORMAT_STRING=${formatStringExpression}`],
+        }),
       },
     };
 
-    structureFolder.children = {
-      ...structureFolder.children,
-      [id]: {
-        entry: {
-          isDirectory: true,
-          owners,
-          readers,
-        },
-        children: {
-          [`${id}_metadata`]: {
-            entry: {
-              content: JSON.stringify({ name: uniqueName }),
-              owners,
-              readers,
-              isDirectory: false,
-            },
+    structureFolder.children[id] = {
+      entry: {
+        isDirectory: true,
+        owners,
+        readers,
+      },
+      children: {
+        [`${id}_metadata`]: {
+          entry: {
+            content: JSON.stringify({ name: uniqueName }),
+            owners,
+            readers,
+            isDirectory: false,
           },
         },
       },
@@ -79,7 +73,9 @@ export async function migrateCalculatedMeasures(
 
   return {
     entry: {
-      ...calculatedMeasuresFolder.entry,
+      isDirectory: true,
+      owners: ["ROLE_CS_ROOT"],
+      readers: ["ROLE_CS_ROOT"],
     },
     children: {
       content: contentFolder,
