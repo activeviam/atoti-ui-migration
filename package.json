@@ -1,6 +1,6 @@
 {
   "name": "activeui-migration",
-  "version": "5.0.8-SNAPSHOT",
+  "version": "5.0.8",
   "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
   "license": "Apache-2.0",
   "repository": {
@@ -29,10 +29,10 @@
     "extends": "activeui"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk": "5.0.10",
-    "@activeviam/content-server-initialization": "5.0.10",
-    "@activeviam/data-model": "5.0.10",
-    "@activeviam/mdx": "5.0.10",
+    "@activeviam/activeui-sdk": "5.0.15",
+    "@activeviam/content-server-initialization": "5.0.15",
+    "@activeviam/data-model": "5.0.15",
+    "@activeviam/mdx": "5.0.15",
     "@types/lodash": "^4.14.168",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",
@@ -41,7 +41,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@activeviam/activeui-sdk-scripts": "5.0.10",
+    "@activeviam/activeui-sdk-scripts": "5.0.15",
     "@ant-design/icons": "^4.4.0",
     "@types/jest": "^26.0.14",
     "@types/uuid": "8.3.4",
