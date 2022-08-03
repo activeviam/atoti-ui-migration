@@ -39,6 +39,7 @@ export async function migrateCalculatedMeasures(
 
     const id = generateId();
 
+    // `contentFolder.children` is defined as an empty object above.
     contentFolder.children![id] = {
       entry: {
         owners,
@@ -51,7 +52,7 @@ export async function migrateCalculatedMeasures(
       },
     };
 
-    
+    // `structureFolder.children` is defined as an empty object above.
     structureFolder.children![id] = {
       entry: {
         isDirectory: true,
