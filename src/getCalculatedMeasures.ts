@@ -24,22 +24,24 @@ export const getCalculatedMeasures = async (
                 cmEntry.entry.content
               );
 
-              const { owners, readers, isDirectory } = cmEntry.entry;
-
-              const calculatedMeasure = {
-                owners,
-                readers,
-                isDirectory,
-                /*
+              const { owners, readers, } = cmEntry.entry;
+               /*
                   xml2js parses the given XML and returns an object of the shape:
 
                   {
                     calculatedMember: {$: {...}, additionalProperties: {...}}
                   }
 
-                  In this case, the data that is required (`expression`, `formatStringExpression`, and `uniqueName`) lives within the `$` property/
+                  In this case, the data that is required (`expression`, `formatStringExpression`, and `uniqueName`) lives within the `$` property.
                 */
-                ...result.calculatedMember["$"],
+              const {expression, formatStringExpression, uniqueName} = result.calculatedMember["$"];
+
+              const calculatedMeasure = {
+                owners,
+                readers,
+                expression,
+                formatStringExpression, 
+                uniqueName
               };
 
               return calculatedMeasure;

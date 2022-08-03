@@ -52,7 +52,9 @@ describe("migrateUIFolder", () => {
       smallLegacyPivotFolder
     );
 
-    expect(migratedUIFolder).toMatchSnapshot();
+    const calculatedMeasuresFolder = migratedUIFolder.children?.["calculated_measures"];
+    
+    expect(calculatedMeasuresFolder).toMatchSnapshot();
   });
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {

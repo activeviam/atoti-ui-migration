@@ -5,7 +5,6 @@ Array [
   Object {
     "expression": "IIf(IsEmpty(([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX])), null, [Measures].[pnl.FOREX] / ([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX]))",
     "formatStringExpression": "\\"#,###.##%\\"",
-    "isDirectory": false,
     "owners": Array [
       "admin",
     ],
@@ -13,12 +12,10 @@ Array [
       "admin",
     ],
     "uniqueName": "[Measures].[second calculated measure]",
-    "xmlns": "http://www.quartetfs.com",
   },
   Object {
     "expression": "Count(Descendants([CounterParty].[CounterParty].CurrentMember, [CounterParty].[CounterParty].[CounterPartyGroup]), EXCLUDEEMPTY)",
     "formatStringExpression": "\\"#,###.##\\"",
-    "isDirectory": false,
     "owners": Array [
       "admin",
     ],
@@ -26,7 +23,6 @@ Array [
       "admin",
     ],
     "uniqueName": "[Measures].[first calculated measure]",
-    "xmlns": "http://www.quartetfs.com",
   },
 ]
 `;

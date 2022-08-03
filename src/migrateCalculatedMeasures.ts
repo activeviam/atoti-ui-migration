@@ -8,7 +8,6 @@ export interface LegacyCalculatedMeasure {
   uniqueName: string;
   owners: string[];
   readers: string[];
-  isDirectory: boolean;
 }
 
 /**
@@ -40,8 +39,7 @@ export async function migrateCalculatedMeasures(
 
     const id = generateId();
 
-    // @ts-ignore `children` will always be defined since it's hardcoded as an empty object above.
-    contentFolder.children[id] = {
+    contentFolder.children![id] = {
       entry: {
         owners,
         readers,
@@ -53,8 +51,8 @@ export async function migrateCalculatedMeasures(
       },
     };
 
-    // @ts-ignore `children` will always be defined since it's hardcoded as an empty object above.
-    structureFolder.children[id] = {
+    
+    structureFolder.children![id] = {
       entry: {
         isDirectory: true,
         owners,
