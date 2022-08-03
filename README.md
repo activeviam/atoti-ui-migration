@@ -25,6 +25,9 @@ npm install activeui-migration
 - _content of ui.json_: the original content to migrate
 - _servers.json_: the ActivePivot server's information
 
+and a third _optional_ file:
+- _content of pivot.json_: the content from the pivot folder on the content server.
+
 Let's create these files.
 
 ### Download the original content
@@ -36,6 +39,16 @@ The content to migrate can be downloaded as a JSON file from the ActiveViam Cont
 Right-click the folder named **ui** and click **Export**. This will download a file called _content of ui.json_. Move this file into your `migration` folder.
 
 ![](/documentation/download-content.gif)
+
+### Optional: Download the content of the pivot folder
+
+:warning: If there are calculated measures to be migrated from ActiveUI-4 to the ActiveUI-5 content servers, this file is required. If this is not the case, this file can be disregarded.
+
+The pivot folder can be downloaded as a JSON file from the ActiveViam Content Manager. If you are used to accessing ActiveUI at `https://my-server.com/ui/index.html`, then you should be able to access your Content Manager at `https://my-server.com/content/ui/index.html`.
+
+:warning: Make sure to connect as a user with access to all the content that must be migrated. We recommend connecting as a user with the role `ROLE_CS_ROOT`.
+
+Right-click the folder named **pivot** and click **Export**. This will download a file called _content of pivot.json_. Move this file into your `migration` folder.
 
 ### Download the servers information
 
@@ -96,8 +109,10 @@ At this stage, your `migration` folder looks like this:
 Open a terminal in it and run:
 
 ```
-npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json
+npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json -p "content of pivot.json"
 ```
+
+**Note**: The `-p` flag is not required unless calculated measures must also be migrated.
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in ActiveUI 5.
 
