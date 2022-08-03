@@ -2423,3 +2423,156 @@ Object {
   },
 }
 `;
+
+exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
+Object {
+  "children": Object {
+    "content": Object {
+      "children": Object {
+        "000": Object {
+          "entry": Object {
+            "content": "{\\"expression\\":\\"IIf(IsEmpty(([Booking].[Desk].CurrentMember.Parent, [Measures].[pnl.SUM])), null, [Measures].[pnl.SUM] / ([Booking].[Desk].CurrentMember.Parent, [Measures].[pnl.SUM]))\\",\\"properties\\":[\\"FORMAT_STRING=\\\\\\"#,###.##%\\\\\\"\\"]}",
+            "isDirectory": false,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+        "001": Object {
+          "entry": Object {
+            "content": "{\\"expression\\":\\"IIf(IsEmpty(([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX])), null, [Measures].[pnl.FOREX] / ([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX]))\\",\\"properties\\":[\\"FORMAT_STRING=\\\\\\"#,###.##%\\\\\\"\\"]}",
+            "isDirectory": false,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+        "002": Object {
+          "entry": Object {
+            "content": "{\\"expression\\":\\"Count(Descendants([CounterParty].[CounterParty].CurrentMember, [CounterParty].[CounterParty].[CounterPartyGroup]), EXCLUDEEMPTY)\\",\\"properties\\":[\\"FORMAT_STRING=\\\\\\"#,###.##\\\\\\"\\"]}",
+            "isDirectory": false,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+      },
+      "entry": Object {
+        "isDirectory": true,
+        "owners": Array [
+          "ROLE_USER",
+        ],
+        "readers": Array [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "structure": Object {
+      "children": Object {
+        "000": Object {
+          "children": Object {
+            "000_metadata": Object {
+              "entry": Object {
+                "content": "{\\"name\\":\\"[Measures].[third calculated measure]\\"}",
+                "isDirectory": false,
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+        "001": Object {
+          "children": Object {
+            "001_metadata": Object {
+              "entry": Object {
+                "content": "{\\"name\\":\\"[Measures].[second calculated measure]\\"}",
+                "isDirectory": false,
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+        "002": Object {
+          "children": Object {
+            "002_metadata": Object {
+              "entry": Object {
+                "content": "{\\"name\\":\\"[Measures].[first calculated measure]\\"}",
+                "isDirectory": false,
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "admin",
+            ],
+            "readers": Array [
+              "admin",
+            ],
+          },
+        },
+      },
+      "entry": Object {
+        "isDirectory": true,
+        "owners": Array [
+          "ROLE_USER",
+        ],
+        "readers": Array [
+          "ROLE_USER",
+        ],
+      },
+    },
+  },
+  "entry": Object {
+    "isDirectory": true,
+    "owners": Array [
+      "ROLE_CS_ROOT",
+    ],
+    "readers": Array [
+      "ROLE_CS_ROOT",
+    ],
+  },
+}
+`;
