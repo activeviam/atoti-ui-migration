@@ -44,7 +44,7 @@ Right-click the folder named **ui** and click **Export**. This will download a f
 
 :warning: If there are calculated measures to be migrated from ActiveUI-4 to the ActiveUI-5 content servers, this file is required. If this is not the case, this file can be disregarded.
 
-The pivot folder can be downloaded as a JSON file from the ActiveViam Content Manager. If you are used to accessing ActiveUI at `https://my-server.com/ui/index.html`, then you should be able to access your Content Manager at `https://my-server.com/content/ui/index.html`.
+The pivot folder can be downloaded as a JSON file from the atoti+ Admin UI. If you are used to accessing ActiveUI at `https://my-server.com/ui/index.html`, then you should be able to access the Admin UI at `https://my-server.com/admin/ui/index.html`.
 
 :warning: Make sure to connect as a user with access to all the content that must be migrated. We recommend connecting as a user with the role `ROLE_CS_ROOT`.
 
