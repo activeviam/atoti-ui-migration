@@ -15,6 +15,7 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
+import { MigrationReport } from "./migration.types";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -198,8 +199,13 @@ export async function migrateUIFolder(
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
   keysOfWidgetPluginsToRemove?: string[],
   legacyPivotFolder?: ContentRecord
-): Promise<ContentRecord> {
+): Promise<[ContentRecord, MigrationReport]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
+  const migrationReport: MigrationReport = {
+    filters: {},
+    dashboards: {},
+    widgets: {},
+  };
 
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
@@ -231,13 +237,11 @@ export async function migrateUIFolder(
             },
           };
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(
-            `An error occurred during the migration of filter ${id} ("${
-              bookmark.name
-              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this filter. Error:\n${(error as Error).stack}`
-          );
+          migrationReport.filters[id] = {
+            name: bookmark.name,
+            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            error: (error as Error).stack!,
+          };
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         try {
@@ -256,13 +260,11 @@ export async function migrateUIFolder(
             },
           };
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(
-            `An error occurred during the migration of dashboard ${id} ("${
-              bookmark.name
-              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this dashboard. Error:\n${(error as Error).stack}`
-          );
+          migrationReport.dashboards[id] = {
+            name: bookmark.name,
+            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            error: (error as Error).stack!,
+          };
         }
       } else {
         try {
@@ -285,13 +287,11 @@ export async function migrateUIFolder(
             },
           };
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(
-            `An error occurred during the migration of widget ${id} ("${
-              bookmark.name
-              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this widget. Error:\n${(error as Error).stack}`
-          );
+          // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+          migrationReport.widgets[id] = {
+            name: bookmark.name,
+            error: (error as Error).stack!,
+          };
         }
       }
     }
@@ -318,5 +318,5 @@ export async function migrateUIFolder(
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
 
-  return migratedUIFolder;
+  return [migratedUIFolder, migrationReport];
 }

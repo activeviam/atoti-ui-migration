@@ -1,6 +1,7 @@
 import yargs from "yargs";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
+import path from "path";
 
 yargs
   .command(
@@ -56,16 +57,37 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const migratedUIFolder = await migrateUIFolder(
+      const [migratedUIFolder, migrationReport] = await migrateUIFolder(
         legacyUIFolder,
         servers,
         keysOfWidgetPluginsToRemove,
         legacyPivotFolder
       );
 
+      const { dir } = path.parse(outputPath);
+
       await fs.writeJSON(outputPath, migratedUIFolder, {
         spaces: 2,
       });
+
+      if (
+        Object.keys(migrationReport.dashboards).length > 0 ||
+        Object.keys(migrationReport.widgets).length > 0 ||
+        Object.keys(migrationReport.filters).length > 0
+      ) {
+        await fs.writeJSON(
+          path.join(...dir, "migration-errors.json"),
+          migrationReport,
+          {
+            spaces: 2,
+          }
+        );
+        console.log(
+          "The migration ended with some errors, see `migration-errors.json`."
+        );
+      } else {
+        console.log("The migration ended with no errors.");
+      }
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198
       process.exit(0);

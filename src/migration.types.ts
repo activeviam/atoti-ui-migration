@@ -60,3 +60,9 @@ export interface LegacyDashboardState {
   };
   writable: boolean;
 }
+
+export interface MigrationReport {
+  filters: Record<string, { name: string; error: string }>;
+  dashboards: Record<string, { name: string; error: string }>;
+  widgets: Record<string, { name: string; error: string }>;
+}

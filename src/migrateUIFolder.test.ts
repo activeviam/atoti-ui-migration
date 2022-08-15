@@ -32,7 +32,7 @@ jest.mock(`./generateId`, () => {
 
 describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const migratedUIFolder = await migrateUIFolder(
+    const [migratedUIFolder] = await migrateUIFolder(
       smallLegacyUIFolder,
       servers
     );
@@ -40,26 +40,27 @@ describe("migrateUIFolder", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const migratedUIFolder = await migrateUIFolder(legacyUIFolder, servers);
+    const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, servers);
     expect(migratedUIFolder).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
-    const migratedUIFolder = await migrateUIFolder(
+    const [migratedUIFolder] = await migrateUIFolder(
       legacyUIFolder,
       servers,
       undefined,
       smallLegacyPivotFolder
     );
 
-    const calculatedMeasuresFolder = migratedUIFolder.children?.["calculated_measures"];
-    
+    const calculatedMeasuresFolder =
+      migratedUIFolder.children?.["calculated_measures"];
+
     expect(calculatedMeasuresFolder).toMatchSnapshot();
   });
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
-    const migratedUIFolder = await migrateUIFolder(
+    const [migratedUIFolder] = await migrateUIFolder(
       legacyUIFolder,
       servers,
       keysOfWidgetPluginsToRemove
