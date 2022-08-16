@@ -15,7 +15,10 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import { MigrationReport } from "./migration.types";
+import {
+  DashboardMigrationReport,
+  MigrationErrorReport,
+} from "./migration.types";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -199,13 +202,9 @@ export async function migrateUIFolder(
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
   keysOfWidgetPluginsToRemove?: string[],
   legacyPivotFolder?: ContentRecord
-): Promise<[ContentRecord, MigrationReport]> {
+): Promise<[ContentRecord, MigrationErrorReport?]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-  const migrationReport: MigrationReport = {
-    filters: {},
-    dashboards: {},
-    widgets: {},
-  };
+  const migrationErrorReport: MigrationErrorReport = {};
 
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
@@ -237,20 +236,27 @@ export async function migrateUIFolder(
             },
           };
         } catch (error) {
-          migrationReport.filters[id] = {
+          if (!migrationErrorReport.filters) {
+            migrationErrorReport.filters = {};
+          }
+
+          migrationErrorReport.filters[id] = {
             name: bookmark.name,
             // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            error: (error as Error).stack!,
+            errorStack: (error as Error).stack!.split("\n"),
           };
         }
       } else if (bookmark.value.containerKey === "dashboard") {
+        let dashboardMigrationWarningReport:
+          | DashboardMigrationReport
+          | undefined = undefined;
+        let dashboardMigrationErrorMessage: string[] | undefined = undefined;
+
         try {
-          const migratedDashboard = migrateDashboard(
-            bookmark,
-            servers,
-            keysOfWidgetPluginsToRemove
-          );
+          const [migratedDashboard, dashboardMigrationReport] =
+            migrateDashboard(bookmark, servers, keysOfWidgetPluginsToRemove);
           dashboards[id] = migratedDashboard;
+          dashboardMigrationWarningReport = dashboardMigrationReport;
           migratedUIFolder.children!.dashboards.children!.content.children![
             id
           ] = {
@@ -260,11 +266,20 @@ export async function migrateUIFolder(
             },
           };
         } catch (error) {
-          migrationReport.dashboards[id] = {
-            name: bookmark.name,
-            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            error: (error as Error).stack!,
-          };
+          // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+          dashboardMigrationErrorMessage = (error as Error).stack!.split("\n");
+        }
+
+        if (dashboardMigrationWarningReport || dashboardMigrationErrorMessage) {
+          if (!migrationErrorReport.dashboards) {
+            migrationErrorReport.dashboards = {};
+          }
+
+          migrationErrorReport.dashboards[id] =
+            dashboardMigrationWarningReport || {
+              name: bookmark.name,
+              errorStack: dashboardMigrationErrorMessage,
+            };
         }
       } else {
         try {
@@ -276,7 +291,16 @@ export async function migrateUIFolder(
             continue;
           }
 
-          const migratedWidget = migrateWidget(bookmark, servers);
+          const [migratedWidget, widgetMigrationWarning] = migrateWidget(
+            bookmark,
+            servers
+          );
+          if (widgetMigrationWarning) {
+            _set(migrationErrorReport, ["widgets", id], {
+              name: bookmark.name,
+              warning: widgetMigrationWarning,
+            });
+          }
           widgets[id] = migratedWidget;
           migratedUIFolder.children!.widgets.children!.content.children![id] = {
             entry: {
@@ -288,10 +312,11 @@ export async function migrateUIFolder(
           };
         } catch (error) {
           // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-          migrationReport.widgets[id] = {
+          const widgetMigrationErrorStack = (error as Error).stack!.split("\n");
+          _set(migrationErrorReport, ["widgets", id], {
             name: bookmark.name,
-            error: (error as Error).stack!,
-          };
+            errorStack: widgetMigrationErrorStack,
+          });
         }
       }
     }
@@ -318,5 +343,10 @@ export async function migrateUIFolder(
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
 
-  return [migratedUIFolder, migrationReport];
+  return [
+    migratedUIFolder,
+    Object.keys(migrationErrorReport).length > 0
+      ? migrationErrorReport
+      : undefined,
+  ];
 }

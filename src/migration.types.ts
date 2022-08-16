@@ -61,8 +61,19 @@ export interface LegacyDashboardState {
   writable: boolean;
 }
 
-export interface MigrationReport {
-  filters: Record<string, { name: string; error: string }>;
-  dashboards: Record<string, { name: string; error: string }>;
-  widgets: Record<string, { name: string; error: string }>;
+export type PageMigrationReport = Record<string, { warnings: string[] }>;
+
+export interface DashboardMigrationReport {
+  name: string;
+  errorStack?: string[];
+  pages?: PageMigrationReport;
+}
+
+export interface MigrationErrorReport {
+  dashboards?: Record<string, DashboardMigrationReport>;
+  filters?: Record<string, { name: string; errorStack: string[] }>;
+  widgets?: Record<
+    string,
+    { name: string } & ({ errorStack: string[] } | { warning: string })
+  >;
 }

@@ -7,7 +7,7 @@ import { servers } from "./__test_resources__/servers";
 
 describe("migrateDashboard", () => {
   it("turns the pages content from arrays into maps", () => {
-    const dashboard = migrateDashboard(legacyDashboard, servers);
+    const [dashboard] = migrateDashboard(legacyDashboard, servers);
     expect(dashboard.pages["p-0"].content).toMatchInlineSnapshot(`
       Object {
         "1": Object {
@@ -136,7 +136,7 @@ describe("migrateDashboard", () => {
   });
 
   it("flattens the page layouts", () => {
-    const dashboard = migrateDashboard(legacyDashboard, servers);
+    const [dashboard] = migrateDashboard(legacyDashboard, servers);
     expect(dashboard.pages["p-0"].layout).toMatchInlineSnapshot(`
       Object {
         "children": Array [
@@ -170,7 +170,7 @@ describe("migrateDashboard", () => {
 
   it("migrates dashboard context values", () => {
     // Due to the flattening, the context values from the first cube that are also defined in the second cube are overriden.
-    const dashboard = migrateDashboard(legacyDashboard, servers);
+    const [dashboard] = migrateDashboard(legacyDashboard, servers);
     expect(dashboard.queryContext).toMatchInlineSnapshot(`
       Array [
         Object {
@@ -190,7 +190,7 @@ describe("migrateDashboard", () => {
   });
 
   it("migrates page context values", () => {
-    const dashboard = migrateDashboard(legacyDashboard, servers);
+    const [dashboard] = migrateDashboard(legacyDashboard, servers);
     expect(_mapValues(dashboard.pages, ({ queryContext }) => queryContext))
       .toMatchInlineSnapshot(`
       Object {
@@ -267,7 +267,7 @@ describe("migrateDashboard", () => {
       expect.arrayContaining(keysOfWidgetPluginsToRemove)
     );
 
-    const dashboard = migrateDashboard(
+    const [dashboard] = migrateDashboard(
       legacyDashboard,
       servers,
       keysOfWidgetPluginsToRemove

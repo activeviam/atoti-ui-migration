@@ -18,6 +18,7 @@ import { migrateWidget } from "./migrateWidget";
 import type {
   LegacyDashboardState,
   LegacyDashboardPage,
+  DashboardMigrationReport,
 } from "./migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
@@ -36,10 +37,12 @@ export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
   keysOfWidgetPluginsToRemove?: string[]
-): DashboardState<"serialized"> {
+): [DashboardState<"serialized">, DashboardMigrationReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-
+  const dashboardMigrationReport: DashboardMigrationReport = {
+    name: legacyDashboardState.name,
+  };
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
   } = {};
@@ -56,7 +59,22 @@ export function migrateDashboard(
           dashboardLeafKey,
         ];
       } else {
-        content[dashboardLeafKey] = migrateWidget(widget.bookmark, servers);
+        const [migratedWidget, widgetMigrationError] = migrateWidget(
+          widget.bookmark,
+          servers
+        );
+        content[dashboardLeafKey] = migratedWidget;
+        if (widgetMigrationError) {
+          if (!dashboardMigrationReport.pages) {
+            dashboardMigrationReport.pages = {};
+          }
+          if (!dashboardMigrationReport.pages[pageKey]) {
+            dashboardMigrationReport.pages[pageKey] = { warnings: [] };
+          }
+          dashboardMigrationReport.pages[pageKey].warnings.push(
+            widgetMigrationError
+          );
+        }
       }
     });
 
@@ -120,5 +138,10 @@ export function migrateDashboard(
     }
   );
 
-  return serializeDashboardState(dashboardWithWidgetsRemoved);
+  return [
+    serializeDashboardState(dashboardWithWidgetsRemoved),
+    dashboardMigrationReport.errorStack || dashboardMigrationReport.pages
+      ? dashboardMigrationReport
+      : undefined,
+  ];
 }
