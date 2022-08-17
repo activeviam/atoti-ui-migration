@@ -19,6 +19,7 @@ jobs:
       - checkout
       - login
       - run: yarn install --frozen-lockfile
+      - run: yarn lint
       - run: yarn ci:test
       - store_test_results:
           path: ./reports/unit_tests/

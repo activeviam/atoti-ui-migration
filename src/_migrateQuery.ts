@@ -82,7 +82,6 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   // TODO UI-5036 Migrate query ranges.
   return {
     // Migrating the query preserves its type.
-    // eslint-disable-next-line activeui/no-as
     query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
     filters,
     queryContext,

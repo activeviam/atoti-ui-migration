@@ -10,7 +10,7 @@ describe("migrateQuickFilter", () => {
       (draft) => {
         draft.value.body.configuration.displayedAsSelect = false;
         draft.value.body.configuration.multipleSelection = true;
-      },
+      }
     );
     expect(migrateQuickFilter(legacyQuickFilterInCheckboxMode, servers))
       .toMatchInlineSnapshot(`
@@ -57,7 +57,7 @@ describe("migrateQuickFilter", () => {
       (draft) => {
         draft.value.body.configuration.displayedAsSelect = true;
         draft.value.body.configuration.multipleSelection = true;
-      },
+      }
     );
     expect(migrateQuickFilter(legacyQuickFilterInMultiSelectMode, servers))
       .toMatchInlineSnapshot(`
@@ -82,7 +82,7 @@ describe("migrateQuickFilter", () => {
       (draft) => {
         draft.value.body.configuration.displayedAsSelect = true;
         draft.value.body.configuration.multipleSelection = false;
-      },
+      }
     );
     expect(migrateQuickFilter(legacyQuickFilterInSingleSelectMode, servers))
       .toMatchInlineSnapshot(`
@@ -113,7 +113,7 @@ describe("migrateQuickFilter", () => {
         };
         draft.value.body.configuration.displayedAsSelect = true;
         draft.value.body.configuration.multipleSelection = undefined;
-      },
+      }
     );
     expect(migrateQuickFilter(legacyQuickFilterOnSlicingLevel, servers))
       .toMatchInlineSnapshot(`

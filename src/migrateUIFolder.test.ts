@@ -1,5 +1,4 @@
 import _map from "lodash/map";
-import _intersection from "lodash/intersection";
 import _some from "lodash/some";
 import { migrateUIFolder } from "./migrateUIFolder";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
@@ -52,8 +51,9 @@ describe("migrateUIFolder", () => {
       smallLegacyPivotFolder
     );
 
-    const calculatedMeasuresFolder = migratedUIFolder.children?.["calculated_measures"];
-    
+    const calculatedMeasuresFolder =
+      migratedUIFolder.children?.["calculated_measures"];
+
     expect(calculatedMeasuresFolder).toMatchSnapshot();
   });
 

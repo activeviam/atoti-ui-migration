@@ -5,8 +5,9 @@ import {
   DataModel,
   LevelCoordinates,
   QuickFilterWidgetState,
+  getTargetCube,
+  getHierarchy,
 } from "@activeviam/activeui-sdk";
-import { getTargetCube, getHierarchy } from "@activeviam/activeui-sdk";
 
 const _getMode = ({
   displayedAsSelect,

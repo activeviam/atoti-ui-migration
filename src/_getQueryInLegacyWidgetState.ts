@@ -7,7 +7,7 @@ import type { LegacyQuery } from "./_migrateQuery";
 export const _getQueryInLegacyWidgetState = (
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  legacyWidgetState: any,
+  legacyWidgetState: any
 ): LegacyQuery =>
   _pick(legacyWidgetState?.value?.body, [
     "mdx",

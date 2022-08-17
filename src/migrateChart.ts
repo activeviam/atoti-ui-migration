@@ -252,7 +252,6 @@ export function migrateChart(
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.
   // TypeScript does not recognize that the legacy query has an `mdx` attribute.
-  // eslint-disable-next-line activeui/no-as
   const legacyQuery: LegacyQuery = _omit(legacyChartState?.value?.body?.query, [
     "serverUrl",
   ]) as LegacyQuery;
@@ -275,7 +274,6 @@ export function migrateChart(
   } = _migrateQuery<MdxSelect>({ legacyQuery, cube });
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
-  // eslint-disable-next-line activeui/no-as
   const query = (
     migratedQuery.mdx
       ? { ...migratedQuery, mdx: stringify(migratedQuery.mdx) }

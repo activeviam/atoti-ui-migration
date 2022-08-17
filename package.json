@@ -2,14 +2,14 @@
   "name": "activeui-migration",
   "version": "5.0.9-SNAPSHOT",
   "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
-  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/activeviam/activeui-migration/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/activeviam/activeui-migration"
   },
-  "bugs": {
-    "url": "https://github.com/activeviam/activeui-migration/issues"
-  },
+  "license": "Apache-2.0",
   "author": "ActiveViam",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,9 +25,6 @@
     "lint": "activeui-sdk-scripts lint",
     "test": "activeui-sdk-scripts test",
     "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js"
-  },
-  "eslintConfig": {
-    "extends": "activeui"
   },
   "dependencies": {
     "@activeviam/activeui-sdk": "5.0.15",
