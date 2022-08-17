@@ -31,6 +31,7 @@ describe("_migrateQuery", () => {
                 "cubeName": "EquityDerivativesCube",
                 "elementType": "From",
               },
+              "slicerAxis": undefined,
               "withClause": Array [],
             },
             "updateMode": "once",
