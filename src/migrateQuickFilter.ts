@@ -5,8 +5,9 @@ import {
   DataModel,
   LevelCoordinates,
   QuickFilterWidgetState,
+  getTargetCube,
+  getHierarchy,
 } from "@activeviam/activeui-sdk";
-import { getTargetCube, getHierarchy } from "@activeviam/activeui-sdk";
 
 const _getMode = ({
   displayedAsSelect,
@@ -48,7 +49,7 @@ const _getMode = ({
  */
 export function migrateQuickFilter(
   // Legacy widget states are not typed.
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   legacyQuickFilterState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): QuickFilterWidgetState<"serialized"> {

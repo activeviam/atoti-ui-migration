@@ -14,7 +14,7 @@ import { _migrateQuery } from "./_migrateQuery";
  */
 export function migrateDrillthrough(
   // Legacy widget states are not typed.
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   legacyDrillthroughState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {

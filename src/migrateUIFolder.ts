@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _omit from "lodash/omit";
@@ -78,7 +80,9 @@ const accumulateStructure = ({
 }: {
   legacyUIFolder: ContentRecord | undefined;
   migratedUIFolder: ContentRecord;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dashboards: { [dashboardId: string]: any };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   widgets: { [widgetId: string]: any };
   filters: {
     [filterId: string]: {
@@ -201,7 +205,9 @@ export async function migrateUIFolder(
 ): Promise<ContentRecord> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dashboards: { [dashboardId: string]: any } = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const widgets: { [widgetId: string]: any } = {};
   const filters: {
     [filterId: string]: {

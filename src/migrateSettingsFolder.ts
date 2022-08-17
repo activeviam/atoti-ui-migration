@@ -19,6 +19,7 @@ const emptySettingsFolders = _pick(
  * Returns the converted settings map, ready to be used by ActiveUI 5.
  */
 function migrateSettingsMap(legacySettingsMap: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [settingKey: string]: any;
 }): Partial<Settings> {
   const migratedSettingsMap: Partial<Settings> = {};
@@ -46,6 +47,7 @@ function migrateSettingsMap(legacySettingsMap: {
  * where the settings from the "permissions" file take precedence over those from the "preferences" file.
  */
 function getLegacySettingsMap(legacySettingsSubfolder: ContentRecord): {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [settingKey: string]: any;
 } {
   const { permissions: permissionsFile, preferences: preferencesFile } =

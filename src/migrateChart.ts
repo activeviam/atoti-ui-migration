@@ -37,6 +37,7 @@ import type {
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [
     pluginWidgetPlotlyLineChart,
@@ -96,6 +97,7 @@ function _getMigratedWidgetKey(legacyChartType: string): string | undefined {
  * Does not cater for the potentially missing ALL_MEASURES tile.
  */
 function _getMigratedChartMapping(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   legacyMapping: any,
   legacyChartType: string,
   widgetPlugin: WidgetPlugin
@@ -227,7 +229,7 @@ function _addAllMeasuresToMapping(
  */
 export function migrateChart(
   // Legacy widget states are not typed.
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   legacyChartState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): PlotlyWidgetState<"serialized"> {
@@ -252,7 +254,6 @@ export function migrateChart(
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.
   // TypeScript does not recognize that the legacy query has an `mdx` attribute.
-  // eslint-disable-next-line activeui/no-as
   const legacyQuery: LegacyQuery = _omit(legacyChartState?.value?.body?.query, [
     "serverUrl",
   ]) as LegacyQuery;
@@ -275,7 +276,6 @@ export function migrateChart(
   } = _migrateQuery<MdxSelect>({ legacyQuery, cube });
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
-  // eslint-disable-next-line activeui/no-as
   const query = (
     migratedQuery.mdx
       ? { ...migratedQuery, mdx: stringify(migratedQuery.mdx) }

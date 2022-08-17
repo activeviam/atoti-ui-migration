@@ -22,7 +22,7 @@ import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
  */
 export function migrateTable(
   // Legacy widget states are not typed.
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   legacyTableState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
@@ -48,7 +48,8 @@ export function migrateTable(
   const legacyCellRenderers =
     legacyTableState.value.body?.configuration?.tabular?.cellRenderers ?? [];
   const widgetPlugin = legacyColumnsGroups.some(
-    (columnsGroup: any) => columnsGroup?.cellFactory?.key === "treeCells"
+    (columnsGroup: { cellFactory: { key: string } }) =>
+      columnsGroup?.cellFactory?.key === "treeCells"
   )
     ? pluginWidgetTreeTable
     : legacyCellRenderers.includes("pivot-layout")

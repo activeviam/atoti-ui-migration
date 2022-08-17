@@ -40,7 +40,7 @@ describe("_migrateContextValues", () => {
           value: "cube1-valueB",
         },
         { key: "keyC", value: "cube2-valueC" },
-      ],
+      ]
     );
   });
 });

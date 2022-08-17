@@ -54,13 +54,12 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
     );
   }
   // The checks ensure that the migratedUpdateMode is necessarily defined.
-  const migratedUpdateMode = (
+  const migratedUpdateMode =
     !updateMode || updateMode === "refresh-periodically"
       ? // On AUI4, the default update mode could have been defined through setting `queries.defaultUpdateMode`.
         // It is not taken into account here.
         "once"
-      : updateMode
-  )!;
+      : updateMode;
 
   const queryContext = _migrateContextValues(contextValues);
 
@@ -82,7 +81,6 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   // TODO UI-5036 Migrate query ranges.
   return {
     // Migrating the query preserves its type.
-    // eslint-disable-next-line activeui/no-as
     query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
     filters,
     queryContext,

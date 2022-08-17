@@ -1,5 +1,4 @@
 import _map from "lodash/map";
-import _intersection from "lodash/intersection";
 import _some from "lodash/some";
 import { migrateUIFolder } from "./migrateUIFolder";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
@@ -52,8 +51,9 @@ describe("migrateUIFolder", () => {
       smallLegacyPivotFolder
     );
 
-    const calculatedMeasuresFolder = migratedUIFolder.children?.["calculated_measures"];
-    
+    const calculatedMeasuresFolder =
+      migratedUIFolder.children?.["calculated_measures"];
+
     expect(calculatedMeasuresFolder).toMatchSnapshot();
   });
 
@@ -68,7 +68,9 @@ describe("migrateUIFolder", () => {
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
     // It is removed from the ActiveUI 5 UI folder.
     const savedContentInLegacyUIFolder: ContentRecord =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       legacyUIFolder.children!.bookmarks;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const savedWidgets = migratedUIFolder.children!.widgets;
     expect(hasRecord(savedContentInLegacyUIFolder, "0xb")).toBe(true);
     expect(hasRecord(savedWidgets, "0xb")).toBe(false);
@@ -76,6 +78,7 @@ describe("migrateUIFolder", () => {
     // In the ActiveUI 4 UI folder, the file with id `eef` represents a saved dashboard which includes a Page Filters widget.
     // This widget is removed from the migrated dashboard in the ActiveUI 5 folder.
     const legacyDashboard: LegacyDashboardState = JSON.parse(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       legacyUIFolder.children!.bookmarks.children!.content.children!.eef.entry
         .content
     );
@@ -86,6 +89,7 @@ describe("migrateUIFolder", () => {
       )
     );
     const migratedDashboard = JSON.parse(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       migratedUIFolder.children!.dashboards.children!.content.children!.eef
         .entry.content
     );

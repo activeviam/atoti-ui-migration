@@ -10,8 +10,10 @@ export interface LegacyWidgetState {
   name: string;
   type: "container";
   value: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     style?: any;
     showTitleBar?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body: any;
     containerKey: string;
   };

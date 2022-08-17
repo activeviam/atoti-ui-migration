@@ -36,21 +36,22 @@ describe("_findErroneousUnionNode", () => {
       FROM [EquityDerivativesCube]
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS`);
 
-    const { path, match } = _findErroneousUnionNode(mdx, {
-      cube,
-      levelsOnAxis: [
-        {
-          dimensionName: "Currency",
-          hierarchyName: "Currency",
-          levelName: "Currency",
-        },
-        {
-          dimensionName: "Geography",
-          hierarchyName: "City",
-          levelName: "City",
-        },
-      ],
-    })!;
+    const { path, match } =
+      _findErroneousUnionNode(mdx, {
+        cube,
+        levelsOnAxis: [
+          {
+            dimensionName: "Currency",
+            hierarchyName: "Currency",
+            levelName: "Currency",
+          },
+          {
+            dimensionName: "Geography",
+            hierarchyName: "City",
+            levelName: "City",
+          },
+        ],
+      }) ?? {};
 
     expect(path).toMatchInlineSnapshot(`
       Array [
@@ -62,7 +63,11 @@ describe("_findErroneousUnionNode", () => {
       ]
     `);
 
-    expect(stringify(match, { indent: true })).toMatchInlineSnapshot(`
+    expect(match).toBeDefined();
+
+    // `match` has been verified to be defined.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(stringify(match!, { indent: true })).toMatchInlineSnapshot(`
       "Union(
         Crossjoin(
           Hierarchize(

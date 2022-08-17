@@ -1,7 +1,5 @@
-import _get from "lodash/get";
 import _set from "lodash/set";
-import _last from "lodash/last";
-import produce from "immer";
+import { produce } from "immer";
 import {
   MdxSelect,
   MdxDrillthrough,
@@ -11,7 +9,6 @@ import {
 import { isMdxDrillthrough } from "@activeviam/mdx";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
-import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";
 import {
   MatchAndPath,
   UnionNodeWithCrossjoinsAsArguments,

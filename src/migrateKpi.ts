@@ -24,7 +24,7 @@ import { _migrateQuery } from "./_migrateQuery";
  */
 export function migrateKpi(
   // Legacy widget states are not typed.
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   legacyKpiState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
 ): AWidgetState<"serialized"> {
@@ -73,7 +73,9 @@ export function migrateKpi(
 
     // At this stage the page axis exists in the MDX, so the MDX is necessarily defined.
     legacyMdxWithoutPagesAxis = {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       ...legacyMdx!,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       axes: legacyMdx!.axes.filter((axis) => axis !== pagesAxis),
     };
   }

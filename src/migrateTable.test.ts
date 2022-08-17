@@ -213,7 +213,11 @@ describe("migrateTable", () => {
       servers
     ) as TableWidgetState<"serialized">;
 
+    expect(migratedPivotTableState.query.mdx).toBeDefined();
+
     expect(
+      // `migratedPivotTableState.query.mdx` has been verified to be defined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stringify(parse(migratedPivotTableState.query.mdx!), { indent: true })
     ).toMatchInlineSnapshot(`
       "SELECT

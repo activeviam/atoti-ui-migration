@@ -31,6 +31,7 @@ describe("_migrateQuery", () => {
                 "cubeName": "EquityDerivativesCube",
                 "elementType": "From",
               },
+              "slicerAxis": undefined,
               "withClause": Array [],
             },
             "updateMode": "once",
@@ -55,7 +56,10 @@ describe("_migrateQuery", () => {
     const legacyQuery = {
       mdx: "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
     };
-    const { query, filters } = _migrateQuery({ legacyQuery, cube })!;
+    const { query, filters } = _migrateQuery({ legacyQuery, cube }) ?? {};
+    expect(query.mdx).toBeDefined();
+    // `query.mdx` has been verified to be defined.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
@@ -97,8 +101,11 @@ describe("_migrateQuery", () => {
 
     const {
       query: { mdx },
-    } = _migrateQuery({ legacyQuery, cube })!;
+    } = _migrateQuery({ legacyQuery, cube }) ?? {};
 
+    expect(mdx).toBeDefined();
+    // `mdx` has been verified to be defined.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
         NON EMPTY Hierarchize(

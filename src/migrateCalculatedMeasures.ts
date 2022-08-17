@@ -40,6 +40,7 @@ export async function migrateCalculatedMeasures(
     const id = generateId();
 
     // `contentFolder.children` is defined as an empty object above.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     contentFolder.children![id] = {
       entry: {
         owners,
@@ -53,6 +54,7 @@ export async function migrateCalculatedMeasures(
     };
 
     // `structureFolder.children` is defined as an empty object above.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     structureFolder.children![id] = {
       entry: {
         isDirectory: true,
