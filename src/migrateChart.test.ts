@@ -295,7 +295,7 @@ describe("migrateChart", () => {
         delete partialLegacyChartState.value.body.configuration.mapping[
           attributeName
         ];
-      }
+      },
     );
 
     const chartState = migrateChart(partialLegacyChartState, servers);

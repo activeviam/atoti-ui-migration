@@ -47,13 +47,11 @@ describe("_migrateTableColumnWidths", () => {
         width: 200,
       },
       {
-        key:
-          "([Geography].[City].[ALL].[AllMember].[Berlin],[CounterParty].[CounterParty].[ALL].[AllMember].[Unilever])",
+        key: "([Geography].[City].[ALL].[AllMember].[Berlin],[CounterParty].[CounterParty].[ALL].[AllMember].[Unilever])",
         width: 50,
       },
       {
-        key:
-          "([Measures].[pnl.SUM],[CounterParty].[CounterParty].[ALL].[AllMember].[Sumitomo])",
+        key: "([Measures].[pnl.SUM],[CounterParty].[CounterParty].[ALL].[AllMember].[Sumitomo])",
         width: 81,
       },
       {
@@ -214,8 +212,7 @@ describe("_migrateTableColumnWidths", () => {
   it("strips the wrapping parentheses from the tuple unique name identifying a column", () => {
     const legacyColumns = [
       {
-        key:
-          "([Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT])",
+        key: "([Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT])",
         width: 220,
       },
     ];

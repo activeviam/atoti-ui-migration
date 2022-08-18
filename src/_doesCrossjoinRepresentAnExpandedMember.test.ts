@@ -18,8 +18,8 @@ describe("_doesCrossjoinRepresentAnExpandedMember", () => {
             [Geography].[City].[City]
           )
         )`),
-        cube
-      )
+        cube,
+      ),
     ).toBe(true);
   });
 
@@ -39,8 +39,8 @@ describe("_doesCrossjoinRepresentAnExpandedMember", () => {
             )
           )
         )`),
-        cube
-      )
+        cube,
+      ),
     ).toBe(false);
   });
 
@@ -58,8 +58,8 @@ describe("_doesCrossjoinRepresentAnExpandedMember", () => {
             )
           )
         )`),
-        cube
-      )
+        cube,
+      ),
     ).toBe(false);
   });
 });

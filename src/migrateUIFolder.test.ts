@@ -1,5 +1,4 @@
 import _map from "lodash/map";
-import _intersection from "lodash/intersection";
 import _some from "lodash/some";
 import { migrateUIFolder } from "./migrateUIFolder";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
@@ -15,7 +14,7 @@ import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFol
 const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
   _some(
     contentRecord.children,
-    (child, childId) => childId === recordId || hasRecord(child, recordId)
+    (child, childId) => childId === recordId || hasRecord(child, recordId),
   );
 
 jest.mock(`./generateId`, () => {
@@ -34,7 +33,7 @@ describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
     const migratedUIFolder = await migrateUIFolder(
       smallLegacyUIFolder,
-      servers
+      servers,
     );
     expect(migratedUIFolder).toMatchSnapshot();
   });
@@ -49,11 +48,12 @@ describe("migrateUIFolder", () => {
       legacyUIFolder,
       servers,
       undefined,
-      smallLegacyPivotFolder
+      smallLegacyPivotFolder,
     );
 
-    const calculatedMeasuresFolder = migratedUIFolder.children?.["calculated_measures"];
-    
+    const calculatedMeasuresFolder =
+      migratedUIFolder.children?.["calculated_measures"];
+
     expect(calculatedMeasuresFolder).toMatchSnapshot();
   });
 
@@ -62,7 +62,7 @@ describe("migrateUIFolder", () => {
     const migratedUIFolder = await migrateUIFolder(
       legacyUIFolder,
       servers,
-      keysOfWidgetPluginsToRemove
+      keysOfWidgetPluginsToRemove,
     );
 
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
@@ -77,25 +77,25 @@ describe("migrateUIFolder", () => {
     // This widget is removed from the migrated dashboard in the ActiveUI 5 folder.
     const legacyDashboard: LegacyDashboardState = JSON.parse(
       legacyUIFolder.children!.bookmarks.children!.content.children!.eef.entry
-        .content
+        .content,
     );
     const widgetPluginKeysInLegacyDashboard: string[] = [];
     legacyDashboard.value.body.pages.forEach((page) =>
       page.content.forEach(({ bookmark }) =>
-        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey)
-      )
+        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey),
+      ),
     );
     const migratedDashboard = JSON.parse(
       migratedUIFolder.children!.dashboards.children!.content.children!.eef
-        .entry.content
+        .entry.content,
     );
     const { content, layout } = migratedDashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
     expect(widgetPluginKeysInLegacyDashboard).toEqual(
-      expect.arrayContaining(keysOfWidgetPluginsToRemove)
+      expect.arrayContaining(keysOfWidgetPluginsToRemove),
     );
     expect(widgetPluginKeys).toEqual(
-      expect.not.arrayContaining(keysOfWidgetPluginsToRemove)
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove),
     );
     expect(layout).toMatchInlineSnapshot(`
       Object {

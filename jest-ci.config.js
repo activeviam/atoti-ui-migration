@@ -10,6 +10,6 @@ if (!root) {
 }
 
 module.exports = {
-  ...jestConfig,
+  ...jestConfig, 
   reporters: ["default"],
 };

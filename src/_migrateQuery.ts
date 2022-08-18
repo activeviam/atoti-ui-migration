@@ -50,7 +50,7 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   if (updateMode === "refresh-periodically") {
     // eslint-disable-next-line no-console
     console.warn(
-      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'"
+      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
     );
   }
   // The checks ensure that the migratedUpdateMode is necessarily defined.
@@ -75,14 +75,13 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   const parsedMdx = parse<T>(mdx);
   const fixedMdx = _fixErroneousExpansionMdx(parsedMdx, cube);
   const filters = getFilters(fixedMdx, { cube }).map(
-    ({ mdx: filterMdx }) => filterMdx
+    ({ mdx: filterMdx }) => filterMdx,
   );
   const mdxWithoutFilters = setFilters(fixedMdx, { filters: [], cube });
 
   // TODO UI-5036 Migrate query ranges.
   return {
     // Migrating the query preserves its type.
-    // eslint-disable-next-line activeui/no-as
     query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
     filters,
     queryContext,

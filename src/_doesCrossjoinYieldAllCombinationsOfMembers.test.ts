@@ -32,8 +32,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "City",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(false);
   });
 
@@ -67,8 +67,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "City",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(true);
   });
 
@@ -100,8 +100,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "Currency",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(true);
   });
 
@@ -131,8 +131,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "Currency",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(true);
   });
 
@@ -171,8 +171,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "City",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(true);
   });
 
@@ -211,8 +211,8 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
               levelName: "LegalEntity",
             },
           ],
-        }
-      )
+        },
+      ),
     ).toBe(false);
   });
 });

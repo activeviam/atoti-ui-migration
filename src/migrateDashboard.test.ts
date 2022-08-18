@@ -260,23 +260,23 @@ describe("migrateDashboard", () => {
     const widgetPluginKeysInLegacyDashboard: string[] = [];
     legacyDashboard.value.body.pages.forEach((page) =>
       page.content.forEach(({ bookmark }) =>
-        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey)
-      )
+        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey),
+      ),
     );
     expect(widgetPluginKeysInLegacyDashboard).toEqual(
-      expect.arrayContaining(keysOfWidgetPluginsToRemove)
+      expect.arrayContaining(keysOfWidgetPluginsToRemove),
     );
 
     const dashboard = migrateDashboard(
       legacyDashboard,
       servers,
-      keysOfWidgetPluginsToRemove
+      keysOfWidgetPluginsToRemove,
     );
 
     const { content, layout } = dashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
     expect(widgetPluginKeys).toEqual(
-      expect.not.arrayContaining(keysOfWidgetPluginsToRemove)
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove),
     );
     expect(layout).toMatchInlineSnapshot(`
       Object {
