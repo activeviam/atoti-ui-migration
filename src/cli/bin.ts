@@ -76,10 +76,10 @@ yargs
           migrationErrorReport,
           {
             spaces: 2,
-          }
+          },
         );
         console.log(
-          "The migration ended with some errors, see `migration-errors.json`."
+          "The migration ended with some errors, see `migration-errors.json`.",
         );
       } else {
         console.log("The migration ended with no errors.");

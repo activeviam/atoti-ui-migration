@@ -72,7 +72,7 @@ describe("migrateWidget", () => {
     };
     const [migratedWidget, errorMsg] = migrateWidget(
       legacyWidgetState,
-      servers
+      servers,
     );
     expect(migratedWidget).toMatchInlineSnapshot(`
         Object {
@@ -81,7 +81,7 @@ describe("migrateWidget", () => {
         }
       `);
     expect(errorMsg).toEqual(
-      `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`
+      `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`,
     );
   });
 });

@@ -255,7 +255,7 @@ export async function migrateUIFolder(
         try {
           const [migratedDashboard, dashboardMigrationReport] =
             migrateDashboard(bookmark, servers, keysOfWidgetPluginsToRemove);
- 
+
           dashboards[id] = migratedDashboard;
           dashboardMigrationWarningReport = dashboardMigrationReport;
           migratedUIFolder.children!.dashboards.children!.content.children![
@@ -294,7 +294,7 @@ export async function migrateUIFolder(
 
           const [migratedWidget, widgetMigrationWarning] = migrateWidget(
             bookmark,
-            servers
+            servers,
           );
           if (widgetMigrationWarning) {
             _set(migrationErrorReport, ["widgets", id], {

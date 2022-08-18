@@ -61,7 +61,7 @@ export function migrateDashboard(
       } else {
         const [migratedWidget, widgetMigrationError] = migrateWidget(
           widget.bookmark,
-          servers
+          servers,
         );
         content[dashboardLeafKey] = migratedWidget;
         if (widgetMigrationError) {
@@ -72,7 +72,7 @@ export function migrateDashboard(
             dashboardMigrationReport.pages[pageKey] = { warnings: [] };
           }
           dashboardMigrationReport.pages[pageKey].warnings.push(
-            widgetMigrationError
+            widgetMigrationError,
           );
         }
       }
