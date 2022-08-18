@@ -10,21 +10,6 @@ if (!root) {
 }
 
 module.exports = {
-  ...jestConfig,
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputName: `${path.basename(root)}.xml`,
-        suiteName: path.basename(root),
-        // Fixing the hardcoded outputDirectory of `activeui-sdk-scripts`.
-        // see https://support.activeviam.com/jira/browse/UI-7677
-        outputDirectory: path.join(root, "reports", "unit_tests"),
-        classNameTemplate: "{classname}",
-        titleTemplate: "{title}",
-        ancestorSeparator: " › ",
-      },
-    ],
-  ],
+  ...jestConfig, 
+  reporters: ["default"],
 };
