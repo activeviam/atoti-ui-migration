@@ -227,7 +227,7 @@ describe("migrateDashboard", () => {
         },
       },
     } as unknown as LegacyDashboardState;
-    const emptyDashboard = migrateDashboard(legacyEmptyDashboard, servers);
+    const [emptyDashboard] = migrateDashboard(legacyEmptyDashboard, servers);
     expect(emptyDashboard).toMatchInlineSnapshot(`
       Object {
         "filters": Array [],
