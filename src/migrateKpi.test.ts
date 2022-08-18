@@ -10,9 +10,7 @@ describe("migrateKpi", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
-          "columns": Array [
-            "ALL_MEASURES",
-          ],
+          "columns": Array [],
           "measures": Array [
             "[Measures].[contributors.COUNT]",
           ],
@@ -62,9 +60,7 @@ describe("migrateKpi", () => {
         },
         "filters": Array [],
         "mapping": Object {
-          "columns": Array [
-            "ALL_MEASURES",
-          ],
+          "columns": Array [],
           "measures": Array [
             "[Measures].[pnl.FOREX]",
           ],
@@ -89,9 +85,7 @@ describe("migrateKpi", () => {
       Object {
         "filters": Array [],
         "mapping": Object {
-          "columns": Array [
-            "ALL_MEASURES",
-          ],
+          "columns": Array [],
           "measures": Array [],
           "rows": Array [],
         },
