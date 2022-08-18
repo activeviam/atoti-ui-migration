@@ -5,6 +5,10 @@ import { dataModelsForTests } from "@activeviam/data-model";
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 
 describe("_doesCrossjoinRepresentAnExpandedMember", () => {
+  it("fails for no reasons", () => {
+    expect(true).toBeFalsy();
+  });
+
   it("returns true when `crossjoin` represents an expanded member", () => {
     expect(
       _doesCrossjoinRepresentAnExpandedMember(
