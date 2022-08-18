@@ -60,7 +60,7 @@ yargs
         legacyUIFolder,
         servers,
         keysOfWidgetPluginsToRemove,
-        legacyPivotFolder
+        legacyPivotFolder,
       );
 
       await fs.writeJSON(outputPath, migratedUIFolder, {
@@ -69,7 +69,7 @@ yargs
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198
       process.exit(0);
-    }
+    },
   )
   .demandCommand(1)
   .strict()

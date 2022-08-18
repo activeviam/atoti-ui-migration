@@ -7,7 +7,7 @@ import type { LegacyLayout, LegacyLayoutLeaf } from "./migration.types";
  * Recursively transforms the `children` property of the legacyLayout from objects to arrays.
  */
 export const _convertFromLegacyLayout = (
-  legacyLayout: LegacyLayout | LegacyLayoutLeaf
+  legacyLayout: LegacyLayout | LegacyLayoutLeaf,
 ): Layout | LayoutLeaf => {
   if (isLegacyLayoutLeaf(legacyLayout)) {
     return {
@@ -18,7 +18,7 @@ export const _convertFromLegacyLayout = (
   return {
     ...legacyLayout,
     children: Object.values(legacyLayout.children || []).map(
-      _convertFromLegacyLayout
+      _convertFromLegacyLayout,
     ),
   };
 };
@@ -37,6 +37,14 @@ export const _flattenLayout = (layout: Layout | LayoutLeaf): void => {
   if (isLeaf(layout)) {
     return;
   }
+
+  const somelongfunctionanaleaaaaaa = () => {
+    1 + 2;
+  };
+  [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 134, 14, 34, 234, 23, 42, 42, 4233, 42,
+    43,
+  ].map(somelongfunctionanaleaaaaaa);
 
   // Recurse first: this process needs to start from the leaves and progress down to the root.
   layout.children.forEach(_flattenLayout);

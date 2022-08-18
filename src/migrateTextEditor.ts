@@ -5,11 +5,11 @@ import type { LegacyWidgetState } from "./migration.types";
  * Returns the converted Text Editor widget state, ready to be used by ActiveUI 5.
  */
 export function migrateTextEditor(
-  legacyTextEditorState: LegacyWidgetState
+  legacyTextEditorState: LegacyWidgetState,
 ): TextEditorWidgetState<"serialized"> {
   // eslint-disable-next-line no-console
   console.warn(
-    "The `text-editor` widget is not part of the plugin registry in the ActiveUI 5 starter.\nMake sure to add it in your project.\n See https://activeviam.com/activeui/documentation/5.0.3/docs/tutorial/yourFirstCustomWidget#extend-activeui."
+    "The `text-editor` widget is not part of the plugin registry in the ActiveUI 5 starter.\nMake sure to add it in your project.\n See https://activeviam.com/activeui/documentation/5.0.3/docs/tutorial/yourFirstCustomWidget#extend-activeui.",
   );
   const { content: text, editingMode } =
     legacyTextEditorState.value?.body ?? {};
@@ -29,7 +29,7 @@ export function migrateTextEditor(
    */
   const textWithInlineKatexFormulasReplaced = (text as string).replace(
     /(?<!\$)\$(?!\$)(.*)(?<!\$)\$(?!\$)/g,
-    "`katex $1`"
+    "`katex $1`",
   );
 
   /**
@@ -50,7 +50,7 @@ export function migrateTextEditor(
   const textWithBlickKatexFormulasReplaced =
     textWithInlineKatexFormulasReplaced.replace(
       /\${2}(.*)\${2}/gs,
-      "```katex\n$1\n```"
+      "```katex\n$1\n```",
     );
 
   return {

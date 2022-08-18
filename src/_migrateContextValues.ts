@@ -15,7 +15,7 @@ export function _migrateContextValues(
   legacyContextValues:
     | { [cubeName: string]: LegacyContextValues }
     | LegacyContextValues
-    | undefined
+    | undefined,
 ): QueryContextEntry[] {
   const mergedContextValues: LegacyContextValues = {};
   _forEach(legacyContextValues, (value, key) => {

@@ -12,7 +12,7 @@ import { emptyUIFolder } from "@activeviam/content-server-initialization";
 const emptySettingsFolders = _pick(
   emptyUIFolder.children,
   "organization_settings",
-  "users"
+  "users",
 );
 
 /**
@@ -51,7 +51,7 @@ function getLegacySettingsMap(legacySettingsSubfolder: ContentRecord): {
   const { permissions: permissionsFile, preferences: preferencesFile } =
     legacySettingsSubfolder?.children || {};
   const [permissions, preferences] = [permissionsFile, preferencesFile].map(
-    (file) => (file ? JSON.parse(file.entry.content).map : {})
+    (file) => (file ? JSON.parse(file.entry.content).map : {}),
   );
   return { ...preferences, ...permissions };
 }
@@ -74,7 +74,7 @@ export function migrateSettingsFolder(legacySettingsFolder?: ContentRecord): {
   if (legacyDefaultFolder) {
     const legacyDefaultSettingsMap = getLegacySettingsMap(legacyDefaultFolder);
     const migratedDefaultSettingsMap = migrateSettingsMap(
-      legacyDefaultSettingsMap
+      legacyDefaultSettingsMap,
     );
     migratedSettingsFolders.organization_settings.entry = {
       content: JSON.stringify(migratedDefaultSettingsMap),
@@ -89,7 +89,7 @@ export function migrateSettingsFolder(legacySettingsFolder?: ContentRecord): {
       (userFolder, userName) => {
         const legacyUserSettingsMap = getLegacySettingsMap(userFolder);
         const migratedUserSettingsMap = migrateSettingsMap(
-          legacyUserSettingsMap
+          legacyUserSettingsMap,
         );
 
         const activity: Partial<Activity<"serialized">> = {};
@@ -119,7 +119,7 @@ export function migrateSettingsFolder(legacySettingsFolder?: ContentRecord): {
           },
         };
         return migratedUserFolder;
-      }
+      },
     );
   }
 

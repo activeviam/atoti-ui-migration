@@ -17,7 +17,7 @@ describe("_migrateQuery", () => {
       _migrateQuery({ legacyQuery, cube });
       expect(console.warn).toHaveBeenCalledTimes(1);
       expect(console.warn).toHaveBeenCalledWith(
-        "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'"
+        "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
       );
       expect(_migrateQuery({ legacyQuery, cube })).toMatchInlineSnapshot(`
         Object {
@@ -60,7 +60,7 @@ describe("_migrateQuery", () => {
     expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
-      "[Currency].[Currency].[AllMember].[EUR]"
+      "[Currency].[Currency].[AllMember].[EUR]",
     );
   });
 

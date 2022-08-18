@@ -26,6 +26,9 @@
     "test": "activeui-sdk-scripts test",
     "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js"
   },
+  "prettier": {
+    "trailingComma": "all"
+  },
   "dependencies": {
     "@activeviam/activeui-sdk": "5.0.15",
     "@activeviam/content-server-initialization": "5.0.15",

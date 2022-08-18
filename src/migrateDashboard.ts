@@ -35,7 +35,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  keysOfWidgetPluginsToRemove?: string[]
+  keysOfWidgetPluginsToRemove?: string[],
 ): DashboardState<"serialized"> {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
@@ -109,7 +109,7 @@ export function migrateDashboard(
         keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
           const layoutPath = getLayoutPath(
             draft.pages[pageKey].layout,
-            leafKey
+            leafKey,
           );
           draft.pages[pageKey] = removeWidget({
             dashboardState: draft,
@@ -119,7 +119,7 @@ export function migrateDashboard(
           }).pages[pageKey];
         });
       });
-    }
+    },
   );
 
   return serializeDashboardState(dashboardWithWidgetsRemoved);

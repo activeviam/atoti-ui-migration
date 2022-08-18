@@ -32,7 +32,7 @@ export type MatchAndPath<T extends Mdx> = {
  * Returns whether `node` is a Union function, whose arguments are all crossjoins.
  */
 function _isUnionNodeWithCrossjoinAsArguments(
-  node: Mdx
+  node: Mdx,
 ): node is UnionNodeWithCrossjoinsAsArguments {
   return (
     isMdxFunction(node, "union") &&
@@ -47,7 +47,7 @@ function _isUnionNodeWithCrossjoinAsArguments(
  */
 export function _findErroneousUnionNode(
   mdx: Mdx,
-  { cube, levelsOnAxis }: { cube: Cube; levelsOnAxis: LevelCoordinates[] }
+  { cube, levelsOnAxis }: { cube: Cube; levelsOnAxis: LevelCoordinates[] },
 ): MatchAndPath<UnionNodeWithCrossjoinsAsArguments> | undefined {
   const result = findDescendant(mdx, (node) => {
     if (

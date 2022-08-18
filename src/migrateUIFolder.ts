@@ -18,11 +18,11 @@ import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 
 const _getFolder = (
   record: ContentRecord | undefined,
-  path: string[]
+  path: string[],
 ): ContentRecord | undefined =>
   path.reduce<ContentRecord | undefined>(
     (acc, id) => acc?.children?.[id],
-    record
+    record,
   );
 
 const _ensureFolderExists = ({
@@ -46,7 +46,7 @@ const _ensureFolderExists = ({
         migratedRoot,
         pathToFolder.reduce<string[]>(
           (acc, id) => [...acc, "children", id],
-          []
+          [],
         ),
         {
           entry: legacyFolder.entry,
@@ -61,7 +61,7 @@ const _ensureFolderExists = ({
               },
             },
           },
-        }
+        },
       );
     }
   }
@@ -197,7 +197,7 @@ export async function migrateUIFolder(
   legacyUIFolder: ContentRecord,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
   keysOfWidgetPluginsToRemove?: string[],
-  legacyPivotFolder?: ContentRecord
+  legacyPivotFolder?: ContentRecord,
 ): Promise<ContentRecord> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
@@ -236,7 +236,7 @@ export async function migrateUIFolder(
             `An error occurred during the migration of filter ${id} ("${
               bookmark.name
               // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this filter. Error:\n${(error as Error).stack}`
+            }"). Ignoring this filter. Error:\n${(error as Error).stack}`,
           );
         }
       } else if (bookmark.value.containerKey === "dashboard") {
@@ -244,7 +244,7 @@ export async function migrateUIFolder(
           const migratedDashboard = migrateDashboard(
             bookmark,
             servers,
-            keysOfWidgetPluginsToRemove
+            keysOfWidgetPluginsToRemove,
           );
           dashboards[id] = migratedDashboard;
           migratedUIFolder.children!.dashboards.children!.content.children![
@@ -261,14 +261,14 @@ export async function migrateUIFolder(
             `An error occurred during the migration of dashboard ${id} ("${
               bookmark.name
               // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this dashboard. Error:\n${(error as Error).stack}`
+            }"). Ignoring this dashboard. Error:\n${(error as Error).stack}`,
           );
         }
       } else {
         try {
           if (
             keysOfWidgetPluginsToRemove?.includes(
-              _getLegacyWidgetPluginKey(bookmark)
+              _getLegacyWidgetPluginKey(bookmark),
             )
           ) {
             continue;
@@ -280,7 +280,7 @@ export async function migrateUIFolder(
             entry: {
               ...entry,
               content: JSON.stringify(
-                _omit(migratedWidget, ["name", "widgetKey"])
+                _omit(migratedWidget, ["name", "widgetKey"]),
               ),
             },
           };
@@ -290,7 +290,7 @@ export async function migrateUIFolder(
             `An error occurred during the migration of widget ${id} ("${
               bookmark.name
               // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            }"). Ignoring this widget. Error:\n${(error as Error).stack}`
+            }"). Ignoring this widget. Error:\n${(error as Error).stack}`,
           );
         }
       }
@@ -311,7 +311,7 @@ export async function migrateUIFolder(
     ...(legacyPivotFolder
       ? {
           calculated_measures: await migrateCalculatedMeasures(
-            legacyPivotFolder
+            legacyPivotFolder,
           ),
         }
       : {}),

@@ -22,7 +22,7 @@ import {
  */
 export function _fixErroneousExpansionMdx(
   mdx: MdxSelect | MdxDrillthrough,
-  cube: Cube
+  cube: Cube,
 ): MdxSelect | MdxDrillthrough {
   if (isMdxDrillthrough(mdx)) {
     return mdx;
@@ -46,7 +46,7 @@ export function _fixErroneousExpansionMdx(
         // Remove all expanded members.
         match.arguments = match.arguments.filter(
           (crossjoin) =>
-            !_doesCrossjoinRepresentAnExpandedMember(crossjoin, cube)
+            !_doesCrossjoinRepresentAnExpandedMember(crossjoin, cube),
         );
 
         if (match.arguments.length === 1) {

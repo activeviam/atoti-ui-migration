@@ -11,7 +11,7 @@ import { findLevels, getSpecificCompoundIdentifier } from "@activeviam/mdx";
  */
 export function _doesCrossjoinYieldAllCombinationsOfMembers(
   crossjoin: MdxFunction & { name: "Crossjoin" },
-  { cube, levelsOnAxis }: { cube: Cube; levelsOnAxis: LevelCoordinates[] }
+  { cube, levelsOnAxis }: { cube: Cube; levelsOnAxis: LevelCoordinates[] },
 ): boolean {
   const levelsInCrossjoin = findLevels(crossjoin, cube);
   // Each level on the axis is represented in the crossjoin, and not only by a specific member of this level.
@@ -26,7 +26,7 @@ export function _doesCrossjoinYieldAllCombinationsOfMembers(
         levelInCrossjoin.levelName === levelName &&
         (!isMdxCompoundIdentifier(levelInCrossjoin.match) ||
           getSpecificCompoundIdentifier(levelInCrossjoin.match, { cube })
-            ?.type === "level")
-    )
+            ?.type === "level"),
+    ),
   );
 }

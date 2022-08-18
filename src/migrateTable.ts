@@ -24,7 +24,7 @@ export function migrateTable(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyTableState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyTableState);
   const legacyMdx = legacyQuery.mdx
@@ -48,7 +48,7 @@ export function migrateTable(
   const legacyCellRenderers =
     legacyTableState.value.body?.configuration?.tabular?.cellRenderers ?? [];
   const widgetPlugin = legacyColumnsGroups.some(
-    (columnsGroup: any) => columnsGroup?.cellFactory?.key === "treeCells"
+    (columnsGroup: any) => columnsGroup?.cellFactory?.key === "treeCells",
   )
     ? pluginWidgetTreeTable
     : legacyCellRenderers.includes("pivot-layout")
