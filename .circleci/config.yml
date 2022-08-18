@@ -20,8 +20,6 @@ jobs:
       - login
       - run: yarn install --frozen-lockfile
       - run: yarn ci:test
-      - store_test_results:
-          path: ./reports/unit_tests/
 
 workflows:
   # Used to protect the main branch: it should block merging into main when failing.
