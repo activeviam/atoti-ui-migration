@@ -7,7 +7,7 @@ import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";
  * Extracts and parses the XML calculated measure objects from the /pivot/entitlements/cm folder.
  */
 export const getCalculatedMeasures = async (
-  calculatedMeasuresFolder: ContentRecord
+  calculatedMeasuresFolder: ContentRecord,
 ): Promise<LegacyCalculatedMeasure[]> => {
   const parser = new xml2js.Parser();
 
@@ -21,11 +21,11 @@ export const getCalculatedMeasures = async (
           const measures = await Promise.all(
             Object.values(children).map(async (cmEntry) => {
               const result = await parser.parseStringPromise(
-                cmEntry.entry.content
+                cmEntry.entry.content,
               );
 
-              const { owners, readers, } = cmEntry.entry;
-               /*
+              const { owners, readers } = cmEntry.entry;
+              /*
                   xml2js parses the given XML and returns an object of the shape:
 
                   {
@@ -34,22 +34,23 @@ export const getCalculatedMeasures = async (
 
                   In this case, the data that is required (`expression`, `formatStringExpression`, and `uniqueName`) lives within the `$` property.
                 */
-              const {expression, formatStringExpression, uniqueName} = result.calculatedMember["$"];
+              const { expression, formatStringExpression, uniqueName } =
+                result.calculatedMember["$"];
 
               const calculatedMeasure = {
                 owners,
                 readers,
                 expression,
-                formatStringExpression, 
-                uniqueName
+                formatStringExpression,
+                uniqueName,
               };
 
               return calculatedMeasure;
-            })
+            }),
           );
           calculatedMeasures.push(...measures);
         }
-      })
+      }),
     );
   }
 

@@ -14,7 +14,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
 ): [AWidgetState<"serialized">, string?] {
   const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
   switch (widgetPluginKey) {

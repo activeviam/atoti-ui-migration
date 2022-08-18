@@ -26,7 +26,7 @@ export function migrateKpi(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyKpiState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyKpiState);
   const legacyMdx = legacyQuery.mdx
@@ -43,7 +43,7 @@ export function migrateKpi(
   let legacyMdxWithoutPagesAxis = legacyMdx;
   let comparison: KpiComparison | undefined = undefined;
   const pagesAxis = (legacyMdx?.axes || []).find(
-    ({ name }) => name === "PAGES"
+    ({ name }) => name === "PAGES",
   );
   if (pagesAxis) {
     const memberCoordinates: MemberCoordinates[] = [];

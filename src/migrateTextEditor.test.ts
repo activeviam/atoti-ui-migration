@@ -17,7 +17,7 @@ describe("migrateTextEditor", () => {
     const migratedTextEditor = migrateTextEditor(legacyTextEditor);
     expect(console.warn).toHaveBeenCalledTimes(1);
     expect(console.warn).toHaveBeenCalledWith(
-      "The `text-editor` widget is not part of the plugin registry in the ActiveUI 5 starter.\nMake sure to add it in your project.\n See https://activeviam.com/activeui/documentation/5.0.3/docs/tutorial/yourFirstCustomWidget#extend-activeui."
+      "The `text-editor` widget is not part of the plugin registry in the ActiveUI 5 starter.\nMake sure to add it in your project.\n See https://activeviam.com/activeui/documentation/5.0.3/docs/tutorial/yourFirstCustomWidget#extend-activeui.",
     );
     expect(migratedTextEditor).toMatchInlineSnapshot(`
       Object {
@@ -55,7 +55,7 @@ describe("migrateTextEditor", () => {
           },
           containerKey: "rich-text-editor",
         },
-      }).text
+      }).text,
     ).toBe(`\`\`\`katex
 Curvature\\ risk = \\sqrt{max\\left ( 0,\\sum _{b} K_{b}^{2} + \\sum _{b}\\sum _{c\\neq b}\\gamma_{bc}\\cdot S_b \\cdot S_c \\cdot \\psi (S_b,S_c) \\right )}
 \`\`\``);

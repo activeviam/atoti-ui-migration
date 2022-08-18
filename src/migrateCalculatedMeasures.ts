@@ -14,7 +14,7 @@ export interface LegacyCalculatedMeasure {
  * Returns the converted content record tree for the calculted measures, ready to be used in ActiveUI 5.
  */
 export async function migrateCalculatedMeasures(
-  legacyPivotFolder: ContentRecord
+  legacyPivotFolder: ContentRecord,
 ): Promise<ContentRecord> {
   const entitlements = legacyPivotFolder?.children?.entitlements;
   const calculatedMeasuresFolder = entitlements?.children?.cm;

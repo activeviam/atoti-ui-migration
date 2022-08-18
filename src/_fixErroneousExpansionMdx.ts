@@ -1,7 +1,5 @@
-import _get from "lodash/get";
 import _set from "lodash/set";
-import _last from "lodash/last";
-import produce from "immer";
+import { produce } from "immer";
 import {
   MdxSelect,
   MdxDrillthrough,
@@ -11,7 +9,6 @@ import {
 import { isMdxDrillthrough } from "@activeviam/mdx";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
-import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";
 import {
   MatchAndPath,
   UnionNodeWithCrossjoinsAsArguments,
@@ -25,7 +22,7 @@ import {
  */
 export function _fixErroneousExpansionMdx(
   mdx: MdxSelect | MdxDrillthrough,
-  cube: Cube
+  cube: Cube,
 ): MdxSelect | MdxDrillthrough {
   if (isMdxDrillthrough(mdx)) {
     return mdx;
@@ -49,7 +46,7 @@ export function _fixErroneousExpansionMdx(
         // Remove all expanded members.
         match.arguments = match.arguments.filter(
           (crossjoin) =>
-            !_doesCrossjoinRepresentAnExpandedMember(crossjoin, cube)
+            !_doesCrossjoinRepresentAnExpandedMember(crossjoin, cube),
         );
 
         if (match.arguments.length === 1) {

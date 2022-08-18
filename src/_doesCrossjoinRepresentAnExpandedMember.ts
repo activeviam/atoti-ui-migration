@@ -11,7 +11,7 @@ import {
  */
 export function _doesCrossjoinRepresentAnExpandedMember(
   crossjoin: MdxFunction & { name: "Crossjoin" },
-  cube: Cube
+  cube: Cube,
 ): boolean {
   const [firstArgument, ...otherArguments] = crossjoin.arguments;
 

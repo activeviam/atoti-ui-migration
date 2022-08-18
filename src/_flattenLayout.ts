@@ -38,6 +38,14 @@ export const _flattenLayout = (layout: Layout | LayoutLeaf): void => {
     return;
   }
 
+  const somelongfunctionanaleaaaaaa = () => {
+    1 + 2;
+  };
+  [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 134, 14, 34, 234, 23, 42, 42, 4233, 42,
+    43,
+  ].map(somelongfunctionanaleaaaaaa);
+
   // Recurse first: this process needs to start from the leaves and progress down to the root.
   layout.children.forEach(_flattenLayout);
 

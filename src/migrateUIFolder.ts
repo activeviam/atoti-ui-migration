@@ -22,11 +22,11 @@ import {
 
 const _getFolder = (
   record: ContentRecord | undefined,
-  path: string[]
+  path: string[],
 ): ContentRecord | undefined =>
   path.reduce<ContentRecord | undefined>(
     (acc, id) => acc?.children?.[id],
-    record
+    record,
   );
 
 const _ensureFolderExists = ({
@@ -50,7 +50,7 @@ const _ensureFolderExists = ({
         migratedRoot,
         pathToFolder.reduce<string[]>(
           (acc, id) => [...acc, "children", id],
-          []
+          [],
         ),
         {
           entry: legacyFolder.entry,
@@ -65,7 +65,7 @@ const _ensureFolderExists = ({
               },
             },
           },
-        }
+        },
       );
     }
   }
@@ -201,7 +201,7 @@ export async function migrateUIFolder(
   legacyUIFolder: ContentRecord,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
   keysOfWidgetPluginsToRemove?: string[],
-  legacyPivotFolder?: ContentRecord
+  legacyPivotFolder?: ContentRecord,
 ): Promise<[ContentRecord, MigrationErrorReport?]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
   const migrationErrorReport: MigrationErrorReport = {};
@@ -255,6 +255,7 @@ export async function migrateUIFolder(
         try {
           const [migratedDashboard, dashboardMigrationReport] =
             migrateDashboard(bookmark, servers, keysOfWidgetPluginsToRemove);
+ 
           dashboards[id] = migratedDashboard;
           dashboardMigrationWarningReport = dashboardMigrationReport;
           migratedUIFolder.children!.dashboards.children!.content.children![
@@ -285,7 +286,7 @@ export async function migrateUIFolder(
         try {
           if (
             keysOfWidgetPluginsToRemove?.includes(
-              _getLegacyWidgetPluginKey(bookmark)
+              _getLegacyWidgetPluginKey(bookmark),
             )
           ) {
             continue;
@@ -306,7 +307,7 @@ export async function migrateUIFolder(
             entry: {
               ...entry,
               content: JSON.stringify(
-                _omit(migratedWidget, ["name", "widgetKey"])
+                _omit(migratedWidget, ["name", "widgetKey"]),
               ),
             },
           };
@@ -336,7 +337,7 @@ export async function migrateUIFolder(
     ...(legacyPivotFolder
       ? {
           calculated_measures: await migrateCalculatedMeasures(
-            legacyPivotFolder
+            legacyPivotFolder,
           ),
         }
       : {}),

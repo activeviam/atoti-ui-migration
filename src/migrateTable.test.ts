@@ -210,11 +210,11 @@ describe("migrateTable", () => {
 
     const migratedPivotTableState = migrateTable(
       legacyPivotTableState,
-      servers
+      servers,
     ) as TableWidgetState<"serialized">;
 
     expect(
-      stringify(parse(migratedPivotTableState.query.mdx!), { indent: true })
+      stringify(parse(migratedPivotTableState.query.mdx!), { indent: true }),
     ).toMatchInlineSnapshot(`
       "SELECT
         NON EMPTY Hierarchize(

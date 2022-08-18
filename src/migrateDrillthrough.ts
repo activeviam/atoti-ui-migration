@@ -16,7 +16,7 @@ export function migrateDrillthrough(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyDrillthroughState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } }
+  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyDrillthroughState);
   const legacyMdx = legacyQuery.mdx
@@ -43,12 +43,12 @@ export function migrateDrillthrough(
         (
           widths: { [columnKey: string]: number },
           width: number,
-          columnKey: string
+          columnKey: string,
         ) => {
           widths[columnKey] = width;
           return widths;
         },
-        {}
+        {},
       )
     : {};
 

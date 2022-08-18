@@ -1,6 +1,5 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
-import _reduce from "lodash/reduce";
 import { produce } from "immer";
 
 import {
@@ -11,6 +10,7 @@ import {
   deserializeDashboardState,
   getLayoutPath,
   serializeDashboardState,
+  Layout,
 } from "@activeviam/activeui-sdk";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
 import { migrateWidget } from "./migrateWidget";
@@ -36,7 +36,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  keysOfWidgetPluginsToRemove?: string[]
+  keysOfWidgetPluginsToRemove?: string[],
 ): [DashboardState<"serialized">, DashboardMigrationReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
@@ -78,19 +78,13 @@ export function migrateDashboard(
       }
     });
 
-    const page: DashboardPageState<"serialized"> = {
-      ..._omit(legacyPage, ["content"]),
-      content,
-      // @ts-expect-error `layout` is filled up below.
-      layout: undefined,
-      filters: Object.values(legacyPage.filters || {}).flat(),
-      queryContext: _migrateContextValues(legacyPage.contextValues),
-    };
     const legacyLayout = legacyPage.layout;
+    let pageLayout: Layout;
+
     // In ActiveUI 4, the root of a dashboard can be a leaf.
     // This does not happen in ActiveUI 5.
     if (isLegacyLayoutLeaf(legacyLayout)) {
-      page.layout = {
+      pageLayout = {
         children: [
           {
             leafKey: legacyLayout.ck,
@@ -100,10 +94,18 @@ export function migrateDashboard(
         direction: "row",
       };
     } else {
-      // @ts-expect-error: converting from one type to the other is difficult to express in TypeScript.
-      page.layout = _convertFromLegacyLayout(legacyLayout);
-      _flattenLayout(page.layout);
+      const convertedLayout = _convertFromLegacyLayout(legacyLayout);
+      _flattenLayout(convertedLayout);
+      pageLayout = convertedLayout as Layout;
     }
+
+    const page: DashboardPageState<"serialized"> = {
+      ..._omit(legacyPage, ["content"]),
+      content,
+      layout: pageLayout,
+      filters: Object.values(legacyPage.filters || {}).flat(),
+      queryContext: _migrateContextValues(legacyPage.contextValues),
+    };
 
     pages[pageKey] = page;
   });
@@ -125,7 +127,7 @@ export function migrateDashboard(
         keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
           const layoutPath = getLayoutPath(
             draft.pages[pageKey].layout,
-            leafKey
+            leafKey,
           );
           draft.pages[pageKey] = removeWidget({
             dashboardState: draft,
@@ -135,7 +137,7 @@ export function migrateDashboard(
           }).pages[pageKey];
         });
       });
-    }
+    },
   );
 
   return [
