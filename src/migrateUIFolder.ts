@@ -1,5 +1,6 @@
 import _cloneDeep from "lodash/cloneDeep";
 import _setWith from "lodash/setWith";
+import _set from "lodash/set";
 import _omit from "lodash/omit";
 
 import { ContentRecord, DataModel, MdxString } from "@activeviam/activeui-sdk";
@@ -46,7 +47,7 @@ const _ensureFolderExists = ({
     const legacyFolder = _getFolder(legacyRoot, pathToFolder)!;
     const migratedFolder = _getFolder(migratedRoot, pathToFolder);
     if (migratedFolder === undefined) {
-      _setWith(
+      _set(
         migratedRoot,
         pathToFolder.reduce<string[]>(
           (acc, id) => [...acc, "children", id],
@@ -66,7 +67,6 @@ const _ensureFolderExists = ({
             },
           },
         },
-        Object,
       );
     }
   }
