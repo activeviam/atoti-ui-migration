@@ -224,7 +224,10 @@ export async function migrateUIFolder(
   const createFileErrorReport = (
     id: string,
     name: string,
-    error: any,
+    error: {
+      message: string;
+      stack?: string[];
+    },
   ): FileErrorReport => {
     const legacyStructure =
       legacyUIFolder?.children?.bookmarks?.children?.structure!;
@@ -235,8 +238,7 @@ export async function migrateUIFolder(
       folderId: pathToParentFolder,
       folderName: _getFolderPathNames(legacyContent, pathToParentFolder),
       name,
-      // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-      error: error as Error,
+      error,
     };
   };
 
@@ -260,10 +262,13 @@ export async function migrateUIFolder(
           const filterErrorReport: FileErrorReport = createFileErrorReport(
             id,
             bookmark.name,
-            error,
+            {
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+              message: (error as Error).message,
+            },
           );
 
-          _setWith(migrationReport, `filters.${id}`, filterErrorReport, Object);
+          _setWith(migrationReport, ["filters", id], filterErrorReport, Object);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         let dashboardMigrationReport: DashboardMigrationReport | undefined =
@@ -276,8 +281,13 @@ export async function migrateUIFolder(
             migrateDashboard(bookmark, servers, keysOfWidgetPluginsToRemove);
           dashboardMigrationReport = dashboardReport;
           migratedDashboard = succesfullyMigratedDashboard;
-        } catch (error) {
-          fileErrorReport = createFileErrorReport(id, bookmark.name, error);
+        } catch (throwable) {
+          // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+          const error = throwable as Error;
+          fileErrorReport = createFileErrorReport(id, bookmark.name, {
+            message: error.message,
+            stack: error.stack?.split("\n"),
+          });
           migratedDashboard = bookmark;
         }
 
@@ -312,6 +322,7 @@ export async function migrateUIFolder(
         try {
           migratedWidget = migrateWidget(bookmark, servers);
         } catch (error) {
+          let errorStack: string[] | undefined = undefined;
           if (error instanceof UnsupportedWidgetKeyError) {
             // Migration failed because of an unknown plugin key, the widget state is migrated as-is.
             migratedWidget = {
@@ -319,13 +330,19 @@ export async function migrateUIFolder(
               name: bookmark.name,
               widgetKey: error.widgetPluginKey,
             };
+          } else {
+            errorStack = (error as Error).stack?.split("\n");
           }
 
           // Whatever the error type, an error report is created.
           const widgetErrorReport: FileErrorReport = createFileErrorReport(
             id,
             bookmark.name,
-            error,
+            {
+              // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+              message: (error as Error).message,
+              ...(errorStack !== undefined ? { stack: errorStack } : {}),
+            },
           );
           _setWith(migrationReport, ["widgets", id], widgetErrorReport, Object);
         }

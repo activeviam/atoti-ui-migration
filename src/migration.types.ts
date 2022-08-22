@@ -69,7 +69,10 @@ export interface FileErrorReport {
   // The name of the file on which the error occurred.
   name: string;
   // The thrown error.
-  error: Error;
+  error: {
+    message: string;
+    stack?: string[];
+  };
 }
 
 export interface DashboardMigrationReport {
@@ -79,7 +82,7 @@ export interface DashboardMigrationReport {
       widgets: {
         [leafKey: string]: {
           widgetName: string;
-          error: Error;
+          error: string;
         };
       };
     };

@@ -79,7 +79,7 @@ export function migrateDashboard(
           dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
             widgetName: widget.bookmark.name,
             // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            error: error as Error,
+            error: (error as Error).message,
           };
         }
         if (migratedWidget) {
