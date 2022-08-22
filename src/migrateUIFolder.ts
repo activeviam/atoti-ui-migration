@@ -263,7 +263,7 @@ export async function migrateUIFolder(
             error,
           );
 
-          _setWith(migrationReport, `filters.${id}`, filterErrorReport);
+          _setWith(migrationReport, `filters.${id}`, filterErrorReport, Object);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         let dashboardMigrationReport: DashboardMigrationReport | undefined =
