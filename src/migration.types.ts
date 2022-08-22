@@ -61,19 +61,48 @@ export interface LegacyDashboardState {
   writable: boolean;
 }
 
-export type PageMigrationReport = Record<string, { warnings: string[] }>;
-
-export interface DashboardMigrationReport {
+export interface FileErrorReport {
+  // The id of each parent folder, from the root down to the direct parent.
+  folderId: string[];
+  // The name of each parent folder, from the root down to the direct parent.
+  folderName: string[];
+  // The name of the file on which the error occurred.
   name: string;
-  errorStack?: string[];
-  pages?: PageMigrationReport;
+  // The thrown error.
+  error: Error;
 }
 
-export interface MigrationErrorReport {
-  dashboards?: Record<string, DashboardMigrationReport>;
-  filters?: Record<string, { name: string; errorStack: string[] }>;
-  widgets?: Record<
-    string,
-    { name: string } & ({ errorStack: string[] } | { warning: string })
-  >;
+export interface DashboardMigrationReport {
+  pages: {
+    [pageKey: string]: {
+      pageName: string;
+      widgets: {
+        [leafKey: string]: {
+          widgetName: string;
+          error: Error;
+        };
+      };
+    };
+  };
+}
+
+export interface MigrationReport {
+  dashboards?: {
+    [
+      dashboardId: string
+    ]: // If the error was thrown by `migrateDashboard` itself, not an underlying call to `migrateWidget`.
+    // This should happen rarely.
+    | FileErrorReport
+      // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
+      // This should happen more frequently.
+      // In this case, the dashboard should be migrated succesfully, except for the widgets which threw errors.
+      // These widgets should be copied as is into the new dashboard.
+      | DashboardMigrationReport;
+  };
+  widgets?: {
+    [widgetId: string]: FileErrorReport;
+  };
+  filters?: {
+    [filterId: string]: FileErrorReport;
+  };
 }

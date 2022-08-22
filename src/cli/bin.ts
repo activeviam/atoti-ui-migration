@@ -57,7 +57,7 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const [migratedUIFolder, migrationErrorReport] = await migrateUIFolder(
+      const [migratedUIFolder, migrationReport] = await migrateUIFolder(
         legacyUIFolder,
         servers,
         keysOfWidgetPluginsToRemove,
@@ -70,16 +70,16 @@ yargs
         spaces: 2,
       });
 
-      if (migrationErrorReport) {
+      if (migrationReport) {
         await fs.writeJSON(
-          path.join(...dir, "migration-errors.json"),
-          migrationErrorReport,
+          path.join(...dir, "migration-report.json"),
+          migrationReport,
           {
             spaces: 2,
           },
         );
         console.log(
-          "The migration ended with some errors, see `migration-errors.json`.",
+          "The migration ended with some errors, see `migration-report.json`.",
         );
       } else {
         console.log("The migration ended with no errors.");

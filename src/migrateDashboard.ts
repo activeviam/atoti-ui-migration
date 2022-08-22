@@ -11,6 +11,7 @@ import {
   getLayoutPath,
   serializeDashboardState,
   Layout,
+  AWidgetState,
 } from "@activeviam/activeui-sdk";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
 import { migrateWidget } from "./migrateWidget";
@@ -41,7 +42,7 @@ export function migrateDashboard(
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
   const dashboardMigrationReport: DashboardMigrationReport = {
-    name: legacyDashboardState.name,
+    pages: {},
   };
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
@@ -59,21 +60,30 @@ export function migrateDashboard(
           dashboardLeafKey,
         ];
       } else {
-        const [migratedWidget, widgetMigrationError] = migrateWidget(
-          widget.bookmark,
-          servers,
-        );
-        content[dashboardLeafKey] = migratedWidget;
-        if (widgetMigrationError) {
-          if (!dashboardMigrationReport.pages) {
-            dashboardMigrationReport.pages = {};
-          }
+        let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
+        try {
+          migratedWidget = migrateWidget(widget.bookmark, servers);
+        } catch (error) {
+          migratedWidget = {
+            ...widget.bookmark.value.body,
+            name: widget.bookmark.name,
+            widgetKey: widgetPluginKey,
+          };
+
           if (!dashboardMigrationReport.pages[pageKey]) {
-            dashboardMigrationReport.pages[pageKey] = { warnings: [] };
+            dashboardMigrationReport.pages[pageKey] = {
+              pageName: legacyPage.name,
+              widgets: {},
+            };
           }
-          dashboardMigrationReport.pages[pageKey].warnings.push(
-            widgetMigrationError,
-          );
+          dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
+            widgetName: widget.bookmark.name,
+            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            error: error as Error,
+          };
+        }
+        if (migratedWidget) {
+          content[dashboardLeafKey] = migratedWidget;
         }
       }
     });
@@ -142,7 +152,7 @@ export function migrateDashboard(
 
   return [
     serializeDashboardState(dashboardWithWidgetsRemoved),
-    dashboardMigrationReport.errorStack || dashboardMigrationReport.pages
+    Object.keys(dashboardMigrationReport.pages).length > 0
       ? dashboardMigrationReport
       : undefined,
   ];
