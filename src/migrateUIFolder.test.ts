@@ -31,30 +31,33 @@ jest.mock(`./generateId`, () => {
 
 describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const [migratedUIFolder, migrationReport] = await migrateUIFolder(
-      smallLegacyUIFolder,
-      servers,
-    );
+    const [migratedUIFolder, migrationReport, errorReport] =
+      await migrateUIFolder(smallLegacyUIFolder, {
+        servers,
+        doesIncludeStacktracesInErrorReport: false,
+      });
     expect(migratedUIFolder).toMatchSnapshot();
-    expect(migrationReport).toBeUndefined();
+    expect(errorReport).toBeUndefined();
+    expect(migrationReport).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const [migratedUIFolder, migrationReport] = await migrateUIFolder(
-      legacyUIFolder,
-      servers,
-    );
+    const [migratedUIFolder, migrationReport, errorReport] =
+      await migrateUIFolder(legacyUIFolder, {
+        servers,
+        doesIncludeStacktracesInErrorReport: false,
+      });
     expect(migratedUIFolder).toMatchSnapshot();
+    expect(errorReport).toMatchSnapshot();
     expect(migrationReport).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
-    const [migratedUIFolder] = await migrateUIFolder(
-      legacyUIFolder,
+    const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
       servers,
-      undefined,
-      smallLegacyPivotFolder,
-    );
+      legacyPivotFolder: smallLegacyPivotFolder,
+      doesIncludeStacktracesInErrorReport: false,
+    });
 
     const calculatedMeasuresFolder =
       migratedUIFolder.children?.["calculated_measures"];
@@ -64,11 +67,11 @@ describe("migrateUIFolder", () => {
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
-    const [migratedUIFolder] = await migrateUIFolder(
-      legacyUIFolder,
+    const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
       servers,
       keysOfWidgetPluginsToRemove,
-    );
+      doesIncludeStacktracesInErrorReport: false,
+    });
 
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
     // It is removed from the ActiveUI 5 UI folder.

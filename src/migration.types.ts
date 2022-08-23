@@ -61,6 +61,9 @@ export interface LegacyDashboardState {
   writable: boolean;
 }
 
+/**
+ * Holds details about a generic migration error for a given file.
+ */
 export interface FileErrorReport {
   // The id of each parent folder, from the root down to the direct parent.
   folderId: string[];
@@ -71,10 +74,13 @@ export interface FileErrorReport {
   // The thrown error.
   error: {
     message: string;
-    stack?: string[];
+    stackTrace?: string[];
   };
 }
 
+/**
+ * Holds details about migration errors that occurred for widgets within a dashboard.
+ */
 export interface DashboardMigrationReport {
   pages: {
     [pageKey: string]: {
@@ -82,19 +88,39 @@ export interface DashboardMigrationReport {
       widgets: {
         [leafKey: string]: {
           widgetName: string;
-          error: string;
+          error: {
+            message: string;
+            stackTrace?: string[];
+          };
         };
       };
     };
   };
 }
 
+interface MigrationStats {
+  success: number;
+  partial: number;
+  failed: number;
+  removed: number;
+}
+
 export interface MigrationReport {
+  dashboards: MigrationStats;
+  widgets: MigrationStats;
+  filters: MigrationStats;
+}
+
+/**
+ * Holds details about errors to be reported if the users enables producing an error report at the end of the migration script.
+ */
+export interface ErrorReport {
   dashboards?: {
     [
       dashboardId: string
     ]: // If the error was thrown by `migrateDashboard` itself, not an underlying call to `migrateWidget`.
     // This should happen rarely.
+    // In this case, the whole outdated dashboard is copied as is.
     | FileErrorReport
       // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
       // This should happen more frequently.

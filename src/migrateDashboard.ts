@@ -1,5 +1,6 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
+import _isError from "lodash/isError";
 import { produce } from "immer";
 
 import {
@@ -36,8 +37,15 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
  */
 export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  keysOfWidgetPluginsToRemove?: string[],
+  {
+    servers,
+    keysOfWidgetPluginsToRemove,
+    doesIncludeStacktracesInErrorReport,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    keysOfWidgetPluginsToRemove?: string[];
+    doesIncludeStacktracesInErrorReport?: boolean;
+  },
 ): [DashboardState<"serialized">, DashboardMigrationReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
@@ -64,23 +72,31 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
         } catch (error) {
-          migratedWidget = {
-            ...widget.bookmark.value.body,
-            name: widget.bookmark.name,
-            widgetKey: widgetPluginKey,
-          };
-
-          if (!dashboardMigrationReport.pages[pageKey]) {
-            dashboardMigrationReport.pages[pageKey] = {
-              pageName: legacyPage.name,
-              widgets: {},
+          if (_isError(error)) {
+            migratedWidget = {
+              ...widget.bookmark.value.body,
+              name: widget.bookmark.name,
+              widgetKey: widgetPluginKey,
             };
+
+            if (!dashboardMigrationReport.pages[pageKey]) {
+              dashboardMigrationReport.pages[pageKey] = {
+                pageName: legacyPage.name,
+                widgets: {},
+              };
+            }
+            dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] =
+              {
+                widgetName: widget.bookmark.name,
+                // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+                error: {
+                  message: error.message,
+                  ...(doesIncludeStacktracesInErrorReport
+                    ? { stackTrace: error.stack?.split("\n") }
+                    : {}),
+                },
+              };
           }
-          dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
-            widgetName: widget.bookmark.name,
-            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            error: (error as Error).message,
-          };
         }
         if (migratedWidget) {
           content[dashboardLeafKey] = migratedWidget;
