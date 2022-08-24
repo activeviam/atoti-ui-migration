@@ -2121,6 +2121,12 @@ Object {
     "removed": 0,
     "success": 2,
   },
+  "folders": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
   "widgets": Object {
     "failed": 1,
     "partial": 0,
@@ -2491,6 +2497,12 @@ Object {
     "success": 1,
   },
   "filters": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "folders": Object {
     "failed": 0,
     "partial": 0,
     "removed": 0,

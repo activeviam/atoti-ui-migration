@@ -234,6 +234,12 @@ export async function migrateUIFolder(
       failed: 0,
       removed: 0,
     },
+    folders: {
+      success: 0,
+      partial: 0,
+      failed: 0,
+      removed: 0,
+    },
   };
 
   const dashboards: { [dashboardId: string]: any } = {};
@@ -271,156 +277,177 @@ export async function migrateUIFolder(
 
   for (const fileId in legacyContent) {
     const { entry } = legacyContent[fileId];
+
     if (entry.content) {
       const bookmark = JSON.parse(entry.content);
-      if (bookmark.type === "folder") {
-        folders[fileId] = { name: bookmark.name };
-      } else if (bookmark.type === "mdx") {
-        try {
-          const migratedFilter = migrateFilter(bookmark);
-          filters[fileId] = migratedFilter;
-          migratedUIFolder.children!.filters.children!.content.children![
-            fileId
-          ] = {
-            entry: {
-              ...entry,
-              content: JSON.stringify(migratedFilter.content),
-            },
-          };
-          counters.filters.success++;
-        } catch (error) {
-          counters.filters.failed++;
 
-          filters[fileId] = {
-            content: { mdx: "" },
-            metaData: { name: bookmark.name },
-          };
-
-          migratedUIFolder.children!.filters.children!.content.children![
-            fileId
-          ] = {
-            entry: {
-              ...entry,
-              content: JSON.stringify(bookmark),
-            },
-          };
-
-          const filterErrorReport: FileErrorReport = createFileErrorReport(
-            fileId,
-            bookmark.name,
-            error,
-          );
-
-          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
-          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-          // Using `_setWith` is the recommended workaround.
-          _setWith(errorReport, ["filters", fileId], filterErrorReport, Object);
+      // Ignoring files that do not have a matching entry in `structure`.
+      // These files are corrupted and already unreachable to the legacy application.
+      if (mapOfFolderIds[fileId] === undefined) {
+        if (bookmark.type === "folder") {
+          counters.folders.removed++;
+        } else if (bookmark.type === "mdx") {
+          counters.filters.removed++;
+        } else if (bookmark.value.containerKey === "dashboard") {
+          counters.dashboards.removed++;
+        } else {
+          counters.widgets.removed++;
         }
-      } else if (bookmark.value.containerKey === "dashboard") {
-        let migratedDashboard;
+      } else {
+        if (bookmark.type === "folder") {
+          folders[fileId] = { name: bookmark.name };
+        } else if (bookmark.type === "mdx") {
+          try {
+            const migratedFilter = migrateFilter(bookmark);
+            filters[fileId] = migratedFilter;
+            migratedUIFolder.children!.filters.children!.content.children![
+              fileId
+            ] = {
+              entry: {
+                ...entry,
+                content: JSON.stringify(migratedFilter.content),
+              },
+            };
+            counters.filters.success++;
+          } catch (error) {
+            counters.filters.failed++;
 
-        try {
-          const [successfullyMigratedDashboard, dashboardPagesErrorReport] =
-            migrateDashboard(bookmark, {
-              servers,
-              keysOfWidgetPluginsToRemove,
-              doesReportIncludeStacks,
-            });
-          migratedDashboard = successfullyMigratedDashboard;
-          if (dashboardPagesErrorReport) {
-            // The dashboard was migrated, but errors were thrown on some of its widgets.
-            counters.dashboards.partial++;
+            filters[fileId] = {
+              content: { mdx: "" },
+              metaData: { name: bookmark.name },
+            };
 
-            const folderId = mapOfFolderIds[fileId];
+            migratedUIFolder.children!.filters.children!.content.children![
+              fileId
+            ] = {
+              entry: {
+                ...entry,
+                content: JSON.stringify(bookmark),
+              },
+            };
+
+            const filterErrorReport: FileErrorReport = createFileErrorReport(
+              fileId,
+              bookmark.name,
+              error,
+            );
+
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+            // Using `_setWith` is the recommended workaround.
+            _setWith(
+              errorReport,
+              ["filters", fileId],
+              filterErrorReport,
+              Object,
+            );
+          }
+        } else if (bookmark.value.containerKey === "dashboard") {
+          let migratedDashboard;
+
+          try {
+            const [successfullyMigratedDashboard, dashboardPagesErrorReport] =
+              migrateDashboard(bookmark, {
+                servers,
+                keysOfWidgetPluginsToRemove,
+                doesReportIncludeStacks,
+              });
+            migratedDashboard = successfullyMigratedDashboard;
+            if (dashboardPagesErrorReport) {
+              // The dashboard was migrated, but errors were thrown on some of its widgets.
+              counters.dashboards.partial++;
+
+              const folderId = mapOfFolderIds[fileId];
+              // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+              // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+              // Using `_setWith` is the recommended workaround.
+              _setWith(
+                errorReport,
+                ["dashboards", fileId],
+                {
+                  name: bookmark.name,
+                  folderId,
+                  folderName: _getFolderName(legacyContent, folderId),
+                  pages: dashboardPagesErrorReport,
+                },
+                Object,
+              );
+            } else {
+              // The dashboard was fully migrated.
+              counters.dashboards.success++;
+            }
+          } catch (error) {
+            // The dashboard could not be migrated at all.
+            counters.dashboards.failed++;
+
             // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.
             _setWith(
               errorReport,
               ["dashboards", fileId],
-              {
-                name: bookmark.name,
-                folderId,
-                folderName: _getFolderName(legacyContent, folderId),
-                pages: dashboardPagesErrorReport,
-              },
+              createFileErrorReport(fileId, bookmark.name, error),
               Object,
             );
-          } else {
-            // The dashboard was fully migrated.
-            counters.dashboards.success++;
+            migratedDashboard = bookmark;
           }
-        } catch (error) {
-          // The dashboard could not be migrated at all.
-          counters.dashboards.failed++;
 
-          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
-          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-          // Using `_setWith` is the recommended workaround.
-          _setWith(
-            errorReport,
-            ["dashboards", fileId],
-            createFileErrorReport(fileId, bookmark.name, error),
-            Object,
-          );
-          migratedDashboard = bookmark;
-        }
-
-        dashboards[fileId] = migratedDashboard;
-        migratedUIFolder.children!.dashboards.children!.content.children![
-          fileId
-        ] = {
-          entry: {
-            ...entry,
-            content: JSON.stringify(_omit(migratedDashboard, ["name"])),
-          },
-        };
-      } else {
-        const legacyWidgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
-        if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
-          // The widget's plugin key is flagged for removal.
-          // Remove the widget instead of migrating it.
-          counters.widgets.removed++;
-          continue;
-        }
-
-        let migratedWidget = undefined;
-        try {
-          migratedWidget = migrateWidget(bookmark, servers);
-          counters.widgets.success++;
-        } catch (error) {
-          counters.widgets.failed++;
-          // The migration failed.
-          // The widget state is copied as-is.
-          migratedWidget = {
-            ...bookmark.value.body,
-            name: bookmark.name,
-            widgetKey: legacyWidgetPluginKey,
-          };
-
-          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
-          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-          // Using `_setWith` is the recommended workaround.
-          _setWith(
-            errorReport,
-            ["widgets", fileId],
-            createFileErrorReport(fileId, bookmark.name, error),
-            Object,
-          );
-        }
-
-        if (migratedWidget) {
-          widgets[fileId] = migratedWidget;
-          migratedUIFolder.children!.widgets.children!.content.children![
+          dashboards[fileId] = migratedDashboard;
+          migratedUIFolder.children!.dashboards.children!.content.children![
             fileId
           ] = {
             entry: {
               ...entry,
-              content: JSON.stringify(
-                _omit(migratedWidget, ["name", "widgetKey"]),
-              ),
+              content: JSON.stringify(_omit(migratedDashboard, ["name"])),
             },
           };
+        } else {
+          const legacyWidgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
+          if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
+            // The widget's plugin key is flagged for removal.
+            // Remove the widget instead of migrating it.
+            counters.widgets.removed++;
+            continue;
+          }
+
+          let migratedWidget = undefined;
+          try {
+            migratedWidget = migrateWidget(bookmark, servers);
+            counters.widgets.success++;
+          } catch (error) {
+            counters.widgets.failed++;
+            // The migration failed.
+            // The widget state is copied as-is.
+            migratedWidget = {
+              ...bookmark.value.body,
+              name: bookmark.name,
+              widgetKey: legacyWidgetPluginKey,
+            };
+
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+            // Using `_setWith` is the recommended workaround.
+            _setWith(
+              errorReport,
+              ["widgets", fileId],
+              createFileErrorReport(fileId, bookmark.name, error),
+              Object,
+            );
+          }
+
+          if (migratedWidget) {
+            widgets[fileId] = migratedWidget;
+            migratedUIFolder.children!.widgets.children!.content.children![
+              fileId
+            ] = {
+              entry: {
+                ...entry,
+                content: JSON.stringify(
+                  _omit(migratedWidget, ["name", "widgetKey"]),
+                ),
+              },
+            };
+          }
         }
       }
     }

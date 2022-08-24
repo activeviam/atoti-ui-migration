@@ -102,7 +102,7 @@ export interface DashboardErrorReport extends Omit<FileErrorReport, "error"> {
  * The count of migrated files, per migration outcome.
  */
 export type OutcomeCounters = {
-  [folderName in "dashboards" | "widgets" | "filters"]: {
+  [folderName in "dashboards" | "widgets" | "filters" | "folders"]: {
     [outcome in "success" | "partial" | "failed" | "removed"]: number;
   };
 };

@@ -12,18 +12,26 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
         "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+      removed:
+        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
     },
     filters: {
       success: "were successfully migrated.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+      removed:
+        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
     },
     widgets: {
       success: "were successfully migrated.",
       removed:
-        "were removed because their keys were passed in the --remove-widgets option.",
+        "were removed because their keys were passed in the --remove-widgets option or their path could not be resolved.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+    },
+    folders: {
+      removed:
+        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
     },
   };
 
@@ -103,7 +111,7 @@ yargs
           legacyPivotFolder,
           servers,
           keysOfWidgetPluginsToRemove,
-          doesReportIncludeStacks: debug,
+          doesReportIncludeStacks: stack,
         },
       );
 
@@ -115,14 +123,20 @@ yargs
 
       console.log("--------- END OF CONTENT MIGRATION ---------");
 
-      Object.entries(counters).forEach(([folderName, countersForFolder]) => {
-        console.log(`\n# ${_capitalize(folderName)}`);
-        Object.entries(countersForFolder).forEach(([outcome, counter]) => {
-          if (counter > 0) {
-            console.log(`- ${counter} ${summaryMessages[folderName][outcome]}`);
-          }
+      Object.entries(counters)
+        .filter(([, countersForFolder]) =>
+          Object.values(countersForFolder).some((value) => value > 0),
+        )
+        .forEach(([folderName, countersForFolder]) => {
+          console.log(`\n# ${_capitalize(folderName)}`);
+          Object.entries(countersForFolder).forEach(([outcome, counter]) => {
+            if (counter > 0) {
+              console.log(
+                `- ${counter} ${summaryMessages[folderName][outcome]}`,
+              );
+            }
+          });
         });
-      });
 
       if (
         counters.dashboards.failed +
