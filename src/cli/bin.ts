@@ -16,7 +16,7 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
     filters: {
       success: "were successfully migrated.",
       failed:
-        "could not be migrated because errors occurred during their migration.",
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
     },
     widgets: {
       success: "were successfully migrated.",

@@ -291,6 +291,20 @@ export async function migrateUIFolder(
         } catch (error) {
           counters.filters.failed++;
 
+          filters[fileId] = {
+            content: { mdx: "" },
+            metaData: { name: bookmark.name },
+          };
+
+          migratedUIFolder.children!.filters.children!.content.children![
+            fileId
+          ] = {
+            entry: {
+              ...entry,
+              content: JSON.stringify(bookmark),
+            },
+          };
+
           const filterErrorReport: FileErrorReport = createFileErrorReport(
             fileId,
             bookmark.name,

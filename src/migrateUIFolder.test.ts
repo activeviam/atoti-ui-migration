@@ -7,6 +7,7 @@ import { servers } from "./__test_resources__/servers";
 import { ContentRecord } from "@activeviam/activeui-sdk";
 import { LegacyDashboardState } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
+import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
@@ -126,6 +127,65 @@ describe("migrateUIFolder", () => {
           },
         ],
         "direction": "column",
+      }
+    `);
+  });
+
+  it("copies invalid filters as-is and reports an error", async () => {
+    const [migratedFolder, counters, errorReport] = await migrateUIFolder(
+      smallLegacyUIFolderWithInvalidFilter,
+      {
+        servers,
+        doesReportIncludeStacks: true,
+      },
+    );
+
+    expect(
+      migratedFolder.children?.filters?.children?.content?.children?.["158"],
+    ).toMatchInlineSnapshot(`
+      Object {
+        "entry": Object {
+          "canRead": true,
+          "canWrite": true,
+          "content": "{\\"name\\":\\"AUI4 filter\\",\\"type\\":\\"mdx\\",\\"invalidvalue\\":{\\"shouldReplace\\":true,\\"type\\":\\"filter\\",\\"mdx\\":\\"{[Geography].[City].[ALL].[AllMember].[Berlin], [Geography].[City].[ALL].[AllMember].[London]}\\",\\"cube\\":\\"EquityDerivativesCube\\"}}",
+          "isDirectory": false,
+          "lastEditor": "admin",
+          "owners": Array [
+            "admin",
+          ],
+          "readers": Array [
+            "admin",
+          ],
+          "timestamp": 1607879735685,
+        },
+      }
+    `);
+    expect(counters.filters.failed).toEqual(1);
+    expect(counters.filters.success).toEqual(0);
+    expect(errorReport).toMatchInlineSnapshot(`
+      Object {
+        "filters": Object {
+          "158": Object {
+            "error": Object {
+              "message": "Cannot read properties of undefined (reading 'mdx')",
+              "stack": Array [
+                "TypeError: Cannot read properties of undefined (reading 'mdx')",
+                "    at migrateFilter (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateFilter.ts:21:40)",
+                "    at migrateUIFolder (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateUIFolder.ts:280:34)",
+                "    at Object.<anonymous> (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateUIFolder.test.ts:135:59)",
+                "    at Object.asyncJestTest (C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\jasmineAsyncInstall.js:106:37)",
+                "    at C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:45:12",
+                "    at new Promise (<anonymous>)",
+                "    at mapper (C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:28:19)",
+                "    at C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:75:41",
+                "    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+              ],
+            },
+            "folderId": Array [],
+            "folderName": Array [],
+            "name": "AUI4 filter",
+          },
+        },
       }
     `);
   });
