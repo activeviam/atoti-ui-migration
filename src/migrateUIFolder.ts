@@ -1,5 +1,6 @@
 import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
+import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
 
 import { ContentRecord, DataModel, MdxString } from "@activeviam/activeui-sdk";
@@ -296,7 +297,10 @@ export async function migrateUIFolder(
             error,
           );
 
-          _set(errorReport, ["filters", fileId], filterErrorReport);
+          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+          // Using `_setWith` is the recommended workaround.
+          _setWith(errorReport, ["filters", fileId], filterErrorReport, Object);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         let migratedDashboard;
@@ -311,8 +315,16 @@ export async function migrateUIFolder(
           migratedDashboard = successfullyMigratedDashboard;
           if (dashboardErrorReport) {
             // The dashboard was migrated, but errors were thrown on some of its widgets.
-            _set(errorReport, ["dashboards", fileId], dashboardErrorReport);
             counters.dashboards.partial++;
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+            // Using `_setWith` is the recommended workaround.
+            _setWith(
+              errorReport,
+              ["dashboards", fileId],
+              dashboardErrorReport,
+              Object,
+            );
           } else {
             // The dashboard was fully migrated.
             counters.dashboards.success++;
@@ -320,10 +332,15 @@ export async function migrateUIFolder(
         } catch (error) {
           // The dashboard could not be migrated at all.
           counters.dashboards.failed++;
-          _set(
+
+          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+          // Using `_setWith` is the recommended workaround.
+          _setWith(
             errorReport,
             ["dashboards", fileId],
             createFileErrorReport(fileId, bookmark.name, error),
+            Object,
           );
           migratedDashboard = bookmark;
         }
@@ -360,10 +377,14 @@ export async function migrateUIFolder(
             widgetKey: legacyWidgetPluginKey,
           };
 
-          _set(
+          // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+          // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+          // Using `_setWith` is the recommended workaround.
+          _setWith(
             errorReport,
             ["widgets", fileId],
             createFileErrorReport(fileId, bookmark.name, error),
+            Object,
           );
         }
 

@@ -74,7 +74,7 @@ export interface FileErrorReport {
   // The thrown error.
   error: {
     message: string;
-    stack?: string;
+    stack?: string[];
   };
 }
 
@@ -90,7 +90,7 @@ export interface DashboardErrorReport {
           widgetName: string;
           error: {
             message: string;
-            stackTrace?: string[];
+            stack?: string[];
           };
         };
       };

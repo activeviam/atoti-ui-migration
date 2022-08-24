@@ -113,20 +113,16 @@ yargs
         spaces: 2,
       });
 
-      console.log("--------- END OF CONTENT MIGRATION ---------\n");
+      console.log("--------- END OF CONTENT MIGRATION ---------");
 
-      for (const folderName in counters) {
-        console.log(`# ${_capitalize(folderName)}`);
-        Object.entries(counters).forEach(([folderName, outcomes]) => {
-          Object.entries(outcomes).forEach(([outcome, counter]) => {
-            if (counter > 0) {
-              console.log(
-                `- ${counter} ${summaryMessages[folderName][outcome]}`,
-              );
-            }
-          });
+      Object.entries(counters).forEach(([folderName, countersForFolder]) => {
+        console.log(`\n# ${_capitalize(folderName)}`);
+        Object.entries(countersForFolder).forEach(([outcome, counter]) => {
+          if (counter > 0) {
+            console.log(`- ${counter} ${summaryMessages[folderName][outcome]}`);
+          }
         });
-      }
+      });
 
       if (
         counters.dashboards.failed +
