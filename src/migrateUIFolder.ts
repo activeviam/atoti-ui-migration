@@ -296,18 +296,21 @@ export async function migrateUIFolder(
           migrationReport.filters.success++;
         } catch (error) {
           migrationReport.filters.failed++;
-          if (_isError(error)) {
-            const filterErrorReport: FileErrorReport = createFileErrorReport(
-              id,
-              bookmark.name,
-              {
-                message: error.message,
-                stackTrace: error.stack?.split("\n"),
-              },
-            );
-
-            _setWith(errorReport, ["filters", id], filterErrorReport, Object);
+          if (!_isError(error)) {
+            // In order to make sure that error has its `message` and `stack` attributes below.
+            // Should not happen.
+            throw error;
           }
+          const filterErrorReport: FileErrorReport = createFileErrorReport(
+            id,
+            bookmark.name,
+            {
+              message: error.message,
+              stackTrace: error.stack?.split("\n"),
+            },
+          );
+
+          _setWith(errorReport, ["filters", id], filterErrorReport, Object);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         let dashboardMigrationReport: DashboardMigrationReport | undefined =
@@ -331,14 +334,17 @@ export async function migrateUIFolder(
           }
         } catch (error) {
           migrationReport.dashboards.failed++;
-          if (_isError(error)) {
-            fileErrorReport = createFileErrorReport(id, bookmark.name, {
-              message: error.message,
-              ...(doesIncludeStacktracesInErrorReport
-                ? { stackTrace: error.stack?.split("\n") }
-                : {}),
-            });
+          if (!_isError(error)) {
+            // In order to make sure that error has its `message` and `stack` attributes below.
+            // Should not happen.
+            throw error;
           }
+          fileErrorReport = createFileErrorReport(id, bookmark.name, {
+            message: error.message,
+            ...(doesIncludeStacktracesInErrorReport
+              ? { stackTrace: error.stack?.split("\n") }
+              : {}),
+          });
           migratedDashboard = bookmark;
         }
 
@@ -373,27 +379,30 @@ export async function migrateUIFolder(
           migrationReport.widgets.success++;
         } catch (error) {
           migrationReport.widgets.failed++;
-          if (_isError(error)) {
-            // Migration failed, the widget state is migrated as-is.
-            migratedWidget = {
-              ...bookmark.value.body,
-              name: bookmark.name,
-              widgetKey: legacyWidgetPluginKey,
-            };
-
-            // Whatever the error type, an error report is created.
-            const widgetErrorReport: FileErrorReport = createFileErrorReport(
-              id,
-              bookmark.name,
-              {
-                message: error.message,
-                ...(doesIncludeStacktracesInErrorReport
-                  ? { stackTrace: error.stack?.split("\n") }
-                  : {}),
-              },
-            );
-            _setWith(errorReport, ["widgets", id], widgetErrorReport, Object);
+          if (!_isError(error)) {
+            // In order to make sure that error has its `message` and `stack` attributes below.
+            // Should not happen.
+            throw error;
           }
+          // Migration failed, the widget state is migrated as-is.
+          migratedWidget = {
+            ...bookmark.value.body,
+            name: bookmark.name,
+            widgetKey: legacyWidgetPluginKey,
+          };
+
+          // Whatever the error type, an error report is created.
+          const widgetErrorReport: FileErrorReport = createFileErrorReport(
+            id,
+            bookmark.name,
+            {
+              message: error.message,
+              ...(doesIncludeStacktracesInErrorReport
+                ? { stackTrace: error.stack?.split("\n") }
+                : {}),
+            },
+          );
+          _setWith(errorReport, ["widgets", id], widgetErrorReport, Object);
         }
 
         if (migratedWidget) {

@@ -72,31 +72,33 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
         } catch (error) {
-          if (_isError(error)) {
-            migratedWidget = {
-              ...widget.bookmark.value.body,
-              name: widget.bookmark.name,
-              widgetKey: widgetPluginKey,
-            };
-
-            if (!dashboardMigrationReport.pages[pageKey]) {
-              dashboardMigrationReport.pages[pageKey] = {
-                pageName: legacyPage.name,
-                widgets: {},
-              };
-            }
-            dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] =
-              {
-                widgetName: widget.bookmark.name,
-                // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-                error: {
-                  message: error.message,
-                  ...(doesIncludeStacktracesInErrorReport
-                    ? { stackTrace: error.stack?.split("\n") }
-                    : {}),
-                },
-              };
+          if (!_isError(error)) {
+            // In order to make sure that error has its `message` and `stack` attributes below.
+            // Should not happen.
+            throw error;
           }
+          migratedWidget = {
+            ...widget.bookmark.value.body,
+            name: widget.bookmark.name,
+            widgetKey: widgetPluginKey,
+          };
+
+          if (!dashboardMigrationReport.pages[pageKey]) {
+            dashboardMigrationReport.pages[pageKey] = {
+              pageName: legacyPage.name,
+              widgets: {},
+            };
+          }
+          dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
+            widgetName: widget.bookmark.name,
+            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
+            error: {
+              message: error.message,
+              ...(doesIncludeStacktracesInErrorReport
+                ? { stackTrace: error.stack?.split("\n") }
+                : {}),
+            },
+          };
         }
         if (migratedWidget) {
           content[dashboardLeafKey] = migratedWidget;
