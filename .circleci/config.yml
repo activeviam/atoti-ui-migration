@@ -7,10 +7,11 @@ commands:
   login:
     description: "Log in to Artifactory, allowing to install private @activeviam dependencies."
     steps:
-      - run: |
-      npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email activeui@activeviam.com
-      npm config set @activeviam:registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/
-
+      - run:
+          name: Log into artifactory & Link @activeviam packages to the internal registry
+          command: |
+            npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email activeui@activeviam.com
+            npm config set @activeviam:registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/
 jobs:
   build-and-test:
     executor:
