@@ -57,7 +57,7 @@ yargs
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
       debug: doesCreateReportFile,
-      stack: doesIncludeStacktracesInErrorReport,
+      stack: doesReportIncludeStacks,
     }: {
       inputPath: string;
       outputPath: string;
@@ -78,7 +78,7 @@ yargs
           legacyPivotFolder,
           servers,
           keysOfWidgetPluginsToRemove,
-          doesIncludeStacktracesInErrorReport,
+          doesReportIncludeStacks,
         });
 
       const { dir } = path.parse(outputPath);

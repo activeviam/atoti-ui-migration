@@ -74,12 +74,12 @@ export interface FileErrorReport {
   // The thrown error.
   error: {
     message: string;
-    stackTrace?: string[];
+    stack?: string;
   };
 }
 
 /**
- * Report of errors that occurred during the migration of the /ui/dashboards folder.
+ * Report of errors that occurred during the migration of a dashboard.
  */
 export interface DashboardMigrationReport {
   pages: {

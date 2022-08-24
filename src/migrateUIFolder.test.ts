@@ -34,7 +34,7 @@ describe("migrateUIFolder", () => {
     const [migratedUIFolder, migrationReport, errorReport] =
       await migrateUIFolder(smallLegacyUIFolder, {
         servers,
-        doesIncludeStacktracesInErrorReport: false,
+        doesReportIncludeStacks: false,
       });
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toBeUndefined();
@@ -45,7 +45,7 @@ describe("migrateUIFolder", () => {
     const [migratedUIFolder, migrationReport, errorReport] =
       await migrateUIFolder(legacyUIFolder, {
         servers,
-        doesIncludeStacktracesInErrorReport: false,
+        doesReportIncludeStacks: false,
       });
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toMatchSnapshot();
@@ -56,7 +56,7 @@ describe("migrateUIFolder", () => {
     const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
       servers,
       legacyPivotFolder: smallLegacyPivotFolder,
-      doesIncludeStacktracesInErrorReport: false,
+      doesReportIncludeStacks: false,
     });
 
     const calculatedMeasuresFolder =
@@ -70,7 +70,7 @@ describe("migrateUIFolder", () => {
     const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
       servers,
       keysOfWidgetPluginsToRemove,
-      doesIncludeStacktracesInErrorReport: false,
+      doesReportIncludeStacks: false,
     });
 
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.

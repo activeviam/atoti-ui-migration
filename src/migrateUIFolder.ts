@@ -21,6 +21,7 @@ import {
 } from "./migration.types";
 import { _getFolderPathNames } from "./_getFolderPathNames";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
+import { _serializeError } from "./_serializeError";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -205,11 +206,11 @@ export async function migrateUIFolder(
     servers,
     keysOfWidgetPluginsToRemove,
     legacyPivotFolder,
-    doesIncludeStacktracesInErrorReport,
+    doesReportIncludeStacks,
   }: {
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
-    doesIncludeStacktracesInErrorReport: boolean;
+    doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
   },
 ): Promise<[ContentRecord, MigrationReport, ErrorReport?]> {
@@ -257,10 +258,7 @@ export async function migrateUIFolder(
   const createFileErrorReport = (
     fileId: string,
     name: string,
-    error: {
-      message: string;
-      stackTrace?: string[];
-    },
+    error: unknown,
   ): FileErrorReport => {
     const folderId = mapOfFolderIds[fileId];
 
@@ -268,26 +266,23 @@ export async function migrateUIFolder(
       folderId,
       folderName: _getFolderPathNames(legacyContent, folderId),
       name,
-      error: {
-        message: error.message,
-        ...(doesIncludeStacktracesInErrorReport
-          ? { stackTrace: error.stackTrace }
-          : {}),
-      },
+      error: _serializeError(error, { doesReportIncludeStacks }),
     };
   };
 
-  for (const id in legacyContent) {
-    const { entry } = legacyContent[id];
+  for (const fileId in legacyContent) {
+    const { entry } = legacyContent[fileId];
     if (entry.content) {
       const bookmark = JSON.parse(entry.content);
       if (bookmark.type === "folder") {
-        folders[id] = { name: bookmark.name };
+        folders[fileId] = { name: bookmark.name };
       } else if (bookmark.type === "mdx") {
         try {
           const migratedFilter = migrateFilter(bookmark);
-          filters[id] = migratedFilter;
-          migratedUIFolder.children!.filters.children!.content.children![id] = {
+          filters[fileId] = migratedFilter;
+          migratedUIFolder.children!.filters.children!.content.children![
+            fileId
+          ] = {
             entry: {
               ...entry,
               content: JSON.stringify(migratedFilter.content),
@@ -296,21 +291,14 @@ export async function migrateUIFolder(
           migrationReport.filters.success++;
         } catch (error) {
           migrationReport.filters.failed++;
-          if (!_isError(error)) {
-            // In order to make sure that error has its `message` and `stack` attributes below.
-            // Should not happen.
-            throw error;
-          }
+
           const filterErrorReport: FileErrorReport = createFileErrorReport(
-            id,
+            fileId,
             bookmark.name,
-            {
-              message: error.message,
-              stackTrace: error.stack?.split("\n"),
-            },
+            error,
           );
 
-          _setWith(errorReport, ["filters", id], filterErrorReport, Object);
+          _setWith(errorReport, ["filters", fileId], filterErrorReport, Object);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
         let dashboardMigrationReport: DashboardMigrationReport | undefined =
@@ -323,7 +311,7 @@ export async function migrateUIFolder(
             migrateDashboard(bookmark, {
               servers,
               keysOfWidgetPluginsToRemove,
-              doesIncludeStacktracesInErrorReport,
+              doesReportIncludeStacks,
             });
           dashboardMigrationReport = dashboardReport;
           migratedDashboard = successfullyMigratedDashboard;
@@ -334,33 +322,25 @@ export async function migrateUIFolder(
           }
         } catch (error) {
           migrationReport.dashboards.failed++;
-          if (!_isError(error)) {
-            // In order to make sure that error has its `message` and `stack` attributes below.
-            // Should not happen.
-            throw error;
-          }
-          fileErrorReport = createFileErrorReport(id, bookmark.name, {
-            message: error.message,
-            ...(doesIncludeStacktracesInErrorReport
-              ? { stackTrace: error.stack?.split("\n") }
-              : {}),
-          });
+
+          fileErrorReport = createFileErrorReport(fileId, bookmark.name, error);
           migratedDashboard = bookmark;
         }
 
-        dashboards[id] = migratedDashboard;
-        migratedUIFolder.children!.dashboards.children!.content.children![id] =
-          {
-            entry: {
-              ...entry,
-              content: JSON.stringify(_omit(migratedDashboard, ["name"])),
-            },
-          };
+        dashboards[fileId] = migratedDashboard;
+        migratedUIFolder.children!.dashboards.children!.content.children![
+          fileId
+        ] = {
+          entry: {
+            ...entry,
+            content: JSON.stringify(_omit(migratedDashboard, ["name"])),
+          },
+        };
 
         if (dashboardMigrationReport || fileErrorReport) {
           _setWith(
             errorReport,
-            ["dashboards", id],
+            ["dashboards", fileId],
             dashboardMigrationReport || fileErrorReport,
             Object,
           );
@@ -379,11 +359,6 @@ export async function migrateUIFolder(
           migrationReport.widgets.success++;
         } catch (error) {
           migrationReport.widgets.failed++;
-          if (!_isError(error)) {
-            // In order to make sure that error has its `message` and `stack` attributes below.
-            // Should not happen.
-            throw error;
-          }
           // Migration failed, the widget state is migrated as-is.
           migratedWidget = {
             ...bookmark.value.body,
@@ -393,21 +368,18 @@ export async function migrateUIFolder(
 
           // Whatever the error type, an error report is created.
           const widgetErrorReport: FileErrorReport = createFileErrorReport(
-            id,
+            fileId,
             bookmark.name,
-            {
-              message: error.message,
-              ...(doesIncludeStacktracesInErrorReport
-                ? { stackTrace: error.stack?.split("\n") }
-                : {}),
-            },
+            error,
           );
-          _setWith(errorReport, ["widgets", id], widgetErrorReport, Object);
+          _setWith(errorReport, ["widgets", fileId], widgetErrorReport, Object);
         }
 
         if (migratedWidget) {
-          widgets[id] = migratedWidget;
-          migratedUIFolder.children!.widgets.children!.content.children![id] = {
+          widgets[fileId] = migratedWidget;
+          migratedUIFolder.children!.widgets.children!.content.children![
+            fileId
+          ] = {
             entry: {
               ...entry,
               content: JSON.stringify(

@@ -1,6 +1,5 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
-import _isError from "lodash/isError";
 import { produce } from "immer";
 
 import {
@@ -25,6 +24,7 @@ import type {
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { _serializeError } from "./_serializeError";
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5.
@@ -40,11 +40,11 @@ export function migrateDashboard(
   {
     servers,
     keysOfWidgetPluginsToRemove,
-    doesIncludeStacktracesInErrorReport,
+    doesReportIncludeStacks,
   }: {
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
-    doesIncludeStacktracesInErrorReport?: boolean;
+    doesReportIncludeStacks?: boolean;
   },
 ): [DashboardState<"serialized">, DashboardMigrationReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
@@ -72,11 +72,6 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
         } catch (error) {
-          if (!_isError(error)) {
-            // In order to make sure that error has its `message` and `stack` attributes below.
-            // Should not happen.
-            throw error;
-          }
           migratedWidget = {
             ...widget.bookmark.value.body,
             name: widget.bookmark.name,
@@ -91,13 +86,7 @@ export function migrateDashboard(
           }
           dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
             widgetName: widget.bookmark.name,
-            // Even though errors can be anything in theory, in practice they are always expected to be instances of Error.
-            error: {
-              message: error.message,
-              ...(doesIncludeStacktracesInErrorReport
-                ? { stackTrace: error.stack?.split("\n") }
-                : {}),
-            },
+            error: _serializeError(error, { doesReportIncludeStacks }),
           };
         }
         if (migratedWidget) {
