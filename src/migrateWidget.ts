@@ -34,9 +34,6 @@ export function migrateWidget(
     case "rich-text-editor":
       return migrateTextEditor(legacyWidgetState);
     default:
-      throw new UnsupportedWidgetKeyError(
-        widgetPluginKey,
-        legacyWidgetState.name,
-      );
+      throw new UnsupportedWidgetKeyError(widgetPluginKey);
   }
 }
