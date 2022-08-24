@@ -46,12 +46,10 @@ export function migrateDashboard(
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
   },
-): [DashboardState<"serialized">, DashboardErrorReport?] {
+): [DashboardState<"serialized">, DashboardErrorReport["pages"]?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-  const errorReport: DashboardErrorReport = {
-    pages: {},
-  };
+  const pagesHavingErrors: DashboardErrorReport["pages"] = {};
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
   } = {};
@@ -78,13 +76,13 @@ export function migrateDashboard(
             widgetKey: widgetPluginKey,
           };
 
-          if (!errorReport.pages[pageKey]) {
-            errorReport.pages[pageKey] = {
+          if (!pagesHavingErrors[pageKey]) {
+            pagesHavingErrors[pageKey] = {
               pageName: legacyPage.name,
               widgets: {},
             };
           }
-          errorReport.pages[pageKey].widgets[dashboardLeafKey] = {
+          pagesHavingErrors[pageKey].widgets[dashboardLeafKey] = {
             widgetName: widget.bookmark.name,
             error: _serializeError(error, { doesReportIncludeStacks }),
           };
@@ -159,6 +157,6 @@ export function migrateDashboard(
 
   return [
     serializeDashboardState(dashboardWithWidgetsRemoved),
-    Object.keys(errorReport.pages).length > 0 ? errorReport : undefined,
+    Object.keys(pagesHavingErrors).length > 0 ? pagesHavingErrors : undefined,
   ];
 }

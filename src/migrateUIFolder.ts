@@ -320,23 +320,30 @@ export async function migrateUIFolder(
         let migratedDashboard;
 
         try {
-          const [successfullyMigratedDashboard, dashboardErrorReport] =
+          const [successfullyMigratedDashboard, dashboardPagesErrorReport] =
             migrateDashboard(bookmark, {
               servers,
               keysOfWidgetPluginsToRemove,
               doesReportIncludeStacks,
             });
           migratedDashboard = successfullyMigratedDashboard;
-          if (dashboardErrorReport) {
+          if (dashboardPagesErrorReport) {
             // The dashboard was migrated, but errors were thrown on some of its widgets.
             counters.dashboards.partial++;
+
+            const folderId = mapOfFolderIds[fileId];
             // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.
             _setWith(
               errorReport,
               ["dashboards", fileId],
-              dashboardErrorReport,
+              {
+                name: bookmark.name,
+                folderId,
+                folderName: _getFolderName(legacyContent, folderId),
+                pages: dashboardPagesErrorReport,
+              },
               Object,
             );
           } else {

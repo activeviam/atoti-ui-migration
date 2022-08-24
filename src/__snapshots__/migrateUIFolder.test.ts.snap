@@ -2076,6 +2076,9 @@ exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life inp
 Object {
   "dashboards": Object {
     "eef": Object {
+      "folderId": Array [],
+      "folderName": Array [],
+      "name": "1 page, 4 widgets",
       "pages": Object {
         "p-0": Object {
           "pageName": "Start page",
