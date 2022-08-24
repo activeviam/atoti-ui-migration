@@ -73,13 +73,15 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const [migratedUIFolder, migrationReport, errorReport] =
-        await migrateUIFolder(legacyUIFolder, {
+      const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+        legacyUIFolder,
+        {
           legacyPivotFolder,
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks,
-        });
+        },
+      );
 
       const { dir } = path.parse(outputPath);
 
@@ -91,18 +93,18 @@ yargs
         if (!doesCreateReportFile) {
           console.log(`--------- END OF CONTENT MIGRATION ---------
 # Dashboards
-- ${migrationReport.dashboards.success} were succesfully migrated.
-- ${migrationReport.dashboards.partial} were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.
-- ${migrationReport.dashboards.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
+- ${counters.dashboards.success} were succesfully migrated.
+- ${counters.dashboards.partial} were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.
+- ${counters.dashboards.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
 
 # Filters
-- ${migrationReport.filters.success} were succesfully migrated.
-- ${migrationReport.filters.failed} could not be migrated because errors occurred during their migration. 
+- ${counters.filters.success} were succesfully migrated.
+- ${counters.filters.failed} could not be migrated because errors occurred during their migration. 
 
 # Widgets
-- ${migrationReport.widgets.success} were succesfully migrated.
-- ${migrationReport.widgets.removed} were removed.
-- ${migrationReport.widgets.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
+- ${counters.widgets.success} were succesfully migrated.
+- ${counters.widgets.removed} were removed.
+- ${counters.widgets.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
 
 For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
 This will output a file named \`report.json\` containing the error messages.

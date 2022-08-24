@@ -31,25 +31,29 @@ jest.mock(`./generateId`, () => {
 
 describe("migrateUIFolder", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const [migratedUIFolder, migrationReport, errorReport] =
-      await migrateUIFolder(smallLegacyUIFolder, {
+    const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+      smallLegacyUIFolder,
+      {
         servers,
         doesReportIncludeStacks: false,
-      });
+      },
+    );
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toBeUndefined();
-    expect(migrationReport).toMatchSnapshot();
+    expect(counters).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const [migratedUIFolder, migrationReport, errorReport] =
-      await migrateUIFolder(legacyUIFolder, {
+    const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+      legacyUIFolder,
+      {
         servers,
         doesReportIncludeStacks: false,
-      });
+      },
+    );
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toMatchSnapshot();
-    expect(migrationReport).toMatchSnapshot();
+    expect(counters).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {

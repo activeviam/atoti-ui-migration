@@ -101,7 +101,7 @@ export interface DashboardErrorReport {
 /**
  * The count of migrated files, per migration outcome.
  */
-export type MigrationReport = {
+export type OutcomeCounters = {
   [folderName in "dashboards" | "widgets" | "filters"]: {
     [outcome in "success" | "partial" | "failed" | "removed"]: number;
   };

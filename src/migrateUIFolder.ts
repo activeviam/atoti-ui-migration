@@ -14,7 +14,7 @@ import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 import {
   FileErrorReport,
   ErrorReport,
-  MigrationReport,
+  OutcomeCounters,
 } from "./migration.types";
 import { _getFolderPathNames } from "./_getFolderPathNames";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
@@ -192,6 +192,7 @@ const accumulateStructure = ({
 
 /**
  * Returns the converted UI folder, ready to be used by ActiveUI 5.
+ * Also returns a count of the number of migration successes and failures and an detailed error report.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
  * - for a matching saved ActiveUI 4 widget, no ActiveUI 5 file is created.
@@ -210,10 +211,10 @@ export async function migrateUIFolder(
     doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
   },
-): Promise<[ContentRecord, MigrationReport, ErrorReport?]> {
+): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
   const errorReport: ErrorReport = {};
-  const migrationReport: MigrationReport = {
+  const counters: OutcomeCounters = {
     dashboards: {
       success: 0,
       partial: 0,
@@ -285,9 +286,9 @@ export async function migrateUIFolder(
               content: JSON.stringify(migratedFilter.content),
             },
           };
-          migrationReport.filters.success++;
+          counters.filters.success++;
         } catch (error) {
-          migrationReport.filters.failed++;
+          counters.filters.failed++;
 
           const filterErrorReport: FileErrorReport = createFileErrorReport(
             fileId,
@@ -311,14 +312,14 @@ export async function migrateUIFolder(
           if (dashboardErrorReport) {
             // The dashboard was migrated, but errors were thrown on some of its widgets.
             _set(errorReport, ["dashboards", fileId], dashboardErrorReport);
-            migrationReport.dashboards.partial++;
+            counters.dashboards.partial++;
           } else {
             // The dashboard was fully migrated.
-            migrationReport.dashboards.success++;
+            counters.dashboards.success++;
           }
         } catch (error) {
           // The dashboard could not be migrated at all.
-          migrationReport.dashboards.failed++;
+          counters.dashboards.failed++;
           _set(
             errorReport,
             ["dashboards", fileId],
@@ -341,16 +342,16 @@ export async function migrateUIFolder(
         if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
           // The widget's plugin key is flagged for removal.
           // Remove the widget instead of migrating it.
-          migrationReport.widgets.removed++;
+          counters.widgets.removed++;
           continue;
         }
 
         let migratedWidget = undefined;
         try {
           migratedWidget = migrateWidget(bookmark, servers);
-          migrationReport.widgets.success++;
+          counters.widgets.success++;
         } catch (error) {
-          migrationReport.widgets.failed++;
+          counters.widgets.failed++;
           // The migration failed.
           // The widget state is copied as-is.
           migratedWidget = {
@@ -406,7 +407,7 @@ export async function migrateUIFolder(
 
   return [
     migratedUIFolder,
-    migrationReport,
+    counters,
     Object.keys(errorReport).length > 0 ? errorReport : undefined,
   ];
 }
