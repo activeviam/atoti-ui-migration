@@ -1,7 +1,31 @@
 import yargs from "yargs";
+import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
 import path from "path";
+
+const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
+  {
+    dashboards: {
+      success: "were successfully migrated.",
+      partial:
+        "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
+      failed:
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+    },
+    filters: {
+      success: "were successfully migrated.",
+      failed:
+        "could not be migrated because errors occurred during their migration.",
+    },
+    widgets: {
+      success: "were successfully migrated.",
+      removed:
+        "were removed because their keys were passed in the --remove-widgets option.",
+      failed:
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+    },
+  };
 
 yargs
   .command(
@@ -56,8 +80,8 @@ yargs
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
-      debug: doesCreateReportFile,
-      stack: doesReportIncludeStacks,
+      debug,
+      stack,
     }: {
       inputPath: string;
       outputPath: string;
@@ -79,7 +103,7 @@ yargs
           legacyPivotFolder,
           servers,
           keysOfWidgetPluginsToRemove,
-          doesReportIncludeStacks,
+          doesReportIncludeStacks: debug,
         },
       );
 
@@ -89,37 +113,49 @@ yargs
         spaces: 2,
       });
 
-      if (errorReport) {
-        if (!doesCreateReportFile) {
-          console.log(`--------- END OF CONTENT MIGRATION ---------
-# Dashboards
-- ${counters.dashboards.success} were successfully migrated.
-- ${counters.dashboards.partial} were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.
-- ${counters.dashboards.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
+      console.log("--------- END OF CONTENT MIGRATION ---------\n");
 
-# Filters
-- ${counters.filters.success} were successfully migrated.
-- ${counters.filters.failed} could not be migrated because errors occurred during their migration. 
-
-# Widgets
-- ${counters.widgets.success} were successfully migrated.
-- ${counters.widgets.removed} were removed.
-- ${counters.widgets.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
-
-For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
-This will output a file named \`report.json\` containing the error messages.
-To see the stack traces of the errors in this file, you can also use the \`--stack\` option.
---------------------------------------------`);
-        } else {
-          await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
-            spaces: 2,
+      for (const folderName in counters) {
+        console.log(`# ${_capitalize(folderName)}`);
+        Object.entries(counters).forEach(([folderName, outcomes]) => {
+          Object.entries(outcomes).forEach(([outcome, counter]) => {
+            if (counter > 0) {
+              console.log(
+                `- ${counter} ${summaryMessages[folderName][outcome]}`,
+              );
+            }
           });
-          console.error(
-            "The migration ended with some errors, see `report.json`.",
+        });
+      }
+
+      if (
+        counters.dashboards.failed +
+          counters.dashboards.partial +
+          counters.filters.failed +
+          counters.widgets.failed >
+        0
+      ) {
+        if (!debug) {
+          console.log(`For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
+This will output a file named \`report.json\` containing the error messages.`);
+        } else {
+          console.log(
+            `See report.json for more information about the errors that occurred.`,
           );
         }
-      } else {
-        console.log("The migration ended with no errors.");
+        if (!stack) {
+          console.log(
+            "To see the stack traces of the errors in this file, you can also use the `--stack` option.",
+          );
+        }
+      }
+
+      console.log("--------------------------------------------");
+
+      if (errorReport && debug) {
+        await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
+          spaces: 2,
+        });
       }
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198
