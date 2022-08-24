@@ -21,6 +21,8 @@ import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "./_serializeError";
 
+import cliProgress from "cli-progress";
+
 const _getFolder = (
   record: ContentRecord | undefined,
   path: string[],
@@ -274,6 +276,17 @@ export async function migrateUIFolder(
       error: _serializeError(error, { doesReportIncludeStacks }),
     };
   };
+  const numberOfFiles = Object.keys(legacyContent).length;
+
+  const progressBar = new cliProgress.SingleBar({
+    format: "Migrating files {bar} | {value}/{total}",
+    barCompleteChar: "\u2588",
+    barIncompleteChar: "\u2591",
+    hideCursor: true,
+    stopOnComplete: true,
+    clearOnComplete: true,
+  });
+  progressBar.start(numberOfFiles, 0);
 
   for (const fileId in legacyContent) {
     const { entry } = legacyContent[fileId];
@@ -451,6 +464,7 @@ export async function migrateUIFolder(
         }
       }
     }
+    progressBar.increment();
   }
 
   accumulateStructure({
