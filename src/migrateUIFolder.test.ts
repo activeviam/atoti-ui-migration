@@ -8,6 +8,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk";
 import { LegacyDashboardState } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
+import { smallLegacyUIFolderWithInvalidDashboard } from "./__test_resources__/smallLegacyUIFolderWithInvalidDashboard";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
@@ -131,12 +132,70 @@ describe("migrateUIFolder", () => {
     `);
   });
 
+  it("returns an error report for dashboards and handles the dashboard id being a number", async () => {
+    const [migratedFolder, counters, errorReport] = await migrateUIFolder(
+      smallLegacyUIFolderWithInvalidDashboard,
+      {
+        servers,
+        doesReportIncludeStacks: false,
+      },
+    );
+
+    expect(
+      migratedFolder.children?.dashboards?.children?.content?.children?.["158"],
+    ).toMatchInlineSnapshot(`
+      Object {
+        "entry": Object {
+          "canRead": true,
+          "canWrite": true,
+          "content": "{\\"pages\\":{\\"p-0\\":{\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"2\\"},{\\"leafKey\\":\\"1\\"}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 1\\",\\"filters\\":[],\\"content\\":{\\"1\\":{\\"serverUrl\\":\\"\\",\\"mdx\\":\\"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [foo] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\",\\"contextValues\\":{\\"mdx.hiddengrandtotals\\":\\"1\\"},\\"updateMode\\":\\"once\\",\\"ranges\\":{\\"row\\":{\\"chunkSize\\":2000,\\"thresholdPercentage\\":0.1},\\"column\\":{\\"chunkSize\\":50,\\"thresholdPercentage\\":0.2}},\\"configuration\\":{\\"tabular\\":{\\"pinnedHeaderSelector\\":\\"member\\",\\"sortingMode\\":\\"non-breaking\\",\\"addButtonFilter\\":\\"numeric\\",\\"cellRenderers\\":[\\"tree-layout\\"],\\"statisticsShown\\":true,\\"columnsGroups\\":[{\\"captionProducer\\":\\"firstColumn\\",\\"cellFactory\\":\\"kpi-status\\",\\"selector\\":\\"kpi-status\\"},{\\"captionProducer\\":\\"firstColumn\\",\\"cellFactory\\":\\"lookup\\",\\"selector\\":\\"lookup\\"},{\\"captionProducer\\":\\"expiry\\",\\"cellFactory\\":\\"expiry\\",\\"selector\\":\\"kpi-expiry\\"},{\\"captionProducer\\":\\"columnMerge\\",\\"cellFactory\\":{\\"args\\":{},\\"key\\":\\"treeCells\\"},\\"selector\\":\\"member\\"}],\\"hideAddButton\\":true,\\"defaultOptions\\":{},\\"expansion\\":{\\"automaticExpansion\\":true}}},\\"name\\":\\"Untitled Pivot Table\\",\\"widgetKey\\":\\"pivot-table\\"},\\"2\\":{\\"switchedTo\\":\\"plotly-clustered-column-chart\\",\\"mapping\\":{\\"xAxis\\":[\\"[Currency].[Currency].[Currency]\\"],\\"values\\":[\\"[Measures].[pnl.FOREX]\\"],\\"secondaryValues\\":[],\\"splitBy\\":[\\"[Booking].[Desk].[LegalEntity]\\",\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"query\\":{\\"mdx\\":\\"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube]\\",\\"updateMode\\":\\"once\\"},\\"filters\\":[],\\"queryContext\\":[],\\"serverKey\\":\\"my-server\\",\\"name\\":\\"Untitled Chart\\",\\"widgetKey\\":\\"plotly-line-chart\\"}},\\"queryContext\\":[]}},\\"pagesOrder\\":[\\"p-0\\"],\\"filters\\":[],\\"queryContext\\":[]}",
+          "isDirectory": false,
+          "lastEditor": "admin",
+          "owners": Array [
+            "admin",
+          ],
+          "readers": Array [
+            "admin",
+          ],
+          "timestamp": 1607879735685,
+        },
+      }
+    `);
+
+    expect(counters.dashboards.partial).toEqual(1);
+    expect(counters.dashboards.success).toEqual(0);
+    expect(errorReport).toMatchInlineSnapshot(`
+      Object {
+        "dashboards": Object {
+          "158": Object {
+            "folderId": Array [],
+            "folderName": Array [],
+            "name": "hidden grand totals",
+            "pages": Object {
+              "p-0": Object {
+                "pageName": "Page 1",
+                "widgets": Object {
+                  "1": Object {
+                    "error": Object {
+                      "message": "Cube not found: \\"foo\\". Available cubes are [\\"EquityDerivativesCube\\",\\"EquityDerivativesCubeDist\\"]",
+                    },
+                    "widgetName": "Untitled Pivot Table",
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
+    `);
+  });
+
   it("copies invalid filters as-is and reports an error", async () => {
     const [migratedFolder, counters, errorReport] = await migrateUIFolder(
       smallLegacyUIFolderWithInvalidFilter,
       {
         servers,
-        doesReportIncludeStacks: true,
+        doesReportIncludeStacks: false,
       },
     );
 
@@ -168,18 +227,6 @@ describe("migrateUIFolder", () => {
           "158": Object {
             "error": Object {
               "message": "Cannot read properties of undefined (reading 'mdx')",
-              "stack": Array [
-                "TypeError: Cannot read properties of undefined (reading 'mdx')",
-                "    at migrateFilter (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateFilter.ts:21:40)",
-                "    at migrateUIFolder (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateUIFolder.ts:280:34)",
-                "    at Object.<anonymous> (C:\\\\dev\\\\activeui-migration\\\\src\\\\migrateUIFolder.test.ts:135:59)",
-                "    at Object.asyncJestTest (C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\jasmineAsyncInstall.js:106:37)",
-                "    at C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:45:12",
-                "    at new Promise (<anonymous>)",
-                "    at mapper (C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:28:19)",
-                "    at C:\\\\dev\\\\activeui-migration\\\\node_modules\\\\jest-jasmine2\\\\build\\\\queueRunner.js:75:41",
-                "    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
-              ],
             },
             "folderId": Array [],
             "folderName": Array [],
