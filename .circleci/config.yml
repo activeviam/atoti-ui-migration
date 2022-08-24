@@ -13,7 +13,7 @@ jobs:
   build-and-test:
     executor:
       name: node/default
-      tag: "14.2.0"
+      tag: "16.13.0"
     resource_class: small
     steps:
       - checkout
