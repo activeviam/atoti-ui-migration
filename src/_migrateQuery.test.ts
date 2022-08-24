@@ -7,19 +7,12 @@ const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 
 describe("_migrateQuery", () => {
   it("warns if the updateMode is the legacy 'refresh-periodically'", () => {
-    const warn = console.warn;
-    console.warn = jest.fn();
-    try {
-      const legacyQuery: LegacyQuery = {
-        mdx: "SELECT FROM [EquityDerivativesCube]",
-        updateMode: "refresh-periodically",
-      };
-      _migrateQuery({ legacyQuery, cube });
-      expect(console.warn).toHaveBeenCalledTimes(1);
-      expect(console.warn).toHaveBeenCalledWith(
-        "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
-      );
-      expect(_migrateQuery({ legacyQuery, cube })).toMatchInlineSnapshot(`
+    const legacyQuery: LegacyQuery = {
+      mdx: "SELECT FROM [EquityDerivativesCube]",
+      updateMode: "refresh-periodically",
+    };
+    _migrateQuery({ legacyQuery, cube });
+    expect(_migrateQuery({ legacyQuery, cube })).toMatchInlineSnapshot(`
         Object {
           "filters": Array [],
           "query": Object {
@@ -39,9 +32,6 @@ describe("_migrateQuery", () => {
           "queryContext": Array [],
         }
       `);
-    } finally {
-      console.warn = warn;
-    }
   });
 
   it("gracefully handles an empty MDX", () => {

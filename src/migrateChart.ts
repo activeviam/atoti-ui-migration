@@ -36,6 +36,7 @@ import type {
 } from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
+import { UnsupportedLegacyChartTypeError } from "./errors/UnsupportedLegacyChartTypeError";
 
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [
@@ -242,12 +243,7 @@ export function migrateChart(
   const migratedWidgetKey = _getMigratedWidgetKey(legacyChartType);
 
   if (migratedWidgetKey === undefined) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`,
-    );
-
-    return legacyChartState;
+    throw new UnsupportedLegacyChartTypeError(type);
   }
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.

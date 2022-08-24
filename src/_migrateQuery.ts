@@ -47,12 +47,6 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
 } => {
   const { mdx, updateMode, contextValues } = legacyQuery;
 
-  if (updateMode === "refresh-periodically") {
-    // eslint-disable-next-line no-console
-    console.warn(
-      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Falling back on 'once'",
-    );
-  }
   // The checks ensure that the migratedUpdateMode is necessarily defined.
   const migratedUpdateMode = (
     !updateMode || updateMode === "refresh-periodically"
