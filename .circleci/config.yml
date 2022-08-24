@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@2.1.0
 
 commands:
   login:
@@ -13,7 +13,7 @@ jobs:
   build-and-test:
     executor:
       name: node/default
-      tag: "16.13.0"
+      tag: "14.2.0"
     resource_class: small
     steps:
       - checkout
