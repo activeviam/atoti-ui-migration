@@ -62,7 +62,7 @@ export interface LegacyDashboardState {
 }
 
 /**
- * Holds details about a generic migration error for a given file.
+ * A generic migration error report for a given file (e.g. a given dashboard, widget, filter, ...).
  */
 export interface FileErrorReport {
   // The id of each parent folder, from the root down to the direct parent.
@@ -79,7 +79,7 @@ export interface FileErrorReport {
 }
 
 /**
- * Holds details about migration errors that occurred for widgets within a dashboard.
+ * Report of errors that occurred during the migration of the /ui/dashboards folder.
  */
 export interface DashboardMigrationReport {
   pages: {
@@ -112,7 +112,8 @@ export interface MigrationReport {
 }
 
 /**
- * Holds details about errors to be reported if the users enables producing an error report at the end of the migration script.
+ * Report of errors that occurred during the migration of the /ui folder.
+ * Output in `./report.json` if the user activates the `--debug` option.
  */
 export interface ErrorReport {
   dashboards?: {
