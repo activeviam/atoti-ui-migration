@@ -19,7 +19,7 @@ import { migrateWidget } from "./migrateWidget";
 import type {
   LegacyDashboardState,
   LegacyDashboardPage,
-  DashboardMigrationReport,
+  DashboardErrorReport,
 } from "./migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
@@ -46,10 +46,10 @@ export function migrateDashboard(
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
   },
-): [DashboardState<"serialized">, DashboardMigrationReport?] {
+): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-  const dashboardMigrationReport: DashboardMigrationReport = {
+  const errorReport: DashboardErrorReport = {
     pages: {},
   };
   const keysOfLeavesToRemove: {
@@ -78,13 +78,13 @@ export function migrateDashboard(
             widgetKey: widgetPluginKey,
           };
 
-          if (!dashboardMigrationReport.pages[pageKey]) {
-            dashboardMigrationReport.pages[pageKey] = {
+          if (!errorReport.pages[pageKey]) {
+            errorReport.pages[pageKey] = {
               pageName: legacyPage.name,
               widgets: {},
             };
           }
-          dashboardMigrationReport.pages[pageKey].widgets[dashboardLeafKey] = {
+          errorReport.pages[pageKey].widgets[dashboardLeafKey] = {
             widgetName: widget.bookmark.name,
             error: _serializeError(error, { doesReportIncludeStacks }),
           };
@@ -159,8 +159,6 @@ export function migrateDashboard(
 
   return [
     serializeDashboardState(dashboardWithWidgetsRemoved),
-    Object.keys(dashboardMigrationReport.pages).length > 0
-      ? dashboardMigrationReport
-      : undefined,
+    Object.keys(errorReport.pages).length > 0 ? errorReport : undefined,
   ];
 }

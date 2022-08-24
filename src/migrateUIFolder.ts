@@ -1,8 +1,6 @@
 import _cloneDeep from "lodash/cloneDeep";
-import _setWith from "lodash/setWith";
 import _set from "lodash/set";
 import _omit from "lodash/omit";
-import _isError from "lodash/isError";
 
 import { ContentRecord, DataModel, MdxString } from "@activeviam/activeui-sdk";
 import { emptyUIFolder } from "@activeviam/content-server-initialization";
@@ -14,7 +12,6 @@ import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 import {
-  DashboardMigrationReport,
   FileErrorReport,
   ErrorReport,
   MigrationReport,
@@ -298,32 +295,35 @@ export async function migrateUIFolder(
             error,
           );
 
-          _setWith(errorReport, ["filters", fileId], filterErrorReport, Object);
+          _set(errorReport, ["filters", fileId], filterErrorReport);
         }
       } else if (bookmark.value.containerKey === "dashboard") {
-        let dashboardMigrationReport: DashboardMigrationReport | undefined =
-          undefined;
-        let fileErrorReport: FileErrorReport | undefined = undefined;
         let migratedDashboard;
 
         try {
-          const [successfullyMigratedDashboard, dashboardReport] =
+          const [successfullyMigratedDashboard, dashboardErrorReport] =
             migrateDashboard(bookmark, {
               servers,
               keysOfWidgetPluginsToRemove,
               doesReportIncludeStacks,
             });
-          dashboardMigrationReport = dashboardReport;
           migratedDashboard = successfullyMigratedDashboard;
-          if (dashboardReport) {
+          if (dashboardErrorReport) {
+            // The dashboard was migrated, but errors were thrown on some of its widgets.
+            _set(errorReport, ["dashboards", fileId], dashboardErrorReport);
             migrationReport.dashboards.partial++;
           } else {
+            // The dashboard was fully migrated.
             migrationReport.dashboards.success++;
           }
         } catch (error) {
+          // The dashboard could not be migrated at all.
           migrationReport.dashboards.failed++;
-
-          fileErrorReport = createFileErrorReport(fileId, bookmark.name, error);
+          _set(
+            errorReport,
+            ["dashboards", fileId],
+            createFileErrorReport(fileId, bookmark.name, error),
+          );
           migratedDashboard = bookmark;
         }
 
@@ -336,19 +336,11 @@ export async function migrateUIFolder(
             content: JSON.stringify(_omit(migratedDashboard, ["name"])),
           },
         };
-
-        if (dashboardMigrationReport || fileErrorReport) {
-          _setWith(
-            errorReport,
-            ["dashboards", fileId],
-            dashboardMigrationReport || fileErrorReport,
-            Object,
-          );
-        }
       } else {
         const legacyWidgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
-        // Ignore widgets whose plugin keys that have been flagged for removal.
         if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
+          // The widget's plugin key is flagged for removal.
+          // Remove the widget instead of migrating it.
           migrationReport.widgets.removed++;
           continue;
         }
@@ -359,20 +351,19 @@ export async function migrateUIFolder(
           migrationReport.widgets.success++;
         } catch (error) {
           migrationReport.widgets.failed++;
-          // Migration failed, the widget state is migrated as-is.
+          // The migration failed.
+          // The widget state is copied as-is.
           migratedWidget = {
             ...bookmark.value.body,
             name: bookmark.name,
             widgetKey: legacyWidgetPluginKey,
           };
 
-          // Whatever the error type, an error report is created.
-          const widgetErrorReport: FileErrorReport = createFileErrorReport(
-            fileId,
-            bookmark.name,
-            error,
+          _set(
+            errorReport,
+            ["widgets", fileId],
+            createFileErrorReport(fileId, bookmark.name, error),
           );
-          _setWith(errorReport, ["widgets", fileId], widgetErrorReport, Object);
         }
 
         if (migratedWidget) {
