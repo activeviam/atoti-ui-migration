@@ -98,18 +98,14 @@ export interface DashboardMigrationReport {
   };
 }
 
-interface MigrationStats {
-  success: number;
-  partial: number;
-  failed: number;
-  removed: number;
-}
-
-export interface MigrationReport {
-  dashboards: MigrationStats;
-  widgets: MigrationStats;
-  filters: MigrationStats;
-}
+/**
+ * The count of migrated files, per migration outcome.
+ */
+export type MigrationReport = {
+  [folderName in "dashboards" | "widgets" | "filters"]: {
+    [outcome in "success" | "partial" | "failed" | "removed"]: number;
+  };
+};
 
 /**
  * Report of errors that occurred during the migration of the /ui folder.
