@@ -124,7 +124,7 @@ export interface ErrorReport {
     | FileErrorReport
       // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
       // This should happen more frequently.
-      // In this case, the dashboard should be migrated succesfully, except for the widgets which threw errors.
+      // In this case, the dashboard should be migrated successfully, except for the widgets which threw errors.
       // These widgets should be copied as is into the new dashboard.
       | DashboardMigrationReport;
   };
