@@ -93,16 +93,16 @@ yargs
         if (!doesCreateReportFile) {
           console.log(`--------- END OF CONTENT MIGRATION ---------
 # Dashboards
-- ${counters.dashboards.success} were succesfully migrated.
+- ${counters.dashboards.success} were successfully migrated.
 - ${counters.dashboards.partial} were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.
 - ${counters.dashboards.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
 
 # Filters
-- ${counters.filters.success} were succesfully migrated.
+- ${counters.filters.success} were successfully migrated.
 - ${counters.filters.failed} could not be migrated because errors occurred during their migration. 
 
 # Widgets
-- ${counters.widgets.success} were succesfully migrated.
+- ${counters.widgets.success} were successfully migrated.
 - ${counters.widgets.removed} were removed.
 - ${counters.widgets.failed} could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.
 
