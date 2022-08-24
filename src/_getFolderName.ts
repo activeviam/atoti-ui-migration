@@ -3,7 +3,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk";
 /**
  * Returns an array containing the names of each folder identified by their ids in `pathOfIds`.
  */
-export function _getFolderPathNames(
+export function _getFolderName(
   contentTree: { [childId: string]: ContentRecord },
   pathOfIds: string[],
 ): string[] {

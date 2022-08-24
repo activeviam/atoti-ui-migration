@@ -16,7 +16,7 @@ import {
   ErrorReport,
   OutcomeCounters,
 } from "./migration.types";
-import { _getFolderPathNames } from "./_getFolderPathNames";
+import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "./_serializeError";
 
@@ -262,7 +262,7 @@ export async function migrateUIFolder(
 
     return {
       folderId,
-      folderName: _getFolderPathNames(legacyContent, folderId),
+      folderName: _getFolderName(legacyContent, folderId),
       name,
       error: _serializeError(error, { doesReportIncludeStacks }),
     };

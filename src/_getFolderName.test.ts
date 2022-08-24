@@ -1,6 +1,6 @@
-import { _getFolderPathNames } from "./_getFolderPathNames";
+import { _getFolderName } from "./_getFolderName";
 
-describe("_getFolderPathNames", () => {
+describe("_getFolderName", () => {
   const entryData = {
     isDirectory: true,
     owners: ["admin"],
@@ -32,12 +32,12 @@ describe("_getFolderPathNames", () => {
   };
 
   it("returns an empty array if `pathOfIds` is empty", () => {
-    expect(_getFolderPathNames(legacyBookmarkContentFolder, [])).toEqual([]);
+    expect(_getFolderName(legacyBookmarkContentFolder, [])).toEqual([]);
   });
 
   it("returns the names of the folders identified by `pathOfIds`", () => {
     expect(
-      _getFolderPathNames(legacyBookmarkContentFolder, [
+      _getFolderName(legacyBookmarkContentFolder, [
         "folder1",
         "folder2",
         "folder3",
