@@ -20,7 +20,7 @@ import {
   MigrationReport,
 } from "./migration.types";
 import { _getFolderPathNames } from "./_getFolderPathNames";
-import { _getContentRecordPaths } from "./_getContentRecordPaths";
+import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -252,21 +252,21 @@ export async function migrateUIFolder(
   const legacyStructure =
     legacyUIFolder?.children?.bookmarks?.children?.structure!;
 
-  const contentRecordToPaths = _getContentRecordPaths(legacyStructure);
+  const mapOfFolderIds = _getMapOfFolderIds(legacyStructure);
 
   const createFileErrorReport = (
-    id: string,
+    fileId: string,
     name: string,
     error: {
       message: string;
       stackTrace?: string[];
     },
   ): FileErrorReport => {
-    const pathToParentFolder = contentRecordToPaths[id];
+    const folderId = mapOfFolderIds[fileId];
 
     return {
-      folderId: pathToParentFolder,
-      folderName: _getFolderPathNames(legacyContent, pathToParentFolder),
+      folderId,
+      folderName: _getFolderPathNames(legacyContent, folderId),
       name,
       error: {
         message: error.message,

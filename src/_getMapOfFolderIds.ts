@@ -14,14 +14,14 @@ function addChildren(
 }
 
 /**
- * Iterates over `structure` and returns a map of all record ids mapped to their path.
+ * Iterates over `structure` and returns a map from file id to the ids of the parent folders of the file.
  */
-export function _getContentRecordPaths(legacyStructure: ContentRecord): {
-  [id: string]: string[];
+export function _getMapOfFolderIds(structure: ContentRecord): {
+  [fileId: string]: string[];
 } {
-  const contentRecordToPath: { [id: string]: string[] } = {};
+  const mapOfFolderIds: { [id: string]: string[] } = {};
 
-  addChildren(legacyStructure, [], contentRecordToPath);
+  addChildren(structure, [], mapOfFolderIds);
 
-  return contentRecordToPath;
+  return mapOfFolderIds;
 }
