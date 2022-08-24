@@ -316,14 +316,14 @@ export async function migrateUIFolder(
         let migratedDashboard;
 
         try {
-          const [succesfullyMigratedDashboard, dashboardReport] =
+          const [successfullyMigratedDashboard, dashboardReport] =
             migrateDashboard(bookmark, {
               servers,
               keysOfWidgetPluginsToRemove,
               doesIncludeStacktracesInErrorReport,
             });
           dashboardMigrationReport = dashboardReport;
-          migratedDashboard = succesfullyMigratedDashboard;
+          migratedDashboard = successfullyMigratedDashboard;
           if (dashboardReport) {
             migrationReport.dashboards.partial++;
           } else {
@@ -361,7 +361,7 @@ export async function migrateUIFolder(
         }
       } else {
         const legacyWidgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
-        // Ignore widgets whose pluigin keys that have been flagged for removal.
+        // Ignore widgets whose plugin keys that have been flagged for removal.
         if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
           migrationReport.widgets.removed++;
           continue;
