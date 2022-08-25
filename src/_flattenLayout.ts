@@ -7,7 +7,7 @@ import type { LegacyLayout, LegacyLayoutLeaf } from "./migration.types";
  * Recursively transforms the `children` property of the legacyLayout from objects to arrays.
  */
 export const _convertFromLegacyLayout = (
-  legacyLayout: LegacyLayout | LegacyLayoutLeaf
+  legacyLayout: LegacyLayout | LegacyLayoutLeaf,
 ): Layout | LayoutLeaf => {
   if (isLegacyLayoutLeaf(legacyLayout)) {
     return {
@@ -18,7 +18,7 @@ export const _convertFromLegacyLayout = (
   return {
     ...legacyLayout,
     children: Object.values(legacyLayout.children || []).map(
-      _convertFromLegacyLayout
+      _convertFromLegacyLayout,
     ),
   };
 };
