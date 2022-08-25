@@ -13,7 +13,7 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in ActiveUI 4.",
     },
     filters: {
       success: "were successfully migrated.",
