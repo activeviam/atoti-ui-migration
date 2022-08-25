@@ -25,7 +25,7 @@ describe("_getQueryInLegacyWidgetState", () => {
             },
           },
         },
-      }),
+      })
     ).toMatchInlineSnapshot(`
       Object {
         "contextValues": Object {},
