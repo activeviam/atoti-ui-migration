@@ -12,6 +12,7 @@ import {
   pluginWidgetTable,
   pluginWidgetTreeTable,
 } from "@activeviam/activeui-sdk";
+import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -38,10 +39,11 @@ export function migrateTable(
     servers,
   });
 
-  const { query, filters, queryContext } = _migrateQuery<MdxSelect>({
-    legacyQuery,
-    cube,
-  });
+  const [{ query, filters, queryContext }, isUsingUnsupportedUpdateMode] =
+    _migrateQuery<MdxSelect>({
+      legacyQuery,
+      cube,
+    });
 
   const legacyColumnsGroups =
     legacyTableState.value.body?.configuration?.tabular?.columnsGroups ?? [];
@@ -82,5 +84,11 @@ export function migrateTable(
     columnWidths,
   };
 
-  return serializeWidgetState(migratedWidgetState);
+  const serializedWidgetState = serializeWidgetState(migratedWidgetState);
+
+  if (isUsingUnsupportedUpdateMode) {
+    throw new UnsupportedLegacyQueryUpdateModeError(serializedWidgetState);
+  }
+
+  return serializedWidgetState;
 }

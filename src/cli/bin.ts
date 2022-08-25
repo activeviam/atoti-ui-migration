@@ -24,6 +24,7 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
     },
     widgets: {
       success: "were successfully migrated.",
+      partial: "were migrated with warnings.",
       removed:
         "were removed because their keys were passed in the --remove-widgets option or their path could not be resolved.",
       failed:
@@ -145,14 +146,6 @@ yargs
           counters.widgets.failed >
         0
       ) {
-        console.log("\nRemarks:");
-        console.log(
-          "- the `text-editor` widget is not part of the plugin registry in the ActiveUI 5 starter. Make sure to add it in your project, see https://activeviam.com/activeui/documentation/latest/docs/tutorial/your-first-custom-widget#extend-activeui.",
-        ),
-          console.log(
-            "- the 'refresh-periodically' mode for query updates is not supported in ActiveUI 5. Impacted widgets will fall back to 'once'.\n",
-          );
-
         if (!debug) {
           console.log(`For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
 This will output a file named \`report.json\` containing the error messages.`);

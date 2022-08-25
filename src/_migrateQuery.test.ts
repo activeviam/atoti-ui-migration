@@ -11,8 +11,11 @@ describe("_migrateQuery", () => {
       mdx: "SELECT FROM [EquityDerivativesCube]",
       updateMode: "refresh-periodically",
     };
-    _migrateQuery({ legacyQuery, cube });
-    expect(_migrateQuery({ legacyQuery, cube })).toMatchInlineSnapshot(`
+    const [migratedQuery, isUsingUnsupportedUpdateMode] = _migrateQuery({
+      legacyQuery,
+      cube,
+    });
+    expect(migratedQuery).toMatchInlineSnapshot(`
         Object {
           "filters": Array [],
           "query": Object {
@@ -32,21 +35,27 @@ describe("_migrateQuery", () => {
           "queryContext": Array [],
         }
       `);
+    expect(isUsingUnsupportedUpdateMode).toBe(true);
   });
 
   it("gracefully handles an empty MDX", () => {
-    expect(_migrateQuery({ legacyQuery: { mdx: "" }, cube })).toEqual({
+    const [migratedQuery, isUsingUnsupportedUpdateMode] = _migrateQuery({
+      legacyQuery: { mdx: "" },
+      cube,
+    });
+    expect(migratedQuery).toEqual({
       query: { updateMode: "once" },
       queryContext: [],
       filters: [],
     });
+    expect(isUsingUnsupportedUpdateMode).toBe(false);
   });
 
   it("strips filters from the MDX and returns them in the output", () => {
     const legacyQuery = {
       mdx: "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
     };
-    const { query, filters } = _migrateQuery({ legacyQuery, cube })!;
+    const [{ query, filters }] = _migrateQuery({ legacyQuery, cube })!;
     expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
@@ -86,9 +95,11 @@ describe("_migrateQuery", () => {
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS`,
     };
 
-    const {
-      query: { mdx },
-    } = _migrateQuery({ legacyQuery, cube })!;
+    const [
+      {
+        query: { mdx },
+      },
+    ] = _migrateQuery({ legacyQuery, cube })!;
 
     expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
       "SELECT

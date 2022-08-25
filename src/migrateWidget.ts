@@ -9,10 +9,11 @@ import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
+import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrationError";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
- * Throws {@link WidgetMigrationError} if the legacy widget is not recognized.
+ * Throws {@link UnsupportedWidgetKeyError} if the legacy widget is not recognized.
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
@@ -32,7 +33,9 @@ export function migrateWidget(
     case "drillthrough":
       return migrateDrillthrough(legacyWidgetState, servers);
     case "rich-text-editor":
-      return migrateTextEditor(legacyWidgetState);
+      throw new TextEditorWidgetMigrationError(
+        migrateTextEditor(legacyWidgetState),
+      );
     default:
       throw new UnsupportedWidgetKeyError(widgetPluginKey);
   }

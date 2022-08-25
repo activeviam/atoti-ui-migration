@@ -20,6 +20,7 @@ import {
 import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "./_serializeError";
+import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -415,15 +416,19 @@ export async function migrateUIFolder(
             migratedWidget = migrateWidget(bookmark, servers);
             counters.widgets.success++;
           } catch (error) {
-            counters.widgets.failed++;
-            // The migration failed.
-            // The widget state is copied as-is.
-            migratedWidget = {
-              ...bookmark.value.body,
-              name: bookmark.name,
-              widgetKey: legacyWidgetPluginKey,
-            };
-
+            if (error instanceof ErrorContainingMigratedState) {
+              counters.widgets.partial++;
+              migratedWidget = error.migratedWidgetState;
+            } else {
+              counters.widgets.failed++;
+              // The migration failed.
+              // The widget state is copied as-is.
+              migratedWidget = {
+                ...bookmark.value.body,
+                name: bookmark.name,
+                widgetKey: legacyWidgetPluginKey,
+              };
+            }
             // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.

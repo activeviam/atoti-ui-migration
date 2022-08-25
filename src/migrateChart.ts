@@ -37,6 +37,7 @@ import type {
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
 import { UnsupportedLegacyChartTypeError } from "./errors/UnsupportedLegacyChartTypeError";
+import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [
@@ -263,11 +264,10 @@ export function migrateChart(
     servers,
   });
 
-  const {
-    query: migratedQuery,
-    filters: extractedFilters,
-    queryContext,
-  } = _migrateQuery<MdxSelect>({ legacyQuery, cube });
+  const [
+    { query: migratedQuery, filters: extractedFilters, queryContext },
+    isUsingUnsupportedUpdateMode,
+  ] = _migrateQuery<MdxSelect>({ legacyQuery, cube });
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
   const query = (
@@ -290,7 +290,7 @@ export function migrateChart(
     widgetPlugin,
   );
 
-  return {
+  const migratedChartState = {
     ...configuration,
     mapping,
     query,
@@ -300,4 +300,10 @@ export function migrateChart(
     name: widgetName,
     widgetKey: migratedWidgetKey,
   };
+
+  if (isUsingUnsupportedUpdateMode) {
+    throw new UnsupportedLegacyQueryUpdateModeError(migratedChartState);
+  }
+
+  return migratedChartState;
 }

@@ -25,6 +25,7 @@ import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { _serializeError } from "./_serializeError";
+import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5.
@@ -70,12 +71,15 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
         } catch (error) {
-          migratedWidget = {
-            ...widget.bookmark.value.body,
-            name: widget.bookmark.name,
-            widgetKey: widgetPluginKey,
-          };
-
+          if (error instanceof ErrorContainingMigratedState) {
+            migratedWidget = error.migratedWidgetState;
+          } else {
+            migratedWidget = {
+              ...widget.bookmark.value.body,
+              name: widget.bookmark.name,
+              widgetKey: widgetPluginKey,
+            };
+          }
           if (!pagesHavingErrors[pageKey]) {
             pagesHavingErrors[pageKey] = {
               pageName: legacyPage.name,
@@ -87,6 +91,7 @@ export function migrateDashboard(
             error: _serializeError(error, { doesReportIncludeStacks }),
           };
         }
+
         if (migratedWidget) {
           content[dashboardLeafKey] = migratedWidget;
         }

@@ -32,7 +32,8 @@ export interface LegacyQuery {
 }
 
 /**
- * Returns the query, filters and context corresponding to the given legacy query.
+ * Returns an array whose first item contains the query, filters and context corresponding to the given legacy query.
+ * The second item indicates wheter an unsupported update mode was used in the legacy query.
  */
 export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   legacyQuery,
@@ -40,16 +41,22 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
 }: {
   legacyQuery: LegacyQuery;
   cube: Cube;
-}): {
-  query: { mdx?: T; updateMode: UpdateMode };
-  filters: Mdx[];
-  queryContext: QueryContextEntry[];
-} => {
+}): [
+  {
+    query: { mdx?: T; updateMode: UpdateMode };
+    filters: Mdx[];
+    queryContext: QueryContextEntry[];
+  },
+  boolean,
+] => {
   const { mdx, updateMode, contextValues } = legacyQuery;
+  const isUsingUnsupportedUpdateMode = updateMode === "refresh-periodically";
 
   // The checks ensure that the migratedUpdateMode is necessarily defined.
   const migratedUpdateMode = (
-    !updateMode || updateMode === "refresh-periodically"
+    !updateMode ||
+    // Repeating this comparison, the current version of typescript can't seem to infer that `migratedUpdateMode` is an `UpdateMode` when using `isUsingUnsupportedUpdateMode`.
+    updateMode === "refresh-periodically"
       ? // On AUI4, the default update mode could have been defined through setting `queries.defaultUpdateMode`.
         // It is not taken into account here.
         "once"
@@ -59,11 +66,14 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   const queryContext = _migrateContextValues(contextValues);
 
   if (!mdx) {
-    return {
-      query: { updateMode: migratedUpdateMode },
-      queryContext,
-      filters: [],
-    };
+    return [
+      {
+        query: { updateMode: migratedUpdateMode },
+        queryContext,
+        filters: [],
+      },
+      isUsingUnsupportedUpdateMode,
+    ];
   }
 
   const parsedMdx = parse<T>(mdx);
@@ -74,10 +84,13 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   const mdxWithoutFilters = setFilters(fixedMdx, { filters: [], cube });
 
   // TODO UI-5036 Migrate query ranges.
-  return {
-    // Migrating the query preserves its type.
-    query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
-    filters,
-    queryContext,
-  };
+  return [
+    {
+      // Migrating the query preserves its type.
+      query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
+      filters,
+      queryContext,
+    },
+    isUsingUnsupportedUpdateMode,
+  ];
 };
