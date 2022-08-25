@@ -131,4 +131,7 @@ export interface ErrorReport {
   filters?: {
     [filterId: string]: FileErrorReport;
   };
+  folders?: {
+    [folderId: string]: FileErrorReport;
+  };
 }

@@ -285,15 +285,33 @@ export async function migrateUIFolder(
       // Ignoring files that do not have a matching entry in `structure`.
       // These files are corrupted and already unreachable to the legacy application.
       if (mapOfFolderIds[fileId] === undefined) {
+        let errorReportSection;
         if (bookmark.type === "folder") {
           counters.folders.removed++;
+          errorReportSection = "folders";
         } else if (bookmark.type === "mdx") {
           counters.filters.removed++;
+          errorReportSection = "filters";
         } else if (bookmark.value.containerKey === "dashboard") {
           counters.dashboards.removed++;
+          errorReportSection = "dashboards";
         } else {
           counters.widgets.removed++;
+          errorReportSection = "widgets";
         }
+
+        _setWith(
+          errorReport,
+          [errorReportSection, fileId],
+          {
+            name: bookmark.name,
+            error: {
+              message:
+                "This file is cleaned up because it could not be found in the `ui/dashboards/structure` folder. They were already not visible in ActiveUI 4.",
+            },
+          },
+          Object,
+        );
       } else {
         if (bookmark.type === "folder") {
           folders[fileId] = { name: bookmark.name };
