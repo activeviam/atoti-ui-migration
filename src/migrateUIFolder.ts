@@ -347,14 +347,14 @@ export async function migrateUIFolder(
           let migratedDashboard;
 
           try {
-            const [successfullyMigratedDashboard, dashboardPagesErrorReport] =
+            const [successfullyMigratedDashboard, dashboardErrorReport] =
               migrateDashboard(bookmark, {
                 servers,
                 keysOfWidgetPluginsToRemove,
                 doesReportIncludeStacks,
               });
             migratedDashboard = successfullyMigratedDashboard;
-            if (dashboardPagesErrorReport) {
+            if (dashboardErrorReport) {
               // The dashboard was migrated, but errors were thrown on some of its widgets.
               counters.dashboards.partial++;
 
@@ -366,10 +366,9 @@ export async function migrateUIFolder(
                 errorReport,
                 ["dashboards", fileId],
                 {
-                  name: bookmark.name,
+                  ...dashboardErrorReport,
                   folderId,
                   folderName: _getFolderName(legacyContent, folderId),
-                  pages: dashboardPagesErrorReport,
                 },
                 Object,
               );

@@ -28,13 +28,15 @@ import { _serializeError } from "./_serializeError";
 import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
 
 /**
- * Returns the converted dashboard state, ready to be used in ActiveUI 5.
+ * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
  * Specifically:
  *    Flattens value and value.body.
  *    Transforms pages contents from arrays to map, to make access to pages and pages state faster.
  *    Transform the pages layouts from a binary tree into a tree of minimal depth, making widgets resizing more natural.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated: they are removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
+ *
+ * The error report omits `folderId` and `folderName`: these are populated by the caller.
  */
 export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
@@ -47,10 +49,16 @@ export function migrateDashboard(
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
   },
-): [DashboardState<"serialized">, DashboardErrorReport["pages"]?] {
+): [
+  DashboardState<"serialized">,
+  Omit<DashboardErrorReport, "folderId" | "folderName">?,
+] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-  const pagesHavingErrors: DashboardErrorReport["pages"] = {};
+  const errorReport: Omit<DashboardErrorReport, "folderId" | "folderName"> = {
+    name: legacyDashboardState.name,
+    pages: {},
+  };
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
   } = {};
@@ -80,13 +88,13 @@ export function migrateDashboard(
               widgetKey: widgetPluginKey,
             };
           }
-          if (!pagesHavingErrors[pageKey]) {
-            pagesHavingErrors[pageKey] = {
+          if (!errorReport.pages[pageKey]) {
+            errorReport.pages[pageKey] = {
               pageName: legacyPage.name,
               widgets: {},
             };
           }
-          pagesHavingErrors[pageKey].widgets[dashboardLeafKey] = {
+          errorReport.pages[pageKey].widgets[dashboardLeafKey] = {
             widgetName: widget.bookmark.name,
             error: _serializeError(error, { doesReportIncludeStacks }),
           };
@@ -162,6 +170,6 @@ export function migrateDashboard(
 
   return [
     serializeDashboardState(dashboardWithWidgetsRemoved),
-    Object.keys(pagesHavingErrors).length > 0 ? pagesHavingErrors : undefined,
+    Object.keys(errorReport.pages).length > 0 ? errorReport : undefined,
   ];
 }
