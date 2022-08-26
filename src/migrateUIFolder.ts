@@ -74,24 +74,68 @@ const _ensureFolderExists = ({
   }
 };
 
+/**
+ * Adds `metaData` in the structure folder of `contentType` in the migrated UI folder.
+ * Mutates `migratedUIFolder`.
+ */
+function addMetaDataToStructureFolder({
+  contentType,
+  legacyUIFolder,
+  migratedUIFolder,
+  metaData,
+  folders,
+  path,
+  record,
+  id,
+}: {
+  contentType: "dashboards" | "widgets" | "filters";
+  legacyUIFolder: ContentRecord;
+  migratedUIFolder: ContentRecord;
+  metaData: any;
+  folders: { [folderId: string]: { name: string } };
+  path: string[];
+  record: ContentRecord<any> & {
+    children: {
+      [childName: string]: ContentRecord<any>;
+    };
+  };
+  id: string;
+}) {
+  _ensureFolderExists({
+    legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
+    migratedRoot: migratedUIFolder.children?.dashboards?.children?.structure!,
+    folders,
+    path,
+  });
+  const folder = _getFolder(migratedUIFolder, [
+    contentType,
+    "structure",
+    ...path,
+  ])!;
+  folder.children![id] = {
+    entry: record.children[id].entry,
+    children: {
+      [`${id}_metadata`]: {
+        entry: {
+          ...record.children[id].entry,
+          content: JSON.stringify(metaData),
+        },
+      },
+    },
+  };
+}
+
 const accumulateStructure = ({
   legacyUIFolder,
   migratedUIFolder,
-  dashboards,
-  widgets,
-  filters,
+  trees,
   folders,
   path = [],
 }: {
   legacyUIFolder: ContentRecord | undefined;
   migratedUIFolder: ContentRecord;
-  dashboards: { [dashboardId: string]: any };
-  widgets: { [widgetId: string]: any };
-  filters: {
-    [filterId: string]: {
-      content: { mdx: MdxString };
-      metaData: { name: string };
-    };
+  trees: {
+    [contentType: string]: { [id: string]: any };
   };
   folders: { [folderId: string]: { name: string } };
   path?: string[];
@@ -103,88 +147,44 @@ const accumulateStructure = ({
   ]);
   if (record && legacyUIFolder) {
     for (const id in record.children) {
-      if (dashboards[id] !== undefined) {
-        _ensureFolderExists({
-          legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot:
-            migratedUIFolder.children?.dashboards?.children?.structure!,
-          folders,
-          path,
-        });
-        const folder = _getFolder(migratedUIFolder, [
-          "dashboards",
-          "structure",
-          ...path,
-        ])!;
-        folder.children![id] = {
-          entry: record.children[id].entry,
-          children: {
-            [`${id}_metadata`]: {
-              entry: {
-                ...record.children[id].entry,
-                content: JSON.stringify({ name: dashboards[id].name }),
-              },
+      let wasMetaDataFound = false;
+
+      for (const contentType of ["dashboards", "widgets", "filters"] as const) {
+        if (trees[contentType][id]) {
+          const metaData: any =
+            contentType === "dashboards"
+              ? { name: trees.dashboards[id].name }
+              : contentType === "widgets"
+              ? {
+                  name: trees.widgets[id].name,
+                  widgetKey: trees.widgets[id].widgetKey,
+                }
+              : trees.filters[id].metaData;
+
+          addMetaDataToStructureFolder({
+            contentType,
+            legacyUIFolder,
+            migratedUIFolder,
+            metaData,
+            folders,
+            path,
+            // The `children` attribute of `record` is necessarily defined, as it is being iterated over here.
+            record: record as ContentRecord<any> & {
+              children: { [childName: string]: ContentRecord<any> };
             },
-          },
-        };
-      } else if (widgets[id] !== undefined) {
-        _ensureFolderExists({
-          legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot:
-            migratedUIFolder.children?.widgets?.children?.structure!,
-          folders,
-          path,
-        });
-        const folder = _getFolder(migratedUIFolder, [
-          "widgets",
-          "structure",
-          ...path,
-        ])!;
-        folder.children![id] = {
-          entry: record.children[id].entry,
-          children: {
-            [`${id}_metadata`]: {
-              entry: {
-                ...record.children[id].entry,
-                content: JSON.stringify({
-                  name: widgets[id].name,
-                  widgetKey: widgets[id].widgetKey,
-                }),
-              },
-            },
-          },
-        };
-      } else if (filters[id] !== undefined) {
-        _ensureFolderExists({
-          legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-          migratedRoot:
-            migratedUIFolder.children?.filters?.children?.structure!,
-          folders,
-          path,
-        });
-        const folder = _getFolder(migratedUIFolder, [
-          "filters",
-          "structure",
-          ...path,
-        ])!;
-        folder.children![id] = {
-          entry: record.children[id].entry,
-          children: {
-            [`${id}_metadata`]: {
-              entry: {
-                ...record.children[id].entry,
-                content: JSON.stringify(filters[id].metaData),
-              },
-            },
-          },
-        };
-      } else {
+            id,
+          });
+
+          wasMetaDataFound = true;
+          break;
+        }
+      }
+
+      if (!wasMetaDataFound) {
         accumulateStructure({
           legacyUIFolder,
           migratedUIFolder,
-          dashboards,
-          widgets,
-          filters,
+          trees,
           folders,
           path: [...path, id],
         });
@@ -491,9 +491,11 @@ export async function migrateUIFolder(
   accumulateStructure({
     legacyUIFolder,
     migratedUIFolder,
-    dashboards,
-    widgets,
-    filters,
+    trees: {
+      dashboards,
+      widgets,
+      filters,
+    },
     folders,
   });
 
