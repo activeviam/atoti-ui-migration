@@ -74,13 +74,13 @@ yargs
         type: "boolean",
         demandOption: false,
         default: false,
-        desc: "Whether to create a file containing details about the errors encountered during the migration.",
+        desc: "Whether an error report file is created at the end of the migration.",
       });
       args.option("stack", {
         type: "boolean",
         demandOption: false,
         default: false,
-        desc: "Whether to include stacktraces in the error report file.",
+        desc: "Whether stacktraces are included in the error report file.",
       });
     },
     async ({
