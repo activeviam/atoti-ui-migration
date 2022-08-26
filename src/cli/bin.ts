@@ -1,6 +1,40 @@
 import yargs from "yargs";
+import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
+import path from "path";
+
+const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
+  {
+    dashboards: {
+      success: "were successfully migrated.",
+      partial:
+        "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
+      failed:
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+      removed:
+        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in ActiveUI 4.",
+    },
+    filters: {
+      success: "were successfully migrated.",
+      failed:
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+      removed:
+        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in ActiveUI 4.",
+    },
+    widgets: {
+      success: "were successfully migrated.",
+      partial: "were migrated with warnings.",
+      removed:
+        "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
+      failed:
+        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
+    },
+    folders: {
+      removed:
+        "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
+    },
+  };
 
 yargs
   .command(
@@ -36,6 +70,18 @@ yargs
         demandOption: false,
         desc: "The path to the JSON export of the /pivot folder on the content server.",
       });
+      args.option("debug", {
+        type: "boolean",
+        demandOption: false,
+        default: false,
+        desc: "Whether an error report file is created at the end of the migration.",
+      });
+      args.option("stack", {
+        type: "boolean",
+        demandOption: false,
+        default: false,
+        desc: "Whether stacktraces are included in the error report file.",
+      });
     },
     async ({
       inputPath,
@@ -43,12 +89,16 @@ yargs
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
+      debug,
+      stack,
     }: {
       inputPath: string;
       outputPath: string;
       serversPath: string;
       removeWidgets: string[];
       pivotInputPath?: string;
+      debug: boolean;
+      stack: boolean;
     }) => {
       const legacyUIFolder = await fs.readJSON(inputPath);
       const legacyPivotFolder = pivotInputPath
@@ -56,16 +106,70 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const migratedUIFolder = await migrateUIFolder(
+      const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
         legacyUIFolder,
-        servers,
-        keysOfWidgetPluginsToRemove,
-        legacyPivotFolder,
+        {
+          legacyPivotFolder,
+          servers,
+          keysOfWidgetPluginsToRemove,
+          doesReportIncludeStacks: stack,
+        },
       );
+
+      const { dir } = path.parse(outputPath);
 
       await fs.writeJSON(outputPath, migratedUIFolder, {
         spaces: 2,
       });
+
+      console.log("--------- END OF CONTENT MIGRATION ---------");
+
+      Object.entries(counters)
+        .filter(([, countersForFolder]) =>
+          Object.values(countersForFolder).some((value) => value > 0),
+        )
+        .forEach(([folderName, countersForFolder]) => {
+          console.log(`\n# ${_capitalize(folderName)}`);
+          Object.entries(countersForFolder).forEach(([outcome, counter]) => {
+            if (counter > 0) {
+              console.log(
+                `- ${counter} ${summaryMessages[folderName][outcome]}`,
+              );
+            }
+          });
+        });
+
+      console.log("\n");
+
+      if (
+        counters.dashboards.failed +
+          counters.dashboards.partial +
+          counters.filters.failed +
+          counters.widgets.failed >
+        0
+      ) {
+        if (!debug) {
+          console.log(`For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
+This will output a file named \`report.json\` containing the error messages.`);
+        } else {
+          console.log(
+            `See report.json for more information about the errors that occurred.`,
+          );
+        }
+        if (!stack) {
+          console.log(
+            "To see the stack traces of the errors in this file, you can also use the `--stack` option.",
+          );
+        }
+      }
+
+      console.log("--------------------------------------------");
+
+      if (errorReport && debug) {
+        await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
+          spaces: 2,
+        });
+      }
       // FIXME Rely on yargs instead of having to call process.exit manually.
       // See https://support.activeviam.com/jira/browse/UI-7198
       process.exit(0);

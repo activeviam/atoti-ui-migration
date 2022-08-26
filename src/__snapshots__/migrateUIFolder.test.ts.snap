@@ -2072,6 +2072,70 @@ Object {
 }
 `;
 
+exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 2`] = `
+Object {
+  "dashboards": Object {
+    "eef": Object {
+      "folderId": Array [],
+      "folderName": Array [],
+      "name": "1 page, 4 widgets",
+      "pages": Object {
+        "p-0": Object {
+          "pageName": "Start page",
+          "widgets": Object {
+            "4": Object {
+              "error": Object {
+                "message": "Unsupported widgetKey: \\"filters\\"",
+              },
+              "widgetName": "Page filters",
+            },
+          },
+        },
+      },
+    },
+  },
+  "widgets": Object {
+    "0xb": Object {
+      "error": Object {
+        "message": "Unsupported widgetKey: \\"filters\\"",
+      },
+      "folderId": Array [],
+      "folderName": Array [],
+      "name": "Page filters",
+    },
+  },
+}
+`;
+
+exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 3`] = `
+Object {
+  "dashboards": Object {
+    "failed": 0,
+    "partial": 1,
+    "removed": 0,
+    "success": 16,
+  },
+  "filters": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 2,
+  },
+  "folders": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "widgets": Object {
+    "failed": 1,
+    "partial": 0,
+    "removed": 0,
+    "success": 14,
+  },
+}
+`;
+
 exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a small input 1`] = `
 Object {
   "children": Object {
@@ -2420,6 +2484,35 @@ Object {
     "readers": Array [
       "ROLE_CS_ROOT",
     ],
+  },
+}
+`;
+
+exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a small input 2`] = `
+Object {
+  "dashboards": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 1,
+  },
+  "filters": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "folders": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "widgets": Object {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
   },
 }
 `;

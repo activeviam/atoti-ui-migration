@@ -8,9 +8,13 @@ import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
+import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrationError";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
+ * Throws a {@link UnsupportedWidgetKeyError} if the legacy widget is not recognized.
+ * Throws a {@link TextEditorWidgetMigrationError} if the legacy widget is a text editor, as this widget is supported by ActiveUI 5 but has to be manually added by developers as an extension.
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
@@ -30,16 +34,10 @@ export function migrateWidget(
     case "drillthrough":
       return migrateDrillthrough(legacyWidgetState, servers);
     case "rich-text-editor":
-      return migrateTextEditor(legacyWidgetState);
-    default:
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Unsupported widgetKey: "${widgetPluginKey}". The widget ("${legacyWidgetState.name}") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`,
+      throw new TextEditorWidgetMigrationError(
+        migrateTextEditor(legacyWidgetState),
       );
-      return {
-        ...legacyWidgetState?.value?.body,
-        name: legacyWidgetState?.name,
-        widgetKey: widgetPluginKey,
-      };
+    default:
+      throw new UnsupportedWidgetKeyError(widgetPluginKey);
   }
 }

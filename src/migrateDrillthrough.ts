@@ -5,6 +5,7 @@ import type {
   DrillthroughTableWidgetState,
 } from "@activeviam/activeui-sdk";
 import { serializeWidgetState, parse } from "@activeviam/activeui-sdk";
+import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -31,10 +32,11 @@ export function migrateDrillthrough(
     servers,
   });
 
-  const { query, filters, queryContext } = _migrateQuery<MdxDrillthrough>({
-    legacyQuery,
-    cube,
-  });
+  const [{ query, filters, queryContext }, isUsingUnsupportedUpdateMode] =
+    _migrateQuery<MdxDrillthrough>({
+      legacyQuery,
+      cube,
+    });
 
   const legacyColumns =
     legacyDrillthroughState.value?.body?.configuration?.tabular?.columns;
@@ -62,5 +64,11 @@ export function migrateDrillthrough(
     columnWidths,
   };
 
-  return serializeWidgetState(migratedWidgetState);
+  const serializedWidgetState = serializeWidgetState(migratedWidgetState);
+
+  if (isUsingUnsupportedUpdateMode) {
+    throw new UnsupportedLegacyQueryUpdateModeError(serializedWidgetState);
+  }
+
+  return serializedWidgetState;
 }

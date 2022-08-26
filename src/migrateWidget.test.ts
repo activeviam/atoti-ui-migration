@@ -61,30 +61,20 @@ describe("migrateWidget", () => {
   });
 
   it("warns if the widget has no core equivalent in ActiveUI 5", () => {
-    const warn = console.warn;
-    console.warn = jest.fn();
-    try {
-      const legacyWidgetState: LegacyWidgetState = {
-        name: "Untitled page context values",
-        type: "container",
-        value: {
-          containerKey: "context-values",
-          body: {},
-        },
-        writable: true,
-      };
-      expect(migrateWidget(legacyWidgetState, servers)).toMatchInlineSnapshot(`
-        Object {
-          "name": "Untitled page context values",
-          "widgetKey": "context-values",
-        }
-      `);
-      expect(console.warn).toHaveBeenCalledTimes(1);
-      expect(console.warn).toHaveBeenCalledWith(
-        `Unsupported widgetKey: "context-values". The widget ("Untitled page context values") will be copied as is. It will most likely not work correctly in ActiveUI 5. Alternatively, you can remove all widgets of this type by using the --remove-widgets option in the CLI.`,
-      );
-    } finally {
-      console.warn = warn;
-    }
+    const legacyWidgetState: LegacyWidgetState = {
+      name: "Untitled page context values",
+      type: "container",
+      value: {
+        containerKey: "context-values",
+        body: {},
+      },
+      writable: true,
+    };
+
+    expect(() =>
+      migrateWidget(legacyWidgetState, servers),
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Unsupported widgetKey: \\"context-values\\""`,
+    );
   });
 });

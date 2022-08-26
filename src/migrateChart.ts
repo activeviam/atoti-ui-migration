@@ -36,6 +36,8 @@ import type {
 } from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
+import { UnsupportedLegacyChartTypeError } from "./errors/UnsupportedLegacyChartTypeError";
+import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [
@@ -242,12 +244,7 @@ export function migrateChart(
   const migratedWidgetKey = _getMigratedWidgetKey(legacyChartType);
 
   if (migratedWidgetKey === undefined) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Unsupported legacy chart type: "${type}". The widget ("${legacyChartState.name}") will be copied as is. It might not work correctly in ActiveUI5.`,
-    );
-
-    return legacyChartState;
+    throw new UnsupportedLegacyChartTypeError(type);
   }
 
   // Legacy charts had their queries stored at a different place than other legacy widgets.
@@ -267,11 +264,10 @@ export function migrateChart(
     servers,
   });
 
-  const {
-    query: migratedQuery,
-    filters: extractedFilters,
-    queryContext,
-  } = _migrateQuery<MdxSelect>({ legacyQuery, cube });
+  const [
+    { query: migratedQuery, filters: extractedFilters, queryContext },
+    isUsingUnsupportedUpdateMode,
+  ] = _migrateQuery<MdxSelect>({ legacyQuery, cube });
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
   const query = (
@@ -294,7 +290,7 @@ export function migrateChart(
     widgetPlugin,
   );
 
-  return {
+  const migratedChartState = {
     ...configuration,
     mapping,
     query,
@@ -304,4 +300,10 @@ export function migrateChart(
     name: widgetName,
     widgetKey: migratedWidgetKey,
   };
+
+  if (isUsingUnsupportedUpdateMode) {
+    throw new UnsupportedLegacyQueryUpdateModeError(migratedChartState);
+  }
+
+  return migratedChartState;
 }

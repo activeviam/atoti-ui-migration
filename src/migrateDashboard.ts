@@ -11,6 +11,7 @@ import {
   getLayoutPath,
   serializeDashboardState,
   Layout,
+  AWidgetState,
 } from "@activeviam/activeui-sdk";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
 import { migrateWidget } from "./migrateWidget";
@@ -18,28 +19,77 @@ import { migrateWidget } from "./migrateWidget";
 import type {
   LegacyDashboardState,
   LegacyDashboardPage,
+  DashboardErrorReport,
 } from "./migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
+import { _serializeError } from "./_serializeError";
+import { PartialMigrationError } from "./errors/PartialMigrationError";
+import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 
 /**
- * Returns the converted dashboard state, ready to be used in ActiveUI 5.
+ * Adds `error` to `errorReport`, where `error` was thrown during the migration of a widget within the dashboard.
+ * Mutates `errorReport`.
+ */
+function addWidgetErrorToReport(
+  errorReport: DashboardErrorReport,
+  error: unknown,
+  {
+    doesReportIncludeStacks,
+    pageKey,
+    leafKey,
+    pageName,
+    widgetName,
+  }: {
+    doesReportIncludeStacks?: boolean;
+    pageKey: string;
+    leafKey: string;
+    pageName: string;
+    widgetName: string;
+  },
+) {
+  if (!errorReport.pages[pageKey]) {
+    errorReport.pages[pageKey] = {
+      pageName,
+      widgets: {},
+    };
+  }
+  errorReport.pages[pageKey].widgets[leafKey] = {
+    widgetName,
+    error: _serializeError(error, { doesReportIncludeStacks }),
+  };
+}
+
+/**
+ * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
  * Specifically:
  *    Flattens value and value.body.
  *    Transforms pages contents from arrays to map, to make access to pages and pages state faster.
  *    Transform the pages layouts from a binary tree into a tree of minimal depth, making widgets resizing more natural.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated: they are removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
+ *
+ * The error report omits `folderId` and `folderName`: these are populated by the caller.
  */
 export function migrateDashboard(
   legacyDashboardState: LegacyDashboardState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  keysOfWidgetPluginsToRemove?: string[],
-): DashboardState<"serialized"> {
+  {
+    servers,
+    keysOfWidgetPluginsToRemove,
+    doesReportIncludeStacks,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    keysOfWidgetPluginsToRemove?: string[];
+    doesReportIncludeStacks?: boolean;
+  },
+): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-
+  const errorReport: DashboardErrorReport = {
+    name: legacyDashboardState.name,
+    pages: {},
+  };
   const keysOfLeavesToRemove: {
     [pageKey: string]: string[];
   } = {};
@@ -48,15 +98,50 @@ export function migrateDashboard(
     const pageKey = `p-${index}`;
     const content: DashboardPageState<"serialized">["content"] = {};
     legacyPage.content.forEach((widget) => {
-      const dashboardLeafKey = widget.key;
+      const leafKey = widget.key;
       const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
       if (keysOfWidgetPluginsToRemove?.includes(widgetPluginKey)) {
         keysOfLeavesToRemove[pageKey] = [
           ...(keysOfLeavesToRemove[pageKey] ?? []),
-          dashboardLeafKey,
+          leafKey,
         ];
+        addWidgetErrorToReport(
+          errorReport,
+          new WidgetFlaggedForRemovalError(widgetPluginKey),
+          {
+            doesReportIncludeStacks,
+            leafKey,
+            pageKey,
+            pageName: legacyPage.name,
+            widgetName: widget.bookmark.name,
+          },
+        );
       } else {
-        content[dashboardLeafKey] = migrateWidget(widget.bookmark, servers);
+        let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
+        try {
+          migratedWidget = migrateWidget(widget.bookmark, servers);
+        } catch (error) {
+          if (error instanceof PartialMigrationError) {
+            migratedWidget = error.migratedWidgetState;
+          } else {
+            migratedWidget = {
+              ...widget.bookmark.value.body,
+              name: widget.bookmark.name,
+              widgetKey: widgetPluginKey,
+            };
+          }
+          addWidgetErrorToReport(errorReport, error, {
+            doesReportIncludeStacks,
+            leafKey,
+            pageKey,
+            pageName: legacyPage.name,
+            widgetName: widget.bookmark.name,
+          });
+        }
+
+        if (migratedWidget) {
+          content[leafKey] = migratedWidget;
+        }
       }
     });
 
@@ -122,5 +207,8 @@ export function migrateDashboard(
     },
   );
 
-  return serializeDashboardState(dashboardWithWidgetsRemoved);
+  return [
+    serializeDashboardState(dashboardWithWidgetsRemoved),
+    Object.keys(errorReport.pages).length > 0 ? errorReport : undefined,
+  ];
 }

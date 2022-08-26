@@ -15,6 +15,7 @@ import {
   deriveMappingFromMdx,
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
+import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
@@ -78,15 +79,16 @@ export function migrateKpi(
     };
   }
 
-  const { query, filters, queryContext } = _migrateQuery<MdxSelect>({
-    legacyQuery: {
-      ...legacyQuery,
-      mdx: legacyMdxWithoutPagesAxis
-        ? stringify(legacyMdxWithoutPagesAxis)
-        : undefined,
-    },
-    cube,
-  });
+  const [{ query, filters, queryContext }, isUsingUnsupportedUpdateMode] =
+    _migrateQuery<MdxSelect>({
+      legacyQuery: {
+        ...legacyQuery,
+        mdx: legacyMdxWithoutPagesAxis
+          ? stringify(legacyMdxWithoutPagesAxis)
+          : undefined,
+      },
+      cube,
+    });
 
   const mapping = deriveMappingFromMdx({
     mdx: query.mdx,
@@ -105,5 +107,10 @@ export function migrateKpi(
     widgetKey: "kpi",
   };
 
-  return serializeWidgetState(migratedWidgetState);
+  const serializedWidgetState = serializeWidgetState(migratedWidgetState);
+
+  if (isUsingUnsupportedUpdateMode) {
+    throw new UnsupportedLegacyQueryUpdateModeError(serializedWidgetState);
+  }
+  return serializedWidgetState;
 }
