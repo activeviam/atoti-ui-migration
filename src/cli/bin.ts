@@ -20,19 +20,19 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in ActiveUI 4.",
     },
     widgets: {
       success: "were successfully migrated.",
       partial: "were migrated with warnings.",
       removed:
-        "were removed because their keys were passed in the --remove-widgets option or their path could not be resolved.",
+        "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
     },
     folders: {
       removed:
-        "were removed because their path could not be resolved. These would already appeared as removed on ActiveUI 4.",
+        "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
     },
   };
 
