@@ -2,6 +2,7 @@ import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
+import _fromPairs from "lodash/fromPairs";
 
 import { ContentRecord, DataModel, MdxString } from "@activeviam/activeui-sdk";
 import { emptyUIFolder } from "@activeviam/content-server-initialization";
@@ -217,32 +218,19 @@ export async function migrateUIFolder(
 ): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
   const errorReport: ErrorReport = {};
-  const counters: OutcomeCounters = {
-    dashboards: {
-      success: 0,
-      partial: 0,
-      failed: 0,
-      removed: 0,
-    },
-    widgets: {
-      success: 0,
-      partial: 0,
-      failed: 0,
-      removed: 0,
-    },
-    filters: {
-      success: 0,
-      partial: 0,
-      failed: 0,
-      removed: 0,
-    },
-    folders: {
-      success: 0,
-      partial: 0,
-      failed: 0,
-      removed: 0,
-    },
-  };
+  const counters = _fromPairs(
+    ["dashboards", "widgets", "filters", "folders"].map((type) => [
+      type,
+      {
+        success: 0,
+        partial: 0,
+        failed: 0,
+        removed: 0,
+      },
+    ]),
+    // _fromPairs returns a Dictionary.
+    // In this case, the keys used correspond to the attributes of OutcomeCounters.
+  ) as OutcomeCounters;
 
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
