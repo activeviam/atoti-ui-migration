@@ -81,7 +81,8 @@ export interface FileErrorReport {
 /**
  * Report of errors that occurred during the migration of a dashboard.
  */
-export interface DashboardErrorReport extends Omit<FileErrorReport, "error"> {
+export interface DashboardErrorReport {
+  name: string;
   pages: {
     [pageKey: string]: {
       pageName: string;

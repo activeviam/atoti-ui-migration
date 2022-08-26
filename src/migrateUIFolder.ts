@@ -14,9 +14,9 @@ import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 import {
-  FileErrorReport,
   ErrorReport,
   OutcomeCounters,
+  DashboardErrorReport,
 } from "./migration.types";
 import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
@@ -250,20 +250,38 @@ export async function migrateUIFolder(
 
   const mapOfFolderIds = _getMapOfFolderIds(legacyStructure);
 
-  const createFileErrorReport = (
-    fileId: string,
-    name: string,
-    error: unknown,
-  ): FileErrorReport => {
+  /**
+   * Adds `fileErrorReport` in `contentType` within the full error report.
+   */
+  function addErrorToReport({
+    contentType,
+    fileId,
+    name,
+    fileErrorReport,
+  }: {
+    contentType: "dashboards" | "widgets" | "filters";
+    fileErrorReport:
+      | { error: { message: string; stack?: string[] } }
+      | DashboardErrorReport;
+    fileId: string;
+    name: string;
+  }) {
     const folderId = mapOfFolderIds[fileId];
-
-    return {
-      folderId,
-      folderName: _getFolderName(legacyContent, folderId),
-      name,
-      error: _serializeError(error, { doesReportIncludeStacks }),
-    };
-  };
+    // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
+    // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+    // Using `_setWith` is the recommended workaround.
+    _setWith(
+      errorReport,
+      [contentType, fileId],
+      {
+        folderId,
+        folderName: _getFolderName(legacyContent, folderId),
+        name,
+        ...fileErrorReport,
+      },
+      Object,
+    );
+  }
 
   for (const fileId in legacyContent) {
     const { entry } = legacyContent[fileId];
@@ -329,21 +347,14 @@ export async function migrateUIFolder(
               },
             };
 
-            const filterErrorReport: FileErrorReport = createFileErrorReport(
+            addErrorToReport({
+              contentType: "filters",
+              fileErrorReport: {
+                error: _serializeError(error, { doesReportIncludeStacks }),
+              },
               fileId,
-              bookmark.name,
-              error,
-            );
-
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-            // Using `_setWith` is the recommended workaround.
-            _setWith(
-              errorReport,
-              ["filters", fileId],
-              filterErrorReport,
-              Object,
-            );
+              name: bookmark.name,
+            });
           }
         } else if (bookmark.value.containerKey === "dashboard") {
           let migratedDashboard;
@@ -360,20 +371,12 @@ export async function migrateUIFolder(
               // The dashboard was migrated, but errors were thrown on some of its widgets.
               counters.dashboards.partial++;
 
-              const folderId = mapOfFolderIds[fileId];
-              // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-              // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-              // Using `_setWith` is the recommended workaround.
-              _setWith(
-                errorReport,
-                ["dashboards", fileId],
-                {
-                  ...dashboardErrorReport,
-                  folderId,
-                  folderName: _getFolderName(legacyContent, folderId),
-                },
-                Object,
-              );
+              addErrorToReport({
+                contentType: "dashboards",
+                fileErrorReport: dashboardErrorReport,
+                fileId,
+                name: bookmark.name,
+              });
             } else {
               // The dashboard was fully migrated.
               counters.dashboards.success++;
@@ -382,15 +385,16 @@ export async function migrateUIFolder(
             // The dashboard could not be migrated at all.
             counters.dashboards.failed++;
 
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-            // Using `_setWith` is the recommended workaround.
-            _setWith(
-              errorReport,
-              ["dashboards", fileId],
-              createFileErrorReport(fileId, bookmark.name, error),
-              Object,
-            );
+            addErrorToReport({
+              contentType: "dashboards",
+              fileErrorReport: {
+                error: _serializeError(error, {
+                  doesReportIncludeStacks,
+                }),
+              },
+              fileId,
+              name: bookmark.name,
+            });
             migratedDashboard = bookmark;
           }
 
@@ -409,19 +413,18 @@ export async function migrateUIFolder(
             // The widget's plugin key is flagged for removal.
             // Remove the widget instead of migrating it.
             counters.widgets.removed++;
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-            // Using `_setWith` is the recommended workaround.
-            _setWith(
-              errorReport,
-              ["widgets", fileId],
-              createFileErrorReport(
-                fileId,
-                bookmark.name,
-                new WidgetFlaggedForRemovalError(legacyWidgetPluginKey),
-              ),
-              Object,
-            );
+            addErrorToReport({
+              contentType: "widgets",
+              fileErrorReport: {
+                error: _serializeError(
+                  new WidgetFlaggedForRemovalError(legacyWidgetPluginKey),
+                  { doesReportIncludeStacks },
+                ),
+              },
+              fileId,
+              name: bookmark.name,
+            });
+
             continue;
           }
 
@@ -443,15 +446,14 @@ export async function migrateUIFolder(
                 widgetKey: legacyWidgetPluginKey,
               };
             }
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-            // Using `_setWith` is the recommended workaround.
-            _setWith(
-              errorReport,
-              ["widgets", fileId],
-              createFileErrorReport(fileId, bookmark.name, error),
-              Object,
-            );
+            addErrorToReport({
+              contentType: "widgets",
+              fileErrorReport: {
+                error: _serializeError(error, { doesReportIncludeStacks }),
+              },
+              fileId,
+              name: bookmark.name,
+            });
           }
 
           if (migratedWidget) {

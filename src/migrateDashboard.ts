@@ -33,7 +33,7 @@ import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalEr
  * Mutates `errorReport`.
  */
 function addWidgetErrorToReport(
-  errorReport: Omit<DashboardErrorReport, "folderId" | "folderName">,
+  errorReport: DashboardErrorReport,
   error: unknown,
   {
     doesReportIncludeStacks,
@@ -83,13 +83,10 @@ export function migrateDashboard(
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
   },
-): [
-  DashboardState<"serialized">,
-  Omit<DashboardErrorReport, "folderId" | "folderName">?,
-] {
+): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-  const errorReport: Omit<DashboardErrorReport, "folderId" | "folderName"> = {
+  const errorReport: DashboardErrorReport = {
     name: legacyDashboardState.name,
     pages: {},
   };
