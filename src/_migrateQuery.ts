@@ -54,9 +54,7 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
 
   // The checks ensure that the migratedUpdateMode is necessarily defined.
   const migratedUpdateMode = (
-    !updateMode ||
-    // Repeating this comparison, the current version of typescript can't seem to infer that `migratedUpdateMode` is an `UpdateMode` when using `isUsingUnsupportedUpdateMode`.
-    updateMode === "refresh-periodically"
+    !updateMode || isUsingUnsupportedUpdateMode
       ? // On AUI4, the default update mode could have been defined through setting `queries.defaultUpdateMode`.
         // It is not taken into account here.
         "once"

@@ -37,7 +37,15 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   };
 
 yargs
-  .command(
+  .command<{
+    inputPath: string;
+    outputPath: string;
+    serversPath: string;
+    removeWidgets: string[];
+    pivotInputPath?: string;
+    debug: boolean;
+    stack: boolean;
+  }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
     (args) => {
@@ -91,14 +99,6 @@ yargs
       pivotInputPath,
       debug,
       stack,
-    }: {
-      inputPath: string;
-      outputPath: string;
-      serversPath: string;
-      removeWidgets: string[];
-      pivotInputPath?: string;
-      debug: boolean;
-      stack: boolean;
     }) => {
       const legacyUIFolder = await fs.readJSON(inputPath);
       const legacyPivotFolder = pivotInputPath
