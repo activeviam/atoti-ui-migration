@@ -104,7 +104,8 @@ function addMetaDataToStructureFolder({
 }) {
   _ensureFolderExists({
     legacyRoot: legacyUIFolder.children?.bookmarks?.children?.structure!,
-    migratedRoot: migratedUIFolder.children?.dashboards?.children?.structure!,
+    migratedRoot:
+      migratedUIFolder.children?.[contentType]?.children?.structure!,
     folders,
     path,
   });

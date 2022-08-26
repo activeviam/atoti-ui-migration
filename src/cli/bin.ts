@@ -139,6 +139,8 @@ yargs
           });
         });
 
+      console.log("\n");
+
       if (
         counters.dashboards.failed +
           counters.dashboards.partial +
