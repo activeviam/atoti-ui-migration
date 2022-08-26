@@ -1,9 +1,10 @@
 import { AWidgetState } from "@activeviam/activeui-sdk";
 
 /**
- * Parent class for all errors that wrap a sucessfully migrated widget state.
+ * Thrown when an object could only be partially migrated.
+ * Contains the partially migrated state.
  */
-export class ErrorContainingMigratedState extends Error {
+export class PartialMigrationError extends Error {
   public migratedWidgetState: AWidgetState<"serialized">;
 
   constructor(

@@ -25,7 +25,7 @@ import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { _serializeError } from "./_serializeError";
-import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
+import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 
 /**
@@ -121,7 +121,7 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
         } catch (error) {
-          if (error instanceof ErrorContainingMigratedState) {
+          if (error instanceof PartialMigrationError) {
             migratedWidget = error.migratedWidgetState;
           } else {
             migratedWidget = {

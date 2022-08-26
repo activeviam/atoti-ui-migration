@@ -21,7 +21,7 @@ import {
 import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "./_serializeError";
-import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
+import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 
 const _getFolder = (
@@ -433,7 +433,7 @@ export async function migrateUIFolder(
             migratedWidget = migrateWidget(bookmark, servers);
             counters.widgets.success++;
           } catch (error) {
-            if (error instanceof ErrorContainingMigratedState) {
+            if (error instanceof PartialMigrationError) {
               counters.widgets.partial++;
               migratedWidget = error.migratedWidgetState;
             } else {
