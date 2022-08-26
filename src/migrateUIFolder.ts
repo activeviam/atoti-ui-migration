@@ -351,7 +351,7 @@ export async function migrateUIFolder(
               error,
             );
 
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.
             _setWith(
@@ -377,7 +377,7 @@ export async function migrateUIFolder(
               counters.dashboards.partial++;
 
               const folderId = mapOfFolderIds[fileId];
-              // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+              // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
               // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
               // Using `_setWith` is the recommended workaround.
               _setWith(
@@ -398,7 +398,7 @@ export async function migrateUIFolder(
             // The dashboard could not be migrated at all.
             counters.dashboards.failed++;
 
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.
             _setWith(
@@ -446,7 +446,7 @@ export async function migrateUIFolder(
                 widgetKey: legacyWidgetPluginKey,
               };
             }
-            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpet as an index in an array instead of an object key
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
             // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
             // Using `_setWith` is the recommended workaround.
             _setWith(
