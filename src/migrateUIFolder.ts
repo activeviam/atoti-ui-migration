@@ -307,8 +307,7 @@ export async function migrateUIFolder(
           {
             name: bookmark.name,
             error: {
-              message:
-                "This file is cleaned up because it could not be found in the `ui/dashboards/structure` folder. They were already not visible in ActiveUI 4.",
+              message: "Could not find the entry in the structure folder.",
             },
           },
           Object,
