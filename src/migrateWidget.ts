@@ -13,7 +13,8 @@ import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrati
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.
- * Throws {@link UnsupportedWidgetKeyError} if the legacy widget is not recognized.
+ * Throws a {@link UnsupportedWidgetKeyError} if the legacy widget is not recognized.
+ * Throws a {@link TextEditorWidgetMigrationError} if the legacy widget is a text editor, as this widget is supported by ActiveUI 5 but has to be manually added by developers as an extension.
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
