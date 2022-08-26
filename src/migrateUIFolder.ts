@@ -21,6 +21,7 @@ import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "./_serializeError";
 import { ErrorContainingMigratedState } from "./errors/ErrorContainingMigratedState";
+import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -425,6 +426,19 @@ export async function migrateUIFolder(
             // The widget's plugin key is flagged for removal.
             // Remove the widget instead of migrating it.
             counters.widgets.removed++;
+            // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
+            // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
+            // Using `_setWith` is the recommended workaround.
+            _setWith(
+              errorReport,
+              ["widgets", fileId],
+              createFileErrorReport(
+                fileId,
+                bookmark.name,
+                new WidgetFlaggedForRemovalError(legacyWidgetPluginKey),
+              ),
+              Object,
+            );
             continue;
           }
 
