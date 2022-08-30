@@ -25,7 +25,7 @@ npm install activeui-migration
 - _content of ui.json_: the original content to migrate
 - _servers.json_: the ActivePivot server's information
 
-and a third _optional_ file:
+and a third optional file:
 
 - _content of pivot.json_: the content from the pivot folder on the content server.
 
