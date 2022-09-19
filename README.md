@@ -122,6 +122,11 @@ If you want to follow this UX and remove these widgets programmatically, you can
 npx migrate -i "content of ui.json" -o migrated-content.json -s servers.json --remove-widgets "filters" "context-values"
 ```
 
+There are two other optional flags that can help you during the migration process:
+
+- `--debug`: writes all errors in a `report.json` file, organized by folders and type of entity.
+- `--stack`: used with `--debug`, adds a stacktrace to each error reported in the `report.json` file.
+
 ### Test the migrated content
 
 Use the Content Manager again, this time to import this migrated content.
