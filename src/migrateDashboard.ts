@@ -116,32 +116,31 @@ export function migrateDashboard(
             widgetName: widget.bookmark.name,
           },
         );
-      } else {
-        let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
-        try {
-          migratedWidget = migrateWidget(widget.bookmark, servers);
-        } catch (error) {
-          if (error instanceof PartialMigrationError) {
-            migratedWidget = error.migratedWidgetState;
-          } else {
-            migratedWidget = {
-              ...widget.bookmark.value.body,
-              name: widget.bookmark.name,
-              widgetKey: widgetPluginKey,
-            };
-          }
-          addWidgetErrorToReport(errorReport, error, {
-            doesReportIncludeStacks,
-            leafKey,
-            pageKey,
-            pageName: legacyPage.name,
-            widgetName: widget.bookmark.name,
-          });
+      } 
+      let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
+      try {
+        migratedWidget = migrateWidget(widget.bookmark, servers);
+      } catch (error) {
+        if (error instanceof PartialMigrationError) {
+          migratedWidget = error.migratedWidgetState;
+        } else {
+          migratedWidget = {
+            ...widget.bookmark.value.body,
+            name: widget.bookmark.name,
+            widgetKey: widgetPluginKey,
+          };
         }
+        addWidgetErrorToReport(errorReport, error, {
+          doesReportIncludeStacks,
+          leafKey,
+          pageKey,
+          pageName: legacyPage.name,
+          widgetName: widget.bookmark.name,
+        });
+      }
 
-        if (migratedWidget) {
-          content[leafKey] = migratedWidget;
-        }
+      if (migratedWidget) {
+        content[leafKey] = migratedWidget;
       }
     });
 
