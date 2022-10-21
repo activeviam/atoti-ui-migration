@@ -1,4 +1,9 @@
-import { ContentEntry, ContentRecord } from "@activeviam/activeui-sdk";
+import {
+  ContentEntry,
+  ContentRecord,
+  findContentRecords,
+  getMetaData,
+} from "@activeviam/activeui-sdk";
 
 //entitlements
 //cm
@@ -20,10 +25,27 @@ interface auiCalculatedMeasureFolder {
   };
 }
 
+
 export const getCalculatedMeasureIds = (
   auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
 ): string[] => {
   const calculatedMeasures =
     auiCalculatedMeasureFolder.children?.content.children ?? {};
   return Object.keys(calculatedMeasures);
+};
+
+export const getUniqueCalculatedMeasureNames = (
+  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
+): string[] => {
+  const { structure } = auiCalculatedMeasureFolder.children;
+  const ids = getCalculatedMeasureIds(auiCalculatedMeasureFolder);
+
+  const contentRecords = findContentRecords(structure, ids);
+
+  const calculatedMeasureNames = ids.map((id) => {
+    const parsedName = JSON.parse(getMetaData(contentRecords[id].node, id));
+    return parsedName.name;
+  });
+
+  return calculatedMeasureNames;
 };
