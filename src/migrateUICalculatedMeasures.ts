@@ -25,15 +25,26 @@ interface auiCalculatedMeasureFolder {
   };
 }
 
-interface apCalculatedMeasureFolder {
-  measureName: {
-    className: string;
-    additionalProperties: Object;
-    uniqueName: string;
-    expression: string;
-    formatStringExpression: string;
-  };
-}
+// interface activePivotCalculatedMeasureFolder {
+//   className: string;
+//   additionalProperties: Record<string, unknown>;
+//   uniqueName: string;
+//   expression: string;
+//   formatStringExpression: string;
+// }
+
+// interface activePivotCalculatedMeasureFolder {
+//   entry: {
+//     content: string;
+//     isDirectory: boolean;
+//     owners: string[];
+//     readers: string[];
+//     timestamp: number;
+//     lastEditor: string;
+//     canRead: boolean;
+//     canWrite: boolean;
+//   };
+// }
 
 export const getCalculatedMeasureIds = (
   auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
@@ -45,9 +56,9 @@ export const getCalculatedMeasureIds = (
 
 export const getUniqueCalculatedMeasureNames = (
   auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
+  ids: string[],
 ): string[] => {
   const { structure } = auiCalculatedMeasureFolder.children;
-  const ids = getCalculatedMeasureIds(auiCalculatedMeasureFolder);
 
   const contentRecords = findContentRecords(structure, ids);
 
@@ -55,39 +66,58 @@ export const getUniqueCalculatedMeasureNames = (
     const calculatedMeasureName = JSON.parse(
       getMetaData(contentRecords[id].node, id),
     ).name;
-    return `[Measures].[${calculatedMeasureName}]`;
+    return calculatedMeasureName;
   });
 
   return uniqueCalculatedMeasureNames;
 };
 
-export const calMesContent = (
+export const getUniqueCalculatedMeasureContent = (
   auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
-): any => {
-  const ids = getCalculatedMeasureIds(auiCalculatedMeasureFolder);
+  name: string,
+  id: string,
+): string => {
   const { content } = auiCalculatedMeasureFolder.children;
+  const expression = JSON.parse(content.children![id].entry.content).expression;
+  const properties: string[] = JSON.parse(
+    content.children![id].entry.content,
+  ).properties;
 
-  const expressions = ids.map((id) => {
-    return JSON.parse(content.children![id].entry.content).expression;
-  });
-  const properties = ids.map((id) => {
-    return JSON.parse(content.children![id].entry.content).properties;
-  });
+  const formatStringExpression =
+    properties.find((property) => property.startsWith("FORMAT_STRING")) ?? "";
 
-  return [expressions, properties];
+  const calculatedMeasureContent = JSON.stringify({
+    className:
+      "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
+    additionalProperties: {},
+    uniqueName: `[Measures].[${name}]`,
+    expression: expression,
+    formatStringExpression,
+  });
+  return calculatedMeasureContent;
 };
 
-export const getUniqueCalculatedMeasureFolder = (
-  calculatedMeasureName: string,
-): apCalculatedMeasureFolder => {
-  return {
-    measureName: {
-      className:
-        "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
-      additionalProperties: {},
-      uniqueName: calculatedMeasureName,
-      expression: string,
-      formatStringExpression: string,
-    },
-  };
+export const createAPCalculatedMeasure = (
+  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
+): { [name: string]: ContentRecord }[] => {
+  const ids = getCalculatedMeasureIds(auiCalculatedMeasureFolder);
+  const names = getUniqueCalculatedMeasureNames(
+    auiCalculatedMeasureFolder,
+    ids,
+  );
+
+  const { content } = auiCalculatedMeasureFolder.children;
+
+  return names.map((name, index) => {
+    const id = ids[index];
+    const data = content.children![id];
+    data.entry.content = getUniqueCalculatedMeasureContent(
+      auiCalculatedMeasureFolder,
+      name,
+      id,
+    );
+    return {
+      [`[Measures].[${name}]`]: data,
+    };
+  });
 };
