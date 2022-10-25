@@ -6,6 +6,12 @@ import {
   MdxSelect,
   parse,
 } from "@activeviam/activeui-sdk";
+import {
+  createAPCalculatedMeasure,
+  getCalculatedMeasureIds,
+  getUniqueCalculatedMeasureNames,
+} from "./migrateUICalculatedMeasures";
+import { calculatedMeasures } from "./__test_resources__/calculatedMeasures";
 
 export interface auiWidgetFolder {
   entry: ContentEntry;
@@ -42,18 +48,55 @@ export const getCalculatedMeasuresFromWidgets = (
     const calculatedMeasuresUsedByWidget = Object.keys(
       getCalculatedMeasures(parsedMdx),
     );
-    const cubeName = getCubeName(parsedMdx);
-
     // If calculated measures are found, add them to the array for the corresponding cube.
     if (calculatedMeasuresUsedByWidget.length !== 0) {
-      // If cubes[cubeName] already exists, add calculated measures to existing array, otherwise create new array.
-      // Use Set to ensure no duplicates
-      cubes[cubeName]
-        ? [...new Set(cubes[cubeName].concat(calculatedMeasuresUsedByWidget))]
-        : (cubes[cubeName] = [...new Set(calculatedMeasuresUsedByWidget)]);
+      const cubeName = getCubeName(parsedMdx);
+      if (cubes[cubeName]) {
+        cubes[cubeName].push(...calculatedMeasuresUsedByWidget);
+      } else {
+        cubes[cubeName] = calculatedMeasuresUsedByWidget;
+      }
 
-      // remove calculated member definition from parsedMdx
+      //To do - remove calculated member definition from parsedMdx
     }
   });
   return cubes;
+};
+
+export interface cmFolder {
+  [cubeName: string]: { entry: ContentEntry; children: ContentRecord };
+}
+export const createCMFolder = (widgets: auiWidgetFolder): cmFolder => {
+
+  // Loop over all saved widgets, return all calculated measures, ordered by cube
+  const cubes = getCalculatedMeasuresFromWidgets(widgets);
+  const cubeNames = Object.keys(cubes);
+
+  // Loop over all saved measures, get their ids and names
+  const ids = getCalculatedMeasureIds(calculatedMeasures);
+  const names = getUniqueCalculatedMeasureNames(calculatedMeasures, ids);
+
+// Create an empty cm folder
+  const cmFolder: cmFolder = {};
+  //For each cubeName, add a new object with entry and children properties
+  cubeNames.map((cubeName) => {
+    cmFolder[cubeName] = {
+      //To do - add "entry" to each cube
+      entry: {},
+      children: {},
+    };
+
+    // For each calculated measure in each cube, get the data and add it to the children property
+    cubes[cubeName].forEach((calculatedMeasureName) => {
+      const index = names.findIndex((name) => name === calculatedMeasureName);
+      const calculatedMeasureData = createAPCalculatedMeasure(
+        calculatedMeasures,
+        names[index],
+        ids[index],
+      );
+      cmFolder[cubeName].children[calculatedMeasureName] =
+        calculatedMeasureData;
+    });
+  });
+  return cmFolder;
 };

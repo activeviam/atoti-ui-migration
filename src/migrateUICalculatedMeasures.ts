@@ -79,12 +79,12 @@ export const getUniqueCalculatedMeasureContent = (
 ): string => {
   const { content } = auiCalculatedMeasureFolder.children;
   const expression = JSON.parse(content.children![id].entry.content).expression;
-  const properties: string[] = JSON.parse(
-    content.children![id].entry.content,
-  ).properties;
+  const properties: string[] =
+    JSON.parse(content.children![id].entry.content).properties ?? [];
 
-  const formatStringExpression =
-    properties.find((property) => property.startsWith("FORMAT_STRING")) ?? "";
+  const formatStringExpression = properties
+    ? properties.find((property) => property.startsWith("FORMAT_STRING"))
+    : undefined;
 
   const calculatedMeasureContent = JSON.stringify({
     className:
@@ -99,25 +99,18 @@ export const getUniqueCalculatedMeasureContent = (
 
 export const createAPCalculatedMeasure = (
   auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
-): { [name: string]: ContentRecord }[] => {
-  const ids = getCalculatedMeasureIds(auiCalculatedMeasureFolder);
-  const names = getUniqueCalculatedMeasureNames(
-    auiCalculatedMeasureFolder,
-    ids,
-  );
-
+  name: string,
+  id: string,
+): { [name: string]: ContentRecord } => {
   const { content } = auiCalculatedMeasureFolder.children;
 
-  return names.map((name, index) => {
-    const id = ids[index];
-    const data = content.children![id];
-    data.entry.content = getUniqueCalculatedMeasureContent(
-      auiCalculatedMeasureFolder,
-      name,
-      id,
-    );
-    return {
-      [`[Measures].[${name}]`]: data,
-    };
-  });
+  const data = content.children![id];
+  data.entry.content = getUniqueCalculatedMeasureContent(
+    auiCalculatedMeasureFolder,
+    name,
+    id,
+  );
+  return {
+    [`[Measures].[${name}]`]: data,
+  };
 };
