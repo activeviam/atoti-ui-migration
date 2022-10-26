@@ -1,4 +1,4 @@
-import { calculatedMeasures } from "../__test_resources__/aui5.0calculatedMeasuresFolder";
+import { calculatedMeasures } from "../__test_resources__/aui5.0LegacyTestResources/calculatedMeasuresFolder";
 import { createAPCalculatedMeasure } from "./createAPCalculatedMeasure";
 
 describe("createAPCalculatedMeasure", () => {
@@ -11,7 +11,7 @@ describe("createAPCalculatedMeasure", () => {
       ),
     ).toStrictEqual(undefined);
   });
-  
+
   it("returns an object containing the content of a calculated measure when the calculated measure is at the top level of the folder structure", () => {
     expect(
       createAPCalculatedMeasure(
