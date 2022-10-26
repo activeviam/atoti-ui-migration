@@ -85,6 +85,19 @@ export const calculatedMeasures = {
             canWrite: true,
           },
         },
+        e9b: {
+          entry: {
+            content:
+              '{"expression":"[Measures].[pv.SUM] ^ 2","properties":["FORMAT_STRING = \\"#,###.##\\""]}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1666793260482,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
       },
     },
     structure: {
@@ -266,6 +279,31 @@ export const calculatedMeasures = {
                 owners: ["admin"],
                 readers: ["admin"],
                 timestamp: 1666091726301,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+          },
+        },
+        e9b: {
+          entry: {
+            isDirectory: true,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1666793260661,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+          children: {
+            e9b_metadata: {
+              entry: {
+                content: '{"name":"pvSum ^ 2"}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1666793260661,
                 lastEditor: "admin",
                 canRead: true,
                 canWrite: true,
