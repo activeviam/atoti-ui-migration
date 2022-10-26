@@ -1,5 +1,5 @@
 import {
-  createCMFolder,
+  createCMFolderWithinEntitlements,
   getCalculatedMeasuresFromWidgets,
 } from "./checkWidgets";
 import {
@@ -32,21 +32,19 @@ describe("migrateUICalculatedMeasures", () => {
       ),
     ).toMatchInlineSnapshot(`
       Object {
-        "[Measures].[Distinct count city]": Object {
-          "entry": Object {
-            "canRead": true,
-            "canWrite": true,
-            "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##\\\\\\"\\"}",
-            "isDirectory": false,
-            "lastEditor": "admin",
-            "owners": Array [
-              "admin",
-            ],
-            "readers": Array [
-              "admin",
-            ],
-            "timestamp": 1666091498549,
-          },
+        "entry": Object {
+          "canRead": true,
+          "canWrite": true,
+          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##\\\\\\"\\"}",
+          "isDirectory": false,
+          "lastEditor": "admin",
+          "owners": Array [
+            "admin",
+          ],
+          "readers": Array [
+            "admin",
+          ],
+          "timestamp": 1666091498549,
         },
       }
     `);
@@ -63,96 +61,106 @@ describe("migrateUICalculatedMeasures", () => {
   });
 
   it("creates cm folder structure", () => {
-    expect(createCMFolder(widgets)).toMatchInlineSnapshot(`
+    expect(createCMFolderWithinEntitlements(widgets, calculatedMeasures))
+      .toMatchInlineSnapshot(`
       Object {
         "EquityDerivativesCube": Object {
           "children": Object {
-            "Distinct count city": Object {
-              "[Measures].[Distinct count city]": Object {
-                "entry": Object {
-                  "canRead": true,
-                  "canWrite": true,
-                  "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\"}",
-                  "isDirectory": false,
-                  "lastEditor": "admin",
-                  "owners": Array [
-                    "admin",
-                  ],
-                  "readers": Array [
-                    "admin",
-                  ],
-                  "timestamp": 1666091498549,
-                },
+            "[Measures].[Distinct count city]": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1666091498549,
               },
             },
           },
-          "entry": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
         },
       }
     `);
   });
 
-  it.only("creates cm folder structure with widgets with more than 1 cm ", () => {
-    expect(createCMFolder(widgets2)).toMatchInlineSnapshot(`
+  it("creates cm folder structure with widgets with more than 1 cm ", () => {
+    expect(createCMFolderWithinEntitlements(widgets2, calculatedMeasures))
+      .toMatchInlineSnapshot(`
       Object {
         "EquityDerivativesCube": Object {
           "children": Object {
-            "Distinct count city": Object {
-              "[Measures].[Distinct count city]": Object {
-                "entry": Object {
-                  "canRead": true,
-                  "canWrite": true,
-                  "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\"}",
-                  "isDirectory": false,
-                  "lastEditor": "admin",
-                  "owners": Array [
-                    "admin",
-                  ],
-                  "readers": Array [
-                    "admin",
-                  ],
-                  "timestamp": 1666091498549,
-                },
+            "[Measures].[Distinct count city]": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1666091498549,
               },
             },
-            "Log pv.SUM": Object {
-              "[Measures].[Log pv.SUM]": Object {
-                "entry": Object {
-                  "canRead": true,
-                  "canWrite": true,
-                  "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Log pv.SUM]\\",\\"expression\\":\\"Log([Measures].[pv.SUM], 10)\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##\\\\\\"\\"}",
-                  "isDirectory": false,
-                  "lastEditor": "admin",
-                  "owners": Array [
-                    "admin",
-                  ],
-                  "readers": Array [
-                    "admin",
-                  ],
-                  "timestamp": 1666170634498,
-                },
+            "[Measures].[Log pv.SUM]": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Log pv.SUM]\\",\\"expression\\":\\"Log([Measures].[pv.SUM], 10)\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##\\\\\\"\\"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1666170634498,
               },
             },
-            "activeui5 calculated measure": Object {
-              "[Measures].[activeui5 calculated measure]": Object {
-                "entry": Object {
-                  "canRead": true,
-                  "canWrite": true,
-                  "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[activeui5 calculated measure]\\",\\"expression\\":\\"IIf(IsEmpty([Currency].[Currency].CurrentMember.PrevMember), NULL, ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember) - ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember.PrevMember))\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##%\\\\\\"\\"}",
-                  "isDirectory": false,
-                  "lastEditor": "admin",
-                  "owners": Array [
-                    "admin",
-                  ],
-                  "readers": Array [
-                    "admin",
-                  ],
-                  "timestamp": 1666082732801,
-                },
+            "[Measures].[activeui5 calculated measure]": Object {
+              "entry": Object {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[activeui5 calculated measure]\\",\\"expression\\":\\"IIf(IsEmpty([Currency].[Currency].CurrentMember.PrevMember), NULL, ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember) - ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember.PrevMember))\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##%\\\\\\"\\"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": Array [
+                  "admin",
+                ],
+                "readers": Array [
+                  "admin",
+                ],
+                "timestamp": 1666082732801,
               },
             },
           },
-          "entry": Object {},
+          "entry": Object {
+            "isDirectory": true,
+            "owners": Array [
+              "ROLE_USER",
+            ],
+            "readers": Array [
+              "ROLE_USER",
+            ],
+          },
         },
       }
     `);

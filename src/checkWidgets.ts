@@ -11,7 +11,6 @@ import {
   getCalculatedMeasureIds,
   getUniqueCalculatedMeasureNames,
 } from "./migrateUICalculatedMeasures";
-import { calculatedMeasures } from "./__test_resources__/calculatedMeasures";
 
 export interface auiWidgetFolder {
   entry: ContentEntry;
@@ -35,7 +34,7 @@ export const getCalculatedMeasuresFromWidgets = (
     return {};
   }
   // Create a cube object to add each calculated measure to the corresponding cube
-  const cubes: { [cubeName: string]: string[] } = {};
+  const calculatedMeasuresByCube: { [cubeName: string]: string[] } = {};
   const widgetsArray = Object.values(widgets.children.content.children);
 
   // For each widget, find the calculated measures
@@ -45,57 +44,79 @@ export const getCalculatedMeasuresFromWidgets = (
 
     // The keys are the names of the calculated measures
     // A widget may have more than one calculated measure
-    const calculatedMeasuresUsedByWidget = Object.keys(
+    const calculatedMeasuresKeysUsedByWidget = Object.keys(
       getCalculatedMeasures(parsedMdx),
     );
     // If calculated measures are found, add them to the array for the corresponding cube.
-    if (calculatedMeasuresUsedByWidget.length !== 0) {
+    if (calculatedMeasuresKeysUsedByWidget.length !== 0) {
       const cubeName = getCubeName(parsedMdx);
-      if (cubes[cubeName]) {
-        cubes[cubeName].push(...calculatedMeasuresUsedByWidget);
+      if (calculatedMeasuresByCube[cubeName]) {
+        calculatedMeasuresByCube[cubeName].push(
+          ...calculatedMeasuresKeysUsedByWidget,
+        );
       } else {
-        cubes[cubeName] = calculatedMeasuresUsedByWidget;
+        calculatedMeasuresByCube[cubeName] = calculatedMeasuresKeysUsedByWidget;
       }
 
       //To do - remove calculated member definition from parsedMdx
     }
   });
-  return cubes;
+  return calculatedMeasuresByCube;
 };
 
 export interface cmFolder {
   [cubeName: string]: { entry: ContentEntry; children: ContentRecord };
 }
-export const createCMFolder = (widgets: auiWidgetFolder): cmFolder => {
 
+export const createCMFolderWithinEntitlements = (
+  widgets: auiWidgetFolder,
+  legacyCalculatedMeasuresFolder: ContentRecord,
+): cmFolder => {
   // Loop over all saved widgets, return all calculated measures, ordered by cube
-  const cubes = getCalculatedMeasuresFromWidgets(widgets);
-  const cubeNames = Object.keys(cubes);
+  const calculatedMeasuresByCube = getCalculatedMeasuresFromWidgets(widgets);
+  const cubeNames = Object.keys(calculatedMeasuresByCube);
 
   // Loop over all saved measures, get their ids and names
-  const ids = getCalculatedMeasureIds(calculatedMeasures);
-  const names = getUniqueCalculatedMeasureNames(calculatedMeasures, ids);
+  const ids = getCalculatedMeasureIds(legacyCalculatedMeasuresFolder);
+  const existingCalculatedMeasureNames = getUniqueCalculatedMeasureNames(
+    legacyCalculatedMeasuresFolder,
+    ids,
+  );
 
-// Create an empty cm folder
+  // Create an empty cm folder
   const cmFolder: cmFolder = {};
+
   //For each cubeName, add a new object with entry and children properties
   cubeNames.map((cubeName) => {
     cmFolder[cubeName] = {
       //To do - add "entry" to each cube
-      entry: {},
-      children: {},
+      entry: {
+        isDirectory: true,
+        owners: ["ROLE_USER"],
+        readers: ["ROLE_USER"],
+      },
+      // This is a safe typecast as the children object here will be filled below.
+      children: {} as ContentRecord,
     };
 
     // For each calculated measure in each cube, get the data and add it to the children property
-    cubes[cubeName].forEach((calculatedMeasureName) => {
-      const index = names.findIndex((name) => name === calculatedMeasureName);
+    calculatedMeasuresByCube[cubeName].forEach((calculatedMeasureName) => {
+      const index = existingCalculatedMeasureNames.findIndex(
+        (name) => name === calculatedMeasureName,
+      );
+
+      const quotedMeasureName = `[Measures].[${calculatedMeasureName}]`;
       const calculatedMeasureData = createAPCalculatedMeasure(
-        calculatedMeasures,
-        names[index],
+        legacyCalculatedMeasuresFolder,
+        existingCalculatedMeasureNames[index],
         ids[index],
       );
-      cmFolder[cubeName].children[calculatedMeasureName] =
-        calculatedMeasureData;
+
+      if (calculatedMeasureData) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        cmFolder[cubeName].children[quotedMeasureName] = calculatedMeasureData;
+      }
     });
   });
   return cmFolder;

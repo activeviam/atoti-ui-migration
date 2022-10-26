@@ -1,66 +1,23 @@
 import {
-  ContentEntry,
   ContentRecord,
   findContentRecords,
   getMetaData,
 } from "@activeviam/activeui-sdk";
 
-//entitlements
-//cm
-//cubeName
-//[Measures].[cmName]
-// {
-//   "className": "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
-//   "additionalProperties": {},
-//   "uniqueName": "[Measures].[Minus2]",
-//   "expression": "Count(Descendants([Currency].[Currency].CurrentMember, [Currency].[Currency].[Currency]), EXCLUDEEMPTY)",
-//   "formatStringExpression": "\"#,###.##\""
-// }
-
-interface auiCalculatedMeasureFolder {
-  entry: ContentEntry;
-  children: {
-    content: ContentRecord;
-    structure: ContentRecord;
-  };
-}
-
-// interface activePivotCalculatedMeasureFolder {
-//   className: string;
-//   additionalProperties: Record<string, unknown>;
-//   uniqueName: string;
-//   expression: string;
-//   formatStringExpression: string;
-// }
-
-// interface activePivotCalculatedMeasureFolder {
-//   entry: {
-//     content: string;
-//     isDirectory: boolean;
-//     owners: string[];
-//     readers: string[];
-//     timestamp: number;
-//     lastEditor: string;
-//     canRead: boolean;
-//     canWrite: boolean;
-//   };
-// }
-
 export const getCalculatedMeasureIds = (
-  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
+  legacyCalculatedMeasureFolder: ContentRecord,
 ): string[] => {
   const calculatedMeasures =
-    auiCalculatedMeasureFolder.children?.content.children ?? {};
+    legacyCalculatedMeasureFolder.children?.content.children ?? {};
   return Object.keys(calculatedMeasures);
 };
 
 export const getUniqueCalculatedMeasureNames = (
-  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
+  legacyCalculatedMeasureFolder: ContentRecord,
   ids: string[],
 ): string[] => {
-  const { structure } = auiCalculatedMeasureFolder.children;
-
-  const contentRecords = findContentRecords(structure, ids);
+  const { structure } = legacyCalculatedMeasureFolder.children ?? {};
+  const contentRecords = structure ? findContentRecords(structure, ids) : {};
 
   const uniqueCalculatedMeasureNames = ids.map((id) => {
     const calculatedMeasureName = JSON.parse(
@@ -72,45 +29,49 @@ export const getUniqueCalculatedMeasureNames = (
   return uniqueCalculatedMeasureNames;
 };
 
-export const getUniqueCalculatedMeasureContent = (
-  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
-  name: string,
-  id: string,
+export const getCalculatedMeasureContent = (
+  legacyCalculatedMeasureContent: ContentRecord,
+  calculatedMeasureName: string,
 ): string => {
-  const { content } = auiCalculatedMeasureFolder.children;
-  const expression = JSON.parse(content.children![id].entry.content).expression;
-  const properties: string[] =
-    JSON.parse(content.children![id].entry.content).properties ?? [];
+  const parsedContent = JSON.parse(
+    legacyCalculatedMeasureContent.entry.content,
+  );
+
+  const expression = parsedContent.expression;
+  const properties: string[] = parsedContent.properties;
 
   const formatStringExpression = properties
     ? properties.find((property) => property.startsWith("FORMAT_STRING"))
     : undefined;
 
-  const calculatedMeasureContent = JSON.stringify({
+  const migratedCalculatedMeasureContent = JSON.stringify({
     className:
       "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
     additionalProperties: {},
-    uniqueName: `[Measures].[${name}]`,
+    uniqueName: `[Measures].[${calculatedMeasureName}]`,
     expression: expression,
     formatStringExpression,
   });
-  return calculatedMeasureContent;
+
+  return migratedCalculatedMeasureContent;
 };
 
 export const createAPCalculatedMeasure = (
-  auiCalculatedMeasureFolder: auiCalculatedMeasureFolder,
-  name: string,
-  id: string,
-): { [name: string]: ContentRecord } => {
-  const { content } = auiCalculatedMeasureFolder.children;
+  legacyCalculatedMeasuresFolder: ContentRecord,
+  calculatedMeasureName: string,
+  calculatedMeasureId: string,
+): ContentRecord | undefined => {
+  const content = legacyCalculatedMeasuresFolder.children?.content;
 
-  const data = content.children![id];
-  data.entry.content = getUniqueCalculatedMeasureContent(
-    auiCalculatedMeasureFolder,
-    name,
-    id,
+  const calculatedMeasure = content?.children?.[calculatedMeasureId];
+
+  if (!calculatedMeasure) {
+    return undefined;
+  }
+
+  calculatedMeasure.entry.content = getCalculatedMeasureContent(
+    calculatedMeasure,
+    calculatedMeasureName,
   );
-  return {
-    [`[Measures].[${name}]`]: data,
-  };
+  return calculatedMeasure;
 };

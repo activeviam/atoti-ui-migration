@@ -106,6 +106,7 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
+      // Grab the widgets from `migratedUIFolder`
       const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
         legacyUIFolder,
         {
@@ -116,8 +117,13 @@ yargs
         },
       );
 
+      // Call your function
+      // Grab both widgets and calcualtedMeasures from within migratedUIFolder
+      // const cmFolderWithinEntitlements = createCMFolderWithinEntitlements(widgets, calculatedMeasures)
+
       const { dir } = path.parse(outputPath);
 
+      // To get JSON file for CM folder, replace migratedUI folder with cmFolderWithinEntitlements
       await fs.writeJSON(outputPath, migratedUIFolder, {
         spaces: 2,
       });
