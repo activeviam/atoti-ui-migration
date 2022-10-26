@@ -11,7 +11,7 @@ describe("createAPCalculatedMeasure", () => {
       ),
     ).toStrictEqual(undefined);
   });
-  
+
   it("returns an object containing the content of a calculated measure when the calculated measure is at the top level of the folder structure", () => {
     expect(
       createAPCalculatedMeasure(
