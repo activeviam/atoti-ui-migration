@@ -9,6 +9,7 @@ describe("getCalculatedMeasureIds", () => {
       "585",
       "cef",
       "6b5",
+      "e9b",
     ]);
   });
 });

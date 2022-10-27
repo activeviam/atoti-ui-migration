@@ -14,6 +14,7 @@ describe("getUniqueCalculatedMeasureNames", () => {
       "Log pv.SUM",
       "activeui5 calculated measure",
       "Test calculated measure",
+      "pvSum ^ 2",
     ]);
   });
 });
