@@ -61,6 +61,61 @@ function addWidgetErrorToReport(
   };
 }
 
+/*
+    ensure that unexpected elements in the dashboard and page filter objects are removed, this will prevent avoidable migration failures
+    Also keep track of what dashboards and pages have had this treatment
+    It is expected that this treatment will have no negative impact because the unexpected elements would have been ignored by AUI4 anyway
+    but keep track for customer's peace of mind
+  */
+const sanitiseFilters = (
+  filters: any[],
+  errorReport: DashboardErrorReport,
+  {
+    doesReportIncludeStacks,
+    pageKey,
+    pageName,
+  }: {
+    doesReportIncludeStacks?: boolean;
+    pageKey: string;
+    pageName: string;
+  },
+) => {
+  const error: {
+    message: string;
+    stack?: string[];
+  } = {
+    message: "Incompatible filters were removed",
+  };
+  const rejectedFilters: string[] = [];
+  const acceptedFilters = filters.filter((element) => {
+    if (typeof element === "string") {
+      return true;
+    } else {
+      rejectedFilters.push(
+        typeof element === "object" ? JSON.stringify(element) : element,
+      );
+      return false;
+    }
+  });
+  if (rejectedFilters.length > 0) {
+    const sectionKey = pageKey;
+    if (!errorReport.pages[sectionKey]) {
+      errorReport.pages[sectionKey] = {
+        pageName,
+        widgets: {},
+      };
+    }
+
+    if (doesReportIncludeStacks) error.stack = rejectedFilters;
+
+    errorReport.pages[sectionKey].widgets[`All widgets in ${pageName}`] = {
+      widgetName: "All widgets",
+      error,
+    };
+  }
+  return acceptedFilters;
+};
+
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
  * Specifically:
@@ -116,7 +171,7 @@ export function migrateDashboard(
             widgetName: widget.bookmark.name,
           },
         );
-      } 
+      }
       let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
       try {
         migratedWidget = migrateWidget(widget.bookmark, servers);
@@ -169,7 +224,15 @@ export function migrateDashboard(
       ..._omit(legacyPage, ["content"]),
       content,
       layout: pageLayout,
-      filters: Object.values(legacyPage.filters || {}).flat(),
+      filters: sanitiseFilters(
+        Object.values(legacyPage.filters || {}).flat(),
+        errorReport,
+        {
+          doesReportIncludeStacks,
+          pageKey,
+          pageName: legacyPage.name,
+        },
+      ),
       queryContext: _migrateContextValues(legacyPage.contextValues),
     };
 
@@ -180,7 +243,15 @@ export function migrateDashboard(
     name: legacyDashboardState.name,
     pages,
     pagesOrder: _range(body.pages.length).map((i) => `p-${i}`),
-    filters: Object.values(body.filters || {}).flat(),
+    filters: sanitiseFilters(
+      Object.values(body.filters || {}).flat(),
+      errorReport,
+      {
+        doesReportIncludeStacks,
+        pageKey: "Dashboard level warning",
+        pageName: "All pages",
+      },
+    ),
     queryContext: _migrateContextValues(body.contextValues),
   };
 
