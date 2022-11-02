@@ -20,7 +20,7 @@ const getCalculatedMeasureContent = (
       "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
     additionalProperties: {},
     uniqueName: `[Measures].[${calculatedMeasureName}]`,
-    expression: expression,
+    expression,
     formatStringExpression,
   });
 
@@ -28,7 +28,7 @@ const getCalculatedMeasureContent = (
 };
 
 /**
- * Transforms an ActiveUI 5.0 calculated measure saved on the content server into an object with the structure required in order to be added to the `entitlements/cm/` folder in ActivePivot.
+ * Transforms the serialized definition of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
  */
 export const createAPCalculatedMeasure = (
   legacyCalculatedMeasuresFolder: ContentRecord,

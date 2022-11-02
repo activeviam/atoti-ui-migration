@@ -5,9 +5,9 @@ import {
 } from "@activeviam/activeui-sdk";
 
 /**
- * Returns an array containing the unique names of all the calculated measures in an ActiveUI 5.0 folder saved on the content server.
+ * Returns the names of the calculated measures created in ActiveUI 5.0 and saved in the legacy `/ui/calculated_measures` folder on the content server.
  */
-export const getUniqueCalculatedMeasureNames = (
+export const getCalculatedMeasureNames = (
   legacyCalculatedMeasureFolder: ContentRecord,
   ids: string[],
 ): string[] => {
