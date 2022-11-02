@@ -14,12 +14,10 @@ export const getCalculatedMeasureNames = (
   const { structure } = legacyCalculatedMeasureFolder.children ?? {};
   const contentRecords = structure ? findContentRecords(structure, ids) : {};
 
-  const uniqueCalculatedMeasureNames = ids.map((id) => {
-    const calculatedMeasureName = JSON.parse(
-      getMetaData(contentRecords[id].node, id),
-    ).name;
-    return calculatedMeasureName;
+  const calculatedMeasureNames = ids.map((id) => {
+    const name = JSON.parse(getMetaData(contentRecords[id].node, id)).name;
+    return name;
   });
 
-  return uniqueCalculatedMeasureNames;
+  return calculatedMeasureNames;
 };
