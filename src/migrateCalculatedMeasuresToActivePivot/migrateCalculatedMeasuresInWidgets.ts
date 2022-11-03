@@ -34,25 +34,23 @@ export interface auiWidgetFolder {
  */
 export const migrateCalculatedMeasuresInWidgets = (
   widgets: auiWidgetFolder,
-  //dataModel: DataModel,
-  // TODO pass datamodel
+  dataModel: DataModel,
   // TODO pass measure names to remove/migrate
-  // namesOfCalculatedMeasurestoMigrate,
+  namesOfCalculatedMeasurestoMigrate: string[],
 ): {
   cubeNames: { [measureName: string]: CubeName };
   migratedWidgetsRecord: ContentRecord;
 } => {
   // Create an empty object where each calculated measure used in a saved widget will be added as a key with it's cubeName as a value.
   const cubeNames: { [measureName: string]: CubeName } = {};
-  const namesOfCalculatedMeasurestoMigrate: string[] = [];
+  //const namesOfCalculatedMeasurestoMigrate: string[] = [];
+
   // For each widget, find the calculated measures.
   const migratedWidgetsRecord = produce(widgets, (draft) => {
     draft.children.content.children = _mapValues(
       widgets.children.content.children,
       (widgetRecord) => {
-        const widgetState: AWidgetState = JSON.parse(
-          widgetRecord.entry.content,
-        );
+        const widgetState = JSON.parse(widgetRecord.entry.content);
         const mdx = widgetState.query.mdx;
         console.log(mdx);
         const parsedMdx: MdxSelect = parse(mdx);
@@ -65,7 +63,7 @@ export const migrateCalculatedMeasuresInWidgets = (
           );
 
         const cubeName = getCubeName(parsedMdx);
-        const dataModel = {};
+
         let updatedMdx: MdxSelect = parsedMdx;
         calculatedMeasuresKeysUsedByWidgetAndThatNeedToBeMigrated.forEach(
           (calculatedMeasure) => {
@@ -81,7 +79,7 @@ export const migrateCalculatedMeasuresInWidgets = (
 
         const stringifiedUpdatedMdx = stringify(updatedMdx);
         const updatedWidgetState = produce(widgetState, (draft) => {
-          draft?.query.mdx = stringifiedUpdatedMdx;
+          draft.query.mdx = stringifiedUpdatedMdx;
         });
         const updatedRecord = produce(widgetRecord, (draft) => {
           draft.entry.content = updatedWidgetState;
