@@ -2,15 +2,16 @@ import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresI
 import { widgetsFolder } from "../__test_resources__/aui5.0LegacyTestResources/widgetsFolder";
 import { widgetsWithCalculatedMeasuresFrom2Cubes } from "../__test_resources__/aui5.0LegacyTestResources/widgetsFolderWithCalculatedMeasuresFrom2Cubes";
 import { dataModelsForTests } from "@activeviam/data-model";
-import { getUniqueCalculatedMeasureNames } from "./getUniqueCalculatedMeasureNames";
-import { calculatedMeasures } from "../__test_resources__/aui5.0LegacyTestResources/calculatedMeasuresFolder";
-import { getCalculatedMeasureIds } from "./getCalculatedMeasureIds";
 
 const dataModel = dataModelsForTests.sandbox;
-const namesOfCalculatedMeasurestoMigrate = getUniqueCalculatedMeasureNames(
-  calculatedMeasures,
-  getCalculatedMeasureIds(calculatedMeasures),
-);
+const namesOfCalculatedMeasurestoMigrate = [
+  "Distinct count city",
+  "Exp gamma sum",
+  "Log pv.SUM",
+  "activeui5 calculated measure",
+  "Test calculated measure",
+  "pvSum ^ 2",
+];
 
 describe("migrateCalculatedMeasuresInWidgets", () => {
   it("removes the calculated measure definitions from the MDX of saved widgets and returns the `cubeName` corresponding to the calculated measure name when there is one cube with calculated measures", () => {
@@ -21,7 +22,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
         namesOfCalculatedMeasurestoMigrate,
       );
 
-    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder, associated to their cubeName.
+    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder as keys, with their cubeName as a value.
     expect(migratedCalculatedMeasuresInWidgets.cubeNames).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
       "Log pv.SUM": "EquityDerivativesCube",
@@ -89,13 +90,13 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
         namesOfCalculatedMeasurestoMigrate,
       );
 
-    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder, associated to their cubeName.
+    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder as keys, with their cubeName as a value.
     expect(migratedCalculatedMeasuresInWidgets.cubeNames).toStrictEqual({
       "activeui5 calculated measure": "EquityDerivativesCube",
       "pvSum ^ 2": "EquityDerivativesCubeDist",
     });
 
-    // "pvSum ^ 2" is removed from `query.mdx` of a widget using `EquityDerivativesCubeDist`.
+    // The definition of "pvSum ^ 2" is removed from the `query.mdx` of a widget using `EquityDerivativesCubeDist`.
     expect(
       // This is definitely defined, otherwise the snapshot would be empty.
       migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
@@ -121,7 +122,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
       }
     `);
 
-    // "activeui5 calculated measure" is removed from `query.mdx` of a widget using `EquityDerivativesCube`.
+    // The definition of "activeui5 calculated measure" is removed from `query.mdx` of a widget using `EquityDerivativesCube`.
     expect(
       // This is definitely defined, otherwise the snapshot would be empty.
       migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
