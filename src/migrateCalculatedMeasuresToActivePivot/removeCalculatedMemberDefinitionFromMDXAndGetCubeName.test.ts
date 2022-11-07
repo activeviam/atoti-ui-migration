@@ -30,7 +30,9 @@ describe("removeCalculatedMemberDefinitionFromMDXAndGetCubeName", () => {
         namesOfCalculatedMeasurestoMigrate,
         dataModel,
       );
-    expect(removeCalculatedMeasures.calculatedMeasuresWithCubeNames).toStrictEqual({});
+    expect(
+      removeCalculatedMeasures.calculatedMeasuresWithCubeNames,
+    ).toStrictEqual({});
     expect(removeCalculatedMeasures.stringifiedUpdatedMdx).toEqual(
       mdxStringWithNoCalculatedMeasures,
     );
@@ -44,7 +46,9 @@ describe("removeCalculatedMemberDefinitionFromMDXAndGetCubeName", () => {
         dataModel,
       );
 
-    expect(removeCalculatedMeasures.calculatedMeasuresWithCubeNames).toStrictEqual({
+    expect(
+      removeCalculatedMeasures.calculatedMeasuresWithCubeNames,
+    ).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
     });
 
@@ -64,7 +68,9 @@ describe("removeCalculatedMemberDefinitionFromMDXAndGetCubeName", () => {
         dataModel,
       );
 
-    expect(removeCalculatedMeasures.calculatedMeasuresWithCubeNames).toStrictEqual({
+    expect(
+      removeCalculatedMeasures.calculatedMeasuresWithCubeNames,
+    ).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
       "Log pv.SUM": "EquityDerivativesCube",
     });
