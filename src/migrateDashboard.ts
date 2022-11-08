@@ -61,11 +61,10 @@ function addWidgetErrorToReport(
   };
 }
 
-/*
-    ensure that unexpected elements in the dashboard and page filter objects are removed, this will prevent avoidable migration failures
-    Also keep track of what dashboards and pages have had this treatment
-    It is expected that this treatment will have no negative impact because the unexpected elements would have been ignored by AUI4 anyway
-    but keep track for customer's peace of mind
+/**
+   * Ensure that unexpected elements in the dashboard and page filter objects are removed, to prevent avoidable migration failures.
+   * This can occur when filters have not been serialized correctly while saving content in AUI4.
+   * This has no functional impact on the corresponding dashboards, since those filters would be ignored by AUI4 anyway.
   */
 const sanitiseFilters = (
   filters: any[],
