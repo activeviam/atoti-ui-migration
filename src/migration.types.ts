@@ -95,8 +95,16 @@ export interface DashboardErrorReport {
           };
         };
       };
+      warnings?: {
+        message: string;
+        stack?: string[];
+      }[];
     };
   };
+  warnings?: {
+    message: string;
+    stack?: string[];
+  }[];
 }
 
 /**
