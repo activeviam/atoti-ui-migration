@@ -1,4 +1,5 @@
 import {
+  ContentEntry,
   ContentRecord,
   CubeName,
   DashboardState,
@@ -8,27 +9,36 @@ import {
 } from "@activeviam/activeui-sdk";
 import { removeCalculatedMemberDefinitionFromMDXAndGetCubeName } from "./removeCalculatedMemberDefinitionFromMDXAndGetCubeName";
 import { produce } from "immer";
+import _merge from "lodash/merge";
+
+interface DashboardsFolder {
+  entry: ContentEntry;
+  children: {
+    thumbnails: ContentRecord;
+    content: ContentRecord;
+    structure: ContentRecord;
+  };
+}
 
 /**
- * To do
+ * Takes a `ui/dashboards` folder from the content server, removes any calculated member definitions from the MDX and returns a `migratedDashboards` folder.
+ * Also returns the cubeName for each calculated measure found.
  */
 export const migrateCalculatedMeasuresInDashboards = (
-  dashboards: ContentRecord,
+  dashboards: DashboardsFolder,
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
   cubeNames: { [measureName: string]: CubeName };
-  migratedDashboards: ContentRecord;
+  migratedDashboards: DashboardsFolder;
 } => {
   const cubeNames: { [measureName: string]: CubeName } = {};
 
   const migratedDashboards = produce(dashboards, (draft) => {
-    const allDashboards = dashboards.children!.content.children ?? {};
-    //console.log(allDashboards);
+    const allDashboards = dashboards.children.content.children ?? {};
     const updatedAllDashboards = produce(allDashboards, (draft) => {
       for (const dashboardId in allDashboards) {
         const dashboard: ContentRecord = allDashboards[dashboardId];
-        // console.log(dashboard);
         const updatedDashboard = produce(dashboard, (draft) => {
           const dashboardState: DashboardState = JSON.parse(
             dashboard.entry.content,
@@ -47,28 +57,28 @@ export const migrateCalculatedMeasuresInDashboards = (
                     if (!mdx) {
                       return;
                     }
-                    const { stringifiedUpdatedMdx } =
-                      removeCalculatedMemberDefinitionFromMDXAndGetCubeName(
-                        mdx,
-                        namesOfCalculatedMeasurestoMigrate,
-                        dataModel,
-                      );
+                    const {
+                      stringifiedUpdatedMdx,
+                      calculatedMeasuresWithCubeNames,
+                    } = removeCalculatedMemberDefinitionFromMDXAndGetCubeName(
+                      mdx,
+                      namesOfCalculatedMeasurestoMigrate,
+                      dataModel,
+                    );
                     draft[widgetId].query.mdx = stringifiedUpdatedMdx;
+                    _merge(cubeNames, calculatedMeasuresWithCubeNames);
                   }
                 });
                 draft[pageId].content = updatedWidget;
               }
             });
             draft.pages = updatedDashboardPages;
-            //console.log(updatedDashboardPages);
           });
           draft.entry.content = JSON.stringify(updatedDashboardState);
         });
         draft[dashboardId] = updatedDashboard;
-        // console.log(updatedDashboard);
       }
     });
-    console.log(updatedAllDashboards);
     draft.children!.content.children = updatedAllDashboards;
   });
   return { cubeNames, migratedDashboards };
