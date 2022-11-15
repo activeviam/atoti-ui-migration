@@ -6,10 +6,9 @@ import {
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk";
 import { MdxString } from "@activeviam/mdx";
-import { removeCalculatedMemberDefinitionFromMDXAndGetCubeName } from "./removeCalculatedMemberDefinitionFromMDXAndGetCubeName";
+import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _mapValues from "lodash/mapValues";
-import _merge from "lodash/merge";
 
 export const migrateCalculatedMeasuresInWidgets = (
   widgets: ContentRecord,
@@ -29,25 +28,31 @@ export const migrateCalculatedMeasuresInWidgets = (
         const widgetState: WidgetWithQueryState<MdxSelect, "serialized"> =
           JSON.parse(widgetRecord.entry.content);
         const mdx: MdxString | undefined = widgetState.query.mdx;
-
         if (!mdx) {
           return widgetRecord;
         }
 
-        const { stringifiedUpdatedMdx, calculatedMeasuresWithCubeNames } =
-          removeCalculatedMemberDefinitionFromMDXAndGetCubeName(
-            mdx,
-            namesOfCalculatedMeasurestoMigrate,
-            dataModel,
-          );
+        const {
+          migratedMdx,
+          namesOfCalculatedMeasuresToMigrateInWidget,
+          cubeName,
+        } = migrateCalculatedMeasuresInMdx(
+          mdx,
+          namesOfCalculatedMeasurestoMigrate,
+          dataModel,
+        );
 
-        _merge(cubeNames, calculatedMeasuresWithCubeNames);
+        namesOfCalculatedMeasuresToMigrateInWidget.forEach(
+          (calculatedMeasureName) => {
+            cubeNames[calculatedMeasureName] = cubeName;
+          },
+        );
 
         const updatedWidgetState = produce(widgetState, (draft) => {
-          draft.query.mdx = stringifiedUpdatedMdx;
+          draft.query.mdx = migratedMdx;
         });
         const updatedRecord = produce(widgetRecord, (draft) => {
-          draft.entry.content = updatedWidgetState;
+          draft.entry.content = JSON.stringify(updatedWidgetState);
         });
         return updatedRecord;
       },

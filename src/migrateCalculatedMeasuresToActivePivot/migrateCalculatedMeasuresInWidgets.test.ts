@@ -1,150 +1,112 @@
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
-import { widgetsFolderWithCalculatedMeasuresFromSingleCube } from "../__test_resources__/aui5.0LegacyTestResources/widgetsFolderWithCalculatedMeasuresFromSingleCube";
-import { widgetsWithCalculatedMeasuresFrom2Cubes } from "../__test_resources__/aui5.0LegacyTestResources/widgetsFolderWithCalculatedMeasuresFrom2Cubes";
+import { uiWidgetsFolder } from "../__test_resources__/aui5.0LegacyTestResources/uiWidgetsFolder";
 import { dataModelsForTests } from "@activeviam/data-model";
 
 const dataModel = dataModelsForTests.sandbox;
+
+// "pvSum ^ 2" is from cube "EquityDerivativesCubeDist", all others are from "EquityDerivativesCube".
 const namesOfCalculatedMeasurestoMigrate = [
   "Distinct count city",
-  "Exp gamma sum",
-  "Log pv.SUM",
-  "activeui5 calculated measure",
   "Test calculated measure",
+  "EXP pnl.Forex",
+  "Log pv.SUM",
   "pvSum ^ 2",
 ];
 
 describe("migrateCalculatedMeasuresInWidgets", () => {
-  it("removes the calculated measure definitions from the MDX of saved widgets and returns the `cubeName` corresponding to the calculated measure name when there is one cube with calculated measures", () => {
-    const migratedCalculatedMeasuresInWidgets =
-      migrateCalculatedMeasuresInWidgets(
-        widgetsFolderWithCalculatedMeasuresFromSingleCube,
-        dataModel,
-        namesOfCalculatedMeasurestoMigrate,
-      );
+  const { cubeNames, migratedWidgetsRecord } =
+    migrateCalculatedMeasuresInWidgets(
+      uiWidgetsFolder,
+      dataModel,
+      namesOfCalculatedMeasurestoMigrate,
+    );
 
-    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder as keys, with their cubeName as a value.
-    expect(migratedCalculatedMeasuresInWidgets.cubeNames).toStrictEqual({
+  it("returns a `cubeNames` object containing the names of all calculated measures used in a `ui/widgets` folder with their corresponding cube name", () => {
+    expect(cubeNames).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
+      "EXP pnl.Forex": "EquityDerivativesCube",
       "Log pv.SUM": "EquityDerivativesCube",
-      "activeui5 calculated measure": "EquityDerivativesCube",
-    });
-
-    // "WITH  Member [Measures].[Distinct count city]..." has been removed from `query.mdx`.
-    expect(
-      // This is definitely defined, otherwise the snapshot would be empty.
-      migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
-        ?.content.children!["854"].entry.content,
-    ).toMatchInlineSnapshot(`
-      Object {
-        "mapping": Object {
-          "columns": Array [
-            "ALL_MEASURES",
-          ],
-          "measures": Array [
-            "[Measures].[contributors.COUNT]",
-            "[Measures].[Distinct count city]",
-          ],
-          "rows": Array [
-            "[Currency].[Currency].[Currency]",
-          ],
-        },
-        "query": Object {
-          "mdx": "SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-          "updateMode": "once",
-        },
-        "serverKey": "Ranch 6.0",
-      }
-    `);
-
-    // This widget contains 2 calculated measures. They are both removed from `query.mdx`.
-    expect(
-      // This is definitely defined, otherwise the snapshot would be empty.
-      migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
-        ?.content.children!["0fc"].entry.content,
-    ).toMatchInlineSnapshot(`
-      Object {
-        "mapping": Object {
-          "columns": Array [],
-          "measures": Array [
-            "[Measures].[Log pv.SUM]",
-            "[Measures].[Distinct count city]",
-          ],
-          "rows": Array [
-            "[Geography].[City].[City]",
-          ],
-        },
-        "query": Object {
-          "mdx": "SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-          "updateMode": "once",
-        },
-        "serverKey": "Ranch 6.0",
-      }
-    `);
-  });
-
-  it("removes the calculated measure definitions from the MDX of saved widgets and returns the `cubeName` corresponding to the calculated measure name when there is more than one cube with calculated measures", () => {
-    const migratedCalculatedMeasuresInWidgets =
-      migrateCalculatedMeasuresInWidgets(
-        widgetsWithCalculatedMeasuresFrom2Cubes,
-        dataModel,
-        namesOfCalculatedMeasurestoMigrate,
-      );
-
-    // `cubeNames` is an object containing all calculated measures used in the provided widgets folder as keys, with their cubeName as a value.
-    expect(migratedCalculatedMeasuresInWidgets.cubeNames).toStrictEqual({
-      "activeui5 calculated measure": "EquityDerivativesCube",
+      "Test calculated measure": "EquityDerivativesCube",
       "pvSum ^ 2": "EquityDerivativesCubeDist",
     });
+  });
 
-    // The definition of "pvSum ^ 2" is removed from the `query.mdx` of a widget using `EquityDerivativesCubeDist`.
+  it("returns the widget record unchanged if a widget at the root contains no calculated measures", () => {
+    // "7a5" is a widget containing no calculated measures at the root. This is definitely defined, otherwise the snapshot would be empty.
     expect(
-      // This is definitely defined, otherwise the snapshot would be empty.
-      migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
-        ?.content.children!["53a"].entry.content,
-    ).toMatchInlineSnapshot(`
-      Object {
-        "mapping": Object {
-          "columns": Array [
-            "ALL_MEASURES",
-          ],
-          "measures": Array [
-            "[Measures].[pvSum ^ 2]",
-          ],
-          "rows": Array [
-            "[CounterParty].[CounterParty].[CounterPartyGroup]",
-          ],
-        },
-        "query": Object {
-          "mdx": "SELECT NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-          "updateMode": "once",
-        },
-        "serverKey": "Ranch 5.11",
-      }
-    `);
+      migratedWidgetsRecord.children?.content.children!["7a5"],
+    ).toStrictEqual(uiWidgetsFolder.children?.content.children!["7a5"]);
+  });
 
-    // The definition of "activeui5 calculated measure" is removed from `query.mdx` of a widget using `EquityDerivativesCube`.
+  it("does not remove a calculated measure definition from the MDX if it is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
+    // "ee7" is a widget containing 1 calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`. This is definitely defined, otherwise the snapshot would be empty.
     expect(
-      // This is definitely defined, otherwise the snapshot would be empty.
-      migratedCalculatedMeasuresInWidgets.migratedWidgetsRecord.children
-        ?.content.children!["ee7"].entry.content,
-    ).toMatchInlineSnapshot(`
-      Object {
-        "mapping": Object {
-          "horizontalSubplots": Array [],
-          "sliceBy": Array [
-            "[Currency].[Currency].[Currency]",
-          ],
-          "values": Array [
-            "[Measures].[activeui5 calculated measure]",
-          ],
-          "verticalSubplots": Array [],
-        },
-        "query": Object {
-          "mdx": "SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[activeui5 calculated measure]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-          "updateMode": "once",
-        },
-        "serverKey": "Ranch 6.0",
-      }
-    `);
+      migratedWidgetsRecord.children?.content.children!["ee7"],
+    ).toStrictEqual(uiWidgetsFolder.children?.content.children!["ee7"]);
+  });
+
+  it("removes the calculated measure definition from a widget containing 1 calculated measure at the root", () => {
+    expect(
+      // "854" is a widget containing 1 calculated measure ("Distinct count city") at the root. This is definitely defined, otherwise the snapshot would be empty.
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["854"].entry.content,
+      ).query.mdx,
+      // "WITH  Member [Measures].[Distinct count city]..." has been removed from the beginning of the MDX string.
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+  });
+
+  it("removes both calculated measure definitions from a widget containing 2 calculated measures at the root", () => {
+    expect(
+      // "0fc" is a widget containing 2 calculated measures at the root. This is definitely defined, otherwise the snapshot would be empty.
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["0fc"].entry.content,
+      ).query.mdx,
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+  });
+
+  it("returns the widget record unchanged if a widget inside a folder contains no calculated measures", () => {
+    // "6bf" is a widget containing no calculated measures inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+    expect(
+      migratedWidgetsRecord.children?.content.children!["6bf"],
+    ).toStrictEqual(uiWidgetsFolder.children?.content.children!["6bf"]);
+  });
+
+  it("removes the calculated measure definition from a widget containing 1 calculated measure inside a folder", () => {
+    // "761" is a widget containing 1 calculated measure ("Test calculated measure") inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+    expect(
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["761"].entry.content,
+      ).query.mdx,
+      // "WITH  Member [Measures].[Test calculated measure]..." has been removed from the beginning of the MDX string.
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Test calculated measure]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+  });
+
+  it("removes the calculated measure definition from a widget containing 1 calculated measure and 1 native measure inside a folder", () => {
+    // "049" is a widget containing 1 calculated measure and 1 native measure inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+    expect(
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["049"].entry.content,
+      ).query.mdx,
+      // "WITH  Member [Measures].[EXP pnl.Forex]..." has been removed from the beginning of the MDX string.
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Booking].[Desk].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[EXP pnl.Forex]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+  });
+
+  it("removes all calculated measure definitions from a widget containing multiple calculated measures inside a folder", () => {
+    expect(
+      // "3cb" is a widget containing multiple calculated measures inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["3cb"].entry.content,
+      ).query.mdx,
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city], [Measures].[EXP pnl.Forex]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
   });
 });
