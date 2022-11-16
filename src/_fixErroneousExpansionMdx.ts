@@ -5,8 +5,8 @@ import {
   MdxDrillthrough,
   getLevels,
   Cube,
-} from "@activeviam/activeui-sdk";
-import { isMdxDrillthrough } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { isMdxDrillthrough } from "@activeviam/mdx-5.0";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
 import {

@@ -1,6 +1,6 @@
 import _forEach from "lodash/forEach";
 import _map from "lodash/map";
-import type { QueryContextEntry } from "@activeviam/activeui-sdk";
+import type { QueryContextEntry } from "@activeviam/activeui-sdk-5.0";
 
 export interface LegacyContextValues {
   [key: string]: string | number | boolean;

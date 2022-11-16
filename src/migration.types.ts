@@ -1,4 +1,4 @@
-import type { MdxString } from "@activeviam/activeui-sdk";
+import type { MdxString } from "@activeviam/activeui-sdk-5.0";
 import type { LegacyContextValues } from "./_migrateContextValues";
 
 export interface LegacyLayoutLeaf {

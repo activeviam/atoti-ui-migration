@@ -4,8 +4,12 @@ import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
 import _fromPairs from "lodash/fromPairs";
 
-import { ContentRecord, DataModel, MdxString } from "@activeviam/activeui-sdk";
-import { emptyUIFolder } from "@activeviam/content-server-initialization";
+import {
+  ContentRecord,
+  DataModel,
+  MdxString,
+} from "@activeviam/activeui-sdk-5.0";
+import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";

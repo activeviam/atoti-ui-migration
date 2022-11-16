@@ -4,8 +4,8 @@ import {
   isMdxFunction,
   Mdx,
   MdxFunction,
-} from "@activeviam/activeui-sdk";
-import { findDescendant } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { findDescendant } from "@activeviam/mdx-5.0";
 
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
 import { _doesCrossjoinYieldAllCombinationsOfMembers } from "./_doesCrossjoinYieldAllCombinationsOfMembers";

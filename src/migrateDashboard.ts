@@ -12,7 +12,7 @@ import {
   serializeDashboardState,
   Layout,
   AWidgetState,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import { _flattenLayout, _convertFromLegacyLayout } from "./_flattenLayout";
 import { migrateWidget } from "./migrateWidget";
 

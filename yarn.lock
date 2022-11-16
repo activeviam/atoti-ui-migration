@@ -34,70 +34,7 @@
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/activeui-sdk-scripts@5.0.15":
-  version "5.0.15"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.15.tgz#d2aec0a31978c5fc21a38e91ea9d2dc1dc9dbd9a"
-  integrity sha512-wHozxUFqHMtWSbI2Ceu/f2QgT1arhtM0L4S/m5/DpU4pEhGXKDkoUzDO6Xtz14Jl4az4VQdTwgDgYyOH+QAO0g==
-  dependencies:
-    "@activeviam/content-server-initialization" "5.0.15"
-    "@babel/cli" "^7.11.6"
-    "@babel/core" "^7.12.16"
-    "@babel/plugin-proposal-class-properties" "^7.10.4"
-    "@babel/plugin-proposal-optional-chaining" "^7.11.0"
-    "@babel/plugin-transform-runtime" "^7.11.5"
-    "@babel/preset-env" "^7.12.16"
-    "@babel/preset-react" "^7.12.13"
-    "@babel/preset-typescript" "^7.12.16"
-    "@parcel/css" "^1.5.0"
-    "@rollup/plugin-babel" "^5.2.1"
-    "@rollup/plugin-commonjs" "^15.1.0"
-    "@rollup/plugin-json" "^4.1.0"
-    "@rollup/plugin-node-resolve" "^9.0.0"
-    "@types/lodash" "^4.14.168"
-    babel-jest "26.3.0"
-    babel-loader "^8.2.2"
-    babel-plugin-emotion "^10.0.33"
-    babel-plugin-import "^1.13.3"
-    clean-webpack-plugin "^3.0.0"
-    convert-array-to-csv "^2.0.0"
-    css-loader "^5.1.3"
-    css-minimizer-webpack-plugin "^3.4.1"
-    dotenv "8.2.0"
-    dotenv-expand "5.1.0"
-    eslint "^7.10.0"
-    execa "^4.0.1"
-    file-loader "^6.2.0"
-    fs-extra "^9.0.0"
-    html-webpack-plugin "^5.1.0"
-    is-ci "^2.0.0"
-    jest "26.4.2"
-    jest-junit "^13.0.0"
-    jest-mock-process "^1.4.1"
-    license-webpack-plugin "^2.3.21"
-    lodash "^4.17.15"
-    mini-css-extract-plugin "^1.3.9"
-    node-fetch "^2.5.0"
-    pkg-dir "^4.1.0"
-    prettier "^2.0.5"
-    process "^0.11.10"
-    react-dev-utils "^11.0.2"
-    react-scripts "4.0.0-next.77"
-    resolve "^1.20.0"
-    rollup "^2.11.2"
-    rollup-plugin-postcss "^3.1.8"
-    serve "^13.0.2"
-    sort-package-json "^1.44.0"
-    style-loader "^3.3.1"
-    terser-webpack-plugin "5.1.1"
-    tslib "^2.0.0"
-    wait-on "^6.0.1"
-    webpack "^5.24.4"
-    webpack-cli "^4.5.0"
-    webpack-dev-server "^3.11.2"
-    webpack-manifest-plugin "^3.1.0"
-    yargs "^15.3.1"
-
-"@activeviam/activeui-sdk@5.0.15":
+"@activeviam/activeui-sdk-5.0@npm:@activeviam/activeui-sdk@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk/-/@activeviam/activeui-sdk-5.0.15.tgz#ebca8a0edd45b3517cbbbdbb0ddd7cd552de6e72"
   integrity sha512-ULEqYwaFmVzBqrScHCoMrvJZVfqulRQjlDwoEIKno040z2gugXKRda6wrtEXVTSSJvo60yhjP+fkr5q9GRnJmA==
@@ -211,6 +148,69 @@
     "@activeviam/widget" "5.0.15"
     "@activeviam/wizard" "5.0.15"
     "@types/fs-extra" "^9.0.1"
+
+"@activeviam/activeui-sdk-scripts@5.0.15":
+  version "5.0.15"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.15.tgz#d2aec0a31978c5fc21a38e91ea9d2dc1dc9dbd9a"
+  integrity sha512-wHozxUFqHMtWSbI2Ceu/f2QgT1arhtM0L4S/m5/DpU4pEhGXKDkoUzDO6Xtz14Jl4az4VQdTwgDgYyOH+QAO0g==
+  dependencies:
+    "@activeviam/content-server-initialization" "5.0.15"
+    "@babel/cli" "^7.11.6"
+    "@babel/core" "^7.12.16"
+    "@babel/plugin-proposal-class-properties" "^7.10.4"
+    "@babel/plugin-proposal-optional-chaining" "^7.11.0"
+    "@babel/plugin-transform-runtime" "^7.11.5"
+    "@babel/preset-env" "^7.12.16"
+    "@babel/preset-react" "^7.12.13"
+    "@babel/preset-typescript" "^7.12.16"
+    "@parcel/css" "^1.5.0"
+    "@rollup/plugin-babel" "^5.2.1"
+    "@rollup/plugin-commonjs" "^15.1.0"
+    "@rollup/plugin-json" "^4.1.0"
+    "@rollup/plugin-node-resolve" "^9.0.0"
+    "@types/lodash" "^4.14.168"
+    babel-jest "26.3.0"
+    babel-loader "^8.2.2"
+    babel-plugin-emotion "^10.0.33"
+    babel-plugin-import "^1.13.3"
+    clean-webpack-plugin "^3.0.0"
+    convert-array-to-csv "^2.0.0"
+    css-loader "^5.1.3"
+    css-minimizer-webpack-plugin "^3.4.1"
+    dotenv "8.2.0"
+    dotenv-expand "5.1.0"
+    eslint "^7.10.0"
+    execa "^4.0.1"
+    file-loader "^6.2.0"
+    fs-extra "^9.0.0"
+    html-webpack-plugin "^5.1.0"
+    is-ci "^2.0.0"
+    jest "26.4.2"
+    jest-junit "^13.0.0"
+    jest-mock-process "^1.4.1"
+    license-webpack-plugin "^2.3.21"
+    lodash "^4.17.15"
+    mini-css-extract-plugin "^1.3.9"
+    node-fetch "^2.5.0"
+    pkg-dir "^4.1.0"
+    prettier "^2.0.5"
+    process "^0.11.10"
+    react-dev-utils "^11.0.2"
+    react-scripts "4.0.0-next.77"
+    resolve "^1.20.0"
+    rollup "^2.11.2"
+    rollup-plugin-postcss "^3.1.8"
+    serve "^13.0.2"
+    sort-package-json "^1.44.0"
+    style-loader "^3.3.1"
+    terser-webpack-plugin "5.1.1"
+    tslib "^2.0.0"
+    wait-on "^6.0.1"
+    webpack "^5.24.4"
+    webpack-cli "^4.5.0"
+    webpack-dev-server "^3.11.2"
+    webpack-manifest-plugin "^3.1.0"
+    yargs "^15.3.1"
 
 "@activeviam/application-menu-about-menu-item@5.0.15":
   version "5.0.15"
@@ -394,7 +394,7 @@
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/content-server-initialization@5.0.15":
+"@activeviam/content-server-initialization-5.0@npm:@activeviam/content-server-initialization@5.0.15", "@activeviam/content-server-initialization@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-server-initialization/-/@activeviam/content-server-initialization-5.0.15.tgz#cc8167f0b9f693f196cfbba3607de0cc6b8ffafd"
   integrity sha512-tHbbjnpfjYTFj+OWg7tEMIZtBrxIeYQAxIrSvONsNkrbYcGXr7mJP6sXPdBHxMiFZl+1fqHd3hdo6SuUofcN5A==
@@ -466,6 +466,15 @@
     react-error-boundary "^3.1.4"
     ts-essentials "^6.0.5"
 
+"@activeviam/data-model-5.0@npm:@activeviam/data-model@5.0.15", "@activeviam/data-model@5.0.15":
+  version "5.0.15"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model/-/@activeviam/data-model-5.0.15.tgz#73122eb36a35b761bc6603ba6a3db99da47182d0"
+  integrity sha512-6V3EOWpgCorQ+QUFmmCEJx86r3hAjA0O4Tax0cM3ncvKfkj/f1Y3htB1bh/zeVqZiC5WlyIw5llEC5cu4FBRyA==
+  dependencies:
+    "@types/lodash" "^4.14.168"
+    lodash "^4.17.15"
+    ts-essentials "^6.0.5"
+
 "@activeviam/data-model-tree@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model-tree/-/@activeviam/data-model-tree-5.0.15.tgz#3ae123e90b11ad767bd1c168256ffe7ac8c7a492"
@@ -483,15 +492,6 @@
     "@types/lodash" "^4.14.168"
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
-
-"@activeviam/data-model@5.0.15":
-  version "5.0.15"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model/-/@activeviam/data-model-5.0.15.tgz#73122eb36a35b761bc6603ba6a3db99da47182d0"
-  integrity sha512-6V3EOWpgCorQ+QUFmmCEJx86r3hAjA0O4Tax0cM3ncvKfkj/f1Y3htB1bh/zeVqZiC5WlyIw5llEC5cu4FBRyA==
-  dependencies:
-    "@types/lodash" "^4.14.168"
-    lodash "^4.17.15"
-    ts-essentials "^6.0.5"
 
 "@activeviam/data-visualization@5.0.15":
   version "5.0.15"
@@ -658,17 +658,7 @@
     "@types/react" "^16.9.34"
     lodash "^4.17.15"
 
-"@activeviam/mdx-lexer@5.0.15":
-  version "5.0.15"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.0.15.tgz#dcc4e15e3140b5c898868899e69d726f50d25696"
-  integrity sha512-GXP0jLJD7VKAyc27ibYFpe0RECwtyVWl8v38MsQdJ/MjwuDqjRgxr1wwik1gpYRaetb5409Hk/qExsjo9ll1IQ==
-
-"@activeviam/mdx-parser@5.0.15":
-  version "5.0.15"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.0.15.tgz#c3553e5ba6b5110febfd241453c7c8cc279d9d09"
-  integrity sha512-sbmfIueqnItHAHKUMYT8aeAkPc4JIpU8/Es538yxqsVxoeRAcqVNXR/uV8YeZ0dUgcKRaY397UmJEcr0gpwPGA==
-
-"@activeviam/mdx@5.0.15":
+"@activeviam/mdx-5.0@npm:@activeviam/mdx@5.0.15", "@activeviam/mdx@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.0.15.tgz#a54db8a7b961b7c6e197d1ca09f12223684b6d05"
   integrity sha512-b2jM8mQmKiKLV5B8sYx8wGlEbqF6Rvna9CB5v4j348RDXhXhhfNEv61IbEGbpQxKYM4VPd/AqGVa7OPC6Nqcqw==
@@ -680,6 +670,16 @@
     immer "^9.0.14"
     lodash "^4.17.15"
     utility-types "^3.10.0"
+
+"@activeviam/mdx-lexer@5.0.15":
+  version "5.0.15"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.0.15.tgz#dcc4e15e3140b5c898868899e69d726f50d25696"
+  integrity sha512-GXP0jLJD7VKAyc27ibYFpe0RECwtyVWl8v38MsQdJ/MjwuDqjRgxr1wwik1gpYRaetb5409Hk/qExsjo9ll1IQ==
+
+"@activeviam/mdx-parser@5.0.15":
+  version "5.0.15"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.0.15.tgz#c3553e5ba6b5110febfd241453c7c8cc279d9d09"
+  integrity sha512-sbmfIueqnItHAHKUMYT8aeAkPc4JIpU8/Es538yxqsVxoeRAcqVNXR/uV8YeZ0dUgcKRaY397UmJEcr0gpwPGA==
 
 "@activeviam/members-tree@5.0.15":
   version "5.0.15"

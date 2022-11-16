@@ -1,10 +1,10 @@
-import { Cube } from "@activeviam/data-model";
+import { Cube } from "@activeviam/data-model-5.0";
 import {
   getSpecificCompoundIdentifier,
   isMdxCompoundIdentifier,
   isMdxFunction,
   MdxFunction,
-} from "@activeviam/mdx";
+} from "@activeviam/mdx-5.0";
 
 /**
  * Returns whether `crossjoin` represents an expanded member on an axis.

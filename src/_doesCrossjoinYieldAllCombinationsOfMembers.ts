@@ -3,8 +3,8 @@ import {
   LevelCoordinates,
   isMdxCompoundIdentifier,
   MdxFunction,
-} from "@activeviam/activeui-sdk";
-import { findLevels, getSpecificCompoundIdentifier } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { findLevels, getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
 
 /**
  * Returns whether `crossjoin` yields all combinations of members of the hierarchies expressed on the axis.

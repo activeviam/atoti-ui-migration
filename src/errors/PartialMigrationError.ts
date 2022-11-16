@@ -1,4 +1,4 @@
-import { AWidgetState } from "@activeviam/activeui-sdk";
+import { AWidgetState } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Thrown when an object could only be partially migrated.
