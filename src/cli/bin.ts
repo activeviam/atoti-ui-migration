@@ -3,6 +3,63 @@ import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
 import path from "path";
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk";
+import { ErrorReport, OutcomeCounters } from "../migration.types";
+import _fromPairs from "lodash/fromPairs";
+
+type MigrationFunction = (
+  legacyUIFolder: ContentRecord,
+  counters: OutcomeCounters,
+  errorReport: ErrorReport,
+  {
+    servers,
+    keysOfWidgetPluginsToRemove,
+    legacyPivotFolder,
+    doesReportIncludeStacks,
+  }: {
+    servers: {
+      [serverKey: string]: {
+        dataModel: DataModel;
+        url: string;
+      };
+    };
+    keysOfWidgetPluginsToRemove?: string[] | undefined;
+    doesReportIncludeStacks: boolean;
+    legacyPivotFolder?: ContentRecord<any> | undefined;
+  },
+) => Promise<[ContentRecord, OutcomeCounters, ErrorReport?]>;
+
+export const initialCounters = _fromPairs(
+  ["dashboards", "widgets", "filters", "folders"].map((type) => [
+    type,
+    {
+      success: 0,
+      partial: 0,
+      failed: 0,
+      removed: 0,
+    },
+  ]),
+  // _fromPairs returns a Dictionary.
+  // In this case, the keys used correspond to the attributes of OutcomeCounters.
+) as OutcomeCounters;
+
+const compose =
+  (...migrationFunctions: MigrationFunction[]) =>
+  async (
+    ...contentToMigrate: Parameters<MigrationFunction>
+  ): ReturnType<MigrationFunction> => {
+    if (migrationFunctions.length === 0) {
+      return [contentToMigrate[0], initialCounters, {}];
+    }
+    const [migratedUIFolder, counters, errorReport] =
+      await migrationFunctions[0](...contentToMigrate);
+    return compose(...migrationFunctions.slice(1))(
+      migratedUIFolder,
+      counters,
+      errorReport || {},
+      contentToMigrate[3],
+    );
+  };
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -41,6 +98,8 @@ yargs
     inputPath: string;
     outputPath: string;
     serversPath: string;
+    fromVersion: string;
+    toVersion: string;
     removeWidgets: string[];
     pivotInputPath?: string;
     debug: boolean;
@@ -66,6 +125,18 @@ yargs
         type: "string",
         demandOption: true,
         desc: "The path to the JSON file holding the servers information.",
+      });
+      args.option("from-version", {
+        alias: "f",
+        type: "string",
+        demandOption: true,
+        desc: "The version which the content is migrated from.",
+      });
+      args.option("to-version", {
+        alias: "t",
+        type: "string",
+        demandOption: true,
+        desc: "The version which the content is migrated to.",
       });
       args.option("remove-widgets", {
         type: "array",
@@ -95,19 +166,57 @@ yargs
       inputPath,
       outputPath,
       serversPath,
+      fromVersion,
+      toVersion,
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
       debug,
       stack,
     }) => {
+      const migrationFunctions = [["4.3", migrateUIFolder], ["5.0"]];
+      const versions = migrationFunctions.map(([version]) => version);
+      const fromVersions = versions.slice(0, -1);
+      const toVersions = versions.slice(1);
+      if (!fromVersions.includes(fromVersion)) {
+        throw new Error(`
+          You specified ${fromVersion} as the version to migrate your content from. It's not a valid version to migrate from.
+          The valid versions to migrate from are: ${fromVersions.join(", ")}.
+        `);
+      }
+      if (!toVersions.includes(toVersion)) {
+        throw new Error(`
+          You specified ${toVersion} as the version to migrate your content to. It's not a valid version to migrate to.
+          The valid versions to migrate to are: ${toVersions.join(", ")}.
+        `);
+      }
+      const fromVersionIndex = migrationFunctions.findIndex(
+        ([version]) => version === fromVersion,
+      );
+      const toVersionIndex = migrationFunctions.findIndex(
+        ([version]) => version === toVersion,
+      );
+      if (fromVersionIndex >= toVersionIndex) {
+        throw new Error(`
+          You specified ${fromVersion} as the version to migrate your content from, and ${toVersion} as the version to migrate your content to.
+          The version to migrate to must be higher than the version to migrate from.
+        `);
+      }
+      const functionsToCompose = migrationFunctions
+        .slice(fromVersionIndex, toVersionIndex)
+        .map(([, func]) => func) as MigrationFunction[];
+
       const legacyUIFolder = await fs.readJSON(inputPath);
       const legacyPivotFolder = pivotInputPath
         ? await fs.readJSON(pivotInputPath)
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+      const [migratedUIFolder, counters, errorReport] = await compose(
+        ...functionsToCompose,
+      )(
         legacyUIFolder,
+        initialCounters,
+        {},
         {
           legacyPivotFolder,
           servers,
