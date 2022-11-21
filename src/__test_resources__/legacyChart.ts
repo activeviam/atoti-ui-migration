@@ -1,4 +1,4 @@
-import type { LegacyWidgetState } from "../migration.types";
+import type { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
 
 /**
  * The widgetState of a legacy line chart, useful for unit tests.
@@ -57,8 +57,7 @@ export const legacyChart: LegacyWidgetState = {
       },
       query: {
         serverUrl: "http://localhost:9090",
-        mdx:
-          "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]",
+        mdx: "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]",
         contextValues: {},
         updateMode: "once",
       },

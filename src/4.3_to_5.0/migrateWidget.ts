@@ -8,8 +8,8 @@ import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
-import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrationError";
+import { UnsupportedWidgetKeyError } from "../errors/UnsupportedWidgetKeyError";
+import { TextEditorWidgetMigrationError } from "../errors/TextEditorWidgetMigrationError";
 
 /**
  * Returns the converted widget state, ready to be used in ActiveUI 5.

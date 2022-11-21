@@ -1,4 +1,4 @@
-import type { LegacyWidgetState } from "../migration.types";
+import type { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
 
 /**
  * The widgetState of a legacy Text Editor, useful for unit tests.

@@ -1,4 +1,4 @@
-import type { LegacyDashboardState } from "../migration.types";
+import type { LegacyDashboardState } from "../4.3_to_5.0/migration.types";
 import { legacyChart } from "./legacyChart";
 import { legacyPageFilters } from "./legacyPageFilters";
 import { legacyQuickFilter } from "./legacyQuickFilter";

@@ -15,7 +15,7 @@ import {
   deriveMappingFromMdx,
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
-import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
+import { UnsupportedLegacyQueryUpdateModeError } from "../errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";

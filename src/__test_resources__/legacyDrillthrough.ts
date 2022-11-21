@@ -1,4 +1,4 @@
-import type { LegacyWidgetState } from "../migration.types";
+import type { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
 
 /**
  * The widgetState of a legacy drillthrough, useful for unit tests.
@@ -11,8 +11,7 @@ export const legacyDrillthrough: LegacyWidgetState = {
     showTitleBar: true,
     body: {
       serverUrl: "",
-      mdx:
-        "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] WHERE [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
+      mdx: "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] WHERE [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
       contextValues: {},
       updateMode: "once",
       configuration: {

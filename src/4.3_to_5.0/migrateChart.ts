@@ -36,8 +36,8 @@ import type {
 } from "@activeviam/activeui-sdk";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
-import { UnsupportedLegacyChartTypeError } from "./errors/UnsupportedLegacyChartTypeError";
-import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
+import { UnsupportedLegacyChartTypeError } from "../errors/UnsupportedLegacyChartTypeError";
+import { UnsupportedLegacyQueryUpdateModeError } from "../errors/UnsupportedLegacyQueryUpdateModeError";
 
 const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
   [

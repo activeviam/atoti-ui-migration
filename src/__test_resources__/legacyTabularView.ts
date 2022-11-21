@@ -1,4 +1,4 @@
-import type { LegacyWidgetState } from "../migration.types";
+import type { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
 
 /**
  * The widgetState of a legacy tabular view, useful for unit tests.
@@ -12,8 +12,7 @@ export const legacyTabularView: LegacyWidgetState = {
     showTitleBar: true,
     body: {
       serverUrl: "",
-      mdx:
-        "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+      mdx: "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
       contextValues: {},
       updateMode: "once",
       ranges: {

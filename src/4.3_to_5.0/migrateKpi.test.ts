@@ -1,8 +1,8 @@
 import { migrateKpi } from "./migrateKpi";
-import { emptyLegacyKpi } from "./__test_resources__/emptyLegacyKpi";
-import { legacyComparisonValues } from "./__test_resources__/legacyComparisonValues";
-import { legacyKpi } from "./__test_resources__/legacyKpi";
-import { servers } from "./__test_resources__/servers";
+import { emptyLegacyKpi } from "../__test_resources__/emptyLegacyKpi";
+import { legacyComparisonValues } from "../__test_resources__/legacyComparisonValues";
+import { legacyKpi } from "../__test_resources__/legacyKpi";
+import { servers } from "../__test_resources__/servers";
 
 describe("migrateKpi", () => {
   it("returns the ActiveUI5 KPI widget state corresponding to the given ActiveUI4 KPI widget state", () => {

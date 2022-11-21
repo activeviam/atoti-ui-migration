@@ -1,9 +1,9 @@
 import _map from "lodash/map";
 import _mapValues from "lodash/mapValues";
-import { legacyDashboard } from "./__test_resources__/legacyDashboard";
+import { legacyDashboard } from "../__test_resources__/legacyDashboard";
 import { migrateDashboard } from "./migrateDashboard";
 import { LegacyDashboardState } from "./migration.types";
-import { servers } from "./__test_resources__/servers";
+import { servers } from "../__test_resources__/servers";
 
 describe("migrateDashboard", () => {
   it("turns the pages content from arrays into maps", () => {

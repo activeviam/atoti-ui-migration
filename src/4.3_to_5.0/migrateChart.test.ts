@@ -1,14 +1,14 @@
 import _cloneDeep from "lodash/cloneDeep";
 import { migrateChart } from "./migrateChart";
-import { emptyLegacyChart } from "./__test_resources__/emptyLegacyChart";
-import { legacyAreaChart } from "./__test_resources__/legacyAreaChart";
-import { legacyBarChart } from "./__test_resources__/legacyBarChart";
-import { legacyChart } from "./__test_resources__/legacyChart";
-import { legacyColumnChart } from "./__test_resources__/legacyColumnChart";
-import { legacyLineChart } from "./__test_resources__/legacyLineChart";
-import { legacyPieChart } from "./__test_resources__/legacyPieChart";
-import { legacyScatterPlot } from "./__test_resources__/legacyScatterPlot";
-import { servers } from "./__test_resources__/servers";
+import { emptyLegacyChart } from "../__test_resources__/emptyLegacyChart";
+import { legacyAreaChart } from "../__test_resources__/legacyAreaChart";
+import { legacyBarChart } from "../__test_resources__/legacyBarChart";
+import { legacyChart } from "../__test_resources__/legacyChart";
+import { legacyColumnChart } from "../__test_resources__/legacyColumnChart";
+import { legacyLineChart } from "../__test_resources__/legacyLineChart";
+import { legacyPieChart } from "../__test_resources__/legacyPieChart";
+import { legacyScatterPlot } from "../__test_resources__/legacyScatterPlot";
+import { servers } from "../__test_resources__/servers";
 
 describe("migrateChart", () => {
   it("returns the ActiveUI5 chart widget state corresponding to the given ActiveUI4 chart widget state", () => {
