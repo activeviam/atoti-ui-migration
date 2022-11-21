@@ -1,15 +1,17 @@
 import _map from "lodash/map";
 import _some from "lodash/some";
 import { migrateUIFolder } from "./migrateUIFolder";
-import { initialCounters } from "./cli/bin";
+import _fromPairs from "lodash/fromPairs";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
 import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 import { servers } from "./__test_resources__/servers";
 import { ContentRecord } from "@activeviam/activeui-sdk";
-import { LegacyDashboardState } from "./migration.types";
+import { LegacyDashboardState, OutcomeCounters } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
 import { smallLegacyUIFolderWithInvalidDashboard } from "./__test_resources__/smallLegacyUIFolderWithInvalidDashboard";
+
+let initialCounters: OutcomeCounters;
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
@@ -33,6 +35,22 @@ jest.mock(`./generateId`, () => {
 });
 
 describe("migrateUIFolder", () => {
+  beforeEach(() => {
+    initialCounters = _fromPairs(
+      ["dashboards", "widgets", "filters", "folders"].map((type) => [
+        type,
+        {
+          success: 0,
+          partial: 0,
+          failed: 0,
+          removed: 0,
+        },
+      ]),
+      // _fromPairs returns a Dictionary.
+      // In this case, the keys used correspond to the attributes of OutcomeCounters.
+    ) as OutcomeCounters;
+  });
+
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
     const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
       smallLegacyUIFolder,

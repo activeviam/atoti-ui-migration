@@ -29,7 +29,7 @@ type MigrationFunction = (
   },
 ) => Promise<[ContentRecord, OutcomeCounters, ErrorReport?]>;
 
-export const initialCounters = _fromPairs(
+const initialCounters = _fromPairs(
   ["dashboards", "widgets", "filters", "folders"].map((type) => [
     type,
     {
@@ -203,6 +203,7 @@ yargs
       }
       const functionsToCompose = migrationFunctions
         .slice(fromVersionIndex, toVersionIndex)
+        // The second element of the sub-arrays of the filtered `migrationFunctions` are systematically migration functions.
         .map(([, func]) => func) as MigrationFunction[];
 
       const legacyUIFolder = await fs.readJSON(inputPath);
