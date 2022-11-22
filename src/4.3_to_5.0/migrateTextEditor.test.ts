@@ -1,5 +1,5 @@
 import { migrateTextEditor } from "./migrateTextEditor";
-import { legacyTextEditor } from "../__test_resources__/legacyTextEditor";
+import { legacyTextEditor } from "./__test_resources__/legacyTextEditor";
 
 describe("migrateTextEditor", () => {
   it("returns the ActiveUI5 Text Editor widget state corresponding to the given ActiveUI4 Rich Text Editor widget state", () => {

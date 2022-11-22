@@ -1,5 +1,5 @@
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
-import { legacyUIFolder } from "../__test_resources__/legacyUIFolder";
+import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 
 describe("_getMapOfFolderIds", () => {
   it("returns a map of all records mapped to their paths", () => {

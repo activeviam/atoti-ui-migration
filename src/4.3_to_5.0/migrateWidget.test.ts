@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { migrateWidget } from "./migrateWidget";
 import { LegacyWidgetState } from "./migration.types";
-import { servers } from "../__test_resources__/servers";
+import { servers } from "./__test_resources__/servers";
 
 describe("migrateWidget", () => {
   it("converts a widget saved with ActiveUI 4 into one usable with ActiveUI 5", () => {

@@ -1,7 +1,7 @@
 import { migrateDrillthrough } from "./migrateDrillthrough";
-import { emptyLegacyDrillthrough } from "../__test_resources__/emptyLegacyDrillthrough";
-import { legacyDrillthrough } from "../__test_resources__/legacyDrillthrough";
-import { servers } from "../__test_resources__/servers";
+import { emptyLegacyDrillthrough } from "./__test_resources__/emptyLegacyDrillthrough";
+import { legacyDrillthrough } from "./__test_resources__/legacyDrillthrough";
+import { servers } from "./__test_resources__/servers";
 
 describe("migrateDrillthrough", () => {
   it("returns the ActiveUI5 drillthrough-table widget state corresponding to the given ActiveUI4 drillthrough widget state", () => {

@@ -1,5 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk";
-import { legacySettingsFolder } from "../4.3_to_5.0/legacySettingsFolder";
+import { legacySettingsFolder } from "../legacySettingsFolder";
 
 /**
  * The content of a legacy /ui folder on a Content Server, useful for unit tests.

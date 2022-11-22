@@ -1,12 +1,12 @@
 import { parse, stringify, TableWidgetState } from "@activeviam/activeui-sdk";
 import _cloneDeep from "lodash/cloneDeep";
 import { migrateTable } from "./migrateTable";
-import { emptyLegacyTable } from "../__test_resources__/emptyLegacyTable";
-import { legacyPivotTable } from "../__test_resources__/legacyPivotTable";
-import { legacyTable } from "../__test_resources__/legacyTable";
-import { legacyTabularView } from "../__test_resources__/legacyTabularView";
-import { legacyTreeTable } from "../__test_resources__/legacyTreeTable";
-import { servers } from "../__test_resources__/servers";
+import { emptyLegacyTable } from "./__test_resources__/emptyLegacyTable";
+import { legacyPivotTable } from "./__test_resources__/legacyPivotTable";
+import { legacyTable } from "./__test_resources__/legacyTable";
+import { legacyTabularView } from "./__test_resources__/legacyTabularView";
+import { legacyTreeTable } from "./__test_resources__/legacyTreeTable";
+import { servers } from "./__test_resources__/servers";
 
 describe("migrateTable", () => {
   it("migrates a tree table widget", () => {

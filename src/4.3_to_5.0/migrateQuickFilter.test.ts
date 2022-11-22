@@ -1,6 +1,6 @@
 import { migrateQuickFilter } from "./migrateQuickFilter";
-import { legacyQuickFilter } from "../__test_resources__/legacyQuickFilter";
-import { servers } from "../__test_resources__/servers";
+import { legacyQuickFilter } from "./__test_resources__/legacyQuickFilter";
+import { servers } from "./__test_resources__/servers";
 import { produce } from "immer";
 
 describe("migrateQuickFilter", () => {

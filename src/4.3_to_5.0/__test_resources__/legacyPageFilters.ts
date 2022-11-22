@@ -1,4 +1,4 @@
-import { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
+import { LegacyWidgetState } from "../migration.types";
 
 /**
  * The widgetState of a legacy Page Filters widget, useful for unit tests.

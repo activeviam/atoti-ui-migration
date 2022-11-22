@@ -1,18 +1,18 @@
-import type { LegacyWidgetState } from "../4.3_to_5.0/migration.types";
+import type { LegacyWidgetState } from "../migration.types";
 
 /**
- * The widgetState of a legacy pivot table, useful for unit tests.
+ * The widgetState of a legacy tabular view, useful for unit tests.
  */
-export const legacyPivotTable: LegacyWidgetState = {
+export const legacyTabularView: LegacyWidgetState = {
   type: "container",
   writable: true,
-  name: "Pivot Table",
+  name: "Tabular View",
   value: {
     style: {},
     showTitleBar: true,
     body: {
       serverUrl: "",
-      mdx: "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+      mdx: "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
       contextValues: {},
       updateMode: "once",
       ranges: {
@@ -27,10 +27,6 @@ export const legacyPivotTable: LegacyWidgetState = {
       },
       configuration: {
         tabular: {
-          pinnedHeaderSelector: "member",
-          sortingMode: "non-breaking",
-          cellRenderers: ["pivot-layout"],
-          statisticsShown: true,
           columnsGroups: [
             {
               captionProducer: "firstColumn",
@@ -48,10 +44,16 @@ export const legacyPivotTable: LegacyWidgetState = {
               selector: "kpi-expiry",
             },
           ],
-          hideAddButton: true,
           defaultOptions: {},
-          expansion: {
-            automaticExpansion: true,
+          hideAddButton: true,
+          lineNumbers: true,
+          sortingMode: "breaking",
+          statisticsShown: true,
+          columnOrder: {
+            key: "explicit",
+            args: {
+              orderedColumns: ["[Currency].[Currency].[Currency]"],
+            },
           },
           columns: [
             {
@@ -62,6 +64,6 @@ export const legacyPivotTable: LegacyWidgetState = {
         },
       },
     },
-    containerKey: "pivot-table",
+    containerKey: "tabular-view",
   },
 };
