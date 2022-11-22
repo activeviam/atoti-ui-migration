@@ -5,7 +5,7 @@ import type {
   KpiComparison,
   MdxSelect,
   KpiWidgetState,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import {
   parse,
   stringify,
@@ -13,8 +13,8 @@ import {
   pluginWidgetKpi,
   serializeWidgetState,
   deriveMappingFromMdx,
-} from "@activeviam/activeui-sdk";
-import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "../errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";

@@ -3,7 +3,7 @@ import type {
   DataModel,
   MdxSelect,
   TableWidgetState,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import {
   serializeWidgetState,
   deriveMappingFromMdx,
@@ -11,7 +11,7 @@ import {
   pluginWidgetPivotTable,
   pluginWidgetTable,
   pluginWidgetTreeTable,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "../errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";

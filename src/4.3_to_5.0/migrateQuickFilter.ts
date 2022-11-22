@@ -7,7 +7,7 @@ import {
   QuickFilterWidgetState,
   getTargetCube,
   getHierarchy,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 
 const _getMode = ({
   displayedAsSelect,

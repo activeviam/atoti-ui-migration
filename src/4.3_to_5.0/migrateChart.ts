@@ -24,7 +24,7 @@ import {
   pluginWidgetPlotlyBulletChart,
   pluginWidgetPlotlyTreeMap,
   pluginWidgetPlotlyStackedAreaChart,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import type {
   PlotlyWidgetState,
   DataModel,
@@ -33,7 +33,7 @@ import type {
   Query,
   WidgetPlugin,
   SerializedDataVisualizationWidgetMapping,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { LegacyQuery, _migrateQuery } from "./_migrateQuery";
 import { UnsupportedLegacyChartTypeError } from "../errors/UnsupportedLegacyChartTypeError";

@@ -1,6 +1,6 @@
-import { MdxFunction, parse } from "@activeviam/activeui-sdk";
+import { MdxFunction, parse } from "@activeviam/activeui-sdk-5.0";
 import { _doesCrossjoinRepresentAnExpandedMember } from "./_doesCrossjoinRepresentAnExpandedMember";
-import { dataModelsForTests } from "@activeviam/data-model";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 

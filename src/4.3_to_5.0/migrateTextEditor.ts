@@ -1,4 +1,4 @@
-import type { TextEditorWidgetState } from "@activeviam/activeui-sdk";
+import type { TextEditorWidgetState } from "@activeviam/activeui-sdk-5.0";
 import type { LegacyWidgetState } from "./migration.types";
 
 /**

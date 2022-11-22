@@ -3,8 +3,8 @@ import type {
   DataModel,
   MdxDrillthrough,
   DrillthroughTableWidgetState,
-} from "@activeviam/activeui-sdk";
-import { serializeWidgetState, parse } from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
+import { serializeWidgetState, parse } from "@activeviam/activeui-sdk-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "../errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";

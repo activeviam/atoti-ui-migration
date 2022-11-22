@@ -5,8 +5,8 @@ import type {
   Mdx,
   MdxDrillthrough,
   MdxSelect,
-} from "@activeviam/activeui-sdk";
-import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
+import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk-5.0";
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import {
   LegacyContextValues,

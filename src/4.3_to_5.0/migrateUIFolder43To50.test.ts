@@ -4,7 +4,7 @@ import { migrateUIFolder43To50 } from "./migrateUIFolder43To50";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
 import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 import { servers } from "./__test_resources__/servers";
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { LegacyDashboardState } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";

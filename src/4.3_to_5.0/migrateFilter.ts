@@ -1,4 +1,4 @@
-import type { CubeName, MdxString } from "@activeviam/activeui-sdk";
+import type { CubeName, MdxString } from "@activeviam/activeui-sdk-5.0";
 interface LegacyFilter {
   name: string;
   type: "mdx";

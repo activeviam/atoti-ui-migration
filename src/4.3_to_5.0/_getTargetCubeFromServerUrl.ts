@@ -1,12 +1,12 @@
 import _mapValues from "lodash/mapValues";
 import _findKey from "lodash/findKey";
-import { getCubeName, getTargetCube } from "@activeviam/activeui-sdk";
+import { getCubeName, getTargetCube } from "@activeviam/activeui-sdk-5.0";
 import type {
   Cube,
   DataModel,
   MdxDrillthrough,
   MdxSelect,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Returns the serverKey, dataModel and cube targeted by the given `mdx` from a legacy AUI4 widget,

@@ -1,4 +1,4 @@
-import { dataModelsForTests } from "@activeviam/data-model";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 /**
  * A datamodel and URL, useful to unit test the migration scripts.
