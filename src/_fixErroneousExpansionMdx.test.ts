@@ -1,8 +1,8 @@
 import _cloneDeep from "lodash/cloneDeep";
-import { MdxSelect, parse, stringify } from "@activeviam/activeui-sdk";
+import { MdxSelect, parse, stringify } from "@activeviam/activeui-sdk-5.0";
 
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
-import { dataModelsForTests } from "@activeviam/data-model";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 

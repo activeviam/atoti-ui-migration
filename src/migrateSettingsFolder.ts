@@ -6,8 +6,8 @@ import type {
   ContentRecord,
   Settings,
   MdxString,
-} from "@activeviam/activeui-sdk";
-import { emptyUIFolder } from "@activeviam/content-server-initialization";
+} from "@activeviam/activeui-sdk-5.0";
+import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 const emptySettingsFolders = _pick(
   emptyUIFolder.children,

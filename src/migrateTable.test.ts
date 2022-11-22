@@ -1,4 +1,8 @@
-import { parse, stringify, TableWidgetState } from "@activeviam/activeui-sdk";
+import {
+  parse,
+  stringify,
+  TableWidgetState,
+} from "@activeviam/activeui-sdk-5.0";
 import _cloneDeep from "lodash/cloneDeep";
 import { migrateTable } from "./migrateTable";
 import { emptyLegacyTable } from "./__test_resources__/emptyLegacyTable";

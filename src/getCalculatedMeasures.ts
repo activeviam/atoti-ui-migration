@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import xml2js from "xml2js";
 import _flatMap from "lodash/flatMap";
 import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";

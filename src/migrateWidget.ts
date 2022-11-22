@@ -1,4 +1,4 @@
-import type { AWidgetState, DataModel } from "@activeviam/activeui-sdk";
+import type { AWidgetState, DataModel } from "@activeviam/activeui-sdk-5.0";
 import type { LegacyWidgetState } from "./migration.types";
 
 import { migrateChart } from "./migrateChart";

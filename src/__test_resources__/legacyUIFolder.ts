@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { legacySettingsFolder } from "../legacySettingsFolder";
 
 /**

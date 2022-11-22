@@ -1,5 +1,5 @@
-import { dataModelsForTests } from "@activeviam/data-model";
-import type { DataVisualizationWidgetMapping } from "@activeviam/activeui-sdk";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import type { DataVisualizationWidgetMapping } from "@activeviam/activeui-sdk-5.0";
 import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
 
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];

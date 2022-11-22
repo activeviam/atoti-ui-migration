@@ -1,4 +1,4 @@
-import { TextEditorWidgetState } from "@activeviam/activeui-sdk";
+import { TextEditorWidgetState } from "@activeviam/activeui-sdk-5.0";
 import { PartialMigrationError } from "./PartialMigrationError";
 
 /**

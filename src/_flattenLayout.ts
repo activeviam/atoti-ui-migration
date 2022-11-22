@@ -1,4 +1,4 @@
-import type { Layout, LayoutLeaf } from "@activeviam/activeui-sdk";
+import type { Layout, LayoutLeaf } from "@activeviam/activeui-sdk-5.0";
 
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import type { LegacyLayout, LegacyLayoutLeaf } from "./migration.types";

@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Returns an array containing the names of each folder identified by their ids in `pathOfIds`.

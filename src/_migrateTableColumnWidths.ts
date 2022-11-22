@@ -1,14 +1,14 @@
 import type {
   Cube,
   DataVisualizationWidgetMapping,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import {
   isMdxCompoundIdentifier,
   isMdxFunction,
   parse,
   quote,
-} from "@activeviam/activeui-sdk";
-import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
 
 interface LegacyColumn {
   key: string;
