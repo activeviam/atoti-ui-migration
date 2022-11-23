@@ -21,7 +21,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
       namesOfCalculatedMeasurestoMigrate,
     );
 
-  it("returns a `cubeNames` object containing the names of all calculated measures used in a `ui/widgets` folder with their corresponding cube name", () => {
+  it("returns a `cubeNames` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
     expect(cubeNames).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
       "EXP pnl.Forex": "EquityDerivativesCube",
@@ -31,7 +31,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     });
   });
 
-  it("returns the widget record unchanged if a widget at the root contains no calculated measures", () => {
+  it("does not change a widget record if there is no calculated measures in its MDX query", () => {
     // "7a5" is a widget containing no calculated measures at the root. This is definitely defined, otherwise the snapshot would be empty.
     expect(
       migratedWidgetsRecord.children?.content.children!["7a5"],
@@ -45,7 +45,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     ).toStrictEqual(uiWidgetsFolder.children?.content.children!["ee7"]);
   });
 
-  it("removes the calculated measure definition from a widget containing 1 calculated measure at the root", () => {
+  it("removes the calculated measure definition from a widget containing 1 calculated measure", () => {
     expect(
       // "854" is a widget containing 1 calculated measure ("Distinct count city") at the root. This is definitely defined, otherwise the snapshot would be empty.
       JSON.parse(
