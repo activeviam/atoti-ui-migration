@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.15",
+    "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221018171954-6275d65",
     "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.15",
     "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.15",
     "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.15",
