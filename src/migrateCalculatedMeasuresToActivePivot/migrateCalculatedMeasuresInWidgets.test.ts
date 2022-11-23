@@ -31,15 +31,15 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     });
   });
 
-  it("does not change a widget record if there is no calculated measures in its MDX query", () => {
-    // "7a5" is a widget containing no calculated measures at the root. This is definitely defined, otherwise the snapshot would be empty.
+  it("does not change a widget record if there are no calculated measures in its MDX query", () => {
+    // "7a5" is a widget containing no calculated measures.
     expect(
       migratedWidgetsRecord.children?.content.children!["7a5"],
     ).toStrictEqual(uiWidgetsFolder.children?.content.children!["7a5"]);
   });
 
   it("does not remove a calculated measure definition from the MDX if it is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
-    // "ee7" is a widget containing 1 calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`. This is definitely defined, otherwise the snapshot would be empty.
+    // "ee7" is a widget containing 1 calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`.
     expect(
       migratedWidgetsRecord.children?.content.children!["ee7"],
     ).toStrictEqual(uiWidgetsFolder.children?.content.children!["ee7"]);
@@ -47,7 +47,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
 
   it("removes the calculated measure definition from a widget containing 1 calculated measure", () => {
     expect(
-      // "854" is a widget containing 1 calculated measure ("Distinct count city") at the root. This is definitely defined, otherwise the snapshot would be empty.
+      // "854" is a widget containing 1 calculated measure ("Distinct count city").
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["854"].entry.content,
       ).query.mdx,
@@ -57,9 +57,9 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     );
   });
 
-  it("removes both calculated measure definitions from a widget containing 2 calculated measures at the root", () => {
+  it("removes both calculated measure definitions from a widget containing 2 calculated measures", () => {
     expect(
-      // "0fc" is a widget containing 2 calculated measures at the root. This is definitely defined, otherwise the snapshot would be empty.
+      // "0fc" is a widget containing 2 calculated measures.
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["0fc"].entry.content,
       ).query.mdx,
@@ -68,15 +68,15 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     );
   });
 
-  it("returns the widget record unchanged if a widget inside a folder contains no calculated measures", () => {
-    // "6bf" is a widget containing no calculated measures inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+  it("does not change a widget record if there are no calculated measures in its MDX query when the widget is inside a folder", () => {
+    // "6bf" is a widget inside a folder containing no calculated measures.
     expect(
       migratedWidgetsRecord.children?.content.children!["6bf"],
     ).toStrictEqual(uiWidgetsFolder.children?.content.children!["6bf"]);
   });
 
-  it("removes the calculated measure definition from a widget containing 1 calculated measure inside a folder", () => {
-    // "761" is a widget containing 1 calculated measure ("Test calculated measure") inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+  it("removes the calculated measure definition from a widget inside a folder containing 1 calculated measure", () => {
+    // "761" is a widget inside a folder containing 1 calculated measure ("Test calculated measure").
     expect(
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["761"].entry.content,
@@ -87,8 +87,8 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     );
   });
 
-  it("removes the calculated measure definition from a widget containing 1 calculated measure and 1 native measure inside a folder", () => {
-    // "049" is a widget containing 1 calculated measure and 1 native measure inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+  it("removes the calculated measure definition from a widget inside a folder containing 1 calculated measure and 1 native measure", () => {
+    // "049" is a widget inside a folder containing 1 calculated measure and 1 native measure.
     expect(
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["049"].entry.content,
@@ -99,9 +99,9 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
     );
   });
 
-  it("removes all calculated measure definitions from a widget containing multiple calculated measures inside a folder", () => {
+  it("removes all calculated measure definitions from a widget inside a folder containing multiple calculated measures", () => {
     expect(
-      // "3cb" is a widget containing multiple calculated measures inside a folder. This is definitely defined, otherwise the snapshot would be empty.
+      // "3cb" is a widget inside a folder containing multiple calculated measures.
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["3cb"].entry.content,
       ).query.mdx,
