@@ -1,15 +1,13 @@
-import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
-import _fromPairs from "lodash/fromPairs";
 
 import {
   ContentRecord,
   DataModel,
   MdxString,
+  DashboardState,
 } from "@activeviam/activeui-sdk-5.0";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
@@ -21,6 +19,7 @@ import {
   ErrorReport,
   OutcomeCounters,
   DashboardErrorReport,
+  LegacyDashboardState,
 } from "./migration.types";
 import { _getFolderName } from "./_getFolderName";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
@@ -211,34 +210,31 @@ const accumulateStructure = ({
 export async function migrate_43_to_50(
   legacyUIFolder: ContentRecord,
   {
+    migrateDashboards,
+    migratedUIFolder,
+    errorReport,
+    counters,
+    dashboards,
     servers,
     keysOfWidgetPluginsToRemove,
     legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
+    migrateDashboards: (
+      callback: (
+        dashboard: LegacyDashboardState,
+      ) => [DashboardState<"serialized">, DashboardErrorReport?],
+    ) => void;
+    migratedUIFolder: ContentRecord;
+    errorReport: ErrorReport;
+    counters: OutcomeCounters;
+    dashboards: { [dashboardId: string]: any };
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
   },
-): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
-  const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-  const errorReport: ErrorReport = {};
-  const counters = _fromPairs(
-    ["dashboards", "widgets", "filters", "folders"].map((type) => [
-      type,
-      {
-        success: 0,
-        partial: 0,
-        failed: 0,
-        removed: 0,
-      },
-    ]),
-    // _fromPairs returns a Dictionary.
-    // In this case, the keys used correspond to the attributes of OutcomeCounters.
-  ) as OutcomeCounters;
-
-  const dashboards: { [dashboardId: string]: any } = {};
+): Promise<void> {
   const widgets: { [widgetId: string]: any } = {};
   const filters: {
     [filterId: string]: {
@@ -300,6 +296,14 @@ export async function migrate_43_to_50(
     clearOnComplete: true,
   });
   progressBar.start(numberOfFiles, 0);
+
+  migrateDashboards((dashboard) =>
+    migrateDashboard(dashboard, {
+      servers,
+      keysOfWidgetPluginsToRemove,
+      doesReportIncludeStacks,
+    }),
+  );
 
   for (const fileId in legacyContent) {
     const { entry } = legacyContent[fileId];
@@ -375,56 +379,7 @@ export async function migrate_43_to_50(
             });
           }
         } else if (bookmark.value.containerKey === "dashboard") {
-          let migratedDashboard;
-
-          try {
-            const [successfullyMigratedDashboard, dashboardErrorReport] =
-              migrateDashboard(bookmark, {
-                servers,
-                keysOfWidgetPluginsToRemove,
-                doesReportIncludeStacks,
-              });
-            migratedDashboard = successfullyMigratedDashboard;
-            if (dashboardErrorReport) {
-              // The dashboard was migrated, but errors were thrown on some of its widgets.
-              counters.dashboards.partial++;
-
-              addErrorToReport({
-                contentType: "dashboards",
-                fileErrorReport: dashboardErrorReport,
-                fileId,
-                name: bookmark.name,
-              });
-            } else {
-              // The dashboard was fully migrated.
-              counters.dashboards.success++;
-            }
-          } catch (error) {
-            // The dashboard could not be migrated at all.
-            counters.dashboards.failed++;
-
-            addErrorToReport({
-              contentType: "dashboards",
-              fileErrorReport: {
-                error: _serializeError(error, {
-                  doesReportIncludeStacks,
-                }),
-              },
-              fileId,
-              name: bookmark.name,
-            });
-            migratedDashboard = bookmark;
-          }
-
-          dashboards[fileId] = migratedDashboard;
-          migratedUIFolder.children!.dashboards.children!.content.children![
-            fileId
-          ] = {
-            entry: {
-              ...entry,
-              content: JSON.stringify(_omit(migratedDashboard, ["name"])),
-            },
-          };
+          // Do nothing, taken care of by `migrateDashboards`.
         } else {
           const legacyWidgetPluginKey = _getLegacyWidgetPluginKey(bookmark);
           if (keysOfWidgetPluginsToRemove?.includes(legacyWidgetPluginKey)) {
@@ -515,10 +470,4 @@ export async function migrate_43_to_50(
       : {}),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
-
-  return [
-    migratedUIFolder,
-    counters,
-    Object.keys(errorReport).length > 0 ? errorReport : undefined,
-  ];
 }
