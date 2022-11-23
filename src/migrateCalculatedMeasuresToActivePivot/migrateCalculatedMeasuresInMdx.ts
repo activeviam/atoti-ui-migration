@@ -1,13 +1,13 @@
-import { DataModel, CubeName, getCube } from "@activeviam/data-model";
+import { DataModel, CubeName, getCube } from "@activeviam/data-model-5.0";
 import {
   MdxString,
   MdxSelect,
   getCalculatedMeasures,
   getCubeName,
-  removeCalculatedMemberDefinition,
   stringify,
-} from "@activeviam/mdx";
-import { parse } from "@activeviam/activeui-sdk";
+} from "@activeviam/mdx-5.0";
+import { removeCalculatedMemberDefinition } from "@activeviam/mdx-5.1";
+import { parse } from "@activeviam/activeui-sdk-5.0";
 import _intersection from "lodash/intersection";
 
 /**

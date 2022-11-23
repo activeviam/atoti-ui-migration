@@ -1,5 +1,5 @@
-import { dataModelsForTests } from "@activeviam/data-model";
-import { MdxString } from "@activeviam/mdx";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import { MdxString } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
 const mdxStringWithNoCalculatedMeasures: MdxString =

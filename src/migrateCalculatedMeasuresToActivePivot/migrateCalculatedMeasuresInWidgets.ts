@@ -4,8 +4,8 @@ import {
   DataModel,
   MdxSelect,
   WidgetWithQueryState,
-} from "@activeviam/activeui-sdk";
-import { MdxString } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { MdxString } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _mapValues from "lodash/mapValues";
