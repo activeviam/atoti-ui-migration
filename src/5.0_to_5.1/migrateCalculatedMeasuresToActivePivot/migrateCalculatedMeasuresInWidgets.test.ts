@@ -1,5 +1,5 @@
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
-import { uiWidgetsFolder } from "../__test_resources__/aui5.0LegacyTestResources/uiWidgetsFolder";
+import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
 import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 const dataModel = dataModelsForTests.sandbox;
