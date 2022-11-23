@@ -1,6 +1,6 @@
 import _map from "lodash/map";
 import _some from "lodash/some";
-import { migrateUIFolder } from "./migrateUIFolder";
+import { migrate_43_to_50 } from "./migrate_43_to_50";
 import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
 import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 import { servers } from "./__test_resources__/servers";
@@ -31,9 +31,9 @@ jest.mock(`./generateId`, () => {
   };
 });
 
-describe("migrateUIFolder", () => {
+describe("migrate_43_to_50", () => {
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+    const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
       smallLegacyUIFolder,
       {
         servers,
@@ -46,7 +46,7 @@ describe("migrateUIFolder", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+    const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
       legacyUIFolder,
       {
         servers,
@@ -59,7 +59,7 @@ describe("migrateUIFolder", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
-    const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
+    const [migratedUIFolder] = await migrate_43_to_50(legacyUIFolder, {
       servers,
       legacyPivotFolder: smallLegacyPivotFolder,
       doesReportIncludeStacks: false,
@@ -73,7 +73,7 @@ describe("migrateUIFolder", () => {
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
-    const [migratedUIFolder] = await migrateUIFolder(legacyUIFolder, {
+    const [migratedUIFolder] = await migrate_43_to_50(legacyUIFolder, {
       servers,
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks: false,
@@ -133,7 +133,7 @@ describe("migrateUIFolder", () => {
   });
 
   it("returns an error report for dashboards and handles the dashboard id being a number", async () => {
-    const [migratedFolder, counters, errorReport] = await migrateUIFolder(
+    const [migratedFolder, counters, errorReport] = await migrate_43_to_50(
       smallLegacyUIFolderWithInvalidDashboard,
       {
         servers,
@@ -191,7 +191,7 @@ describe("migrateUIFolder", () => {
   });
 
   it("copies invalid filters as-is and reports an error", async () => {
-    const [migratedFolder, counters, errorReport] = await migrateUIFolder(
+    const [migratedFolder, counters, errorReport] = await migrate_43_to_50(
       smallLegacyUIFolderWithInvalidFilter,
       {
         servers,

@@ -11,8 +11,7 @@ export const legacyDrillthrough: LegacyWidgetState = {
     showTitleBar: true,
     body: {
       serverUrl: "",
-      mdx:
-        "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] WHERE [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
+      mdx: "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] WHERE [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
       contextValues: {},
       updateMode: "once",
       configuration: {

@@ -1,19 +1,16 @@
 import type { LegacyWidgetState } from "../migration.types";
 
 /**
- * The widgetState of a legacy table (pivot table in "Table" mode), useful for unit tests.
+ * The widgetState of a legacy tree table, useful for unit tests.
  */
-export const legacyTable: LegacyWidgetState = {
+export const legacyTreeTable: LegacyWidgetState = {
+  name: "Tree table",
   type: "container",
   writable: true,
-  name: "Table",
   value: {
-    style: {},
-    showTitleBar: true,
     body: {
-      serverUrl: "",
-      mdx:
-        "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+      serverUrl: "http://localhost:9090",
+      mdx: "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM (SELECT {[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]} ON COLUMNS FROM (SELECT TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT]) ON COLUMNS FROM [EquityDerivativesCube])) CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
       contextValues: {
         queriesTimeLimit: 60,
         "mdx.casesensitive": true,
@@ -33,8 +30,9 @@ export const legacyTable: LegacyWidgetState = {
       configuration: {
         tabular: {
           pinnedHeaderSelector: "member",
-          sortingMode: "breaking",
-          cellRenderers: [],
+          sortingMode: "non-breaking",
+          addButtonFilter: "numeric",
+          cellRenderers: ["tree-layout"],
           statisticsShown: true,
           columnsGroups: [
             {
@@ -52,6 +50,14 @@ export const legacyTable: LegacyWidgetState = {
               cellFactory: "expiry",
               selector: "kpi-expiry",
             },
+            {
+              captionProducer: "columnMerge",
+              cellFactory: {
+                args: {},
+                key: "treeCells",
+              },
+              selector: "member",
+            },
           ],
           hideAddButton: true,
           defaultOptions: {},
@@ -60,7 +66,7 @@ export const legacyTable: LegacyWidgetState = {
           },
           columns: [
             {
-              key: "[Currency].[Currency].[Currency]",
+              key: "c-treeCells-member",
               width: 250,
             },
           ],
