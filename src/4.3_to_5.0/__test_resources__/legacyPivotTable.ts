@@ -1,22 +1,19 @@
 import type { LegacyWidgetState } from "../migration.types";
 
 /**
- * The widgetState of a legacy tree table, useful for unit tests.
+ * The widgetState of a legacy pivot table, useful for unit tests.
  */
-export const legacyTreeTable: LegacyWidgetState = {
-  name: "Tree table",
+export const legacyPivotTable: LegacyWidgetState = {
   type: "container",
   writable: true,
+  name: "Pivot Table",
   value: {
+    style: {},
+    showTitleBar: true,
     body: {
-      serverUrl: "http://localhost:9090",
-      mdx:
-        "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM (SELECT {[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]} ON COLUMNS FROM (SELECT TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT]) ON COLUMNS FROM [EquityDerivativesCube])) CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-      contextValues: {
-        queriesTimeLimit: 60,
-        "mdx.casesensitive": true,
-        "mdx.defaultmembers.[Geography].[City]": "[AllMember].[Berlin]",
-      },
+      serverUrl: "",
+      mdx: "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+      contextValues: {},
       updateMode: "once",
       ranges: {
         row: {
@@ -32,8 +29,7 @@ export const legacyTreeTable: LegacyWidgetState = {
         tabular: {
           pinnedHeaderSelector: "member",
           sortingMode: "non-breaking",
-          addButtonFilter: "numeric",
-          cellRenderers: ["tree-layout"],
+          cellRenderers: ["pivot-layout"],
           statisticsShown: true,
           columnsGroups: [
             {
@@ -51,14 +47,6 @@ export const legacyTreeTable: LegacyWidgetState = {
               cellFactory: "expiry",
               selector: "kpi-expiry",
             },
-            {
-              captionProducer: "columnMerge",
-              cellFactory: {
-                args: {},
-                key: "treeCells",
-              },
-              selector: "member",
-            },
           ],
           hideAddButton: true,
           defaultOptions: {},
@@ -67,7 +55,7 @@ export const legacyTreeTable: LegacyWidgetState = {
           },
           columns: [
             {
-              key: "c-treeCells-member",
+              key: "[Currency].[Currency].[Currency]",
               width: 250,
             },
           ],

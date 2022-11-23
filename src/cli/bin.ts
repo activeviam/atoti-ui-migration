@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
-import { migrateUIFolder } from "../migrateUIFolder";
+import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
@@ -106,7 +106,7 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
+      const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
         legacyUIFolder,
         {
           legacyPivotFolder,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 1`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 1`] = `
 Object {
   "children": Object {
     "calculated_measures": Object {
@@ -2072,7 +2072,7 @@ Object {
 }
 `;
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 2`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 2`] = `
 Object {
   "dashboards": Object {
     "eef": Object {
@@ -2107,7 +2107,7 @@ Object {
 }
 `;
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a real life input 3`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 3`] = `
 Object {
   "dashboards": Object {
     "failed": 0,
@@ -2136,7 +2136,7 @@ Object {
 }
 `;
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a small input 1`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 1`] = `
 Object {
   "children": Object {
     "calculated_measures": Object {
@@ -2488,7 +2488,7 @@ Object {
 }
 `;
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder on a small input 2`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 2`] = `
 Object {
   "dashboards": Object {
     "failed": 0,
@@ -2517,7 +2517,7 @@ Object {
 }
 `;
 
-exports[`migrateUIFolder returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
 Object {
   "children": Object {
     "content": Object {

@@ -208,7 +208,7 @@ const accumulateStructure = ({
  * - for a matching saved ActiveUI 4 widget, no ActiveUI 5 file is created.
  * - for a saved ActiveUI 4 dashboard including a matching widget, the widget is removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  */
-export async function migrateUIFolder(
+export async function migrate_43_to_50(
   legacyUIFolder: ContentRecord,
   {
     servers,

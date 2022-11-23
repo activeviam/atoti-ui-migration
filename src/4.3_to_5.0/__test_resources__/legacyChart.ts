@@ -57,8 +57,7 @@ export const legacyChart: LegacyWidgetState = {
       },
       query: {
         serverUrl: "http://localhost:9090",
-        mdx:
-          "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]",
+        mdx: "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]",
         contextValues: {},
         updateMode: "once",
       },
