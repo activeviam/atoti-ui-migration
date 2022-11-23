@@ -1,19 +1,8 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
-import _cloneDeep from "lodash/cloneDeep";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
-import _fromPairs from "lodash/fromPairs";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
-import { getMigrateDashboards } from "../getMigrateDashboards";
-import {
-  DashboardErrorReport,
-  ErrorReport,
-  LegacyDashboardState,
-  OutcomeCounters,
-} from "../4.3_to_5.0/migration.types";
-import { DashboardState, ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -117,50 +106,15 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-      const errorReport: ErrorReport = {};
-      const counters = _fromPairs(
-        ["dashboards", "widgets", "filters", "folders"].map((type) => [
-          type,
-          {
-            success: 0,
-            partial: 0,
-            failed: 0,
-            removed: 0,
-          },
-        ]),
-        // _fromPairs returns a Dictionary.
-        // In this case, the keys used correspond to the attributes of OutcomeCounters.
-      ) as OutcomeCounters;
-
-      const dashboards: { [dashboardId: string]: any } = {};
-
-      const migrateDashboards = (
-        cb: (
-          dashboard: LegacyDashboardState,
-        ) => [DashboardState<"serialized">, DashboardErrorReport?],
-      ) =>
-        getMigrateDashboards({
-          legacyUIFolder,
-          migratedUIFolder,
-          dashboards,
-          counters,
-          errorReport,
+      const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
+        legacyUIFolder,
+        {
+          legacyPivotFolder,
+          servers,
+          keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks: stack,
-          cb,
-        });
-
-      await migrate_43_to_50(legacyUIFolder, {
-        migrateDashboards,
-        migratedUIFolder,
-        errorReport,
-        counters,
-        dashboards,
-        legacyPivotFolder,
-        servers,
-        keysOfWidgetPluginsToRemove,
-        doesReportIncludeStacks: stack,
-      });
+        },
+      );
 
       const { dir } = path.parse(outputPath);
 
