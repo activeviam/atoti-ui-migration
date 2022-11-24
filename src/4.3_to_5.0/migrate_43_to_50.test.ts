@@ -67,7 +67,7 @@ describe("migrate_43_to_50", () => {
       doesReportIncludeStacks: false,
     });
     expect(migratedUIFolder).toMatchSnapshot();
-    expect(errorReport).toBeUndefined();
+    expect(errorReport).toEqual({});
     expect(counters).toMatchSnapshot();
   });
 

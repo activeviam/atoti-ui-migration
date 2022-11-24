@@ -2,6 +2,7 @@ import {
   DashboardState as DashboardState50,
   ContentRecord,
 } from "@activeviam/activeui-sdk-5.0";
+import { DashboardState as DashboardState51 } from "@activeviam/activeui-sdk-5.1";
 import _omit from "lodash/omit";
 import {
   ErrorReport,
@@ -14,7 +15,7 @@ import { _serializeError } from "./_serializeError";
 
 type MigrateDashboardCallback<fromVersion extends MigrateFromVersions> = (
   dashboardState: fromVersion extends "5.0" ? DashboardState50 : any,
-) => any;
+) => fromVersion extends "5.0" ? DashboardState51 : any;
 
 /**
  * Handles the generic logic to migrate dashboards, specifically the errors.

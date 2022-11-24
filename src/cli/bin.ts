@@ -3,6 +3,7 @@ import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { emptyUIFolder as emptyUIFolder50 } from "@activeviam/content-server-initialization-5.0";
 import path from "path";
 import _fromPairs from "lodash/fromPairs";
 import _cloneDeep from "lodash/cloneDeep";
@@ -104,11 +105,7 @@ yargs
       debug,
       stack,
     }) => {
-      const toVersion = "5.0";
-
-      const { emptyUIFolder } = await import(
-        `@activeviam/content-server-initialization-${toVersion}`
-      );
+      const emptyUIFolder = emptyUIFolder50;
       const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
       const errorReport: ErrorReport = {};
       const counters = _fromPairs(
