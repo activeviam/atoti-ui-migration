@@ -9,6 +9,10 @@ import { LegacyDashboardState } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
 import { smallLegacyUIFolderWithInvalidDashboard } from "./__test_resources__/smallLegacyUIFolderWithInvalidDashboard";
+import { ErrorReport, OutcomeCounters } from "../migration.types";
+import _fromPairs from "lodash/fromPairs";
+import _cloneDeep from "lodash/cloneDeep";
+import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
@@ -31,35 +35,60 @@ jest.mock(`./generateId`, () => {
   };
 });
 
+let migratedUIFolder: ContentRecord;
+let errorReport: ErrorReport;
+let counters: OutcomeCounters;
+
 describe("migrate_43_to_50", () => {
+  beforeEach(() => {
+    migratedUIFolder = _cloneDeep(emptyUIFolder);
+    errorReport = {};
+    counters = _fromPairs(
+      ["dashboards", "widgets", "filters", "folders"].map((type) => [
+        type,
+        {
+          success: 0,
+          partial: 0,
+          failed: 0,
+          removed: 0,
+        },
+      ]),
+      // _fromPairs returns a Dictionary.
+      // In this case, the keys used correspond to the attributes of OutcomeCounters.
+    ) as OutcomeCounters;
+  });
+
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
-      smallLegacyUIFolder,
-      {
-        servers,
-        doesReportIncludeStacks: false,
-      },
-    );
+    await migrate_43_to_50(smallLegacyUIFolder, {
+      migratedUIFolder,
+      errorReport,
+      counters,
+      servers,
+      doesReportIncludeStacks: false,
+    });
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toBeUndefined();
     expect(counters).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
-      legacyUIFolder,
-      {
-        servers,
-        doesReportIncludeStacks: false,
-      },
-    );
+    await migrate_43_to_50(legacyUIFolder, {
+      migratedUIFolder,
+      errorReport,
+      counters,
+      servers,
+      doesReportIncludeStacks: false,
+    });
     expect(migratedUIFolder).toMatchSnapshot();
     expect(errorReport).toMatchSnapshot();
     expect(counters).toMatchSnapshot();
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
-    const [migratedUIFolder] = await migrate_43_to_50(legacyUIFolder, {
+    await migrate_43_to_50(legacyUIFolder, {
+      migratedUIFolder,
+      errorReport,
+      counters,
       servers,
       legacyPivotFolder: smallLegacyPivotFolder,
       doesReportIncludeStacks: false,
@@ -73,7 +102,10 @@ describe("migrate_43_to_50", () => {
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
-    const [migratedUIFolder] = await migrate_43_to_50(legacyUIFolder, {
+    await migrate_43_to_50(legacyUIFolder, {
+      migratedUIFolder,
+      errorReport,
+      counters,
       servers,
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks: false,
@@ -133,16 +165,18 @@ describe("migrate_43_to_50", () => {
   });
 
   it("returns an error report for dashboards and handles the dashboard id being a number", async () => {
-    const [migratedFolder, counters, errorReport] = await migrate_43_to_50(
-      smallLegacyUIFolderWithInvalidDashboard,
-      {
-        servers,
-        doesReportIncludeStacks: false,
-      },
-    );
+    await migrate_43_to_50(smallLegacyUIFolderWithInvalidDashboard, {
+      migratedUIFolder,
+      errorReport,
+      counters,
+      servers,
+      doesReportIncludeStacks: false,
+    });
 
     expect(
-      migratedFolder.children?.dashboards?.children?.content?.children?.["158"],
+      migratedUIFolder.children?.dashboards?.children?.content?.children?.[
+        "158"
+      ],
     ).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
@@ -191,16 +225,16 @@ describe("migrate_43_to_50", () => {
   });
 
   it("copies invalid filters as-is and reports an error", async () => {
-    const [migratedFolder, counters, errorReport] = await migrate_43_to_50(
-      smallLegacyUIFolderWithInvalidFilter,
-      {
-        servers,
-        doesReportIncludeStacks: false,
-      },
-    );
+    await migrate_43_to_50(smallLegacyUIFolderWithInvalidFilter, {
+      migratedUIFolder,
+      errorReport,
+      counters,
+      servers,
+      doesReportIncludeStacks: false,
+    });
 
     expect(
-      migratedFolder.children?.filters?.children?.content?.children?.["158"],
+      migratedUIFolder.children?.filters?.children?.content?.children?.["158"],
     ).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
