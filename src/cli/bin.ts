@@ -2,7 +2,11 @@ import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import path from "path";
+import _fromPairs from "lodash/fromPairs";
+import _cloneDeep from "lodash/cloneDeep";
+import { ErrorReport, OutcomeCounters } from "../migration.types";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -100,21 +104,42 @@ yargs
       debug,
       stack,
     }) => {
+      const toVersion = "5.0";
+
+      const { emptyUIFolder } = await import(
+        `@activeviam/content-server-initialization-${toVersion}`
+      );
+      const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
+      const errorReport: ErrorReport = {};
+      const counters = _fromPairs(
+        ["dashboards", "widgets", "filters", "folders"].map((type) => [
+          type,
+          {
+            success: 0,
+            partial: 0,
+            failed: 0,
+            removed: 0,
+          },
+        ]),
+        // _fromPairs returns a Dictionary.
+        // In this case, the keys used correspond to the attributes of OutcomeCounters.
+      ) as OutcomeCounters;
+
       const legacyUIFolder = await fs.readJSON(inputPath);
       const legacyPivotFolder = pivotInputPath
         ? await fs.readJSON(pivotInputPath)
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const [migratedUIFolder, counters, errorReport] = await migrate_43_to_50(
-        legacyUIFolder,
-        {
-          legacyPivotFolder,
-          servers,
-          keysOfWidgetPluginsToRemove,
-          doesReportIncludeStacks: stack,
-        },
-      );
+      await migrate_43_to_50(legacyUIFolder, {
+        migratedUIFolder,
+        errorReport,
+        counters,
+        legacyPivotFolder,
+        servers,
+        keysOfWidgetPluginsToRemove,
+        doesReportIncludeStacks: stack,
+      });
 
       const { dir } = path.parse(outputPath);
 

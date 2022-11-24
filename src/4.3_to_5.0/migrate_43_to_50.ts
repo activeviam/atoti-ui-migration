@@ -1,15 +1,12 @@
-import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
-import _fromPairs from "lodash/fromPairs";
 
 import {
   ContentRecord,
   DataModel,
   MdxString,
 } from "@activeviam/activeui-sdk-5.0";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
@@ -17,17 +14,13 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import {
-  ErrorReport,
-  OutcomeCounters,
-  DashboardErrorReport,
-} from "./migration.types";
-import { _getFolderName } from "./_getFolderName";
-import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
-import { _serializeError } from "./_serializeError";
+import { OutcomeCounters, ErrorReport } from "../migration.types";
+import { _getMapOfFolderIds } from "../_getMapOfFolderIds";
+import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 import cliProgress from "cli-progress";
+import { _addErrorToReport } from "../_addErrorToReport";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -211,33 +204,23 @@ const accumulateStructure = ({
 export async function migrate_43_to_50(
   legacyUIFolder: ContentRecord,
   {
+    migratedUIFolder,
+    errorReport,
+    counters,
     servers,
     keysOfWidgetPluginsToRemove,
     legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
+    migratedUIFolder: ContentRecord;
+    errorReport: ErrorReport;
+    counters: OutcomeCounters;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
   },
-): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
-  const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-  const errorReport: ErrorReport = {};
-  const counters = _fromPairs(
-    ["dashboards", "widgets", "filters", "folders"].map((type) => [
-      type,
-      {
-        success: 0,
-        partial: 0,
-        failed: 0,
-        removed: 0,
-      },
-    ]),
-    // _fromPairs returns a Dictionary.
-    // In this case, the keys used correspond to the attributes of OutcomeCounters.
-  ) as OutcomeCounters;
-
+): Promise<void> {
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
   const filters: {
@@ -255,39 +238,6 @@ export async function migrate_43_to_50(
     legacyUIFolder?.children?.bookmarks?.children?.structure!;
 
   const mapOfFolderIds = _getMapOfFolderIds(legacyStructure);
-
-  /**
-   * Adds `fileErrorReport` in `contentType` within the full error report.
-   */
-  function addErrorToReport({
-    contentType,
-    fileId,
-    name,
-    fileErrorReport,
-  }: {
-    contentType: "dashboards" | "widgets" | "filters";
-    fileErrorReport:
-      | { error: { message: string; stack?: string[] } }
-      | DashboardErrorReport;
-    fileId: string;
-    name: string;
-  }) {
-    const folderId = mapOfFolderIds[fileId];
-    // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
-    // see https://github.com/lodash/lodash/issues/3414#issuecomment-334655702
-    // Using `_setWith` is the recommended workaround.
-    _setWith(
-      errorReport,
-      [contentType, fileId],
-      {
-        folderId,
-        folderName: _getFolderName(legacyContent, folderId),
-        name,
-        ...fileErrorReport,
-      },
-      Object,
-    );
-  }
 
   const numberOfFiles = Object.keys(legacyContent).length;
 
@@ -365,7 +315,9 @@ export async function migrate_43_to_50(
               },
             };
 
-            addErrorToReport({
+            _addErrorToReport(errorReport, {
+              legacyContent,
+              mapOfFolderIds,
               contentType: "filters",
               fileErrorReport: {
                 error: _serializeError(error, { doesReportIncludeStacks }),
@@ -389,7 +341,9 @@ export async function migrate_43_to_50(
               // The dashboard was migrated, but errors were thrown on some of its widgets.
               counters.dashboards.partial++;
 
-              addErrorToReport({
+              _addErrorToReport(errorReport, {
+                legacyContent,
+                mapOfFolderIds,
                 contentType: "dashboards",
                 fileErrorReport: dashboardErrorReport,
                 fileId,
@@ -403,7 +357,9 @@ export async function migrate_43_to_50(
             // The dashboard could not be migrated at all.
             counters.dashboards.failed++;
 
-            addErrorToReport({
+            _addErrorToReport(errorReport, {
+              legacyContent,
+              mapOfFolderIds,
               contentType: "dashboards",
               fileErrorReport: {
                 error: _serializeError(error, {
@@ -431,7 +387,9 @@ export async function migrate_43_to_50(
             // The widget's plugin key is flagged for removal.
             // Remove the widget instead of migrating it.
             counters.widgets.removed++;
-            addErrorToReport({
+            _addErrorToReport(errorReport, {
+              legacyContent,
+              mapOfFolderIds,
               contentType: "widgets",
               fileErrorReport: {
                 error: _serializeError(
@@ -464,7 +422,9 @@ export async function migrate_43_to_50(
                 widgetKey: legacyWidgetPluginKey,
               };
             }
-            addErrorToReport({
+            _addErrorToReport(errorReport, {
+              legacyContent,
+              mapOfFolderIds,
               contentType: "widgets",
               fileErrorReport: {
                 error: _serializeError(error, { doesReportIncludeStacks }),
@@ -515,10 +475,4 @@ export async function migrate_43_to_50(
       : {}),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
-
-  return [
-    migratedUIFolder,
-    counters,
-    Object.keys(errorReport).length > 0 ? errorReport : undefined,
-  ];
 }
