@@ -1,4 +1,3 @@
-import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
@@ -8,7 +7,6 @@ import {
   DataModel,
   MdxString,
 } from "@activeviam/activeui-sdk-5.0";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
@@ -209,22 +207,24 @@ const accumulateStructure = ({
  */
 export async function migrate_43_to_50(
   legacyUIFolder: ContentRecord,
-  counters: OutcomeCounters,
-  errorReport: ErrorReport,
   {
+    migratedUIFolder,
+    counters,
+    errorReport,
     servers,
     keysOfWidgetPluginsToRemove,
     legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
+    migratedUIFolder: ContentRecord;
+    counters: OutcomeCounters;
+    errorReport: ErrorReport;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
   },
-): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
-  const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-
+): Promise<void> {
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
   const filters: {
@@ -502,10 +502,4 @@ export async function migrate_43_to_50(
       : {}),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
-
-  return [
-    migratedUIFolder,
-    counters,
-    Object.keys(errorReport).length > 0 ? errorReport : undefined,
-  ];
 }
