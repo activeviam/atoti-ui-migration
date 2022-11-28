@@ -21,9 +21,7 @@ const emptySettingsFolders = _pick(
 function migrateSettingsMap(legacySettingsMap: {
   [settingKey: string]: any;
 }): Partial<Settings> {
-  const migratedSettingsMap: Partial<
-    Settings & { "userFilters.areEnabled"?: boolean }
-  > = {};
+  const migratedSettingsMap: Partial<Settings> = {};
 
   const theme = legacySettingsMap["global.theme"];
   if (["light-activeviam", "dark-activeviam"].includes(theme)) {
