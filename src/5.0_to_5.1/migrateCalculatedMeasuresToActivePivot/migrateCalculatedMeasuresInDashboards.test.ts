@@ -1,6 +1,6 @@
-import { dashboardsFolder } from "../__test_resources__/aui5.0LegacyTestResources/dashboardsFolder";
+import { dashboardsFolder } from "../__test_resources__/dashboardsFolder";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
-import { dataModelsForTests } from "@activeviam/data-model";
+import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 const dataModel = dataModelsForTests.sandbox;
 
@@ -46,7 +46,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   });
 
   it("does not modify the content of a dashboard which does not contain calculated measures", () => {
-    // "81a" is a dashboard with no calculated measures at the root.
+    // "81a" is a dashboard with no calculated measures.
     expect(migratedDashboards.children.content.children!["81a"]).toStrictEqual(
       dashboardsFolder.children.content.children["81a"],
     );
@@ -58,7 +58,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   });
 
   it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with a single page", () => {
-    // "b3e" is a dashboard at the root with a single page, containing a single widget, containing a single calculated measure.
+    // "b3e" is a dashboard with a single page, containing a single widget, containing a single calculated measure.
     expect(
       dashboardsFolder.children.content.children!["b3e"].entry.content,
     ).toContain("WITH  Member [Measures]");
@@ -73,7 +73,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
 
-    // "c83" is a dashboard at the root with a single page with multiple widgets, some of which contain calculated measures.
+    // "c83" is a dashboard with a single page with multiple widgets, some of which contain calculated measures.
     expect(
       dashboardsFolder.children.content.children!["c83"].entry.content,
     ).toContain("WITH  Member [Measures]");
@@ -88,7 +88,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   });
 
   it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
-    // "ef0" is a dashboard at the root with multiple pages, some of which contain calculated measures.
+    // "ef0" is a dashboard with multiple pages, some of which contain calculated measures.
     expect(
       dashboardsFolder.children.content.children!["ef0"].entry.content,
     ).toContain("WITH  Member [Measures]");
