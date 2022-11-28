@@ -6,10 +6,9 @@ import {
   DataModel,
   MdxString,
   WidgetWithQueryState,
-} from "@activeviam/activeui-sdk";
-import { removeCalculatedMemberDefinitionFromMDXAndGetCubeName } from "./removeCalculatedMemberDefinitionFromMDXAndGetCubeName";
+} from "@activeviam/activeui-sdk-5.0";
 import { produce } from "immer";
-import _merge from "lodash/merge";
+import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
 interface DashboardsFolder {
   entry: ContentEntry;
@@ -58,15 +57,22 @@ export const migrateCalculatedMeasuresInDashboards = (
                       return;
                     }
                     const {
-                      stringifiedUpdatedMdx,
-                      calculatedMeasuresWithCubeNames,
-                    } = removeCalculatedMemberDefinitionFromMDXAndGetCubeName(
+                      migratedMdx,
+                      namesOfCalculatedMeasuresToMigrateInWidget,
+                      cubeName,
+                    } = migrateCalculatedMeasuresInMdx(
                       mdx,
                       namesOfCalculatedMeasurestoMigrate,
                       dataModel,
                     );
-                    draft[widgetId].query.mdx = stringifiedUpdatedMdx;
-                    _merge(cubeNames, calculatedMeasuresWithCubeNames);
+                    draft[widgetId].query.mdx = migratedMdx;
+
+                    namesOfCalculatedMeasuresToMigrateInWidget.forEach(
+                      (calculatedMeasureName) => {
+                        cubeNames[calculatedMeasureName] = cubeName;
+                      },
+                    );
+                    
                   }
                 });
                 draft[pageId].content = updatedWidget;
