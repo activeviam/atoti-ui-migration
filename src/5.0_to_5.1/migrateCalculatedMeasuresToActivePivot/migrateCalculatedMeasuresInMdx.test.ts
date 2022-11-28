@@ -1,18 +1,21 @@
 import { dataModelsForTests } from "@activeviam/data-model-5.0";
-import { MdxString } from "@activeviam/mdx-5.0";
+import { MdxSelect, parse, stringify } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
-const mdxStringWithNoCalculatedMeasures: MdxString =
-  "SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS";
+const mdxSelectWithNoCalculatedMeasures: MdxSelect = parse(
+  "SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+);
 
-const mdxStringWithOneCalculatedMeasure: MdxString =
-  'WITH  Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS';
+const mdxSelectWithOneCalculatedMeasure: MdxSelect = parse(
+  'WITH  Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
+);
 
-const mdxStringWithTwoCalculatedMeasures: MdxString =
-  'WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"    Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS';
-
-const mdxStringWithCalculatedMeasureNotOnList =
-  'WITH  Member [Measures].[pvSum ^ 2] AS [Measures].[pv.SUM] ^ 2, FORMAT_STRING = "#,###.##"  SELECT NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS';
+const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(
+  'WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"    Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
+);
+const mdxSelectWithCalculatedMeasureNotOnList: MdxSelect = parse(
+  'WITH  Member [Measures].[pvSum ^ 2] AS [Measures].[pv.SUM] ^ 2, FORMAT_STRING = "#,###.##"  SELECT NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
+);
 
 const namesOfCalculatedMeasurestoMigrate = [
   "Distinct count city",
@@ -31,23 +34,23 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx(
-      mdxStringWithNoCalculatedMeasures,
+      mdxSelectWithNoCalculatedMeasures,
       namesOfCalculatedMeasurestoMigrate,
       dataModel,
     );
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
     expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([]);
-    expect(migratedMdx).toStrictEqual(mdxStringWithNoCalculatedMeasures);
+    expect(migratedMdx).toStrictEqual(mdxSelectWithNoCalculatedMeasures);
   });
 
-  it("removes calculated measure definition from MDX when widget contains a single calculated measure", () => {
+  it("removes calculated measure definition from MDX when the widget contains a single calculated measure", () => {
     const {
       cubeName,
       namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx(
-      mdxStringWithOneCalculatedMeasure,
+      mdxSelectWithOneCalculatedMeasure,
       namesOfCalculatedMeasurestoMigrate,
       dataModel,
     );
@@ -58,18 +61,18 @@ describe("migrateCalculatedMeasuresInMdx", () => {
     ]);
 
     // "WITH  Member [Measures].[Distinct count city]..." has been removed from the beginning of the MDX string.
-    expect(migratedMdx).toMatchInlineSnapshot(
+    expect(stringify(migratedMdx)).toMatchInlineSnapshot(
       `"SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
   });
 
-  it("removes calculated measure definitions from MDX when widget contains two calculated measures", () => {
+  it("removes calculated measure definitions from MDX when the widget contains two calculated measures", () => {
     const {
       cubeName,
       namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx(
-      mdxStringWithTwoCalculatedMeasures,
+      mdxSelectWithTwoCalculatedMeasures,
       namesOfCalculatedMeasurestoMigrate,
       dataModel,
     );
@@ -80,20 +83,20 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       "Distinct count city",
     ]);
 
-    // Both calculated measure definitions have been removed from the MDX string.
-    expect(migratedMdx).toMatchInlineSnapshot(
+    // Both calculated measure definitions have been removed from the MDX.
+    expect(stringify(migratedMdx)).toMatchInlineSnapshot(
       `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
   });
 
-  it("returns the MDX string unchanged if it contains a calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
+  it("returns the MDX unchanged if it contains a calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
     const {
       cubeName,
       namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx(
-      // mdxStringWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasurestoMigrate`.
-      mdxStringWithCalculatedMeasureNotOnList,
+      // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasurestoMigrate`.
+      mdxSelectWithCalculatedMeasureNotOnList,
       namesOfCalculatedMeasurestoMigrate,
       dataModel,
     );
@@ -103,6 +106,6 @@ describe("migrateCalculatedMeasuresInMdx", () => {
     expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([]);
 
     // The MDX is unchanged.
-    expect(migratedMdx).toStrictEqual(mdxStringWithCalculatedMeasureNotOnList);
+    expect(migratedMdx).toStrictEqual(mdxSelectWithCalculatedMeasureNotOnList);
   });
 });
