@@ -1,13 +1,10 @@
 import { DataModel, CubeName, getCube } from "@activeviam/data-model-5.0";
 import {
-  MdxString,
   MdxSelect,
   getCalculatedMeasures,
   getCubeName,
-  stringify,
 } from "@activeviam/mdx-5.0";
 import { removeCalculatedMemberDefinition } from "@activeviam/mdx-5.1";
-import { parse } from "@activeviam/activeui-sdk-5.0";
 import _intersection from "lodash/intersection";
 
 /**
@@ -15,24 +12,21 @@ import _intersection from "lodash/intersection";
  * Returns the updated MDX string, the names of calculated measures to be migrated from that particular widget and the corresponding cube name.
  */
 export const migrateCalculatedMeasuresInMdx = (
-  mdx: MdxString,
+  mdx: MdxSelect,
   namesOfCalculatedMeasurestoMigrate: string[],
   dataModel: DataModel,
 ): {
   cubeName: CubeName;
   namesOfCalculatedMeasuresToMigrateInWidget: string[];
-  migratedMdx: MdxString;
+  migratedMdx: MdxSelect;
 } => {
-  const parsedMdx: MdxSelect = parse(mdx);
-
   const namesOfCalculatedMeasuresToMigrateInWidget = _intersection(
-    Object.keys(getCalculatedMeasures(parsedMdx)),
+    Object.keys(getCalculatedMeasures(mdx)),
     namesOfCalculatedMeasurestoMigrate,
   );
 
-  const cubeName = getCubeName(parsedMdx);
-
-  let updatedMdx: MdxSelect = parsedMdx;
+  const cubeName = getCubeName(mdx);
+  let updatedMdx: MdxSelect = mdx;
   namesOfCalculatedMeasuresToMigrateInWidget.forEach((calculatedMeasure) => {
     updatedMdx = removeCalculatedMemberDefinition(updatedMdx, {
       dimensionName: "Measures",
@@ -42,10 +36,9 @@ export const migrateCalculatedMeasuresInMdx = (
     });
   });
 
-  const migratedMdx = stringify(updatedMdx);
   return {
     cubeName,
     namesOfCalculatedMeasuresToMigrateInWidget,
-    migratedMdx,
+    migratedMdx: updatedMdx,
   };
 };
