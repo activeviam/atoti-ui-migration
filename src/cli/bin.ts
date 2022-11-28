@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
-import { migrateUIFolder } from "../migrateUIFolder";
+import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk";
 import { ErrorReport, OutcomeCounters } from "../migration.types";
@@ -173,7 +173,7 @@ yargs
       debug,
       stack,
     }) => {
-      const migrationFunctions = [["4.3", migrateUIFolder], ["5.0"]];
+      const migrationFunctions = [["4.3", migrate_43_to_50], ["5.0"]];
       const versions = migrationFunctions.map(([version]) => version);
       const fromVersions = versions.slice(0, -1);
       const toVersions = versions.slice(1);
