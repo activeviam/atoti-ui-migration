@@ -72,7 +72,6 @@ export const migrateCalculatedMeasuresInDashboards = (
                         cubeNames[calculatedMeasureName] = cubeName;
                       },
                     );
-                    
                   }
                 });
                 draft[pageId].content = updatedWidget;
