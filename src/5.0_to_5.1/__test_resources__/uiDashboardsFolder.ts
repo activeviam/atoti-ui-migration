@@ -12,7 +12,7 @@
 /**
  * A `ui/dashboards` folder on the content server created in ActiveUI 5.0.
  */
-export const dashboardsFolder = {
+export const uiDashboardsFolder = {
   entry: {
     isDirectory: true,
     owners: ["ROLE_CS_ROOT"],

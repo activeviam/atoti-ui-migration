@@ -1,4 +1,4 @@
-import { dashboardsFolder } from "../__test_resources__/dashboardsFolder";
+import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
@@ -17,7 +17,7 @@ const calculatedMeasureNames = [
 describe("migrateCalculatedMeasuresInDashboards", () => {
   const { migratedDashboards, cubeNames } =
     migrateCalculatedMeasuresInDashboards(
-      dashboardsFolder,
+      uiDashboardsFolder,
       dataModel,
       calculatedMeasureNames,
     );
@@ -36,31 +36,31 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   it("does not modify the content of an empty dashboard", () => {
     // "8c1" is an empty dashboard at the root.
     expect(migratedDashboards.children.content.children!["8c1"]).toStrictEqual(
-      dashboardsFolder.children.content.children["8c1"],
+      uiDashboardsFolder.children.content.children["8c1"],
     );
 
     // "a4f" is an empty dashboard inside a folder.
     expect(migratedDashboards.children.content.children!["a4f"]).toStrictEqual(
-      dashboardsFolder.children.content.children["a4f"],
+      uiDashboardsFolder.children.content.children["a4f"],
     );
   });
 
   it("does not modify the content of a dashboard which does not contain calculated measures", () => {
     // "81a" is a dashboard with no calculated measures.
     expect(migratedDashboards.children.content.children!["81a"]).toStrictEqual(
-      dashboardsFolder.children.content.children["81a"],
+      uiDashboardsFolder.children.content.children["81a"],
     );
 
     // "e27" is a dashboard with no calculated measures inside a folder.
     expect(migratedDashboards.children.content.children!["e27"]).toStrictEqual(
-      dashboardsFolder.children.content.children["e27"],
+      uiDashboardsFolder.children.content.children["e27"],
     );
   });
 
   it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with a single page", () => {
     // "b3e" is a dashboard with a single page, containing a single widget, containing a single calculated measure.
     expect(
-      dashboardsFolder.children.content.children!["b3e"].entry.content,
+      uiDashboardsFolder.children.content.children!["b3e"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
       migratedDashboards.children.content.children!["b3e"].entry.content,
@@ -75,7 +75,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
 
     // "c83" is a dashboard with a single page with multiple widgets, some of which contain calculated measures.
     expect(
-      dashboardsFolder.children.content.children!["c83"].entry.content,
+      uiDashboardsFolder.children.content.children!["c83"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
       migratedDashboards.children.content.children!["c83"].entry.content,
@@ -90,7 +90,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
     // "ef0" is a dashboard with multiple pages, some of which contain calculated measures.
     expect(
-      dashboardsFolder.children.content.children!["ef0"].entry.content,
+      uiDashboardsFolder.children.content.children!["ef0"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
       migratedDashboards.children.content.children!["ef0"].entry.content,
@@ -103,7 +103,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
 
     // "a18" is a dashboard inside a folder with multiple pages, some of which contain calculated measures.
     expect(
-      dashboardsFolder.children.content.children!["a18"].entry.content,
+      uiDashboardsFolder.children.content.children!["a18"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
       migratedDashboards.children.content.children!["a18"].entry.content,
