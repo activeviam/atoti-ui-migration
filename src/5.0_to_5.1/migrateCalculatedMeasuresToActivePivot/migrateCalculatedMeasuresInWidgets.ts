@@ -30,7 +30,7 @@ export const migrateCalculatedMeasuresInWidgets = (
 
   const migratedWidgetsRecord = produce(widgets, (draft) => {
     draft.children!.content.children = _mapValues(
-      widgets.children!.content.children,
+      draft.children!.content.children,
       (widgetRecord) => {
         const serializedWidgetState: WidgetWithQueryState<
           MdxSelect,
