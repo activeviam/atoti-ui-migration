@@ -22,11 +22,11 @@ export const migrateCalculatedMeasuresInWidgets = (
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
-  cubeNames: { [measureName: string]: CubeName };
+  measureToCubeMapping: { [measureName: string]: CubeName };
   migratedWidgetsRecord: ContentRecord;
 } => {
   // Create an empty object where each calculated measure used in a saved widget will be added as a key with its cubeName as a value.
-  const cubeNames: { [measureName: string]: CubeName } = {};
+  const measureToCubeMapping: { [measureName: string]: CubeName } = {};
 
   const migratedWidgetsRecord = produce(widgets, (draft) => {
     draft.children!.content.children = _mapValues(
@@ -58,7 +58,7 @@ export const migrateCalculatedMeasuresInWidgets = (
 
           namesOfCalculatedMeasuresToMigrateInWidget.forEach(
             (calculatedMeasureName) => {
-              cubeNames[calculatedMeasureName] = cubeName;
+              measureToCubeMapping[calculatedMeasureName] = cubeName;
             },
           );
           const updatedWidgetState = produce(
@@ -78,5 +78,5 @@ export const migrateCalculatedMeasuresInWidgets = (
       },
     );
   });
-  return { cubeNames, migratedWidgetsRecord };
+  return { measureToCubeMapping, migratedWidgetsRecord };
 };

@@ -14,15 +14,15 @@ const namesOfCalculatedMeasurestoMigrate = [
 ];
 
 describe("migrateCalculatedMeasuresInWidgets", () => {
-  const { cubeNames, migratedWidgetsRecord } =
+  const { measureToCubeMapping, migratedWidgetsRecord } =
     migrateCalculatedMeasuresInWidgets(
       uiWidgetsFolder,
       dataModel,
       namesOfCalculatedMeasurestoMigrate,
     );
 
-  it("returns a `cubeNames` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
-    expect(cubeNames).toStrictEqual({
+  it("returns a `measureToCubeMapping` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
+    expect(measureToCubeMapping).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
       "EXP pnl.Forex": "EquityDerivativesCube",
       "Log pv.SUM": "EquityDerivativesCube",
