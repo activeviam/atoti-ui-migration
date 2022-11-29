@@ -4,7 +4,9 @@ import {
   CubeName,
   DashboardState,
   DataModel,
-  MdxString,
+  deserializeDashboardState,
+  MdxSelect,
+  serializeDashboardState,
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk-5.0";
 import { produce } from "immer";
@@ -39,47 +41,55 @@ export const migrateCalculatedMeasuresInDashboards = (
       for (const dashboardId in allDashboards) {
         const dashboard: ContentRecord = allDashboards[dashboardId];
         const updatedDashboard = produce(dashboard, (draft) => {
-          const dashboardState: DashboardState = JSON.parse(
-            dashboard.entry.content,
+          const serializedDashboardState: DashboardState<"serialized"> =
+            JSON.parse(dashboard.entry.content);
+          const deserializedDashboardState = deserializeDashboardState(
+            serializedDashboardState,
           );
-          const updatedDashboardState = produce(dashboardState, (draft) => {
-            const dashboardPages = dashboardState.pages;
-            const updatedDashboardPages = produce(dashboardPages, (draft) => {
-              for (const pageId in dashboardPages) {
-                const page = dashboardPages[pageId];
-                const updatedWidget: {
-                  [widgetId: string]: WidgetWithQueryState;
-                } = produce(page.content, (draft) => {
-                  for (const widgetId in page.content) {
-                    const mdx: MdxString | undefined =
-                      page.content[widgetId].query.mdx;
-                    if (!mdx) {
-                      return;
-                    }
-                    const {
-                      migratedMdx,
-                      namesOfCalculatedMeasuresToMigrateInWidget,
-                      cubeName,
-                    } = migrateCalculatedMeasuresInMdx(
-                      mdx,
-                      namesOfCalculatedMeasurestoMigrate,
-                      dataModel,
-                    );
-                    draft[widgetId].query.mdx = migratedMdx;
+          const updatedDashboardState = produce(
+            deserializedDashboardState,
+            (draft) => {
+              const dashboardPages = deserializedDashboardState.pages;
+              const updatedDashboardPages = produce(dashboardPages, (draft) => {
+                for (const pageId in dashboardPages) {
+                  const page = dashboardPages[pageId];
+                  const updatedWidget: {
+                    [widgetId: string]: WidgetWithQueryState;
+                  } = produce(page.content, (draft) => {
+                    for (const widgetId in page.content) {
+                      const mdx: MdxSelect | undefined =
+                        page.content[widgetId].query.mdx;
+                      if (!mdx) {
+                        return;
+                      }
+                      const {
+                        migratedMdx,
+                        namesOfCalculatedMeasuresToMigrateInWidget,
+                        cubeName,
+                      } = migrateCalculatedMeasuresInMdx(
+                        mdx,
+                        namesOfCalculatedMeasurestoMigrate,
+                        dataModel,
+                      );
 
-                    namesOfCalculatedMeasuresToMigrateInWidget.forEach(
-                      (calculatedMeasureName) => {
-                        cubeNames[calculatedMeasureName] = cubeName;
-                      },
-                    );
-                  }
-                });
-                draft[pageId].content = updatedWidget;
-              }
-            });
-            draft.pages = updatedDashboardPages;
-          });
-          draft.entry.content = JSON.stringify(updatedDashboardState);
+                      namesOfCalculatedMeasuresToMigrateInWidget.forEach(
+                        (calculatedMeasureName) => {
+                          cubeNames[calculatedMeasureName] = cubeName;
+                        },
+                      );
+
+                      draft[widgetId].query.mdx = migratedMdx;
+                    }
+                  });
+                  draft[pageId].content = updatedWidget;
+                }
+              });
+              draft.pages = updatedDashboardPages;
+            },
+          );
+          draft.entry.content = JSON.stringify(
+            serializeDashboardState(updatedDashboardState),
+          );
         });
         draft[dashboardId] = updatedDashboard;
       }
