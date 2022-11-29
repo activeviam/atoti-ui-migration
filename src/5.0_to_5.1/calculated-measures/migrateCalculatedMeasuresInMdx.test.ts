@@ -61,9 +61,24 @@ describe("migrateCalculatedMeasuresInMdx", () => {
     ]);
 
     // "WITH  Member [Measures].[Distinct count city]..." has been removed from the beginning of the MDX string.
-    expect(stringify(migratedMdx)).toMatchInlineSnapshot(
-      `"SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
-    );
+    expect(stringify(migratedMdx, { indent: true })).toMatchInlineSnapshot(`
+      "SELECT
+        NON EMPTY Hierarchize(
+          Descendants(
+            {
+              [Currency].[Currency].[AllMember]
+            },
+            1,
+            SELF_AND_BEFORE
+          )
+        ) ON ROWS,
+        NON EMPTY {
+          [Measures].[contributors.COUNT],
+          [Measures].[Distinct count city]
+        } ON COLUMNS
+        FROM [EquityDerivativesCube]
+        CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
+    `);
   });
 
   it("removes calculated measure definitions from MDX when the widget contains two calculated measures", () => {
@@ -84,9 +99,24 @@ describe("migrateCalculatedMeasuresInMdx", () => {
     ]);
 
     // Both calculated measure definitions have been removed from the MDX.
-    expect(stringify(migratedMdx)).toMatchInlineSnapshot(
-      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
-    );
+    expect(stringify(migratedMdx, { indent: true })).toMatchInlineSnapshot(`
+      "SELECT
+        NON EMPTY Hierarchize(
+          Descendants(
+            {
+              [Geography].[City].[AllMember]
+            },
+            1,
+            SELF_AND_BEFORE
+          )
+        ) ON ROWS,
+        NON EMPTY {
+          [Measures].[Log pv.SUM],
+          [Measures].[Distinct count city]
+        } ON COLUMNS
+        FROM [EquityDerivativesCube]
+        CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
+    `);
   });
 
   it("returns the MDX unchanged if it contains a calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
