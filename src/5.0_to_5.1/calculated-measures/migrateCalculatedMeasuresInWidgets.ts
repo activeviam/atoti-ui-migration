@@ -11,6 +11,7 @@ import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx
 import { produce } from "immer";
 import _mapValues from "lodash/mapValues";
 import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
+import _uniq from "lodash/uniq";
 
 /**
  * In ActiveUI 5.0, saved calculated measures live under /ui/calculated_measures, and ActivePivot is not aware of them. In particular, they don't appear in the data model, and they must be added as query-scoped measures to each individual widget refering to them.
@@ -22,11 +23,11 @@ export const migrateCalculatedMeasuresInWidgets = (
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
-  measureToCubeMapping: { [measureName: string]: CubeName };
+  measureToCubeMapping: { [measureName: string]: CubeName[] };
   migratedWidgetsRecord: ContentRecord;
 } => {
   // Create an empty object where each calculated measure used in a saved widget will be added as a key with its cubeName as a value.
-  const measureToCubeMapping: { [measureName: string]: CubeName } = {};
+  const measureToCubeMapping: { [measureName: string]: CubeName[] } = {};
 
   const migratedWidgetsRecord = produce(widgets, (draft) => {
     draft.children!.content.children = _mapValues(
@@ -58,7 +59,13 @@ export const migrateCalculatedMeasuresInWidgets = (
 
           namesOfCalculatedMeasuresToMigrateInWidget.forEach(
             (calculatedMeasureName) => {
-              measureToCubeMapping[calculatedMeasureName] = cubeName;
+              measureToCubeMapping[calculatedMeasureName] =
+                measureToCubeMapping[calculatedMeasureName]
+                  ? _uniq([
+                      ...measureToCubeMapping[calculatedMeasureName],
+                      cubeName,
+                    ])
+                  : [cubeName];
             },
           );
           const updatedWidgetState = produce(

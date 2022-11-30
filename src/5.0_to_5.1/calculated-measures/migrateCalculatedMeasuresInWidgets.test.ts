@@ -23,11 +23,11 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
 
   it("returns a `measureToCubeMapping` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
     expect(measureToCubeMapping).toStrictEqual({
-      "Distinct count city": "EquityDerivativesCube",
-      "EXP pnl.Forex": "EquityDerivativesCube",
-      "Log pv.SUM": "EquityDerivativesCube",
-      "Test calculated measure": "EquityDerivativesCube",
-      "pvSum ^ 2": "EquityDerivativesCubeDist",
+      "Distinct count city": ["EquityDerivativesCube"],
+      "EXP pnl.Forex": ["EquityDerivativesCube"],
+      "Log pv.SUM": ["EquityDerivativesCube"],
+      "Test calculated measure": ["EquityDerivativesCube"],
+      "pvSum ^ 2": ["EquityDerivativesCubeDist"],
     });
   });
 
