@@ -8,8 +8,8 @@ import { removeCalculatedMemberDefinition } from "@activeviam/mdx-5.1";
 import _intersection from "lodash/intersection";
 
 /**
- * Removes any calculated measures definitions from an MDX string matching the `namesOfCalculatedMeasuresToMigrate`.
- * Returns the updated MDX string, the names of calculated measures to be migrated from that particular widget and the corresponding cube name.
+ * Removes the definitions of the calculated measures matching `namesOfCalculatedMeasuresToMigrate` from the `WITH` clause of `mdx`.
+ * Returns the updated MDX, the names of those calculated measures, and the corresponding cube name.
  */
 export const migrateCalculatedMeasuresInMdx = (
   mdx: MdxSelect,
