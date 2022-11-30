@@ -74,7 +74,8 @@ export const migrateCalculatedMeasuresInDashboards = (
 
                       namesOfCalculatedMeasuresToMigrateInWidget.forEach(
                         (calculatedMeasureName) => {
-                          measureToCubeMapping[calculatedMeasureName] = cubeName;
+                          measureToCubeMapping[calculatedMeasureName] =
+                            cubeName;
                         },
                       );
 

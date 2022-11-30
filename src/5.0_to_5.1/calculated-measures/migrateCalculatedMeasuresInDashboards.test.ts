@@ -34,7 +34,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   });
 
   it("does not modify the content of an empty dashboard", () => {
-    // "8c1" is an empty dashboard at the root.
+    // "8c1" is an empty dashboard.
     expect(migratedDashboards.children.content.children!["8c1"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["8c1"],
     );
@@ -68,10 +68,8 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     expect(
       JSON.parse(
         migratedDashboards.children.content.children!["b3e"].entry.content,
-      ).pages["p-0"].content["0"].query.mdx,
-    ).toMatchInlineSnapshot(
-      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
-    );
+      ),
+    ).toMatchSnapshot();
 
     // "c83" is a dashboard with a single page with multiple widgets, some of which contain calculated measures.
     expect(
@@ -81,10 +79,10 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       migratedDashboards.children.content.children!["c83"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["c83"].entry.content,
-    ).toMatchInlineSnapshot(
-      `"{\\"pages\\":{\\"p-0\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Underlyings].[Products].[ProductType]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[Log pv.SUM]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY {[Measures].[Log pv.SUM]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[Underlyings].[Products].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 6.0\\"},\\"1\\":{\\"mapping\\":{\\"xAxis\\":[\\"[Currency].[Currency].[Currency]\\"],\\"values\\":[\\"[Measures].[activeui5 calculated measure]\\"],\\"secondaryValues\\":[],\\"splitBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"widgetKey\\":\\"plotly-line-chart\\",\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[activeui5 calculated measure]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"serverKey\\":\\"Ranch 6.0\\"},\\"2\\":{\\"mapping\\":{\\"xAxis\\":[\\"[Time].[HistoricalDates].[AsOfDate]\\"],\\"values\\":[\\"[Measures].[contributors.COUNT]\\"],\\"stackBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"widgetKey\\":\\"plotly-stacked-column-chart\\",\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY [Time].[HistoricalDates].[AsOfDate].Members ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"serverKey\\":\\"Ranch 6.0\\"},\\"3\\":{\\"mapping\\":{\\"axis\\":[\\"[Geography].[City].[City]\\"],\\"values\\":[\\"[Measures].[Distinct count city]\\",\\"[Measures].[contributors.COUNT]\\"],\\"splitBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"widgetKey\\":\\"plotly-radar-chart\\",\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Distinct count city], [Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"serverKey\\":\\"Ranch 6.0\\",\\"switchedTo\\":\\"plotly-clustered-bar-chart\\"}},\\"layout\\":{\\"children\\":[{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":0.5},{\\"leafKey\\":\\"2\\",\\"size\\":0.5}],\\"direction\\":\\"column\\",\\"size\\":0.5},{\\"children\\":[{\\"leafKey\\":\\"1\\",\\"size\\":0.5},{\\"leafKey\\":\\"3\\",\\"size\\":0.5}],\\"direction\\":\\"column\\",\\"size\\":0.5}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 1\\"}},\\"pagesOrder\\":[\\"p-0\\"],\\"filters\\":[]}"`,
-    );
+      JSON.parse(
+        migratedDashboards.children.content.children!["c83"].entry.content,
+      ),
+    ).toMatchSnapshot();
   });
 
   it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
@@ -96,11 +94,13 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       migratedDashboards.children.content.children!["ef0"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["ef0"].entry.content,
-    ).toMatchInlineSnapshot(
-      `"{\\"pages\\":{\\"p-0\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"xAxis\\":[\\"[Geography].[City].[City]\\"],\\"values\\":[\\"[Measures].[Distinct count city]\\"],\\"secondaryValues\\":[],\\"splitBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY {[Measures].[Distinct count city]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"plotly-line-chart\\",\\"serverKey\\":\\"Ranch 6.0\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":1}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 1\\"},\\"p-1\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[CounterParty].[CounterParty].[CounterPartyGroup]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[Log pv.SUM]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 6.0\\"},\\"1\\":{\\"mapping\\":{\\"xAxis\\":[\\"[Booking].[Desk].[LegalEntity]\\"],\\"values\\":[\\"[Measures].[gamma.SUM]\\"],\\"stackBy\\":[\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"widgetKey\\":\\"plotly-stacked-column-chart\\",\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Booking].[Desk].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[gamma.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"serverKey\\":\\"Ranch 6.0\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":0.5},{\\"leafKey\\":\\"1\\",\\"size\\":0.5}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 2\\"},\\"p-2\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Geography].[City].[City]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[pvSum ^ 2]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 5.11\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":1}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 3\\"},\\"p-3\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Geography].[City].[City]\\"],\\"columns\\":[],\\"measures\\":[\\"[Measures].[EXP pnl.Forex]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[EXP pnl.Forex]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 6.0\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":1}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 4\\"}},\\"pagesOrder\\":[\\"p-0\\",\\"p-1\\",\\"p-2\\",\\"p-3\\"],\\"filters\\":[]}"`,
-    );
+      JSON.parse(
+        migratedDashboards.children.content.children!["ef0"].entry.content,
+      ),
+    ).toMatchSnapshot();
+  });
 
+  it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages inside a folder", () => {
     // "a18" is a dashboard inside a folder with multiple pages, some of which contain calculated measures.
     expect(
       uiDashboardsFolder.children.content.children!["a18"].entry.content,
@@ -109,9 +109,47 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       migratedDashboards.children.content.children!["a18"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["a18"].entry.content,
+      JSON.parse(
+        migratedDashboards.children.content.children!["a18"].entry.content,
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it("does not modify the content of a dashboard which contains a calculated measure which is not in the list `calculatedMeasureNames`", () => {
+    // "a9e" is a dashboard containing 1 widget with a calculated measure which is not on the list of names of calculated measures to be migrated`.
+    expect(migratedDashboards.children.content.children!["a9e"]).toStrictEqual(
+      uiDashboardsFolder.children.content.children["a9e"],
+    );
+  });
+
+  it("removes the calculated measure definitions if their names are included in `calculatedMeasureNames` and does not remove them if they are not", () => {
+    // "e54" is a dashboard containing 3 widgets.
+    const migratedDashboardState = JSON.parse(
+      migratedDashboards.children.content.children!["e54"].entry.content,
+    );
+    const initialDashboardState = JSON.parse(
+      uiDashboardsFolder.children.content.children!["e54"].entry.content,
+    );
+    expect(migratedDashboardState).toMatchSnapshot();
+
+    // Widget "0" contains a calculated measure which is not on the list of `calculatedMeasureNames` ("Log City"), the MDX is unchanged.
+    expect(migratedDashboardState.pages["p-0"].content["0"]).toStrictEqual(
+      initialDashboardState.pages["p-0"].content["0"],
+    );
+
+    // Widget "1" contains a calculated measure on the list of `calculatedMeasureNames` ("Log pv.SUM") and another not on the list ("Log City").
+    // The calculated measure definition is removed for ("Log pv.SUM") but not ("Log City").
+    expect(
+      migratedDashboardState.pages["p-0"].content["1"].query.mdx,
     ).toMatchInlineSnapshot(
-      `"{\\"pages\\":{\\"p-0\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Geography].[City].[City]\\",\\"[Currency].[Currency].[Currency]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[Test calculated measure]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Crossjoin(Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)), Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE))) ON ROWS, NON EMPTY {[Measures].[Test calculated measure]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 6.0\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":1}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 1\\"},\\"p-1\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Underlyings].[Products].[ProductType]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[pvSum ^ 2]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Underlyings].[Products].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 5.11\\"},\\"1\\":{\\"mapping\\":{\\"rows\\":[\\"[Underlyings].[Products].[ProductType]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[pvSum ^ 2]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Underlyings].[Products].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 5.11\\",\\"switchedTo\\":\\"kpi\\"}},\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":0.5},{\\"leafKey\\":\\"1\\",\\"size\\":0.5}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 2\\"},\\"p-2\\":{\\"content\\":{\\"0\\":{\\"mapping\\":{\\"rows\\":[\\"[Booking].[Desk].[LegalEntity]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[Log pv.SUM]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY Hierarchize(Descendants({[Booking].[Desk].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 6.0\\"},\\"1\\":{\\"mapping\\":{\\"rows\\":[\\"[Underlyings].[Underlyings].[UnderlierType]\\"],\\"columns\\":[\\"ALL_MEASURES\\"],\\"measures\\":[\\"[Measures].[pvSum ^ 2]\\"]},\\"query\\":{\\"updateMode\\":\\"once\\",\\"mdx\\":\\"SELECT NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[Underlyings].[Underlyings].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\"},\\"widgetKey\\":\\"pivot-table\\",\\"serverKey\\":\\"Ranch 5.11\\"}},\\"layout\\":{\\"children\\":[{\\"children\\":[{\\"leafKey\\":\\"0\\",\\"size\\":0.5},{\\"leafKey\\":\\"1\\",\\"size\\":0.5}],\\"direction\\":\\"column\\",\\"size\\":1}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 3\\"}},\\"pagesOrder\\":[\\"p-0\\",\\"p-1\\",\\"p-2\\"],\\"filters\\":[]}"`,
+      `"WITH  Member [Measures].[Log City] AS Log([Geography].[City], 10), FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log City], [Measures].[delta.SUM], [Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+
+    // Widget "2" contains only a calculated measure on the list of `calculatedMeasureNames`, the calculated measure definition is removed.
+    expect(
+      migratedDashboardState.pages["p-0"].content["2"].query.mdx,
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
   });
 });

@@ -1,9 +1,11 @@
 // Contains:
-// 81a - Dashboard at root with no calculated measures.
-// 8c1 - Empty dashboard at the root.
-// b3e - Dashboard at the root with a single page, with a single widget, with a single calculated measure.
-// c83 - Dashboard at root with a single page, with multiple widgets with calculated measures.
-// ef0 - Dashboard at root with multiple pages with calculated measures.
+// 81a - Dashboard with no calculated measures.
+// 8c1 - Empty dashboard.
+// a9e - Dashboard with a calculated measure not on the list of calculated measures to migrate.
+// b3e - Dashboard with a single page, with a single widget, with a single calculated measure.
+// c83 - Dashboard with a single page, with multiple widgets with calculated measures.
+// e54 - Dashboard with calculated measures to be migrated and not to be migrated.
+// ef0 - Dashboard with multiple pages with calculated measures.
 // folder c7b
 // a18 - Dashboard inside folder with multiple pages with calculated measures.
 // e27 - Dashboard inside folder with no calculated measures.
@@ -55,6 +57,19 @@ export const uiDashboardsFolder = {
             owners: ["admin"],
             readers: ["admin"],
             timestamp: 1667999674813,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
+        a9e: {
+          entry: {
+            content:
+              '{"thumbnail":"data:image/png;base64,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"}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669804731522,
             lastEditor: "admin",
             canRead: true,
             canWrite: true,
@@ -138,6 +153,19 @@ export const uiDashboardsFolder = {
             canWrite: true,
           },
         },
+        e54: {
+          entry: {
+            content:
+              '{"thumbnail":"data:image/png;base64,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"}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669805727961,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
         ef0: {
           entry: {
             content:
@@ -216,6 +244,19 @@ export const uiDashboardsFolder = {
             canWrite: true,
           },
         },
+        a9e: {
+          entry: {
+            content:
+              '{"pages":{"p-0":{"content":{"0":{"mapping":{"rows":["[Geography].[City].[City]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[Log City]"]},"query":{"updateMode":"once","mdx":"WITH  Member [Measures].[Log City] AS Log([Geography].[City], 10), FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log City]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"widgetKey":"pivot-table","serverKey":"Ranch 6.0"}},"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1"}},"pagesOrder":["p-0"],"filters":[]}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669804731349,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
         b3e: {
           entry: {
             content:
@@ -250,6 +291,19 @@ export const uiDashboardsFolder = {
             owners: ["admin"],
             readers: ["admin"],
             timestamp: 1667999143353,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
+        e54: {
+          entry: {
+            content:
+              '{"pages":{"p-0":{"content":{"0":{"mapping":{"rows":["[Geography].[City].[City]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[Log City]","[Measures].[delta.SUM]"]},"query":{"updateMode":"once","mdx":"WITH  Member [Measures].[Log City] AS Log([Geography].[City], 10), FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log City], [Measures].[delta.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"widgetKey":"pivot-table","serverKey":"Ranch 6.0"},"1":{"mapping":{"xAxis":["[Geography].[City].[City]"],"values":["[Measures].[Log City]","[Measures].[delta.SUM]","[Measures].[Log pv.SUM]"],"stackBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"updateMode":"once","mdx":"WITH  Member [Measures].[Log City] AS Log([Geography].[City], 10), FORMAT_STRING = \\"#,###.##\\"    Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log City], [Measures].[delta.SUM], [Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"widgetKey":"plotly-stacked-column-chart","serverKey":"Ranch 6.0"},"2":{"mapping":{"values":["[Measures].[Log pv.SUM]"],"sliceBy":["[CounterParty].[CounterParty].[CounterPartyGroup]"],"horizontalSubplots":[],"verticalSubplots":[]},"widgetKey":"plotly-pie-chart","query":{"updateMode":"once","mdx":"WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"serverKey":"Ranch 6.0"}},"layout":{"children":[{"children":[{"leafKey":"0","size":0.5},{"leafKey":"2","size":0.5}],"direction":"column","size":0.5},{"leafKey":"1","size":0.5}],"direction":"row"},"name":"Page 1"}},"pagesOrder":["p-0"],"filters":[]}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669805727961,
             lastEditor: "admin",
             canRead: true,
             canWrite: true,
@@ -324,6 +378,31 @@ export const uiDashboardsFolder = {
                 owners: ["admin"],
                 readers: ["admin"],
                 timestamp: 1667572425816,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+          },
+        },
+        a9e: {
+          entry: {
+            isDirectory: true,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669804731522,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+          children: {
+            a9e_metadata: {
+              entry: {
+                content: '{"name":"Dashboard with cm "}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1669804731522,
                 lastEditor: "admin",
                 canRead: true,
                 canWrite: true,
@@ -474,6 +553,31 @@ export const uiDashboardsFolder = {
                 owners: ["admin"],
                 readers: ["admin"],
                 timestamp: 1667997324842,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+          },
+        },
+        e54: {
+          entry: {
+            isDirectory: true,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669805404363,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+          children: {
+            e54_metadata: {
+              entry: {
+                content: '{"name":"Dashboard test "}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1669805727961,
                 lastEditor: "admin",
                 canRead: true,
                 canWrite: true,
