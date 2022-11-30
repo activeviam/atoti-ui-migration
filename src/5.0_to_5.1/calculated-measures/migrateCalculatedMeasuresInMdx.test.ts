@@ -2,20 +2,85 @@ import { dataModelsForTests } from "@activeviam/data-model-5.0";
 import { MdxSelect, parse, stringify } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
-const mdxSelectWithNoCalculatedMeasures: MdxSelect = parse(
-  "SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
-);
+const mdxSelectWithNoCalculatedMeasures: MdxSelect = parse(`
+SELECT 
+  NON EMPTY Hierarchize(
+    Descendants(
+      {
+        [Geography].[City].[AllMember]
+      },
+      1,
+      SELF_AND_BEFORE
+      )
+    ) ON ROWS,
+    NON EMPTY {
+      [Measures].[contributors.COUNT]
+    } ON COLUMNS 
+  FROM [EquityDerivativesCube] 
+  CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+`);
 
-const mdxSelectWithOneCalculatedMeasure: MdxSelect = parse(
-  'WITH  Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Currency].[Currency].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
-);
+const mdxSelectWithOneCalculatedMeasure: MdxSelect = parse(`
+  WITH  Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember,
+     [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  
+    SELECT 
+      NON EMPTY Hierarchize(
+        Descendants(
+          {
+            [Currency].[Currency].[AllMember]
+          }, 
+          1, 
+          SELF_AND_BEFORE
+          )
+        ) ON ROWS, 
+        NON EMPTY {
+          [Measures].[contributors.COUNT], 
+          [Measures].[Distinct count city]
+        } ON COLUMNS 
+      FROM [EquityDerivativesCube] 
+      CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+`);
 
-const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(
-  'WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"    Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
-);
-const mdxSelectWithCalculatedMeasureNotOnList: MdxSelect = parse(
-  'WITH  Member [Measures].[pvSum ^ 2] AS [Measures].[pv.SUM] ^ 2, FORMAT_STRING = "#,###.##"  SELECT NON EMPTY {[Measures].[pvSum ^ 2]} ON COLUMNS, NON EMPTY Hierarchize(Descendants({[CounterParty].[CounterParty].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS',
-);
+const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(`
+    WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"
+    Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, 
+      [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  
+    SELECT 
+      NON EMPTY Hierarchize(
+        Descendants(
+          {
+            [Geography].[City].[AllMember]
+          },
+          1,
+          SELF_AND_BEFORE
+          )
+        ) ON ROWS,
+        NON EMPTY {
+          [Measures].[Log pv.SUM],
+           [Measures].[Distinct count city]
+        } ON COLUMNS 
+      FROM [EquityDerivativesCube] 
+      CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+`);
+
+const mdxSelectWithCalculatedMeasureNotOnList: MdxSelect = parse(`
+    WITH  Member [Measures].[pvSum ^ 2] AS [Measures].[pv.SUM] ^ 2, FORMAT_STRING = "#,###.##"
+      SELECT 
+        NON EMPTY {
+          [Measures].[pvSum ^ 2]
+        } ON COLUMNS, 
+      NON EMPTY Hierarchize(
+        Descendants(
+          {
+            [CounterParty].[CounterParty].[AllMember]
+          }, 
+          1, 
+          SELF_AND_BEFORE
+          )
+        ) ON ROWS 
+      FROM [EquityDerivativesCubeDist] 
+      CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+`);
 
 const namesOfCalculatedMeasurestoMigrate = [
   "Distinct count city",

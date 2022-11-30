@@ -101,6 +101,19 @@ export const uiWidgetsFolder = {
             canWrite: true,
           },
         },
+        "7df": {
+          entry: {
+            content:
+              '{"mapping":{"rows":["[Geography].[City].[City]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[CM in 2 cubes]"]},"query":{"updateMode":"once","mdx":"WITH  Member [Measures].[CM in 2 cubes] AS [Measures].[pnl.SUM] ^ 2, FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[CM in 2 cubes]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"serverKey":"Ranch 5.11"}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669827501104,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
         "854": {
           entry: {
             content:
@@ -122,6 +135,19 @@ export const uiWidgetsFolder = {
             owners: ["admin"],
             readers: ["admin"],
             timestamp: 1666703143431,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+        },
+        abd: {
+          entry: {
+            content:
+              '{"mapping":{"rows":["[Geography].[City].[City]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[CM in 2 cubes]"]},"query":{"updateMode":"once","mdx":"WITH  Member [Measures].[CM in 2 cubes] AS [Measures].[pnl.SUM] ^ 2, FORMAT_STRING = \\"#,###.##\\"  SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[CM in 2 cubes]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"},"serverKey":"Ranch 5.11"}',
+            isDirectory: false,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669827532107,
             lastEditor: "admin",
             canRead: true,
             canWrite: true,
@@ -205,6 +231,32 @@ export const uiWidgetsFolder = {
             },
           },
         },
+        "7df": {
+          entry: {
+            isDirectory: true,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669827501279,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+          children: {
+            "7df_metadata": {
+              entry: {
+                content:
+                  '{"name":"Widget cm cube2","widgetKey":"pivot-table","version":1}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1669827501279,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+          },
+        },
         "854": {
           entry: {
             isDirectory: true,
@@ -250,6 +302,32 @@ export const uiWidgetsFolder = {
                 owners: ["admin"],
                 readers: ["admin"],
                 timestamp: 1666703143622,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+          },
+        },
+        abd: {
+          entry: {
+            isDirectory: true,
+            owners: ["admin"],
+            readers: ["admin"],
+            timestamp: 1669827532281,
+            lastEditor: "admin",
+            canRead: true,
+            canWrite: true,
+          },
+          children: {
+            abd_metadata: {
+              entry: {
+                content:
+                  '{"name":"Widget cm cube2","widgetKey":"pivot-table","version":1}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1669827532281,
                 lastEditor: "admin",
                 canRead: true,
                 canWrite: true,

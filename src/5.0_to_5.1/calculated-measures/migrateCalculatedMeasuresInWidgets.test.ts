@@ -4,13 +4,16 @@ import { dataModelsForTests } from "@activeviam/data-model-5.0";
 
 const dataModel = dataModelsForTests.sandbox;
 
-// "pvSum ^ 2" is from cube "EquityDerivativesCubeDist", all others are from "EquityDerivativesCube".
+// "CM in 2 cubes" is used in widgets targeting "EquityDerivativesCube" or "EquityDerivativesCubeDist".
+// "pvSum ^ 2" is used in widgets targeting "EquityDerivativesCubeDist".
+// All the other calculated measures in `namesOfCalculatedMeasurestoMigrate` are used in widgets targeting "EquityDerivativesCube".
 const namesOfCalculatedMeasurestoMigrate = [
   "Distinct count city",
   "Test calculated measure",
   "EXP pnl.Forex",
   "Log pv.SUM",
   "pvSum ^ 2",
+  "CM in 2 cubes",
 ];
 
 describe("migrateCalculatedMeasuresInWidgets", () => {
@@ -23,11 +26,12 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
 
   it("returns a `measureToCubeMapping` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
     expect(measureToCubeMapping).toStrictEqual({
-      "Distinct count city": "EquityDerivativesCube",
-      "EXP pnl.Forex": "EquityDerivativesCube",
-      "Log pv.SUM": "EquityDerivativesCube",
-      "Test calculated measure": "EquityDerivativesCube",
-      "pvSum ^ 2": "EquityDerivativesCubeDist",
+      "CM in 2 cubes": ["EquityDerivativesCubeDist", "EquityDerivativesCube"],
+      "Distinct count city": ["EquityDerivativesCube"],
+      "EXP pnl.Forex": ["EquityDerivativesCube"],
+      "Log pv.SUM": ["EquityDerivativesCube"],
+      "Test calculated measure": ["EquityDerivativesCube"],
+      "pvSum ^ 2": ["EquityDerivativesCubeDist"],
     });
   });
 
@@ -107,6 +111,27 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
       ).query.mdx,
     ).toMatchInlineSnapshot(
       `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[Log pv.SUM], [Measures].[Distinct count city], [Measures].[EXP pnl.Forex]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+  });
+
+  it("removes calculated measure definitions from all widgets using a calculated measure which can target several cubes", () => {
+    expect(
+      // "7df" is a widget targeting "EquityDerivativesCube" using calculated measure "CM in 2 cubes".
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["7df"].entry.content,
+      ).query.mdx,
+      // "WITH  Member [Measures].[CM in 2 cubes]..." has been removed from the beginning of the MDX string.
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[CM in 2 cubes]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
+    );
+    expect(
+      // "abd" is a widget targeting "EquityDerivativesCubeDist" using calculated measure "CM in 2 cubes".
+      JSON.parse(
+        migratedWidgetsRecord.children?.content.children!["abd"].entry.content,
+      ).query.mdx,
+      // "WITH  Member [Measures].[CM in 2 cubes]..." has been removed from the beginning of the MDX string.
+    ).toMatchInlineSnapshot(
+      `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[CM in 2 cubes]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
   });
 });
