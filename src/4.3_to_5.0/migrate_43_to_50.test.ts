@@ -63,7 +63,6 @@ describe("migrate_43_to_50", () => {
 
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
     await migrate_43_to_50(smallLegacyUIFolder, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,
@@ -76,7 +75,6 @@ describe("migrate_43_to_50", () => {
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
     await migrate_43_to_50(legacyUIFolder, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,
@@ -89,7 +87,6 @@ describe("migrate_43_to_50", () => {
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
     await migrate_43_to_50(legacyUIFolder, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,
@@ -106,7 +103,6 @@ describe("migrate_43_to_50", () => {
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
     const keysOfWidgetPluginsToRemove = ["filters"];
     await migrate_43_to_50(legacyUIFolder, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,
@@ -169,7 +165,6 @@ describe("migrate_43_to_50", () => {
 
   it("returns an error report for dashboards and handles the dashboard id being a number", async () => {
     await migrate_43_to_50(smallLegacyUIFolderWithInvalidDashboard, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,
@@ -229,7 +224,6 @@ describe("migrate_43_to_50", () => {
 
   it("copies invalid filters as-is and reports an error", async () => {
     await migrate_43_to_50(smallLegacyUIFolderWithInvalidFilter, {
-      migratedUIFolder,
       errorReport,
       counters,
       servers,

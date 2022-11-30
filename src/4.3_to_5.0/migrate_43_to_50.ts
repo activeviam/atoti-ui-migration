@@ -1,6 +1,7 @@
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
+import _cloneDeep from "lodash/cloneDeep";
 
 import {
   ContentRecord,
@@ -25,6 +26,7 @@ import { _serializeError } from "./_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 import cliProgress from "cli-progress";
+import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -206,9 +208,8 @@ const accumulateStructure = ({
  * - for a saved ActiveUI 4 dashboard including a matching widget, the widget is removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  */
 export async function migrate_43_to_50(
-  legacyUIFolder: ContentRecord,
+  uiFolder: ContentRecord,
   {
-    migratedUIFolder,
     counters,
     errorReport,
     servers,
@@ -216,7 +217,6 @@ export async function migrate_43_to_50(
     legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
-    migratedUIFolder: ContentRecord;
     counters: OutcomeCounters;
     errorReport: ErrorReport;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
@@ -233,6 +233,9 @@ export async function migrate_43_to_50(
       metaData: { name: string };
     };
   } = {};
+
+  const legacyUIFolder = _cloneDeep(uiFolder);
+  const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
 
   const folders: { [folderId: string]: { name: string } } = {};
 
@@ -502,4 +505,6 @@ export async function migrate_43_to_50(
       : {}),
     ...migrateSettingsFolder(legacyUIFolder.children?.settings),
   };
+
+  uiFolder = migratedUIFolder;
 }

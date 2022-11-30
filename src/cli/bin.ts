@@ -1,18 +1,16 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
-import _cloneDeep from "lodash/cloneDeep";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
 import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
 import _fromPairs from "lodash/fromPairs";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
+import { gte } from "semver";
 
 type MigrationFunction = (
-  legacyUIFolder: ContentRecord,
+  uiFolder: ContentRecord,
   {
-    migratedUIFolder,
     counters,
     errorReport,
     servers,
@@ -20,7 +18,6 @@ type MigrationFunction = (
     legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
-    migratedUIFolder: ContentRecord;
     counters: OutcomeCounters;
     errorReport: ErrorReport;
     servers: {
@@ -35,37 +32,13 @@ type MigrationFunction = (
   },
 ) => Promise<void>;
 
-const migrationFunctions: [
-  versionFrom: string,
-  migrationFunction?: MigrationFunction,
-][] = [["4.3", migrate_43_to_50], ["5.0"]];
-const versions = migrationFunctions.map(([version]) => version);
-const fromVersions = versions.slice(0, -1);
-const toVersions = versions.slice(1);
-
-const compose =
-  (
-    ...[firstMigrationFunction, ...otherMigrationFunctions]: MigrationFunction[]
-  ) =>
-  async (
-    ...[
-      legacyUIFolder,
-      { migratedUIFolder, ...otherParams },
-    ]: Parameters<MigrationFunction>
-  ): ReturnType<MigrationFunction> => {
-    if (!firstMigrationFunction) {
-      return;
-    }
-    firstMigrationFunction(legacyUIFolder, {
-      migratedUIFolder,
-      ...otherParams,
-    });
-    const newMigratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-    compose(...otherMigrationFunctions)(migratedUIFolder, {
-      migratedUIFolder: newMigratedUIFolder,
-      ...otherParams,
-    });
-  };
+const migrationFunctions: {
+  from: string;
+  to: string;
+  migrate: MigrationFunction;
+}[] = [{ from: "4.3", to: "5.0", migrate: migrate_43_to_50 }];
+const fromVersions = migrationFunctions.map(({ from }) => from);
+const toVersions = migrationFunctions.map(({ to }) => to);
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -195,43 +168,38 @@ yargs
         // In this case, the keys used correspond to the attributes of OutcomeCounters.
       ) as OutcomeCounters;
 
-      const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
       const errorReport = {};
 
       const fromVersionIndex = migrationFunctions.findIndex(
-        ([version]) => version === fromVersion,
+        ({ from }) => from === fromVersion,
       );
       const toVersionIndex = migrationFunctions.findIndex(
-        ([version]) => version === toVersion,
+        ({ to }) => to === toVersion,
       );
 
-      const functionsToCompose = migrationFunctions
-        .slice(fromVersionIndex, toVersionIndex)
-        .map(([, func]) => func);
-
-      const legacyUIFolder = await fs.readJSON(inputPath);
+      const uiFolder = await fs.readJSON(inputPath);
       const legacyPivotFolder = pivotInputPath
         ? await fs.readJSON(pivotInputPath)
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      const migrate = compose(...(functionsToCompose as MigrationFunction[]));
-
-      await migrate(legacyUIFolder, {
-        migratedUIFolder,
-        counters,
-        errorReport,
-        legacyPivotFolder,
-        servers,
-        keysOfWidgetPluginsToRemove,
-        doesReportIncludeStacks: stack,
-      });
+      for (const { migrate } of migrationFunctions.slice(
+        fromVersionIndex,
+        toVersionIndex,
+      )) {
+        await (migrate as MigrationFunction)(uiFolder, {
+          counters,
+          errorReport,
+          legacyPivotFolder,
+          servers,
+          keysOfWidgetPluginsToRemove,
+          doesReportIncludeStacks: stack,
+        });
+      }
 
       const { dir } = path.parse(outputPath);
 
-      await fs.writeJSON(outputPath, migratedUIFolder, {
-        spaces: 2,
-      });
+      await fs.writeJSON(outputPath, uiFolder, { spaces: 2 });
 
       console.log("--------- END OF CONTENT MIGRATION ---------");
 
@@ -287,17 +255,8 @@ This will output a file named \`report.json\` containing the error messages.`);
     },
   )
   .check(({ fromVersion, toVersion }) => {
-    const fromVersionIndex = migrationFunctions.findIndex(
-      ([version]) => version === fromVersion,
-    );
-    const toVersionIndex = migrationFunctions.findIndex(
-      ([version]) => version === toVersion,
-    );
-    if (fromVersionIndex >= toVersionIndex) {
-      throw new Error(`
-        You specified ${fromVersion} as the version to migrate your content from, and ${toVersion} as the version to migrate your content to.
-        The version to migrate to must be higher than the version to migrate from.
-      `);
+    if (gte(toVersion, fromVersion)) {
+      throw new Error("--to-version must be greater than --from-version");
     }
     return true;
   })
