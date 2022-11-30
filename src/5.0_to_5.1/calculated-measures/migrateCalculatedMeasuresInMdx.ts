@@ -26,15 +26,17 @@ export const migrateCalculatedMeasuresInMdx = (
   );
 
   const cubeName = getCubeName(mdx);
-  let updatedMdx: MdxSelect = mdx;
-  namesOfCalculatedMeasuresToMigrateInWidget.forEach((calculatedMeasure) => {
-    updatedMdx = removeCalculatedMemberDefinition(updatedMdx, {
-      dimensionName: "Measures",
-      hierarchyName: "Measures",
-      namePath: [calculatedMeasure],
-      cube: getCube(dataModel, cubeName),
-    });
-  });
+
+  const updatedMdx = namesOfCalculatedMeasuresToMigrateInWidget.reduce(
+    (acc, calculatedMeasureName) =>
+      removeCalculatedMemberDefinition(acc, {
+        dimensionName: "Measures",
+        hierarchyName: "Measures",
+        namePath: [calculatedMeasureName],
+        cube: getCube(dataModel, cubeName),
+      }),
+    mdx,
+  );
 
   return {
     cubeName,
