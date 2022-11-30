@@ -15,7 +15,7 @@ const calculatedMeasureNames = [
 ];
 
 describe("migrateCalculatedMeasuresInDashboards", () => {
-  const { migratedDashboards, cubeNames } =
+  const { migratedDashboards, measureToCubeMapping } =
     migrateCalculatedMeasuresInDashboards(
       uiDashboardsFolder,
       dataModel,
@@ -23,7 +23,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     );
 
   it("returns an object containing all the calculated measures used in the `ui/dashboards` folder with their corresponding cube name", () => {
-    expect(cubeNames).toStrictEqual({
+    expect(measureToCubeMapping).toStrictEqual({
       "Distinct count city": "EquityDerivativesCube",
       "EXP pnl.Forex": "EquityDerivativesCube",
       "Log pv.SUM": "EquityDerivativesCube",

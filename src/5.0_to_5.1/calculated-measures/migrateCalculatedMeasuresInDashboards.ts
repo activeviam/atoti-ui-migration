@@ -30,16 +30,16 @@ export const migrateCalculatedMeasuresInDashboards = (
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
-  cubeNames: { [measureName: string]: CubeName };
+  measureToCubeMapping: { [measureName: string]: CubeName };
   migratedDashboards: DashboardsFolder;
 } => {
-  const cubeNames: { [measureName: string]: CubeName } = {};
+  const measureToCubeMapping: { [measureName: string]: CubeName } = {};
 
   const migratedDashboards = produce(dashboards, (draft) => {
-    const allDashboards = dashboards.children.content.children ?? {};
-    const updatedAllDashboards = produce(allDashboards, (draft) => {
-      for (const dashboardId in allDashboards) {
-        const dashboard: ContentRecord = allDashboards[dashboardId];
+    const dashboardsContent = dashboards.children.content.children ?? {};
+    const updatedDashboardsContent = produce(dashboardsContent, (draft) => {
+      for (const dashboardId in dashboardsContent) {
+        const dashboard: ContentRecord = dashboardsContent[dashboardId];
         const updatedDashboard = produce(dashboard, (draft) => {
           const serializedDashboardState: DashboardState<"serialized"> =
             JSON.parse(dashboard.entry.content);
@@ -74,7 +74,7 @@ export const migrateCalculatedMeasuresInDashboards = (
 
                       namesOfCalculatedMeasuresToMigrateInWidget.forEach(
                         (calculatedMeasureName) => {
-                          cubeNames[calculatedMeasureName] = cubeName;
+                          measureToCubeMapping[calculatedMeasureName] = cubeName;
                         },
                       );
 
@@ -94,7 +94,7 @@ export const migrateCalculatedMeasuresInDashboards = (
         draft[dashboardId] = updatedDashboard;
       }
     });
-    draft.children!.content.children = updatedAllDashboards;
+    draft.children!.content.children = updatedDashboardsContent;
   });
-  return { cubeNames, migratedDashboards };
+  return { measureToCubeMapping, migratedDashboards };
 };
