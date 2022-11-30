@@ -116,7 +116,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
 
   it("removes calculated measure definitions from all widgets using a calculated measure which can target several cubes", () => {
     expect(
-      // "7df" is a widget targeting "EquityDerivativesCube" using calculated measure "CM in 2 cubes".
+      // "7df" is a widget targeting "EquityDerivativesCubeDist" using calculated measure "CM in 2 cubes".
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["7df"].entry.content,
       ).query.mdx,
@@ -125,7 +125,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
       `"SELECT NON EMPTY Hierarchize(Descendants({[Geography].[City].[AllMember]}, 1, SELF_AND_BEFORE)) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[CM in 2 cubes]} ON COLUMNS FROM [EquityDerivativesCubeDist] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"`,
     );
     expect(
-      // "abd" is a widget targeting "EquityDerivativesCubeDist" using calculated measure "CM in 2 cubes".
+      // "abd" is a widget targeting "EquityDerivativesCube" using calculated measure "CM in 2 cubes".
       JSON.parse(
         migratedWidgetsRecord.children?.content.children!["abd"].entry.content,
       ).query.mdx,
