@@ -1,21 +1,20 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
+import _fromPairs from "lodash/fromPairs";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
 import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
-import _fromPairs from "lodash/fromPairs";
 import { gte } from "semver";
 
 type MigrationFunction = (
-  uiFolder: ContentRecord,
+  contentServer: ContentRecord,
   {
     counters,
     errorReport,
     servers,
     keysOfWidgetPluginsToRemove,
-    legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
     counters: OutcomeCounters;
@@ -28,7 +27,6 @@ type MigrationFunction = (
     };
     keysOfWidgetPluginsToRemove?: string[] | undefined;
     doesReportIncludeStacks: boolean;
-    legacyPivotFolder?: ContentRecord<any> | undefined;
   },
 ) => Promise<void>;
 
@@ -80,7 +78,6 @@ yargs
     fromVersion: string;
     toVersion: string;
     removeWidgets: string[];
-    pivotInputPath?: string;
     debug: boolean;
     stack: boolean;
   }>(
@@ -91,13 +88,13 @@ yargs
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the ActiveUI 4 /ui folder.",
+        desc: "The path to the JSON export of the content root folder of the ActiveUI version to migrate from.",
       });
       args.option("output-path", {
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
+        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
       });
       args.option("servers-path", {
         alias: "s",
@@ -124,12 +121,6 @@ yargs
         demandOption: false,
         desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
       });
-      args.option("pivot-input-path", {
-        alias: "p",
-        type: "string",
-        demandOption: false,
-        desc: "The path to the JSON export of the /pivot folder on the content server.",
-      });
       args.option("debug", {
         type: "boolean",
         demandOption: false,
@@ -150,10 +141,14 @@ yargs
       fromVersion,
       toVersion,
       removeWidgets: keysOfWidgetPluginsToRemove,
-      pivotInputPath,
       debug,
       stack,
     }) => {
+      const contentServer: ContentRecord = await fs.readJSON(inputPath);
+      const servers: {
+        [serverKey: string]: { dataModel: DataModel; url: string };
+      } = await fs.readJSON(serversPath);
+
       const counters = _fromPairs(
         ["dashboards", "widgets", "filters", "folders"].map((type) => [
           type,
@@ -167,7 +162,6 @@ yargs
         // _fromPairs returns a Dictionary.
         // In this case, the keys used correspond to the attributes of OutcomeCounters.
       ) as OutcomeCounters;
-
       const errorReport = {};
 
       const fromVersionIndex = migrationFunctions.findIndex(
@@ -177,20 +171,13 @@ yargs
         ({ to }) => to === toVersion,
       );
 
-      const uiFolder = await fs.readJSON(inputPath);
-      const legacyPivotFolder = pivotInputPath
-        ? await fs.readJSON(pivotInputPath)
-        : undefined;
-      const servers = await fs.readJSON(serversPath);
-
       for (const { migrate } of migrationFunctions.slice(
         fromVersionIndex,
         toVersionIndex,
       )) {
-        await (migrate as MigrationFunction)(uiFolder, {
+        await migrate(contentServer, {
           counters,
           errorReport,
-          legacyPivotFolder,
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks: stack,
@@ -199,7 +186,8 @@ yargs
 
       const { dir } = path.parse(outputPath);
 
-      await fs.writeJSON(outputPath, uiFolder, { spaces: 2 });
+      const migratedUIFolder = contentServer.children?.ui;
+      await fs.writeJSON(outputPath, migratedUIFolder, { spaces: 2 });
 
       console.log("--------- END OF CONTENT MIGRATION ---------");
 
