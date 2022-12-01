@@ -1,13 +1,12 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
+import _fromPairs from "lodash/fromPairs";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
-import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { emptyUIFolder as emptyUIFolder50 } from "@activeviam/content-server-initialization-5.0";
 import path from "path";
-import _fromPairs from "lodash/fromPairs";
-import _cloneDeep from "lodash/cloneDeep";
-import { ErrorReport, OutcomeCounters } from "../migration.types";
+import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -47,7 +46,6 @@ yargs
     outputPath: string;
     serversPath: string;
     removeWidgets: string[];
-    pivotInputPath?: string;
     debug: boolean;
     stack: boolean;
   }>(
@@ -58,13 +56,13 @@ yargs
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the ActiveUI 4 /ui folder.",
+        desc: "The path to the JSON export of the content root folder of the ActiveUI version to migrate from.",
       });
       args.option("output-path", {
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
+        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
       });
       args.option("servers-path", {
         alias: "s",
@@ -76,12 +74,6 @@ yargs
         type: "array",
         demandOption: false,
         desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
-      });
-      args.option("pivot-input-path", {
-        alias: "p",
-        type: "string",
-        demandOption: false,
-        desc: "The path to the JSON export of the /pivot folder on the content server.",
       });
       args.option("debug", {
         type: "boolean",
@@ -101,12 +93,14 @@ yargs
       outputPath,
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
-      pivotInputPath,
       debug,
       stack,
     }) => {
-      const emptyUIFolder = emptyUIFolder50;
-      const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
+      const contentServer: ContentRecord = await fs.readJSON(inputPath);
+      const servers: {
+        [serverKey: string]: { dataModel: DataModel; url: string };
+      } = await fs.readJSON(serversPath);
+
       const errorReport: ErrorReport = {};
       const counters = _fromPairs(
         ["dashboards", "widgets", "filters", "folders"].map((type) => [
@@ -122,17 +116,9 @@ yargs
         // In this case, the keys used correspond to the attributes of OutcomeCounters.
       ) as OutcomeCounters;
 
-      const legacyUIFolder = await fs.readJSON(inputPath);
-      const legacyPivotFolder = pivotInputPath
-        ? await fs.readJSON(pivotInputPath)
-        : undefined;
-      const servers = await fs.readJSON(serversPath);
-
-      await migrate_43_to_50(legacyUIFolder, {
-        migratedUIFolder,
+      await migrate_43_to_50(contentServer, {
         errorReport,
         counters,
-        legacyPivotFolder,
         servers,
         keysOfWidgetPluginsToRemove,
         doesReportIncludeStacks: stack,
@@ -140,6 +126,7 @@ yargs
 
       const { dir } = path.parse(outputPath);
 
+      const migratedUIFolder = contentServer.children?.ui;
       await fs.writeJSON(outputPath, migratedUIFolder, {
         spaces: 2,
       });
