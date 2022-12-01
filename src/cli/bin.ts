@@ -3,7 +3,6 @@ import _capitalize from "lodash/capitalize";
 import _fromPairs from "lodash/fromPairs";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
-import { emptyUIFolder as emptyUIFolder50 } from "@activeviam/content-server-initialization-5.0";
 import path from "path";
 import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
