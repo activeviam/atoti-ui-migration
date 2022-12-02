@@ -8,8 +8,9 @@ import {
   serializeDashboardState,
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk-5.0";
-import { produce } from "immer";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
+import { produce } from "immer";
+import _uniq from "lodash/uniq";
 
 /**
  * Same as `migrateCalculatedMeasuresInWidgets` but for widgets within saved dashboards.
@@ -19,10 +20,10 @@ export const migrateCalculatedMeasuresInDashboards = (
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
-  measureToCubeMapping: { [measureName: string]: CubeName };
+  measureToCubeMapping: { [measureName: string]: CubeName[] };
   migratedDashboards: ContentRecord;
 } => {
-  const measureToCubeMapping: { [measureName: string]: CubeName } = {};
+  const measureToCubeMapping: { [measureName: string]: CubeName[] } = {};
 
   const migratedDashboards = produce(dashboards, (draft) => {
     // The children property is always defined for the `ui/dashboards` folder.
@@ -59,7 +60,13 @@ export const migrateCalculatedMeasuresInDashboards = (
 
             namesOfCalculatedMeasuresToMigrateInWidget.forEach(
               (calculatedMeasureName) => {
-                measureToCubeMapping[calculatedMeasureName] = cubeName;
+                measureToCubeMapping[calculatedMeasureName] =
+                  measureToCubeMapping[calculatedMeasureName]
+                    ? _uniq([
+                        ...measureToCubeMapping[calculatedMeasureName],
+                        cubeName,
+                      ])
+                    : [cubeName];
               },
             );
 
