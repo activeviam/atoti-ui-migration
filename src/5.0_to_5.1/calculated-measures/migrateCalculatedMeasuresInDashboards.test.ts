@@ -57,7 +57,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     );
   });
 
-  it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with a single page", () => {
+  it("removes definitions of calculated measures saved in ActiveUI 5.0 from the `query.mdx` of all widgets from a dashboard with a single page", () => {
     // "b3e" is a dashboard with a single page, containing a single widget, containing a single calculated measure.
     expect(
       uiDashboardsFolder.children.content.children!["b3e"].entry.content,
@@ -85,7 +85,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     ).toMatchSnapshot();
   });
 
-  it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
+  it("removes definitions of calculated measures saved in ActiveUI 5.0 from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
     // "ef0" is a dashboard with multiple pages, some of which contain calculated measures.
     expect(
       uiDashboardsFolder.children.content.children!["ef0"].entry.content,
@@ -100,7 +100,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     ).toMatchSnapshot();
   });
 
-  it("removes any calculated measure definitions from the `query.mdx` of all widgets from a dashboard with multiple pages inside a folder", () => {
+  it("removes definitions of calculated measures saved in ActiveUI 5.0 from the `query.mdx` of all widgets from a dashboard with multiple pages inside a folder", () => {
     // "a18" is a dashboard inside a folder with multiple pages, some of which contain calculated measures.
     expect(
       uiDashboardsFolder.children.content.children!["a18"].entry.content,
@@ -115,14 +115,14 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     ).toMatchSnapshot();
   });
 
-  it("does not modify the content of a dashboard which contains a calculated measure which is not in the list `calculatedMeasureNames`", () => {
+  it("does not remove the definition of a calculated measure which is not in the list `calculatedMeasureNames`", () => {
     // "a9e" is a dashboard containing 1 widget with a calculated measure which is not on the list of names of calculated measures to be migrated`.
     expect(migratedDashboards.children!.content.children!["a9e"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["a9e"],
     );
   });
 
-  it("removes the calculated measure definitions if their names are included in `calculatedMeasureNames` and does not remove them if they are not", () => {
+  it("removes definitions of calculated measures saved in ActiveUI 5.0 if their names are included in `calculatedMeasureNames` from the `query.mdx` of widgets and does not remove them if they are not", () => {
     // "e54" is a dashboard containing 3 widgets.
     const migratedDashboardState = JSON.parse(
       migratedDashboards.children!.content.children!["e54"].entry.content,

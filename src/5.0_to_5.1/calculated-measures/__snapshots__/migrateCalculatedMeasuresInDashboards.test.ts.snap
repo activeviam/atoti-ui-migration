@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`migrateCalculatedMeasuresInDashboards removes any calculated measure definitions from the \`query.mdx\` of all widgets from a dashboard with a single page 1`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 from the \`query.mdx\` of all widgets from a dashboard with a single page 1`] = `
 Object {
   "filters": Array [],
   "pages": Object {
@@ -42,7 +42,7 @@ Object {
 }
 `;
 
-exports[`migrateCalculatedMeasuresInDashboards removes any calculated measure definitions from the \`query.mdx\` of all widgets from a dashboard with a single page 2`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 from the \`query.mdx\` of all widgets from a dashboard with a single page 2`] = `
 Object {
   "filters": Array [],
   "pages": Object {
@@ -176,7 +176,7 @@ Object {
 }
 `;
 
-exports[`migrateCalculatedMeasuresInDashboards removes any calculated measure definitions from the \`query.mdx\` of all widgets from a dashboard with multiple pages 1`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 from the \`query.mdx\` of all widgets from a dashboard with multiple pages 1`] = `
 Object {
   "filters": Array [],
   "pages": Object {
@@ -348,7 +348,7 @@ Object {
 }
 `;
 
-exports[`migrateCalculatedMeasuresInDashboards removes any calculated measure definitions from the \`query.mdx\` of all widgets from a dashboard with multiple pages inside a folder 1`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 from the \`query.mdx\` of all widgets from a dashboard with multiple pages inside a folder 1`] = `
 Object {
   "filters": Array [],
   "pages": Object {
@@ -514,7 +514,7 @@ Object {
 }
 `;
 
-exports[`migrateCalculatedMeasuresInDashboards removes the calculated measure definitions if their names are included in \`calculatedMeasureNames\` and does not remove them if they are not 1`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 from the \`query.mdx\` of widgets if their names are included in \`calculatedMeasureNames\` and does not remove them if they are not 1`] = `
 Object {
   "filters": Array [],
   "pages": Object {
