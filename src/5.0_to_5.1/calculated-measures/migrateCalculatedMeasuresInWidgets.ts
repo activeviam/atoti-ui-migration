@@ -75,9 +75,8 @@ export const migrateCalculatedMeasuresInWidgets = (
             },
           );
           widgetRecord.entry.content = JSON.stringify(
-              serializeWidgetState(updatedWidgetState),
-            );
-          return updatedRecord;
+            serializeWidgetState(updatedWidgetState),
+          );
         }
         return widgetRecord;
       },
