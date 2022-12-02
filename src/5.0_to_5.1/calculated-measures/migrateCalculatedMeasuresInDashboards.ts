@@ -22,8 +22,7 @@ interface DashboardsFolder {
 }
 
 /**
- * Takes a `ui/dashboards` folder from the content server, removes any calculated member definitions from the MDX and returns a `migratedDashboards` folder.
- * Also returns the cubeName for each calculated measure found.
+ * Same as `migrateCalculatedMeasuresInWidgets` but for widgets within saved dashboards.
  */
 export const migrateCalculatedMeasuresInDashboards = (
   dashboards: DashboardsFolder,
