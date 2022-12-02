@@ -55,7 +55,7 @@ yargs
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the content root folder of the ActiveUI version to migrate from.",
+        desc: "The path to the JSON export of the Content Server to migrate.",
       });
       args.option("output-path", {
         alias: "o",
