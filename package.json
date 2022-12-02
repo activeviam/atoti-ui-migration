@@ -1,6 +1,6 @@
 {
   "name": "activeui-migration",
-  "version": "5.0.9-SNAPSHOT",
+  "version": "5.0.10-SNAPSHOT",
   "description": "Functions useful to migrate content saved with ActiveUI 4.3 in order to make it usable with ActiveUI 5",
   "bugs": {
     "url": "https://github.com/activeviam/activeui-migration/issues"
@@ -30,10 +30,12 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk": "5.0.15",
-    "@activeviam/content-server-initialization": "5.0.15",
-    "@activeviam/data-model": "5.0.15",
-    "@activeviam/mdx": "5.0.15",
+    "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.15",
+    "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221018171954-6275d65",
+    "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.15",
+    "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.15",
+    "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.15",
+    "@activeviam/mdx-5.1": "npm:@activeviam/mdx@5.1.0-20221018171954-6275d65",
     "cli-progress": "^3.11.2",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",
