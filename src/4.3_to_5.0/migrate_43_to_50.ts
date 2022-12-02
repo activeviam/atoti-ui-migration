@@ -200,7 +200,7 @@ const accumulateStructure = ({
 };
 
 /**
- * Modifies the ActiveUI 4.3 `contentServer` structure, for it to be ready to be used by ActiveUI 5.0.
+ * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
  * Also keeps the number of migration successes and failures in `counters` and a detailed `errorReport`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
