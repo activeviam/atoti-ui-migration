@@ -125,8 +125,7 @@ yargs
 
       const { dir } = path.parse(outputPath);
 
-      const migratedUIFolder = contentServer.children?.ui;
-      await fs.writeJSON(outputPath, migratedUIFolder, {
+      await fs.writeJSON(outputPath, contentServer, {
         spaces: 2,
       });
 

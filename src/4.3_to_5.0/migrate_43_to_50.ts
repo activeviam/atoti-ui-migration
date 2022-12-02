@@ -226,9 +226,7 @@ export async function migrate_43_to_50(
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
-    throw new Error(
-      "Your content server doesn't contain any /ui folder.",
-    );
+    throw new Error("Your content server doesn't contain any /ui folder.");
   }
 
   const legacyUIFolder = _cloneDeep(contentServer.children.ui);

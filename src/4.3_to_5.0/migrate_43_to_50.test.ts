@@ -27,7 +27,7 @@ const hasRecord = (contentRecord: ContentRecord, recordId: string): boolean =>
 /**
  * Returns the content server root structure containing `uiFolder` and `pivotFolder`.
  */
-const getContentServerForUIFolder = (
+const getRootContentRecord = (
   uiFolder: ContentRecord,
   pivotFolder?: ContentRecord,
 ): ContentRecord => ({
@@ -69,7 +69,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
-    const contentServer = getContentServerForUIFolder(smallLegacyUIFolder);
+    const contentServer = getRootContentRecord(smallLegacyUIFolder);
     await migrate_43_to_50(contentServer, {
       errorReport,
       counters,
@@ -83,7 +83,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
-    const contentServer = getContentServerForUIFolder(legacyUIFolder);
+    const contentServer = getRootContentRecord(legacyUIFolder);
     await migrate_43_to_50(contentServer, {
       errorReport,
       counters,
@@ -97,7 +97,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
-    const contentServer = getContentServerForUIFolder(
+    const contentServer = getRootContentRecord(
       legacyUIFolder,
       smallLegacyPivotFolder,
     );
@@ -116,7 +116,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("removes the specified widget plugins from the widget bookmarks themselves, and from the content of the dashboard bookmarks", async () => {
-    const contentServer = getContentServerForUIFolder(legacyUIFolder);
+    const contentServer = getRootContentRecord(legacyUIFolder);
     const keysOfWidgetPluginsToRemove = ["filters"];
     migrate_43_to_50(contentServer, {
       errorReport,
@@ -181,7 +181,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("returns an error report for dashboards and handles the dashboard id being a number", async () => {
-    const contentServer = getContentServerForUIFolder(
+    const contentServer = getRootContentRecord(
       smallLegacyUIFolderWithInvalidDashboard,
     );
     await migrate_43_to_50(contentServer, {
@@ -245,7 +245,7 @@ describe("migrate_43_to_50", () => {
   });
 
   it("copies invalid filters as-is and reports an error", async () => {
-    const contentServer = getContentServerForUIFolder(
+    const contentServer = getRootContentRecord(
       smallLegacyUIFolderWithInvalidFilter,
     );
     await migrate_43_to_50(contentServer, {
