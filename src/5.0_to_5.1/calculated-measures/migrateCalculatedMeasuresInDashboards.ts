@@ -26,66 +26,55 @@ export const migrateCalculatedMeasuresInDashboards = (
 
   const migratedDashboards = produce(dashboards, (draft) => {
     // The children property is always defined for the `ui/dashboards` folder.
-    const dashboardsContent = dashboards.children!.content.children ?? {};
-    const updatedDashboardsContent = produce(dashboardsContent, (draft) => {
-      for (const dashboardId in dashboardsContent) {
-        const dashboard: ContentRecord = dashboardsContent[dashboardId];
-        const updatedDashboard = produce(dashboard, (draft) => {
-          const serializedDashboardState: DashboardState<"serialized"> =
-            JSON.parse(dashboard.entry.content);
-          const deserializedDashboardState = deserializeDashboardState(
-            serializedDashboardState,
-          );
-          const updatedDashboardState = produce(
-            deserializedDashboardState,
-            (draft) => {
-              const dashboardPages = deserializedDashboardState.pages;
-              const updatedDashboardPages = produce(dashboardPages, (draft) => {
-                for (const pageId in dashboardPages) {
-                  const page = dashboardPages[pageId];
-                  const updatedWidget: {
-                    [widgetId: string]: WidgetWithQueryState;
-                  } = produce(page.content, (draft) => {
-                    for (const widgetId in page.content) {
-                      const mdx: MdxSelect | undefined =
-                        page.content[widgetId].query.mdx;
-                      if (!mdx) {
-                        return;
-                      }
-                      const {
-                        migratedMdx,
-                        namesOfCalculatedMeasuresToMigrateInWidget,
-                        cubeName,
-                      } = migrateCalculatedMeasuresInMdx(
-                        mdx,
-                        namesOfCalculatedMeasurestoMigrate,
-                        dataModel,
-                      );
+    const dashboardsContent = draft.children!.content.children ?? {};
+    for (const dashboardId in dashboardsContent) {
+      const dashboard: ContentRecord = dashboardsContent[dashboardId];
+      const serializedDashboardState: DashboardState<"serialized"> = JSON.parse(
+        dashboard.entry.content,
+      );
+      const deserializedDashboardState = deserializeDashboardState(
+        serializedDashboardState,
+      );
 
-                      namesOfCalculatedMeasuresToMigrateInWidget.forEach(
-                        (calculatedMeasureName) => {
-                          measureToCubeMapping[calculatedMeasureName] =
-                            cubeName;
-                        },
-                      );
+      const dashboardPages = deserializedDashboardState.pages;
+      for (const pageId in dashboardPages) {
+        const page = dashboardPages[pageId];
+        const updatedWidgets: {
+          [widgetId: string]: WidgetWithQueryState;
+        } = produce(page.content, (draft) => {
+          for (const widgetId in page.content) {
+            const mdx: MdxSelect | undefined = page.content[widgetId].query.mdx;
+            if (!mdx) {
+              return;
+            }
+            const {
+              migratedMdx,
+              namesOfCalculatedMeasuresToMigrateInWidget,
+              cubeName,
+            } = migrateCalculatedMeasuresInMdx(
+              mdx,
+              namesOfCalculatedMeasurestoMigrate,
+              dataModel,
+            );
 
-                      draft[widgetId].query.mdx = migratedMdx;
-                    }
-                  });
-                  draft[pageId].content = updatedWidget;
-                }
-              });
-              draft.pages = updatedDashboardPages;
-            },
-          );
-          draft.entry.content = JSON.stringify(
-            serializeDashboardState(updatedDashboardState),
-          );
+            namesOfCalculatedMeasuresToMigrateInWidget.forEach(
+              (calculatedMeasureName) => {
+                measureToCubeMapping[calculatedMeasureName] = cubeName;
+              },
+            );
+
+            draft[widgetId].query.mdx = migratedMdx;
+          }
         });
-        draft[dashboardId] = updatedDashboard;
+        dashboardPages[pageId].content = updatedWidgets;
       }
-    });
-    draft.children!.content.children = updatedDashboardsContent;
+
+      dashboard.entry.content = JSON.stringify(
+        serializeDashboardState(deserializedDashboardState),
+      );
+      dashboardsContent[dashboardId] = dashboard;
+    }
+    draft.children!.content.children = dashboardsContent;
   });
   return { measureToCubeMapping, migratedDashboards };
 };
