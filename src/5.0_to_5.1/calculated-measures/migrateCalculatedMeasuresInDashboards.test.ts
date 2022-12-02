@@ -35,24 +35,24 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
 
   it("does not modify the content of an empty dashboard", () => {
     // "8c1" is an empty dashboard.
-    expect(migratedDashboards.children.content.children!["8c1"]).toStrictEqual(
+    expect(migratedDashboards.children!.content.children!["8c1"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["8c1"],
     );
 
     // "a4f" is an empty dashboard inside a folder.
-    expect(migratedDashboards.children.content.children!["a4f"]).toStrictEqual(
+    expect(migratedDashboards.children!.content.children!["a4f"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["a4f"],
     );
   });
 
   it("does not modify the content of a dashboard which does not contain calculated measures", () => {
     // "81a" is a dashboard with no calculated measures.
-    expect(migratedDashboards.children.content.children!["81a"]).toStrictEqual(
+    expect(migratedDashboards.children!.content.children!["81a"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["81a"],
     );
 
     // "e27" is a dashboard with no calculated measures inside a folder.
-    expect(migratedDashboards.children.content.children!["e27"]).toStrictEqual(
+    expect(migratedDashboards.children!.content.children!["e27"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["e27"],
     );
   });
@@ -63,11 +63,11 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       uiDashboardsFolder.children.content.children!["b3e"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["b3e"].entry.content,
+      migratedDashboards.children!.content.children!["b3e"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
       JSON.parse(
-        migratedDashboards.children.content.children!["b3e"].entry.content,
+        migratedDashboards.children!.content.children!["b3e"].entry.content,
       ),
     ).toMatchSnapshot();
 
@@ -76,11 +76,11 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       uiDashboardsFolder.children.content.children!["c83"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["c83"].entry.content,
+      migratedDashboards.children!.content.children!["c83"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
       JSON.parse(
-        migratedDashboards.children.content.children!["c83"].entry.content,
+        migratedDashboards.children!.content.children!["c83"].entry.content,
       ),
     ).toMatchSnapshot();
   });
@@ -91,11 +91,11 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       uiDashboardsFolder.children.content.children!["ef0"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["ef0"].entry.content,
+      migratedDashboards.children!.content.children!["ef0"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
       JSON.parse(
-        migratedDashboards.children.content.children!["ef0"].entry.content,
+        migratedDashboards.children!.content.children!["ef0"].entry.content,
       ),
     ).toMatchSnapshot();
   });
@@ -106,18 +106,18 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
       uiDashboardsFolder.children.content.children!["a18"].entry.content,
     ).toContain("WITH  Member [Measures]");
     expect(
-      migratedDashboards.children.content.children!["a18"].entry.content,
+      migratedDashboards.children!.content.children!["a18"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
     expect(
       JSON.parse(
-        migratedDashboards.children.content.children!["a18"].entry.content,
+        migratedDashboards.children!.content.children!["a18"].entry.content,
       ),
     ).toMatchSnapshot();
   });
 
   it("does not modify the content of a dashboard which contains a calculated measure which is not in the list `calculatedMeasureNames`", () => {
     // "a9e" is a dashboard containing 1 widget with a calculated measure which is not on the list of names of calculated measures to be migrated`.
-    expect(migratedDashboards.children.content.children!["a9e"]).toStrictEqual(
+    expect(migratedDashboards.children!.content.children!["a9e"]).toStrictEqual(
       uiDashboardsFolder.children.content.children["a9e"],
     );
   });
@@ -125,7 +125,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   it("removes the calculated measure definitions if their names are included in `calculatedMeasureNames` and does not remove them if they are not", () => {
     // "e54" is a dashboard containing 3 widgets.
     const migratedDashboardState = JSON.parse(
-      migratedDashboards.children.content.children!["e54"].entry.content,
+      migratedDashboards.children!.content.children!["e54"].entry.content,
     );
     const initialDashboardState = JSON.parse(
       uiDashboardsFolder.children.content.children!["e54"].entry.content,
