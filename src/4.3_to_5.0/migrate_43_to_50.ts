@@ -227,7 +227,7 @@ export async function migrate_43_to_50(
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
     throw new Error(
-      "Your content server structure doesn't contain any ui folder.",
+      "Your content server doesn't contain any /ui folder.",
     );
   }
 
