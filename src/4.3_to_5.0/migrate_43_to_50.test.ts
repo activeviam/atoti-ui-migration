@@ -14,7 +14,6 @@ import {
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
 import { smallLegacyUIFolderWithInvalidDashboard } from "./__test_resources__/smallLegacyUIFolderWithInvalidDashboard";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
