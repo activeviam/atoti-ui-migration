@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 const getCalculatedMeasureContent = (
   legacyCalculatedMeasureContent: ContentRecord,

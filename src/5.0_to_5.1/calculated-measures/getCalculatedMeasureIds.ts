@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Returns the ids of the calculated measures created in ActiveUI 5.0 and saved in the legacy `/ui/calculated_measures` folder on the content server.

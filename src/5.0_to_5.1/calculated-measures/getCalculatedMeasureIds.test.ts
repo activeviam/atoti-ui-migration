@@ -1,4 +1,4 @@
-import { calculatedMeasures } from "../__test_resources__/aui5.0calculatedMeasuresFolder";
+import { calculatedMeasures } from "../__test_resources__/uiCalculated_measuresFolder";
 import { getCalculatedMeasureIds } from "./getCalculatedMeasureIds";
 
 describe("getCalculatedMeasureIds", () => {

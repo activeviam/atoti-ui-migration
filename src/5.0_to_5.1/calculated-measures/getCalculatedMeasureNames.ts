@@ -2,7 +2,7 @@ import {
   ContentRecord,
   findContentRecords,
   getMetaData,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Returns the names of the calculated measures created in ActiveUI 5.0 and saved in the legacy `/ui/calculated_measures` folder on the content server.
