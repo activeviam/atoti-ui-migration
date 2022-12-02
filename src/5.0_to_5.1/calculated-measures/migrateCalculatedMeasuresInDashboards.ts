@@ -1,5 +1,4 @@
 import {
-  ContentEntry,
   ContentRecord,
   CubeName,
   DashboardState,
@@ -12,30 +11,22 @@ import {
 import { produce } from "immer";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
-interface DashboardsFolder {
-  entry: ContentEntry;
-  children: {
-    thumbnails: ContentRecord;
-    content: ContentRecord;
-    structure: ContentRecord;
-  };
-}
-
 /**
  * Same as `migrateCalculatedMeasuresInWidgets` but for widgets within saved dashboards.
  */
 export const migrateCalculatedMeasuresInDashboards = (
-  dashboards: DashboardsFolder,
+  dashboards: ContentRecord,
   dataModel: DataModel,
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
   measureToCubeMapping: { [measureName: string]: CubeName };
-  migratedDashboards: DashboardsFolder;
+  migratedDashboards: ContentRecord;
 } => {
   const measureToCubeMapping: { [measureName: string]: CubeName } = {};
 
   const migratedDashboards = produce(dashboards, (draft) => {
-    const dashboardsContent = dashboards.children.content.children ?? {};
+    // The children property is always defined for the `ui/dashboards` folder.
+    const dashboardsContent = dashboards.children!.content.children ?? {};
     const updatedDashboardsContent = produce(dashboardsContent, (draft) => {
       for (const dashboardId in dashboardsContent) {
         const dashboard: ContentRecord = dashboardsContent[dashboardId];
