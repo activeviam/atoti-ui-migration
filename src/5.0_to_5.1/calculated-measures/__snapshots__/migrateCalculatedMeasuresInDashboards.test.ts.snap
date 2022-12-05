@@ -514,7 +514,7 @@ Object {
 }
 `;
 
-exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 if their names are included in \`calculatedMeasureNames\` from the \`query.mdx\` of widgets and does not remove them if they are not 1`] = `
+exports[`migrateCalculatedMeasuresInDashboards removes definitions of calculated measures saved in ActiveUI 5.0 if their names are included in \`calculatedMeasureNames\` and does not remove them if they are not 1`] = `
 Object {
   "filters": Array [],
   "pages": Object {
