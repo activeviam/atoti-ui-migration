@@ -122,7 +122,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     );
   });
 
-  it("removes definitions of calculated measures saved in ActiveUI 5.0 if their names are included in `calculatedMeasureNames` from the `query.mdx` of widgets and does not remove them if they are not", () => {
+  it("removes definitions of calculated measures saved in ActiveUI 5.0 if their names are included in `calculatedMeasureNames` and does not remove them if they are not", () => {
     // "e54" is a dashboard containing 3 widgets.
     const migratedDashboardState = JSON.parse(
       migratedDashboards.children!.content.children!["e54"].entry.content,
