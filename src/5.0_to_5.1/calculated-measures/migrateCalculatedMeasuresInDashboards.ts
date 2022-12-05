@@ -29,9 +29,8 @@ export const migrateCalculatedMeasuresInDashboards = (
     // The children property is always defined for the `ui/dashboards` folder.
     const dashboardsContent = draft.children!.content.children ?? {};
     for (const dashboardId in dashboardsContent) {
-      const dashboard: ContentRecord = dashboardsContent[dashboardId];
       const serializedDashboardState: DashboardState<"serialized"> = JSON.parse(
-        dashboard.entry.content,
+        dashboardsContent[dashboardId].entry.content,
       );
       const deserializedDashboardState = deserializeDashboardState(
         serializedDashboardState,
@@ -69,17 +68,14 @@ export const migrateCalculatedMeasuresInDashboards = (
                     : [cubeName];
               },
             );
-
             draft[widgetId].query.mdx = migratedMdx;
           }
         });
         dashboardPages[pageId].content = updatedWidgets;
       }
-
-      dashboard.entry.content = JSON.stringify(
+      dashboardsContent[dashboardId].entry.content = JSON.stringify(
         serializeDashboardState(deserializedDashboardState),
       );
-      dashboardsContent[dashboardId] = dashboard;
     }
     draft.children!.content.children = dashboardsContent;
   });
