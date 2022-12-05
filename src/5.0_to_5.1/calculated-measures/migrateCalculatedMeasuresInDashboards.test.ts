@@ -65,11 +65,6 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     expect(
       migratedDashboards.children!.content.children!["b3e"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
-    expect(
-      JSON.parse(
-        migratedDashboards.children!.content.children!["b3e"].entry.content,
-      ),
-    ).toMatchSnapshot();
 
     // "c83" is a dashboard with a single page with multiple widgets, some of which contain calculated measures.
     expect(
@@ -78,11 +73,6 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     expect(
       migratedDashboards.children!.content.children!["c83"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
-    expect(
-      JSON.parse(
-        migratedDashboards.children!.content.children!["c83"].entry.content,
-      ),
-    ).toMatchSnapshot();
   });
 
   it("removes definitions of calculated measures saved in ActiveUI 5.0 from the `query.mdx` of all widgets from a dashboard with multiple pages", () => {
@@ -93,11 +83,6 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     expect(
       migratedDashboards.children!.content.children!["ef0"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
-    expect(
-      JSON.parse(
-        migratedDashboards.children!.content.children!["ef0"].entry.content,
-      ),
-    ).toMatchSnapshot();
   });
 
   it("removes definitions of calculated measures saved in ActiveUI 5.0 from the `query.mdx` of all widgets from a dashboard with multiple pages inside a folder", () => {
@@ -108,11 +93,6 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     expect(
       migratedDashboards.children!.content.children!["a18"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
-    expect(
-      JSON.parse(
-        migratedDashboards.children!.content.children!["a18"].entry.content,
-      ),
-    ).toMatchSnapshot();
   });
 
   it("does not remove the definition of a calculated measure which is not in the list `calculatedMeasureNames`", () => {
@@ -130,7 +110,6 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
     const initialDashboardState = JSON.parse(
       uiDashboardsFolder.children.content.children!["e54"].entry.content,
     );
-    expect(migratedDashboardState).toMatchSnapshot();
 
     // Widget "0" contains a calculated measure which is not on the list of `calculatedMeasureNames` ("Log City"), the MDX is unchanged.
     expect(migratedDashboardState.pages["p-0"].content["0"]).toStrictEqual(

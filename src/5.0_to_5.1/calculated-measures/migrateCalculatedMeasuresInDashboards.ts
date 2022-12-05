@@ -7,7 +7,7 @@ import {
   MdxSelect,
   serializeDashboardState,
   WidgetWithQueryState,
-} from "@activeviam/activeui-sdk-5.0";
+} from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _uniq from "lodash/uniq";
