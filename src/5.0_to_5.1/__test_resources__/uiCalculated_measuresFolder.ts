@@ -1,3 +1,15 @@
+// Contains:
+// 196 - "Distinct count city"
+// cef - "activeui5 calculated measure"
+// 6b5 - "Test calculated measure"
+// folder a14
+// 501 - "Exp gamma sum"
+// folder b49 (inside a14)
+// 585 - "Log pv.SUM"
+
+/**
+ * A `ui/calculated_measures` folder on the content server created in ActiveUI 5.0.
+ */
 export const calculatedMeasures = {
   entry: {
     isDirectory: true,
