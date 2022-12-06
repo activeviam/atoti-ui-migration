@@ -74,12 +74,9 @@ export const migrateCalculatedMeasuresInWidgets = (
               draft.query.mdx = migratedMdx;
             },
           );
-          const updatedRecord = produce(widgetRecord, (draft) => {
-            draft.entry.content = JSON.stringify(
-              serializeWidgetState(updatedWidgetState),
-            );
-          });
-          return updatedRecord;
+          widgetRecord.entry.content = JSON.stringify(
+            serializeWidgetState(updatedWidgetState),
+          );
         }
         return widgetRecord;
       },

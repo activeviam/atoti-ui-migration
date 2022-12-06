@@ -24,7 +24,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
       namesOfCalculatedMeasurestoMigrate,
     );
 
-  it("returns a `measureToCubeMapping` object containing the names of all calculated measures used in the `ui/widgets` and `ui/dashboards` folders with their corresponding cube name", () => {
+  it("returns a `measureToCubeMapping` object containing the names of all calculated measures used in the `ui/widgets` folder with their corresponding cube name", () => {
     expect(measureToCubeMapping).toStrictEqual({
       "CM in 2 cubes": ["EquityDerivativesCubeDist", "EquityDerivativesCube"],
       "Distinct count city": ["EquityDerivativesCube"],

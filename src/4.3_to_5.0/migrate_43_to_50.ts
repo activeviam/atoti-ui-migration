@@ -2,7 +2,6 @@ import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
-import _fromPairs from "lodash/fromPairs";
 
 import {
   ContentRecord,
@@ -201,42 +200,37 @@ const accumulateStructure = ({
 };
 
 /**
- * Returns the converted UI folder, ready to be used by ActiveUI 5.
- * Also returns a count of the number of migration successes and failures and an detailed error report.
+ * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
+ * Also keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
- * - for a matching saved ActiveUI 4 widget, no ActiveUI 5 file is created.
- * - for a saved ActiveUI 4 dashboard including a matching widget, the widget is removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
+ * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
+ * - for a saved ActiveUI 4.3 dashboard including a matching widget, the widget is removed from the output ActiveUI 5.0 dashboard, and the layout is adapted so that siblings take the remaining space.
+ *
+ * Mutates `contentServer`, `errorReport` and `counters`.
  */
 export async function migrate_43_to_50(
-  legacyUIFolder: ContentRecord,
+  contentServer: ContentRecord,
   {
+    errorReport,
+    counters,
     servers,
     keysOfWidgetPluginsToRemove,
-    legacyPivotFolder,
     doesReportIncludeStacks,
   }: {
+    errorReport: ErrorReport;
+    counters: OutcomeCounters;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
-    legacyPivotFolder?: ContentRecord;
   },
-): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
+): Promise<void> {
+  if (contentServer.children?.ui === undefined) {
+    throw new Error("Your content server doesn't contain any /ui folder.");
+  }
+
+  const legacyUIFolder = _cloneDeep(contentServer.children.ui);
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
-  const errorReport: ErrorReport = {};
-  const counters = _fromPairs(
-    ["dashboards", "widgets", "filters", "folders"].map((type) => [
-      type,
-      {
-        success: 0,
-        partial: 0,
-        failed: 0,
-        removed: 0,
-      },
-    ]),
-    // _fromPairs returns a Dictionary.
-    // In this case, the keys used correspond to the attributes of OutcomeCounters.
-  ) as OutcomeCounters;
 
   const dashboards: { [dashboardId: string]: any } = {};
   const widgets: { [widgetId: string]: any } = {};
@@ -504,6 +498,8 @@ export async function migrate_43_to_50(
     folders,
   });
 
+  const legacyPivotFolder = contentServer.children?.pivot;
+
   migratedUIFolder.children = {
     ...migratedUIFolder.children,
     ...(legacyPivotFolder
@@ -513,12 +509,8 @@ export async function migrate_43_to_50(
           ),
         }
       : {}),
-    ...migrateSettingsFolder(legacyUIFolder.children?.settings),
+    ...migrateSettingsFolder(legacyUIFolder?.children?.settings),
   };
 
-  return [
-    migratedUIFolder,
-    counters,
-    Object.keys(errorReport).length > 0 ? errorReport : undefined,
-  ];
+  contentServer.children.ui = migratedUIFolder;
 }
