@@ -107,7 +107,7 @@ yargs
         type: "string",
         demandOption: true,
         choices: fromVersions,
-        desc: "The version which the content is migrated from.",
+        desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
