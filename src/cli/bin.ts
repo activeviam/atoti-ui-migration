@@ -173,7 +173,7 @@ yargs
 
       for (const { migrate } of migrationFunctions.slice(
         fromVersionIndex,
-        toVersionIndex,
+        toVersionIndex + 1,
       )) {
         await migrate(contentServer, {
           counters,
@@ -242,7 +242,7 @@ This will output a file named \`report.json\` containing the error messages.`);
     },
   )
   .check(({ fromVersion, toVersion }) => {
-    if (gte(toVersion, fromVersion)) {
+    if (gte(fromVersion, toVersion)) {
       throw new Error("--to-version must be greater than --from-version");
     }
     return true;
