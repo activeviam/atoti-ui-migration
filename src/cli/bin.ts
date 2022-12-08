@@ -114,7 +114,7 @@ yargs
         type: "string",
         demandOption: true,
         choices: toVersions,
-        desc: "The version which the content is migrated to.",
+        desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
         type: "array",
