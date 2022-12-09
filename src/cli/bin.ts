@@ -6,7 +6,7 @@ import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
 import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
-import { gte } from "semver";
+import { gte, coerce } from "semver";
 
 type MigrationFunction = (
   contentServer: ContentRecord,
@@ -242,7 +242,9 @@ This will output a file named \`report.json\` containing the error messages.`);
     },
   )
   .check(({ fromVersion, toVersion }) => {
-    if (gte(fromVersion, toVersion)) {
+    // The formats of `fromVersion` and `toVersion` are already validated, with yargs' `choices` option.
+    // They must be of the form "X.Y", hence `coerce` won't return null.
+    if (gte(coerce(fromVersion)!, coerce(toVersion)!)) {
       throw new Error("--to-version must be greater than --from-version");
     }
     return true;
