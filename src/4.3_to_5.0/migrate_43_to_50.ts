@@ -196,8 +196,8 @@ const accumulateStructure = ({
 };
 
 /**
- * Modifies the ActiveUI 4.3 `contentServer` structure, for it to be ready to be used by ActiveUI 5.0.
- * Also keeps the number of migration successes and failures in `counters` and a detailed `errorReport`.
+ * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
+ * Also keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
  * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
@@ -222,9 +222,7 @@ export async function migrate_43_to_50(
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
-    throw new Error(
-      "Your content server structure doesn't contain any ui folder.",
-    );
+    throw new Error("Your content server doesn't contain any /ui folder.");
   }
 
   const legacyUIFolder = _cloneDeep(contentServer.children.ui);
