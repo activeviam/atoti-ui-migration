@@ -1,14 +1,13 @@
-import _cloneDeep from "lodash/cloneDeep";
 import _set from "lodash/set";
 import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
+import _cloneDeep from "lodash/cloneDeep";
 
 import {
   ContentRecord,
   DataModel,
   MdxString,
 } from "@activeviam/activeui-sdk-5.0";
-import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
@@ -27,6 +26,7 @@ import { _serializeError } from "./_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 import cliProgress from "cli-progress";
+import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
 const _getFolder = (
   record: ContentRecord | undefined,

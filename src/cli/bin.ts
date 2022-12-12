@@ -4,8 +4,39 @@ import _fromPairs from "lodash/fromPairs";
 import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
-import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
+import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
+import { gte, coerce } from "semver";
+
+type MigrationFunction = (
+  contentServer: ContentRecord,
+  {
+    counters,
+    errorReport,
+    servers,
+    keysOfWidgetPluginsToRemove,
+    doesReportIncludeStacks,
+  }: {
+    counters: OutcomeCounters;
+    errorReport: ErrorReport;
+    servers: {
+      [serverKey: string]: {
+        dataModel: DataModel;
+        url: string;
+      };
+    };
+    keysOfWidgetPluginsToRemove?: string[] | undefined;
+    doesReportIncludeStacks: boolean;
+  },
+) => Promise<void>;
+
+const migrationFunctions: {
+  from: string;
+  to: string;
+  migrate: MigrationFunction;
+}[] = [{ from: "4.3", to: "5.0", migrate: migrate_43_to_50 }];
+const fromVersions = migrationFunctions.map(({ from }) => from);
+const toVersions = migrationFunctions.map(({ to }) => to);
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -44,6 +75,8 @@ yargs
     inputPath: string;
     outputPath: string;
     serversPath: string;
+    fromVersion: string;
+    toVersion: string;
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
@@ -69,6 +102,20 @@ yargs
         demandOption: true,
         desc: "The path to the JSON file holding the servers information.",
       });
+      args.option("from-version", {
+        alias: "f",
+        type: "string",
+        demandOption: true,
+        choices: fromVersions,
+        desc: "The version to migrate from.",
+      });
+      args.option("to-version", {
+        alias: "t",
+        type: "string",
+        demandOption: true,
+        choices: toVersions,
+        desc: "The version to migrate to.",
+      });
       args.option("remove-widgets", {
         type: "array",
         demandOption: false,
@@ -91,6 +138,8 @@ yargs
       inputPath,
       outputPath,
       serversPath,
+      fromVersion,
+      toVersion,
       removeWidgets: keysOfWidgetPluginsToRemove,
       debug,
       stack,
@@ -100,7 +149,6 @@ yargs
         [serverKey: string]: { dataModel: DataModel; url: string };
       } = await fs.readJSON(serversPath);
 
-      const errorReport: ErrorReport = {};
       const counters = _fromPairs(
         ["dashboards", "widgets", "filters", "folders"].map((type) => [
           type,
@@ -114,20 +162,31 @@ yargs
         // _fromPairs returns a Dictionary.
         // In this case, the keys used correspond to the attributes of OutcomeCounters.
       ) as OutcomeCounters;
+      const errorReport = {};
 
-      await migrate_43_to_50(contentServer, {
-        errorReport,
-        counters,
-        servers,
-        keysOfWidgetPluginsToRemove,
-        doesReportIncludeStacks: stack,
-      });
+      const fromVersionIndex = migrationFunctions.findIndex(
+        ({ from }) => from === fromVersion,
+      );
+      const toVersionIndex = migrationFunctions.findIndex(
+        ({ to }) => to === toVersion,
+      );
+
+      for (const { migrate } of migrationFunctions.slice(
+        fromVersionIndex,
+        toVersionIndex + 1,
+      )) {
+        await migrate(contentServer, {
+          counters,
+          errorReport,
+          servers,
+          keysOfWidgetPluginsToRemove,
+          doesReportIncludeStacks: stack,
+        });
+      }
 
       const { dir } = path.parse(outputPath);
 
-      await fs.writeJSON(outputPath, contentServer, {
-        spaces: 2,
-      });
+      await fs.writeJSON(outputPath, contentServer, { spaces: 2 });
 
       console.log("--------- END OF CONTENT MIGRATION ---------");
 
@@ -182,6 +241,14 @@ This will output a file named \`report.json\` containing the error messages.`);
       process.exit(0);
     },
   )
+  .check(({ fromVersion, toVersion }) => {
+    // The formats of `fromVersion` and `toVersion` are already validated, with yargs' `choices` option.
+    // They must be of the form "X.Y", hence `coerce` won't return null.
+    if (gte(coerce(fromVersion)!, coerce(toVersion)!)) {
+      throw new Error("--to-version must be greater than --from-version");
+    }
+    return true;
+  })
   .demandCommand(1)
   .strict()
   .parse();
