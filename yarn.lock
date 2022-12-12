@@ -1260,6 +1260,19 @@
     lodash "^4.17.15"
     utility-types "^3.10.0"
 
+"@activeviam/mdx-5.1@npm:@activeviam/mdx@5.1.0-20221018171954-6275d65", "@activeviam/mdx@5.1.0-20221018171954-6275d65":
+  version "5.1.0-20221018171954-6275d65"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.1.0-20221018171954-6275d65.tgz#6822e187eb189babf5500fc0e2b7ad0cb29b65a0"
+  integrity sha512-gG6cgfTb4KCYCRrnxEYSiYqBd0naS/oURT9cTyKsfhN40Kl0raZVmDUYKaZzya00OevpTnScF/Glmwjj6Z/2/g==
+  dependencies:
+    "@activeviam/data-model" "5.1.0-20221018171954-6275d65"
+    "@activeviam/mdx-lexer" "5.1.0-20221018171954-6275d65"
+    "@activeviam/mdx-parser" "5.1.0-20221018171954-6275d65"
+    "@types/lodash" "^4.14.168"
+    immer "^9.0.14"
+    lodash "^4.17.15"
+    utility-types "^3.10.0"
+
 "@activeviam/mdx-lexer@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.0.15.tgz#dcc4e15e3140b5c898868899e69d726f50d25696"
@@ -1279,19 +1292,6 @@
   version "5.1.0-20221018171954-6275d65"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.1.0-20221018171954-6275d65.tgz#21c8399c557c527b367da58912dd8cb27a5690e6"
   integrity sha512-QKYz043c0oCqnacKw5DG26d8ZH3xJ/nzFUk59cSl2Of0hDoBrp40BJjf6C3nVGEidkjK6rN5CcglEz3ayKsXeQ==
-
-"@activeviam/mdx@5.1.0-20221018171954-6275d65":
-  version "5.1.0-20221018171954-6275d65"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.1.0-20221018171954-6275d65.tgz#6822e187eb189babf5500fc0e2b7ad0cb29b65a0"
-  integrity sha512-gG6cgfTb4KCYCRrnxEYSiYqBd0naS/oURT9cTyKsfhN40Kl0raZVmDUYKaZzya00OevpTnScF/Glmwjj6Z/2/g==
-  dependencies:
-    "@activeviam/data-model" "5.1.0-20221018171954-6275d65"
-    "@activeviam/mdx-lexer" "5.1.0-20221018171954-6275d65"
-    "@activeviam/mdx-parser" "5.1.0-20221018171954-6275d65"
-    "@types/lodash" "^4.14.168"
-    immer "^9.0.14"
-    lodash "^4.17.15"
-    utility-types "^3.10.0"
 
 "@activeviam/members-tree@5.0.15":
   version "5.0.15"
