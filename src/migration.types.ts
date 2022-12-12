@@ -1,3 +1,6 @@
+import { DashboardState as DashboardState50 } from "@activeviam/activeui-sdk-5.0";
+import { DashboardState as DashboardState51 } from "@activeviam/activeui-sdk-5.1";
+
 /**
  * The count of migrated files, per migration outcome.
  */
@@ -59,8 +62,8 @@ export interface ErrorReport {
     | FileErrorReport
       // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
       // This should happen more frequently.
-      // In this case, the dashboard should be migrated successfully, except for the widgets which threw errors.
-      // These widgets should be copied as is into the new dashboard.
+      // In this case, the dashboard is migrated successfully, except for the widgets which threw errors.
+      // These failing widgets are copied as is into the new dashboard.
       | DashboardErrorReport;
   };
   widgets?: {
@@ -74,12 +77,11 @@ export interface ErrorReport {
   };
 }
 
-/**
- * List of the versions from which it is possible to migrate your content.
- */
-export type MigrateFromVersions = "4.3" | "5.0";
+type MigrateDashboards50To51 = (
+  dashbaordState: DashboardState50,
+) => DashboardState51;
 
 /**
- * List of the versions to which it is possible to migrate your content.
+ * Callback containing the logic to migrate dashboards from one version to another.
  */
-export type MigrateToVersions = "5.0" | "5.1";
+export type MigrateDashboardsCallback = MigrateDashboards50To51;

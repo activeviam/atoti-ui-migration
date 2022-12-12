@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
-import { ErrorReport, OutcomeCounters } from "../4.3_to_5.0/migration.types";
+import { ErrorReport, OutcomeCounters } from "../migration.types";
 import { gte, coerce } from "semver";
 
 type MigrationFunction = (
