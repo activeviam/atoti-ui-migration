@@ -20,7 +20,6 @@ import { _serializeError } from "./_serializeError";
  * Mutates `contentServer`, `counters` and `errorReport`.
  */
 export const getMigrateDashboards =
-  (callback: MigrateDashboardsCallback) =>
   (
     contentServer: ContentRecord,
     {
@@ -32,7 +31,8 @@ export const getMigrateDashboards =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
     },
-  ): void => {
+  ) =>
+  (callback: MigrateDashboardsCallback): void => {
     let migratedDashboard;
 
     const dashboardsContent =
