@@ -30,12 +30,12 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.19",
+    "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.15",
     "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221212094632-00c2372",
-    "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.19",
-    "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.19",
+    "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.15",
+    "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.15",
     "@activeviam/data-model-5.1": "npm:@activeviam/data-model@5.1.0-20221212094632-00c2372",
-    "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.19",
+    "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.15",
     "@activeviam/mdx-5.1": "npm:@activeviam/mdx@5.1.0-20221212094632-00c2372",
     "cli-progress": "^3.11.2",
     "immer": "^8.0.0",
@@ -45,7 +45,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@activeviam/activeui-sdk-scripts": "5.0.19",
+    "@activeviam/activeui-sdk-scripts": "5.0.15",
     "@ant-design/icons": "^4.4.0",
     "@types/cli-progress": "^3.11.0",
     "@types/jest": "^26.0.14",
