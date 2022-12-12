@@ -7,7 +7,10 @@ import {
   MdxSelect,
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk-5.0";
-import { serializeDashboardState } from "@activeviam/activeui-sdk-5.1";
+import {
+  serializeDashboardState,
+  DashboardState as DashboardState51,
+} from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _uniq from "lodash/uniq";
@@ -74,7 +77,8 @@ export const migrateCalculatedMeasuresInDashboards = (
         dashboardPages[pageId].content = updatedWidgets;
       }
       dashboardsContent[dashboardId].entry.content = JSON.stringify(
-        serializeDashboardState(deserializedDashboardState),
+        // Casting as a DashboardState from 5.1 as this function is concerned with only updating calculated measures.
+        serializeDashboardState(deserializedDashboardState as DashboardState51),
       );
     }
     draft.children!.content.children = dashboardsContent;

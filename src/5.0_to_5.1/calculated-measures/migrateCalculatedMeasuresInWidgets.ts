@@ -10,7 +10,10 @@ import {
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _mapValues from "lodash/mapValues";
-import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
+import {
+  serializeWidgetState,
+  WidgetWithQueryState as WidgetWithQueryState51,
+} from "@activeviam/activeui-sdk-5.1";
 import _uniq from "lodash/uniq";
 
 /**
@@ -75,7 +78,8 @@ export const migrateCalculatedMeasuresInWidgets = (
             },
           );
           widgetRecord.entry.content = JSON.stringify(
-            serializeWidgetState(updatedWidgetState),
+            // Casting as a WidgetWithQueryState from 5.1 as this function is concerned with only updating calculated measures.
+            serializeWidgetState(updatedWidgetState as WidgetWithQueryState51),
           );
         }
         return widgetRecord;
