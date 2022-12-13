@@ -1,6 +1,3 @@
-import { DashboardState as DashboardState50 } from "@activeviam/activeui-sdk-5.0";
-import { DashboardState as DashboardState51 } from "@activeviam/activeui-sdk-5.1";
-
 /**
  * The count of migrated files, per migration outcome.
  */
@@ -77,11 +74,9 @@ export interface ErrorReport {
   };
 }
 
-type MigrateDashboards50To51 = (
-  dashbaordState: DashboardState50,
-) => DashboardState51;
-
 /**
  * Callback containing the logic to migrate dashboards from one version to another.
  */
-export type MigrateDashboardsCallback = MigrateDashboards50To51;
+export type MigrateDashboardsCallback<FromDashboardState, ToDashboardState> = (
+  dashboardState: FromDashboardState,
+) => ToDashboardState;
