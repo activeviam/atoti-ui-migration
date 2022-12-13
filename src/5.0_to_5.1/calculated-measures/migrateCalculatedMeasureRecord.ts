@@ -1,4 +1,4 @@
-import { ContentRecord, parse } from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { produce } from "immer";
 
 /**
