@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord, parse } from "@activeviam/activeui-sdk-5.0";
 import { produce } from "immer";
 
 /**
@@ -9,13 +9,17 @@ export const migrateCalculatedMeasureRecord = (
   calculatedMeasureName: string,
 ): ContentRecord => {
   const migratedRecord = produce(legacyCalculatedMeasureContent, (draft) => {
-    const parsedContent = JSON.parse(draft.entry.content);
-
-    const expression = parsedContent.expression;
-    const properties: string[] = parsedContent.properties;
+    const {
+      expression,
+      properties,
+    }: { expression: string; properties: string[] } = JSON.parse(
+      draft.entry.content,
+    );
 
     const formatStringExpression = properties
-      ? properties.find((property) => property.startsWith("FORMAT_STRING"))
+      ? properties
+          .find((property) => property.startsWith("FORMAT_STRING"))
+          ?.replace("FORMAT_STRING = ", "")
       : undefined;
 
     const migratedCalculatedMeasureContent = JSON.stringify({

@@ -15,7 +15,7 @@ describe("migrateCalculatedMeasureRecord", () => {
         "entry": Object {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"FORMAT_STRING = \\\\\\"#,###.##\\\\\\"\\"}",
+          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
           "isDirectory": false,
           "lastEditor": "admin",
           "owners": Array [
@@ -35,7 +35,7 @@ describe("migrateCalculatedMeasureRecord", () => {
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
       expression:
         "Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)",
-      formatStringExpression: `FORMAT_STRING = "#,###.##"`,
+      formatStringExpression: `"#,###.##"`,
       uniqueName: "[Measures].[Distinct count city]",
     });
   });
