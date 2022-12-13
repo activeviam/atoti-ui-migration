@@ -1,12 +1,11 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
-import _omit from "lodash/omit";
 import {
   ErrorReport,
-  MigrateDashboardsCallback,
+  MigrateDashboardCallback,
   OutcomeCounters,
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
-import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
+import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 
 /**
@@ -32,7 +31,9 @@ export const getMigrateDashboards =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  (callback: MigrateDashboardsCallback): void => {
+  <FromDashboardState, ToDashboardState>(
+    callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
+  ): void => {
     let migratedDashboard;
 
     const dashboardsContent =
@@ -41,7 +42,7 @@ export const getMigrateDashboards =
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
 
-    const mapOfFolderIds = _getMapOfFolderIds(dashboardsStructure);
+    const filesAncestry = _getFilesAncestry(dashboardsStructure);
 
     for (const fileId in dashboardsContent) {
       const { entry } = dashboardsContent[fileId];
@@ -55,9 +56,12 @@ export const getMigrateDashboards =
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
 
+        const folderName = filesAncestry[fileId].map(({ name }) => name);
+        const folderId = filesAncestry[fileId].map(({ id }) => id);
+
         _addErrorToReport(errorReport, {
-          legacyContent: dashboardsContent,
-          mapOfFolderIds,
+          folderName,
+          folderId,
           contentType: "dashboards",
           fileErrorReport: {
             error: _serializeError(error, {
@@ -74,7 +78,7 @@ export const getMigrateDashboards =
       dashboardsContent![fileId] = {
         entry: {
           ...entry,
-          content: JSON.stringify(_omit(migratedDashboard, ["name"])),
+          content: JSON.stringify(migratedDashboard),
         },
       };
     }

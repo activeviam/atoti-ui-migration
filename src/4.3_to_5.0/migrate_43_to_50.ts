@@ -16,13 +16,14 @@ import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
 import { OutcomeCounters, ErrorReport } from "../migration.types";
-import { _getMapOfFolderIds } from "../_getMapOfFolderIds";
+import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 import cliProgress from "cli-progress";
 import { _addErrorToReport } from "../_addErrorToReport";
 import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
+import { _getFolderName } from "./_getFolderName";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -290,6 +291,9 @@ export async function migrate_43_to_50(
           Object,
         );
       } else {
+        const folderId = mapOfFolderIds[fileId];
+        const folderName = _getFolderName(legacyContent, folderId);
+
         if (bookmark.type === "folder") {
           folders[fileId] = { name: bookmark.name };
         } else if (bookmark.type === "mdx") {
@@ -323,8 +327,8 @@ export async function migrate_43_to_50(
             };
 
             _addErrorToReport(errorReport, {
-              legacyContent,
-              mapOfFolderIds,
+              folderName,
+              folderId,
               contentType: "filters",
               fileErrorReport: {
                 error: _serializeError(error, { doesReportIncludeStacks }),
@@ -349,8 +353,8 @@ export async function migrate_43_to_50(
               counters.dashboards.partial++;
 
               _addErrorToReport(errorReport, {
-                legacyContent,
-                mapOfFolderIds,
+                folderName,
+                folderId,
                 contentType: "dashboards",
                 fileErrorReport: dashboardErrorReport,
                 fileId,
@@ -365,8 +369,8 @@ export async function migrate_43_to_50(
             counters.dashboards.failed++;
 
             _addErrorToReport(errorReport, {
-              legacyContent,
-              mapOfFolderIds,
+              folderName,
+              folderId,
               contentType: "dashboards",
               fileErrorReport: {
                 error: _serializeError(error, {
@@ -395,8 +399,8 @@ export async function migrate_43_to_50(
             // Remove the widget instead of migrating it.
             counters.widgets.removed++;
             _addErrorToReport(errorReport, {
-              legacyContent,
-              mapOfFolderIds,
+              folderName,
+              folderId,
               contentType: "widgets",
               fileErrorReport: {
                 error: _serializeError(
@@ -430,8 +434,8 @@ export async function migrate_43_to_50(
               };
             }
             _addErrorToReport(errorReport, {
-              legacyContent,
-              mapOfFolderIds,
+              folderName,
+              folderId,
               contentType: "widgets",
               fileErrorReport: {
                 error: _serializeError(error, { doesReportIncludeStacks }),
