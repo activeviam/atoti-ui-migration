@@ -1,12 +1,11 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
-import _omit from "lodash/omit";
 import {
   ErrorReport,
-  MigrateWidgetsCallback,
+  MigrateWidgetCallback,
   OutcomeCounters,
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
-import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
+import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 
 /**
@@ -32,13 +31,13 @@ export const getMigrateWidgets =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  (callback: MigrateWidgetsCallback): void => {
+  <FromWidgetState, ToWidgetState>(
+    callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+  ): void => {
     const widgetsContent =
       contentServer.children?.ui.children?.widgets.children?.content.children;
     const widgetsStructure =
       contentServer.children?.ui.children?.widgets.children?.structure!;
-
-    const mapOfFolderIds = _getMapOfFolderIds(widgetsStructure);
 
     for (const fileId in widgetsContent) {
       let migratedWidget;
@@ -53,10 +52,14 @@ export const getMigrateWidgets =
         // The widget could not be migrated at all.
         counters.widgets.failed++;
 
+        const filesAncestry = _getFilesAncestry(widgetsStructure);
+        const folderName = filesAncestry[fileId].map(({ name }) => name);
+        const folderId = filesAncestry[fileId].map(({ id }) => id);
+
         _addErrorToReport(errorReport, {
-          legacyContent: widgetsContent,
-          mapOfFolderIds,
-          contentType: "widgets",
+          folderName,
+          folderId,
+          contentType: "dashboards",
           fileErrorReport: {
             error: _serializeError(error, {
               doesReportIncludeStacks,
@@ -72,7 +75,7 @@ export const getMigrateWidgets =
       widgetsContent![fileId] = {
         entry: {
           ...entry,
-          content: JSON.stringify(_omit(migratedWidget, ["name"])),
+          content: JSON.stringify(migratedWidget),
         },
       };
     }

@@ -42,8 +42,6 @@ export const getMigrateDashboards =
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
 
-    const filesAncestry = _getFilesAncestry(dashboardsStructure);
-
     for (const fileId in dashboardsContent) {
       const { entry } = dashboardsContent[fileId];
       const dashboard = JSON.parse(entry.content);
@@ -56,6 +54,7 @@ export const getMigrateDashboards =
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
 
+        const filesAncestry = _getFilesAncestry(dashboardsStructure);
         const folderName = filesAncestry[fileId].map(({ name }) => name);
         const folderId = filesAncestry[fileId].map(({ id }) => id);
 
