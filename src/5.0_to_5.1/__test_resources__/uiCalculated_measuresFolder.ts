@@ -48,7 +48,7 @@ export const calculatedMeasures = {
         "501": {
           entry: {
             content:
-              '{"expression":"10 ^ [Measures].[gamma.SUM]","properties":["FORMAT_STRING = \\"#,###.####\\""]}',
+              '{"expression":"10 ^ [Measures].[gamma.SUM]","properties":[]}',
             isDirectory: false,
             owners: ["admin"],
             readers: ["admin"],
