@@ -1,7 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import {
   ErrorReport,
-  MigrateDashboardsCallback,
+  MigrateDashboardCallback,
   OutcomeCounters,
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
@@ -32,7 +32,7 @@ export const getMigrateDashboards =
     },
   ) =>
   <FromDashboardState, ToDashboardState>(
-    callback: MigrateDashboardsCallback<FromDashboardState, ToDashboardState>,
+    callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
   ): void => {
     let migratedDashboard;
 
@@ -42,7 +42,7 @@ export const getMigrateDashboards =
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
 
-    const mapOfFolderIds = _getFilesAncestry(dashboardsStructure);
+    const filesAncestry = _getFilesAncestry(dashboardsStructure);
 
     for (const fileId in dashboardsContent) {
       const { entry } = dashboardsContent[fileId];
@@ -56,8 +56,8 @@ export const getMigrateDashboards =
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
 
-        const folderName = mapOfFolderIds[fileId].map(({ name }) => name);
-        const folderId = mapOfFolderIds[fileId].map(({ id }) => id);
+        const folderName = filesAncestry[fileId].map(({ name }) => name);
+        const folderId = filesAncestry[fileId].map(({ id }) => id);
 
         _addErrorToReport(errorReport, {
           folderName,

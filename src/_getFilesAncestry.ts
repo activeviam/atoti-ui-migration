@@ -1,18 +1,27 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
-function addChildren(
+/**
+ * Adds the ids and names of all the parents folders of `node`'s children to `accumulator`.
+ * Recursively applies the same operation to each of the `node`'s children.
+ * Mutates `accumulator`.
+ */
+function accumulateChildrenAncestors(
   node: ContentRecord,
   path: { id: string; name: string }[],
-  contentRecordToPath: { [id: string]: { id: string; name: string }[] },
+  accumulator: { [id: string]: { id: string; name: string }[] },
 ) {
   if (node.children) {
     Object.entries(node.children).forEach(([id, child]) => {
       if (!id.endsWith("metadata")) {
-        contentRecordToPath[id] = path;
+        accumulator[id] = path;
         const name = JSON.parse(
           child.children?.[`${id}_metadata`].entry.content,
         ).name;
-        addChildren(child, [...path, { id, name }], contentRecordToPath);
+        accumulateChildrenAncestors(
+          child,
+          [...path, { id, name }],
+          accumulator,
+        );
       }
     });
   }
@@ -24,9 +33,9 @@ function addChildren(
 export function _getFilesAncestry(structure: ContentRecord): {
   [fileId: string]: { id: string; name: string }[];
 } {
-  const mapOfFolderIds: { [id: string]: { id: string; name: string }[] } = {};
+  const filesAncestry: { [id: string]: { id: string; name: string }[] } = {};
 
-  addChildren(structure, [], mapOfFolderIds);
+  accumulateChildrenAncestors(structure, [], filesAncestry);
 
-  return mapOfFolderIds;
+  return filesAncestry;
 }

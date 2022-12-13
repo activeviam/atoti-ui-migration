@@ -77,6 +77,6 @@ export interface ErrorReport {
 /**
  * Callback containing the logic to migrate dashboards from one version to another.
  */
-export type MigrateDashboardsCallback<FromDashboardState, ToDashboardState> = (
+export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   dashboardState: FromDashboardState,
 ) => ToDashboardState;
