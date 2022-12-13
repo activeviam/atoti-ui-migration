@@ -6,6 +6,7 @@ import {
 } from "@activeviam/activeui-sdk-5.0";
 import _mapKeys from "lodash/mapKeys";
 import _merge from "lodash/merge";
+import { migrateCalculatedMeasureRecord } from "./migrateCalculatedMeasureRecord";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
 
@@ -32,8 +33,9 @@ export function migrateCalculatedMeasures(
   dataModel: DataModel,
 ): any {
   const legacyCalculatedMeasuresFolder =
-    contentServer.children?.calculated_measures;
-  // const pivotFolder = contentServer.children?.pivot;
+    contentServer.children?.ui.children?.calculated_measures;
+  const cmFolder: ContentRecord | undefined =
+    contentServer.children?.pivot.children?.entitlements.children?.cm;
 
   const legacyCalculatedMeasureRecords: {
     [measureName: string]: ContentRecord;
@@ -48,13 +50,12 @@ export function migrateCalculatedMeasures(
   const namesOfCalculatedMeasuresToMigrate = Object.keys(
     legacyCalculatedMeasureRecords,
   );
-  // console.log(namesOfCalculatedMeasuresToMigrate);
 
   const {
     migratedWidgetsRecord,
     measureToCubeMapping: measureToCubeMappingInWidgets,
   } = migrateCalculatedMeasuresInWidgets(
-    contentServer.children?.widgets!,
+    contentServer.children?.ui.children?.widgets!,
     dataModel,
     namesOfCalculatedMeasuresToMigrate,
   );
@@ -63,7 +64,7 @@ export function migrateCalculatedMeasures(
     migratedDashboards,
     measureToCubeMapping: measureToCubeMappingInDashboards,
   } = migrateCalculatedMeasuresInDashboards(
-    contentServer.children?.dashboards!,
+    contentServer.children?.ui.children?.dashboards!,
     dataModel,
     namesOfCalculatedMeasuresToMigrate,
   );
@@ -73,6 +74,45 @@ export function migrateCalculatedMeasures(
     measureToCubeMappingInDashboards,
   );
 
-  return namesOfCalculatedMeasuresToMigrate;
-}
+  Object.entries(legacyCalculatedMeasureRecords).forEach(
+    ([measureName, record]) => {
+      const cubeNames = measureToCubeMapping[measureName];
+      if (!cubeNames) {
+        //TODO add a warning in the report that the calculated measure was not migrated since it's not used anywhere
+        console.log(`warning ${measureName} is not used anywhere`);
+        return;
+      }
 
+      const migratedRecord = migrateCalculatedMeasureRecord(
+        record,
+        measureName,
+      );
+
+      cubeNames.forEach((cubeName) => {
+        if (cmFolder && cmFolder.children) {
+          // If `cubeName` property does not already exist, create it.
+          if (!cmFolder.children[cubeName]) {
+            cmFolder.children[cubeName] = {
+              entry: {
+                isDirectory: true,
+                owners: ["ROLE_USER"],
+                readers: ["ROLE_USER"],
+                timestamp: 1669281586947,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+              children: {},
+            };
+          }
+          // This is created above if it does not already exist.
+          cmFolder.children[cubeName].children![measureName] = migratedRecord;
+        }
+      });
+    },
+  );
+
+  contentServer.children!.ui.children!.widgets = migratedWidgetsRecord;
+  contentServer.children!.ui.children!.dashboards = migratedDashboards;
+  delete contentServer.children?.ui.children?.calculated_measures;
+}
