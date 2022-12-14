@@ -5,7 +5,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
  * Recursively applies the same operation to each of the `node`'s children.
  * Mutates `accumulator`.
  */
-function accumulateChildrenAncestors(
+function accumulateAncestry(
   node: ContentRecord,
   path: { id: string; name: string }[],
   accumulator: { [id: string]: { id: string; name: string }[] },
@@ -17,11 +17,7 @@ function accumulateChildrenAncestors(
         const name = JSON.parse(
           child.children?.[`${id}_metadata`].entry.content,
         ).name;
-        accumulateChildrenAncestors(
-          child,
-          [...path, { id, name }],
-          accumulator,
-        );
+        accumulateAncestry(child, [...path, { id, name }], accumulator);
       }
     });
   }
@@ -35,7 +31,7 @@ export function _getFilesAncestry(structure: ContentRecord): {
 } {
   const filesAncestry: { [id: string]: { id: string; name: string }[] } = {};
 
-  accumulateChildrenAncestors(structure, [], filesAncestry);
+  accumulateAncestry(structure, [], filesAncestry);
 
   return filesAncestry;
 }
