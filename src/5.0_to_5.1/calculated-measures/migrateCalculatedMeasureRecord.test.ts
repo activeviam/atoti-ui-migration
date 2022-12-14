@@ -1,21 +1,23 @@
 import { calculatedMeasures } from "../__test_resources__/uiCalculated_measuresFolder";
 import { migrateCalculatedMeasureRecord } from "./migrateCalculatedMeasureRecord";
+import _cloneDeep from "lodash/cloneDeep";
 
 const distinctCountCity = calculatedMeasures.children.content.children["196"];
 const expGammaSum = calculatedMeasures.children.content.children["501"];
 
 describe("migrateCalculatedMeasureRecord", () => {
-  it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which contains a `FORMAT_STRING` property, into one that is natively supported by ActivePivot", () => {
-    const migratedRecord = migrateCalculatedMeasureRecord(
-      distinctCountCity,
+  it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which contains a `FORMAT_STRING` property and an `additionalProperty`, into one that is natively supported by ActivePivot", () => {
+    const calculatedMeasureRecord = _cloneDeep(distinctCountCity);
+    migrateCalculatedMeasureRecord(
+      calculatedMeasureRecord,
       "Distinct count city",
     );
-    expect(migratedRecord).toMatchInlineSnapshot(`
+    expect(calculatedMeasureRecord).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
+          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{\\"CAPTION\\":\\"Distinct count city\\"},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
           "isDirectory": false,
           "lastEditor": "admin",
           "owners": Array [
@@ -28,9 +30,10 @@ describe("migrateCalculatedMeasureRecord", () => {
         },
       }
     `);
-
-    expect(JSON.parse(migratedRecord.entry.content)).toStrictEqual({
-      additionalProperties: {},
+    expect(JSON.parse(calculatedMeasureRecord.entry.content)).toStrictEqual({
+      additionalProperties: {
+        CAPTION: "Distinct count city",
+      },
       className:
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
       expression:
@@ -40,13 +43,10 @@ describe("migrateCalculatedMeasureRecord", () => {
     });
   });
 
-  it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which doesn't contain a `FORMAT_STRING` property, into one that is natively supported by ActivePivot", () => {
-    const migratedRecord = migrateCalculatedMeasureRecord(
-      expGammaSum,
-      "Exp gamma sum",
-    );
-
-    expect(migratedRecord).toMatchInlineSnapshot(`
+  it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which doesn't contain a `FORMAT_STRING` property or any `additionalProperties`, into one that is natively supported by ActivePivot", () => {
+    const calculatedMeasureRecord = _cloneDeep(expGammaSum);
+    migrateCalculatedMeasureRecord(calculatedMeasureRecord, "Exp gamma sum");
+    expect(calculatedMeasureRecord).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
           "canRead": true,
@@ -65,7 +65,7 @@ describe("migrateCalculatedMeasureRecord", () => {
       }
     `);
 
-    expect(JSON.parse(migratedRecord.entry.content)).toStrictEqual({
+    expect(JSON.parse(calculatedMeasureRecord.entry.content)).toStrictEqual({
       additionalProperties: {},
       className:
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",

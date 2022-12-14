@@ -35,7 +35,7 @@ export const calculatedMeasures = {
         "196": {
           entry: {
             content:
-              '{"expression":"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)","properties":["FORMAT_STRING = \\"#,###.##\\""]}',
+              '{"expression":"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)","properties":["FORMAT_STRING = \\"#,###.##\\"","CAPTION = \\"Distinct count city\\" "]}',
             isDirectory: false,
             owners: ["admin"],
             readers: ["admin"],
