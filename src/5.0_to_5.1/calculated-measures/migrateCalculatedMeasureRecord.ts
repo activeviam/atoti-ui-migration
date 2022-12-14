@@ -1,9 +1,10 @@
 import {
   ContentRecord,
+  MdxCompoundIdentifier,
   MdxFunction,
+  MdxLiteral,
   parse,
 } from "@activeviam/activeui-sdk-5.0";
-import { isMdxCompoundIdentifier, isMdxLiteral } from "@activeviam/mdx-5.1";
 import { produce } from "immer";
 
 /**
@@ -26,25 +27,23 @@ export const migrateCalculatedMeasureRecord = (
           .find((property) => property.startsWith("FORMAT_STRING"))
           ?.replace("FORMAT_STRING = ", "")
       : undefined;
-    console.log(properties.map(parse)[0].arguments[1]);
 
     const additionalProperties = properties
       .filter((property) => !property.startsWith("FORMAT_STRING"))
       .reduce((acc, property) => {
         const parsedProperty = parse<MdxFunction>(property);
-        const firstArg = parsedProperty.arguments[0];
-        const secondArg = parsedProperty.arguments[1];
+        console.log(parsedProperty);
+        // The first argument of `parsedProperty` is an `MdxCompoundIdentifier`.
+        const firstArg = parsedProperty.arguments[0] as MdxCompoundIdentifier;
+        // The second argument of `parsedProperty` is an `MdxLiteral`.
+        const secondArg = parsedProperty.arguments[1] as MdxLiteral;
 
-        if (isMdxCompoundIdentifier(firstArg) && isMdxLiteral(secondArg)) {
-          const propertyKey = firstArg.identifiers[0].value;
-          const propertyValue = secondArg.value;
-          return {
-            ...acc,
-            [propertyKey]: propertyValue,
-          };
-        }
-
-        return acc;
+        const propertyKey = firstArg.identifiers[0].value;
+        const propertyValue = secondArg.value;
+        return {
+          ...acc,
+          [propertyKey]: propertyValue,
+        };
       }, {});
 
     const migratedCalculatedMeasureContent = JSON.stringify({
