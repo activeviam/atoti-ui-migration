@@ -80,3 +80,10 @@ export interface ErrorReport {
 export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   dashboardState: FromDashboardState,
 ) => ToDashboardState;
+
+/**
+ * Callback containing the logic to migrate a filter from one version to another.
+ */
+export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
+  filterState: FromFilterState,
+) => ToFilterState;
