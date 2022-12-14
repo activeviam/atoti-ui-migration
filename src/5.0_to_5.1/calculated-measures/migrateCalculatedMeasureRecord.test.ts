@@ -1,9 +1,32 @@
-import { calculatedMeasures } from "../__test_resources__/uiCalculated_measuresFolder";
 import { migrateCalculatedMeasureRecord } from "./migrateCalculatedMeasureRecord";
 import _cloneDeep from "lodash/cloneDeep";
 
-const distinctCountCity = calculatedMeasures.children.content.children["196"];
-const expGammaSum = calculatedMeasures.children.content.children["501"];
+const distinctCountCity = {
+  entry: {
+    content:
+      '{"expression":"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)","properties":["FORMAT_STRING = \\"#,###.##\\"","CAPTION = \\"Distinct count city\\" "]}',
+    isDirectory: false,
+    owners: ["admin"],
+    readers: ["admin"],
+    timestamp: 1666091498549,
+    lastEditor: "admin",
+    canRead: true,
+    canWrite: true,
+  },
+};
+
+const expGammaSum = {
+  entry: {
+    content: '{"expression":"10 ^ [Measures].[gamma.SUM]","properties":[]}',
+    isDirectory: false,
+    owners: ["admin"],
+    readers: ["admin"],
+    timestamp: 1666091548728,
+    lastEditor: "admin",
+    canRead: true,
+    canWrite: true,
+  },
+};
 
 describe("migrateCalculatedMeasureRecord", () => {
   it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which contains a `FORMAT_STRING` property and an `additionalProperty`, into one that is natively supported by ActivePivot", () => {
