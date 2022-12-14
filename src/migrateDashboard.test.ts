@@ -265,29 +265,28 @@ describe("migrateDashboard", () => {
   });
 
   it("removes the specified widget keys, and adapts the layout", () => {
-    const keysOfWidgetPluginsToRemove = ["filters"];
+    const widgetKeysToRemove = ["filters"];
 
-    // Safeguard to make sure that the test makes sense: before checking that the key has been removed in the migrated dashboard, check that it's here in the first place in the legacy dashboard.
-    const widgetPluginKeysInLegacyDashboard: string[] = [];
-    legacyDashboard.value.body.pages.forEach((page) =>
-      page.content.forEach(({ bookmark }) =>
-        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey),
+    // Otherwise this test would be useless.
+    expect(
+      legacyDashboard.value.body.pages[0].content.map(
+        (widgetState) => widgetState.bookmark.value.containerKey,
       ),
-    );
-    expect(widgetPluginKeysInLegacyDashboard).toEqual(
-      expect.arrayContaining(keysOfWidgetPluginsToRemove),
-    );
+    ).toContain("filters");
 
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
-      keysOfWidgetPluginsToRemove,
+      keysOfWidgetPluginsToRemove: widgetKeysToRemove,
     });
 
     const { content, layout } = dashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
-    expect(widgetPluginKeys).toEqual(
-      expect.not.arrayContaining(keysOfWidgetPluginsToRemove),
-    );
+    expect(widgetPluginKeys).toEqual([
+      "tree-table",
+      "plotly-line-chart",
+      "quick-filter",
+    ]);
+
     expect(layout).toMatchInlineSnapshot(`
       Object {
         "children": Array [
