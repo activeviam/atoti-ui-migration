@@ -9,8 +9,8 @@ import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 
 /**
- * Returns a function which can be called to migrate the content of each dashboard.
- * The migration is meant to be done accordingly to the logic defined in `callback`.
+ * Returns a function which can be called to migrate ActiveUI 5+ dashboards.
+ * The content of each dashboard is transformed using the `callback` argument.
  *
  * Some pieces of logic are encapsulated in order to make it easier for the caller:
  * - the logic of traversing and updating files in `/ui/dashboards`
