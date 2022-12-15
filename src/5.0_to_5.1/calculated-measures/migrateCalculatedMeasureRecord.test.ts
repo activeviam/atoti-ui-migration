@@ -1,5 +1,4 @@
 import { migrateCalculatedMeasureRecord } from "./migrateCalculatedMeasureRecord";
-import _cloneDeep from "lodash/cloneDeep";
 
 const distinctCountCity = {
   entry: {
@@ -30,12 +29,11 @@ const expGammaSum = {
 
 describe("migrateCalculatedMeasureRecord", () => {
   it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which contains a `FORMAT_STRING` property and an `additionalProperty`, into one that is natively supported by ActivePivot", () => {
-    const calculatedMeasureRecord = _cloneDeep(distinctCountCity);
-    migrateCalculatedMeasureRecord(
-      calculatedMeasureRecord,
+    const migratedRecord = migrateCalculatedMeasureRecord(
+      distinctCountCity,
       "Distinct count city",
     );
-    expect(calculatedMeasureRecord).toMatchInlineSnapshot(`
+    expect(migratedRecord).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
           "canRead": true,
@@ -53,7 +51,7 @@ describe("migrateCalculatedMeasureRecord", () => {
         },
       }
     `);
-    expect(JSON.parse(calculatedMeasureRecord.entry.content)).toStrictEqual({
+    expect(JSON.parse(migratedRecord.entry.content)).toStrictEqual({
       additionalProperties: {
         CAPTION: '"Distinct count city"',
       },
@@ -67,9 +65,11 @@ describe("migrateCalculatedMeasureRecord", () => {
   });
 
   it("transforms the serialized definition of a calculated measure created with ActiveUI 5.0 which doesn't contain a `FORMAT_STRING` property or any `additionalProperties`, into one that is natively supported by ActivePivot", () => {
-    const calculatedMeasureRecord = _cloneDeep(expGammaSum);
-    migrateCalculatedMeasureRecord(calculatedMeasureRecord, "Exp gamma sum");
-    expect(calculatedMeasureRecord).toMatchInlineSnapshot(`
+    const migratedRecord = migrateCalculatedMeasureRecord(
+      expGammaSum,
+      "Exp gamma sum",
+    );
+    expect(migratedRecord).toMatchInlineSnapshot(`
       Object {
         "entry": Object {
           "canRead": true,
@@ -88,7 +88,7 @@ describe("migrateCalculatedMeasureRecord", () => {
       }
     `);
 
-    expect(JSON.parse(calculatedMeasureRecord.entry.content)).toStrictEqual({
+    expect(JSON.parse(migratedRecord.entry.content)).toStrictEqual({
       additionalProperties: {},
       className:
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
