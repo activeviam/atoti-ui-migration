@@ -9,7 +9,7 @@ export const migrateCalculatedMeasureContent = (
   additionalProperties: { [propertyName: string]: string };
   uniqueName: string;
   expression: string;
-  formatStringExpression: string | undefined;
+  formatStringExpression?: string;
 } => {
   const { expression, properties } = legacyCalculatedMeasureContent;
 
