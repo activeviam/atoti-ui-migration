@@ -28,6 +28,11 @@ const getCalculatedMeasureName = (
   return calculatedMeasureName;
 };
 
+/**
+ * Transforms the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot.
+ * Removes any query-scoped calculated measure definitions from saved dashboards and saved widgets.
+ * Mutates `contentServer`.
+ */
 export function migrateCalculatedMeasures(
   contentServer: ContentRecord,
   dataModel: DataModel,
