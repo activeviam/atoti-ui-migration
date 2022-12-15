@@ -15,7 +15,7 @@ describe("migrateCalculatedMeasureContent", () => {
       "Distinct count city",
     );
 
-    expect(JSON.parse(migratedContent)).toStrictEqual({
+    expect(migratedContent).toStrictEqual({
       additionalProperties: {
         CAPTION: '"Distinct count city"',
       },
@@ -34,11 +34,12 @@ describe("migrateCalculatedMeasureContent", () => {
       "Exp gamma sum",
     );
 
-    expect(JSON.parse(migratedContent)).toStrictEqual({
+    expect(migratedContent).toStrictEqual({
       additionalProperties: {},
       className:
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
       expression: "10 ^ [Measures].[gamma.SUM]",
+      formatStringExpression: undefined,
       uniqueName: "[Measures].[Exp gamma sum]",
     });
   });

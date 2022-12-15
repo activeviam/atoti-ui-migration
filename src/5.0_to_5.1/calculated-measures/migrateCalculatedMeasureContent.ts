@@ -4,7 +4,13 @@
 export const migrateCalculatedMeasureContent = (
   legacyCalculatedMeasureContent: { expression: string; properties: string[] },
   calculatedMeasureName: string,
-): string => {
+): {
+  className: string;
+  additionalProperties: { [propertyName: string]: string };
+  uniqueName: string;
+  expression: string;
+  formatStringExpression: string | undefined;
+} => {
   const { expression, properties } = legacyCalculatedMeasureContent;
 
   const formatStringProperty = properties.find((property) =>
@@ -23,7 +29,7 @@ export const migrateCalculatedMeasureContent = (
       return { ...acc, [propertyName]: propertyExpression };
     }, {});
 
-  const migratedContent = JSON.stringify({
+  const migratedContent = {
     // The className comes from Active Pivot.
     // See https://github.com/activeviam/activepivot/blob/876981bef9a65acbb228f97c53825a356de59382/pivot/core/impl/src/main/java/com/quartetfs/biz/pivot/definitions/impl/CalculatedMemberDescription.java
     className:
@@ -32,7 +38,7 @@ export const migrateCalculatedMeasureContent = (
     uniqueName: `[Measures].[${calculatedMeasureName}]`,
     expression,
     formatStringExpression,
-  });
+  };
 
   return migratedContent;
 };
