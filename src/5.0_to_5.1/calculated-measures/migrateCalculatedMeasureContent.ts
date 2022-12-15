@@ -1,21 +1,12 @@
-import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
-import _cloneDeep from "lodash/cloneDeep";
-
 /**
- * Transforms the serialized definition of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
- * Mutates `legacyCalculatedMeasureContent`.
+ * Transforms the content of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
  */
-export const migrateCalculatedMeasureRecord = (
-  legacyCalculatedMeasureContent: ContentRecord,
+export const migrateCalculatedMeasureContent = (
+  legacyCalculatedMeasureContent: { expression: string; properties: string[] },
   calculatedMeasureName: string,
-): ContentRecord => {
-  const {
-    expression,
-    properties,
-  }: { expression: string; properties: string[] } = JSON.parse(
-    legacyCalculatedMeasureContent.entry.content,
-  );
-  const migratedRecord = _cloneDeep(legacyCalculatedMeasureContent);
+): string => {
+  const { expression, properties } = legacyCalculatedMeasureContent;
+
   const formatStringProperty = properties.find((property) =>
     property.startsWith("FORMAT_STRING"),
   );
@@ -32,7 +23,7 @@ export const migrateCalculatedMeasureRecord = (
       return { ...acc, [propertyName]: propertyExpression };
     }, {});
 
-  migratedRecord.entry.content = JSON.stringify({
+  const migratedContent = JSON.stringify({
     // The className comes from Active Pivot.
     // See https://github.com/activeviam/activepivot/blob/876981bef9a65acbb228f97c53825a356de59382/pivot/core/impl/src/main/java/com/quartetfs/biz/pivot/definitions/impl/CalculatedMemberDescription.java
     className:
@@ -43,5 +34,5 @@ export const migrateCalculatedMeasureRecord = (
     formatStringExpression,
   });
 
-  return migratedRecord;
+  return migratedContent;
 };
