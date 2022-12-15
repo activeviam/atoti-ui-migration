@@ -1,10 +1,4 @@
-import {
-  ContentRecord,
-  MdxCompoundIdentifier,
-  MdxFunction,
-  MdxLiteral,
-  parse,
-} from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Transforms the serialized definition of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
@@ -21,28 +15,20 @@ export const migrateCalculatedMeasureRecord = (
     legacyCalculatedMeasureContent.entry.content,
   );
 
-  const formatStringExpression = properties
-    ? properties
-        .find((property) => property.startsWith("FORMAT_STRING"))
-        ?.replace("FORMAT_STRING = ", "")
+  const formatStringProperty = properties.find((property) =>
+    property.startsWith("FORMAT_STRING"),
+  );
+  // The `FORMAT_STRING` property is a string with the following syntax: "FORMAT_STRING = \\"#,###.##\\"".
+  // Splitting it by " = " returns an array with the property name at index [0] and the value at index [1].
+  const formatStringExpression = formatStringProperty
+    ? formatStringProperty.split(" = ")[1]
     : undefined;
 
   const additionalProperties = properties
-    .filter((property) => !property.startsWith("FORMAT_STRING"))
-    .reduce((acc, property) => {
-      // When property is parsed an `MdxFunction` with name "=" is returned.
-      const parsedProperty = parse<MdxFunction>(property);
-      // The first argument of `parsedProperty` is an `MdxCompoundIdentifier`.
-      const firstArg = parsedProperty.arguments[0] as MdxCompoundIdentifier;
-      // The second argument of `parsedProperty` is an `MdxLiteral`.
-      const secondArg = parsedProperty.arguments[1] as MdxLiteral;
-
-      const propertyKey = firstArg.identifiers[0].value;
-      const propertyValue = secondArg.value;
-      return {
-        ...acc,
-        [propertyKey]: propertyValue,
-      };
+    .filter((propertyString) => propertyString !== formatStringProperty)
+    .reduce((acc, propertyString) => {
+      const [propertyName, propertyExpression] = propertyString.split(" = ");
+      return { ...acc, [propertyName]: propertyExpression };
     }, {});
 
   legacyCalculatedMeasureContent.entry.content = JSON.stringify({

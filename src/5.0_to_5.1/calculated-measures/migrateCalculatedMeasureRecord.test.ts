@@ -40,7 +40,7 @@ describe("migrateCalculatedMeasureRecord", () => {
         "entry": Object {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{\\"CAPTION\\":\\"Distinct count city\\"},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
+          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{\\"CAPTION\\":\\"\\\\\\"Distinct count city\\\\\\" \\"},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
           "isDirectory": false,
           "lastEditor": "admin",
           "owners": Array [
@@ -55,13 +55,13 @@ describe("migrateCalculatedMeasureRecord", () => {
     `);
     expect(JSON.parse(calculatedMeasureRecord.entry.content)).toStrictEqual({
       additionalProperties: {
-        CAPTION: "Distinct count city",
+        CAPTION: '"Distinct count city" ',
       },
       className:
         "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
       expression:
         "Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)",
-      formatStringExpression: `"#,###.##"`,
+      formatStringExpression: '"#,###.##"',
       uniqueName: "[Measures].[Distinct count city]",
     });
   });
