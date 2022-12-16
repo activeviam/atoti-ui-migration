@@ -6,14 +6,11 @@ import { smallLegacyUIFolder } from "./__test_resources__/smallLegacyUIFolder";
 import { legacyUIFolder } from "./__test_resources__/legacyUIFolder";
 import { servers } from "./__test_resources__/servers";
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
-import {
-  ErrorReport,
-  LegacyDashboardState,
-  OutcomeCounters,
-} from "./migration.types";
+import { LegacyDashboardState } from "./migration.types";
 import { smallLegacyPivotFolder } from "./__test_resources__/smallLegacyPivotFolder";
 import { smallLegacyUIFolderWithInvalidFilter } from "./__test_resources__/smallLegacyUIFolderWithInvalidFilter";
 import { smallLegacyUIFolderWithInvalidDashboard } from "./__test_resources__/smallLegacyUIFolderWithInvalidDashboard";
+import { ErrorReport, OutcomeCounters } from "../migration.types";
 
 /**
  *  Returns whether `contentRecord` has a descendant with the id `recordId`.
