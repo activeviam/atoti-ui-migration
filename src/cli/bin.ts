@@ -164,12 +164,8 @@ yargs
       ) as OutcomeCounters;
       const errorReport = {};
 
-      const fromVersionIndex = migrationFunctions.findIndex(
-        ({ from }) => from === fromVersion,
-      );
-      const toVersionIndex = migrationFunctions.findIndex(
-        ({ to }) => to === toVersion,
-      );
+      const fromVersionIndex = fromVersions.indexOf(fromVersion);
+      const toVersionIndex = toVersions.indexOf(toVersion);
 
       for (const { migrate } of migrationFunctions.slice(
         fromVersionIndex,

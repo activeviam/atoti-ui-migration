@@ -1,10 +1,10 @@
 import { _getFilesAncestry } from "./_getFilesAncestry";
-import { smallContentServer } from "./5.0_to_5.1/__test_resources__/smallContentServer";
+import { contentServer } from "./5.0_to_5.1/__test_resources__/contentServer";
 
 describe("_getFilesAncestry", () => {
   it("returns a map from file id to the ids and names of the parent folders of the file.", () => {
     const dashboardsStructure =
-      smallContentServer.children?.ui.children?.dashboards.children?.structure!;
+      contentServer.children?.ui.children?.dashboards.children?.structure!;
     expect(_getFilesAncestry(dashboardsStructure)).toMatchInlineSnapshot(`
       Object {
         "14f": Array [

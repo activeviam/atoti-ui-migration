@@ -2,9 +2,8 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Content server object, useful for tests.
- * Lighter version of `contentServer` in `./contentServer.ts`.
  */
-export const smallContentServer: ContentRecord = {
+export const contentServer: ContentRecord = {
   children: {
     branches: {
       entry: {
@@ -300,49 +299,49 @@ export const smallContentServer: ContentRecord = {
                     },
                   },
                 },
-                aca: {
+                "2sp": {
                   entry: {
                     isDirectory: true,
                     owners: ["admin"],
                     readers: ["admin"],
-                    timestamp: 1669804710849,
+                    timestamp: 1669817887106,
                     lastEditor: "admin",
                     canRead: true,
                     canWrite: true,
                   },
                   children: {
-                    aca_metadata: {
+                    "5m9": {
                       entry: {
-                        content: '{"name":"Log City"}',
-                        isDirectory: false,
+                        isDirectory: true,
                         owners: ["admin"],
                         readers: ["admin"],
-                        timestamp: 1669804710849,
+                        timestamp: 1669805695656,
                         lastEditor: "admin",
                         canRead: true,
                         canWrite: true,
                       },
+                      children: {
+                        "5m9_metadata": {
+                          entry: {
+                            content: '{"name":"Exp pv.AVG"}',
+                            isDirectory: false,
+                            owners: ["admin"],
+                            readers: ["admin"],
+                            timestamp: 1669805695656,
+                            lastEditor: "admin",
+                            canRead: true,
+                            canWrite: true,
+                          },
+                        },
+                      },
                     },
-                  },
-                },
-                "9a7": {
-                  entry: {
-                    isDirectory: true,
-                    owners: ["admin"],
-                    readers: ["admin"],
-                    timestamp: 1669389429060,
-                    lastEditor: "admin",
-                    canRead: true,
-                    canWrite: true,
-                  },
-                  children: {
-                    "9a7_metadata": {
+                    "2sp_metadata": {
                       entry: {
-                        content: '{"name":"xzvcz"}',
+                        content: '{"isFolder":true,"name":"cm folder"}',
                         isDirectory: false,
                         owners: ["admin"],
                         readers: ["admin"],
-                        timestamp: 1669389429060,
+                        timestamp: 1669817887286,
                         lastEditor: "admin",
                         canRead: true,
                         canWrite: true,
@@ -1050,31 +1049,6 @@ export const smallContentServer: ContentRecord = {
                             lastEditor: "admin",
                             canRead: true,
                             canWrite: true,
-                          },
-                        },
-                        c9c: {
-                          entry: {
-                            isDirectory: true,
-                            owners: ["admin"],
-                            readers: ["admin"],
-                            timestamp: 1669817918087,
-                            lastEditor: "admin",
-                            canRead: true,
-                            canWrite: true,
-                          },
-                          children: {
-                            c9c_metadata: {
-                              entry: {
-                                content: '{"name":"sub dash"}',
-                                isDirectory: false,
-                                owners: ["admin"],
-                                readers: ["admin"],
-                                timestamp: 1669817918087,
-                                lastEditor: "admin",
-                                canRead: true,
-                                canWrite: true,
-                              },
-                            },
                           },
                         },
                       },
