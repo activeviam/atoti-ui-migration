@@ -9,8 +9,8 @@ import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 
 /**
- * Returns a function which can be called to migrate the content of each dashboard.
- * The migration is meant to be done accordingly to the logic defined in `callback`.
+ * Returns a function which can be called to migrate ActiveUI 5+ dashboards.
+ * The content of each dashboard is transformed using the `callback` argument.
  *
  * Some pieces of logic are encapsulated in order to make it easier for the caller:
  * - the logic of traversing and updating files in `/ui/dashboards`
@@ -42,8 +42,6 @@ export const getMigrateDashboards =
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
 
-    const filesAncestry = _getFilesAncestry(dashboardsStructure);
-
     for (const fileId in dashboardsContent) {
       const { entry } = dashboardsContent[fileId];
       const dashboard = JSON.parse(entry.content);
@@ -56,6 +54,7 @@ export const getMigrateDashboards =
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
 
+        const filesAncestry = _getFilesAncestry(dashboardsStructure);
         const folderName = filesAncestry[fileId].map(({ name }) => name);
         const folderId = filesAncestry[fileId].map(({ id }) => id);
 
