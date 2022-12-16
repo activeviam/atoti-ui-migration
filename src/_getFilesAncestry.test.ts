@@ -42,16 +42,6 @@ describe("_getFilesAncestry", () => {
           },
         ],
         "524": Array [],
-        "c9c": Array [
-          Object {
-            "id": "346",
-            "name": "MAD",
-          },
-          Object {
-            "id": "31b",
-            "name": "lil mad",
-          },
-        ],
       }
     `);
   });
