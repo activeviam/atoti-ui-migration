@@ -111,8 +111,9 @@ export function migrateCalculatedMeasures(
               children: {},
             };
           }
-          // This is created above if it does not already exist.
-          cmFolder.children[cubeName].children![measureName] = record;
+          // `cmFolder.children[cubeName].children` is created above if it does not already exist.
+          cmFolder.children[cubeName].children![`[Measures].[${measureName}]`] =
+            record;
         }
       });
     },
