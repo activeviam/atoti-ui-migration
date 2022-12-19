@@ -99,7 +99,7 @@ export const getMigrateWidgets =
             }),
           },
           fileId,
-          name: widget.name,
+          name: metadata.name!,
         });
 
         migratedWidget = widget;
