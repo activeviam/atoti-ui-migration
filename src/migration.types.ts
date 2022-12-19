@@ -82,6 +82,13 @@ export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
 ) => ToDashboardState;
 
 /**
+ * Callback containing the logic to migrate a filter from one version to another.
+ */
+export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
+  filterState: FromFilterState,
+) => ToFilterState;
+
+/**
  * Callback containing the logic to migrate a widget from one version to another.
  */
 export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
