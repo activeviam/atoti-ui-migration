@@ -1,7 +1,6 @@
 // Contains:
 // 196 - "Distinct count city"
 // 1d3 - "CM in 2 cubes"
-// cef - "activeui5 calculated measure"
 // 6b5 - "Test calculated measure"
 // folder a14
 // 501 - "Exp gamma sum"
@@ -80,19 +79,6 @@ export const uiCalculatedMeasuresFolder = {
             owners: ["admin"],
             readers: ["admin"],
             timestamp: 1666170634498,
-            lastEditor: "admin",
-            canRead: true,
-            canWrite: true,
-          },
-        },
-        cef: {
-          entry: {
-            content:
-              '{"expression":"IIf(IsEmpty([Currency].[Currency].CurrentMember.PrevMember), NULL, ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember) - ([Measures].[contributors.COUNT], [Currency].[Currency].CurrentMember.PrevMember))","properties":["FORMAT_STRING = \\"#,###.##%\\""]}',
-            isDirectory: false,
-            owners: ["admin"],
-            readers: ["admin"],
-            timestamp: 1666082732801,
             lastEditor: "admin",
             canRead: true,
             canWrite: true,
@@ -267,31 +253,6 @@ export const uiCalculatedMeasuresFolder = {
                 owners: ["admin"],
                 readers: ["admin"],
                 timestamp: 1666090180725,
-                lastEditor: "admin",
-                canRead: true,
-                canWrite: true,
-              },
-            },
-          },
-        },
-        cef: {
-          entry: {
-            isDirectory: true,
-            owners: ["admin"],
-            readers: ["admin"],
-            timestamp: 1666082732978,
-            lastEditor: "admin",
-            canRead: true,
-            canWrite: true,
-          },
-          children: {
-            cef_metadata: {
-              entry: {
-                content: '{"name":"activeui5 calculated measure"}',
-                isDirectory: false,
-                owners: ["admin"],
-                readers: ["admin"],
-                timestamp: 1666082732978,
                 lastEditor: "admin",
                 canRead: true,
                 canWrite: true,

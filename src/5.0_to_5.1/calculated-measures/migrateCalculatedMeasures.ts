@@ -18,7 +18,6 @@ const getCalculatedMeasureName = (
   const ids = Object.keys(
     legacyCalculatedMeasureFolder.children?.content.children ?? {},
   );
-
   const contentRecords = structure ? findContentRecords(structure, ids) : {};
 
   const calculatedMeasureName = JSON.parse(
@@ -83,8 +82,7 @@ export function migrateCalculatedMeasures(
     ([measureName, record]) => {
       const cubeNames = measureToCubeMapping[measureName];
       if (!cubeNames) {
-        //TODO add a warning in the report that the calculated measure was not migrated since it's not used anywhere
-        console.log(`warning ${measureName} is not used anywhere`);
+        // TODO add a warning in the report that the calculated measure was not migrated since it's not used anywhere.
         return;
       }
 
