@@ -1,16 +1,16 @@
 import {
   ContentRecord,
   CubeName,
-  DataModel,
+  serializeWidgetState,
   deserializeWidgetState,
   isWidgetWithQueryState,
   MdxSelect,
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk-5.0";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _mapValues from "lodash/mapValues";
-import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import _uniq from "lodash/uniq";
 
 /**

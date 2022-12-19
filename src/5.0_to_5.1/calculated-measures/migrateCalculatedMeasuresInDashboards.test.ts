@@ -1,8 +1,8 @@
 import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
-import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 
-const dataModel = dataModelsForTests.sandbox;
+const dataModel = sandboxDataModel;
 
 // "pvSum ^ 2" is from cube "EquityDerivativesCubeDist", all others are from "EquityDerivativesCube".
 const calculatedMeasureNames = [

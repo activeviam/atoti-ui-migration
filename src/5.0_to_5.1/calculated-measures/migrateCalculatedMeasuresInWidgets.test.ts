@@ -1,8 +1,8 @@
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
-import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 
-const dataModel = dataModelsForTests.sandbox;
+const dataModel = sandboxDataModel;
 
 // "CM in 2 cubes" is used in widgets targeting "EquityDerivativesCube" or "EquityDerivativesCubeDist".
 // "pvSum ^ 2" is used in widgets targeting "EquityDerivativesCubeDist".

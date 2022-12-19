@@ -1,9 +1,10 @@
-import { DataModel, CubeName, getCube } from "@activeviam/data-model-5.0";
+import { getCube, DataModel } from "@activeviam/activeui-sdk-5.1";
 import {
-  MdxSelect,
+  CubeName,
   getCalculatedMeasures,
   getCubeName,
-} from "@activeviam/mdx-5.0";
+  MdxSelect,
+} from "@activeviam/activeui-sdk-5.0";
 import { removeCalculatedMemberDefinition } from "@activeviam/mdx-5.1";
 import _intersection from "lodash/intersection";
 
@@ -32,7 +33,7 @@ export const migrateCalculatedMeasuresInMdx = (
       removeCalculatedMemberDefinition(acc, {
         dimensionName: "Measures",
         hierarchyName: "Measures",
-        namePath: [calculatedMeasureName],
+        calculatedMemberName: calculatedMeasureName,
         cube: getCube(dataModel, cubeName),
       }),
     mdx,

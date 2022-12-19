@@ -2,12 +2,12 @@ import {
   ContentRecord,
   CubeName,
   DashboardState,
-  DataModel,
+  serializeDashboardState,
   deserializeDashboardState,
   MdxSelect,
   WidgetWithQueryState,
 } from "@activeviam/activeui-sdk-5.0";
-import { serializeDashboardState } from "@activeviam/activeui-sdk-5.1";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 import { produce } from "immer";
 import _uniq from "lodash/uniq";
