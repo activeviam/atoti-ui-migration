@@ -1,4 +1,4 @@
-import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import {
   ErrorReport,
   MigrateFilterCallback,
@@ -25,14 +25,10 @@ export const getMigrateFilters =
       errorReport,
       counters,
       doesReportIncludeStacks,
-      // `dataModels` is not used yet, but needs to be in the function's signature.
-      // eslint-disable-next-line
-      dataModels,
     }: {
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      dataModels: DataModel[];
     },
   ) =>
   <FromFilterState, ToFilterState>(
