@@ -83,4 +83,10 @@ describe("migrateCalculatedMeasures", () => {
         .children!["ee7"].entry.content,
     ).toContain("WITH  Member [Measures].[activeui5 calculated measure]");
   });
+
+  it("deletes the `ui/calculated_measures` folder", () => {
+    expect(
+      contentServerForTests.children!.ui.children!.calculated_measures,
+    ).toBeUndefined();
+  });
 });
