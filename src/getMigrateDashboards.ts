@@ -41,7 +41,6 @@ export const getMigrateDashboards =
         .children;
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
-
     const filesAncestry = _getFilesAncestry(dashboardsStructure);
 
     for (const fileId in dashboardsContent) {
