@@ -1,4 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
+import { produce } from "immer";
 import {
   ErrorReport,
   MigrateFilterCallback,
@@ -22,10 +24,12 @@ export const getMigrateFilters =
   (
     contentServer: ContentRecord,
     {
+      dataModels,
       errorReport,
       counters,
       doesReportIncludeStacks,
     }: {
+      dataModels: { [serverKey: string]: DataModel };
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
@@ -40,13 +44,15 @@ export const getMigrateFilters =
       contentServer.children?.ui.children?.filters.children?.structure!;
     const filesAncestry = _getFilesAncestry(filtersStructure);
 
+    const migrateFilters = produce(callback);
+
     for (const fileId in filtersContent) {
       let migratedFilter;
       const { entry } = filtersContent[fileId];
       const filter = JSON.parse(entry.content);
 
       try {
-        migratedFilter = callback(filter);
+        migratedFilter = migrateFilters(filter, { dataModels });
         // The filter was fully migrated.
         counters.filters.success++;
       } catch (error) {

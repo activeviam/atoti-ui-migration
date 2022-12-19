@@ -1,42 +1,26 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
 import _fromPairs from "lodash/fromPairs";
+import _mapValues from "lodash/mapValues";
 import fs from "fs-extra";
-import { migrate_43_to_50 } from "../4.3_to_5.0/migrate_43_to_50";
 import path from "path";
-import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
-import { ErrorReport, OutcomeCounters } from "../migration.types";
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
+import { getIndexedDataModel } from "@activeviam/data-model-5.1";
+import { MigrationFunction, OutcomeCounters } from "../migration.types";
 import { gte, coerce } from "semver";
+import { getMigrateDashboards } from "../getMigrateDashboards";
+import { getMigrateWidgets } from "../getMigrateWidgets";
+import { getMigrateFilters } from "../getMigrateFilters";
+import { migrate_43_to_50 } from "../4.3_to_5.0";
+import { migrate_50_to_51 } from "../5.0_to_5.1";
 
-type MigrationFunction = (
-  contentServer: ContentRecord,
-  {
-    counters,
-    errorReport,
-    servers,
-    keysOfWidgetPluginsToRemove,
-    doesReportIncludeStacks,
-  }: {
-    counters: OutcomeCounters;
-    errorReport: ErrorReport;
-    servers: {
-      [serverKey: string]: {
-        dataModel: DataModel;
-        url: string;
-      };
-    };
-    keysOfWidgetPluginsToRemove?: string[] | undefined;
-    doesReportIncludeStacks: boolean;
-  },
-) => Promise<void>;
-
-const migrationFunctions: {
+const migrationSteps: {
   from: string;
   to: string;
   migrate: MigrationFunction;
-}[] = [{ from: "4.3", to: "5.0", migrate: migrate_43_to_50 }];
-const fromVersions = migrationFunctions.map(({ from }) => from);
-const toVersions = migrationFunctions.map(({ to }) => to);
+}[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
+const fromVersions = migrationSteps.map(({ from }) => from);
+const toVersions = migrationSteps.map(({ to }) => to);
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -146,7 +130,7 @@ yargs
     }) => {
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
       const servers: {
-        [serverKey: string]: { dataModel: DataModel; url: string };
+        [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
       } = await fs.readJSON(serversPath);
 
       const counters = _fromPairs(
@@ -164,21 +148,65 @@ yargs
       ) as OutcomeCounters;
       const errorReport = {};
 
-      const fromVersionIndex = fromVersions.indexOf(fromVersion);
-      const toVersionIndex = toVersions.indexOf(toVersion);
+      const doesReportIncludeStacks = stack;
 
-      for (const { migrate } of migrationFunctions.slice(
-        fromVersionIndex,
-        toVersionIndex + 1,
-      )) {
-        await migrate(contentServer, {
-          counters,
+      // Handle the special case of 4.3 to 5.0 separately, as:
+      // - the legacy content server structure is completely different
+      // - the servers urls are needed
+      if (fromVersion === "4.3") {
+        await migrate_43_to_50(contentServer, {
           errorReport,
+          counters,
           servers,
           keysOfWidgetPluginsToRemove,
-          doesReportIncludeStacks: stack,
+          doesReportIncludeStacks,
         });
       }
+
+      const fromVersionIndex =
+        fromVersion === "4.3" ? 0 : fromVersions.indexOf(fromVersion);
+      const toVersionIndex = toVersions.indexOf(toVersion);
+
+      const dataModels = _mapValues(servers, ({ dataModel }) =>
+        getIndexedDataModel(dataModel),
+      );
+
+      const migrateDashboards = getMigrateDashboards(contentServer, {
+        dataModels,
+        keysOfWidgetPluginsToRemove,
+        errorReport,
+        counters,
+        doesReportIncludeStacks,
+      });
+
+      const migrateWidgets = getMigrateWidgets(contentServer, {
+        dataModels,
+        errorReport,
+        counters,
+        doesReportIncludeStacks,
+      });
+
+      const migrateFilters = getMigrateFilters(contentServer, {
+        dataModels,
+        errorReport,
+        counters,
+        doesReportIncludeStacks,
+      });
+
+      migrationSteps
+        .slice(fromVersionIndex, toVersionIndex + 1)
+        .forEach(({ migrate }) => {
+          migrate(contentServer, {
+            migrateDashboards,
+            migrateWidgets,
+            migrateFilters,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+          });
+        });
 
       const { dir } = path.parse(outputPath);
 

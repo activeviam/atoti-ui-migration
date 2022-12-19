@@ -1,4 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
+import { produce } from "immer";
 import {
   ErrorReport,
   MigrateWidgetCallback,
@@ -22,17 +24,15 @@ export const getMigrateWidgets =
   (
     contentServer: ContentRecord,
     {
+      dataModels,
       errorReport,
       counters,
       doesReportIncludeStacks,
-      // `keysOfWidgetPluginsToRemove` is not used yet, but needs to be in the function's signature.
-      // eslint-disable-next-line
-      keysOfWidgetPluginsToRemove,
     }: {
+      dataModels: { [serverKey: string]: DataModel };
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      keysOfWidgetPluginsToRemove: string[];
     },
   ) =>
   <FromWidgetState, ToWidgetState>(
@@ -44,13 +44,15 @@ export const getMigrateWidgets =
       contentServer.children?.ui.children?.widgets.children?.structure!;
     const filesAncestry = _getFilesAncestry(widgetsStructure);
 
+    const migrateWidget = produce(callback);
+
     for (const fileId in widgetsContent) {
       let migratedWidget;
       const { entry } = widgetsContent[fileId];
       const widget = JSON.parse(entry.content);
 
       try {
-        migratedWidget = callback(widget);
+        migratedWidget = migrateWidget(widget, { dataModels });
         // The widget was fully migrated.
         counters.widgets.success++;
       } catch (error) {
