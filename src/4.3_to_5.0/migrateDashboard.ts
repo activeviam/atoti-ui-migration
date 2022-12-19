@@ -19,12 +19,12 @@ import { migrateWidget } from "./migrateWidget";
 import type {
   LegacyDashboardState,
   LegacyDashboardPage,
-  DashboardErrorReport,
 } from "./migration.types";
+import { DashboardErrorReport } from "../migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { _serializeError } from "./_serializeError";
+import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 
