@@ -74,7 +74,6 @@ export const migrateCalculatedMeasuresInDashboards = (
         dashboardPages[pageId].content = updatedWidgets;
       }
       dashboardsContent[dashboardId].entry.content = JSON.stringify(
-        // Casting as a DashboardState from 5.1 as this function is concerned with only updating calculated measures.
         serializeDashboardState(deserializedDashboardState),
       );
     }
