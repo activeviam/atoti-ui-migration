@@ -25,10 +25,14 @@ export const getMigrateWidgets =
       errorReport,
       counters,
       doesReportIncludeStacks,
+      // `keysOfWidgetPluginsToRemove` is not used yet, but needs to be in the function's signature.
+      // eslint-disable-next-line
+      keysOfWidgetPluginsToRemove,
     }: {
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      keysOfWidgetPluginsToRemove: string[];
     },
   ) =>
   <FromWidgetState, ToWidgetState>(
@@ -38,6 +42,7 @@ export const getMigrateWidgets =
       contentServer.children?.ui.children?.widgets.children?.content.children;
     const widgetsStructure =
       contentServer.children?.ui.children?.widgets.children?.structure!;
+    const filesAncestry = _getFilesAncestry(widgetsStructure);
 
     for (const fileId in widgetsContent) {
       let migratedWidget;
@@ -52,7 +57,6 @@ export const getMigrateWidgets =
         // The widget could not be migrated at all.
         counters.widgets.failed++;
 
-        const filesAncestry = _getFilesAncestry(widgetsStructure);
         const folderName = filesAncestry[fileId].map(({ name }) => name);
         const folderId = filesAncestry[fileId].map(({ id }) => id);
 
