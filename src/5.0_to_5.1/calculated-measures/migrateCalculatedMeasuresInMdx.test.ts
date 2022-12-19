@@ -1,4 +1,4 @@
-import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 import { MdxSelect, parse, stringify } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
@@ -90,7 +90,7 @@ const namesOfCalculatedMeasurestoMigrate = [
   "Test calculated measure",
 ];
 
-const dataModel = dataModelsForTests.sandbox;
+const dataModel = sandboxDataModel;
 
 describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns `namesOfCalculatedMeasuresToMigrateInWidget` as an empty array and does not modify the MDX when there are no calculated measures", () => {
