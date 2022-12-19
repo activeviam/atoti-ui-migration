@@ -1,6 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
+import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   ErrorReport,
   MigrateWidgetCallback,
@@ -9,6 +10,7 @@ import {
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
+import { _getMetaData } from "./_getMetaData";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
@@ -53,19 +55,39 @@ export const getMigrateWidgets =
       const { entry } = widgetsContent[fileId];
       const widget = JSON.parse(entry.content);
 
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(widgetsStructure, folderId, fileId);
+
+      if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
+        // The widget's plugin key is flagged for removal.
+        // Remove the widget instead of migrating it.
+        counters.widgets.removed++;
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "widgets",
+          fileErrorReport: {
+            error: _serializeError(
+              new WidgetFlaggedForRemovalError(widget.key),
+              { doesReportIncludeStacks },
+            ),
+          },
+          fileId,
+          name: metadata.name!,
+        });
+        continue;
+      }
+
       try {
         migratedWidget = migrateWidget(widget, {
           dataModels,
-          keysOfWidgetPluginsToRemove,
         });
         // The widget was fully migrated.
         counters.widgets.success++;
       } catch (error) {
         // The widget could not be migrated at all.
         counters.widgets.failed++;
-
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
 
         _addErrorToReport(errorReport, {
           folderName,

@@ -8,6 +8,7 @@ import {
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
+import { _getMetaData } from "./_getMetaData";
 import { _serializeError } from "./_serializeError";
 
 /**
@@ -54,6 +55,10 @@ export const getMigrateDashboards =
       const { entry } = dashboardsContent[fileId];
       const dashboard = JSON.parse(entry.content);
 
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(dashboardsStructure, folderId, fileId);
+
       try {
         migratedDashboard = migrateDashboard(dashboard, {
           dataModels,
@@ -65,9 +70,6 @@ export const getMigrateDashboards =
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
 
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
-
         _addErrorToReport(errorReport, {
           folderName,
           folderId,
@@ -78,7 +80,7 @@ export const getMigrateDashboards =
             }),
           },
           fileId,
-          name: dashboard.name,
+          name: metadata.name!,
         });
 
         migratedDashboard = dashboard;

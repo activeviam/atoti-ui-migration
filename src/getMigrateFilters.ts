@@ -8,6 +8,7 @@ import {
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
+import { _getMetaData } from "./_getMetaData";
 import { _serializeError } from "./_serializeError";
 
 /**
@@ -51,6 +52,10 @@ export const getMigrateFilters =
       const { entry } = filtersContent[fileId];
       const filter = JSON.parse(entry.content);
 
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(filtersStructure, folderId, fileId);
+
       try {
         migratedFilter = migrateFilters(filter, { dataModels });
         // The filter was fully migrated.
@@ -58,9 +63,6 @@ export const getMigrateFilters =
       } catch (error) {
         // The filter could not be migrated at all.
         counters.filters.failed++;
-
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
 
         _addErrorToReport(errorReport, {
           folderName,
@@ -72,7 +74,7 @@ export const getMigrateFilters =
             }),
           },
           fileId,
-          name: filter.name,
+          name: metadata.name!,
         });
 
         migratedFilter = filter;
