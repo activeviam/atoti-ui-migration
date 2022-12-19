@@ -1,4 +1,4 @@
-import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.0";
 import {
   ErrorReport,
   MigrateFilterCallback,
@@ -25,10 +25,14 @@ export const getMigrateFilters =
       errorReport,
       counters,
       doesReportIncludeStacks,
+      // `dataModels` is not used yet, but needs to be in the function's signature.
+      // eslint-disable-next-line
+      dataModels,
     }: {
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      dataModels: DataModel[];
     },
   ) =>
   <FromFilterState, ToFilterState>(
@@ -38,6 +42,7 @@ export const getMigrateFilters =
       contentServer.children?.ui.children?.filters.children?.content.children;
     const filtersStructure =
       contentServer.children?.ui.children?.filters.children?.structure!;
+    const filesAncestry = _getFilesAncestry(filtersStructure);
 
     for (const fileId in filtersContent) {
       let migratedFilter;
@@ -52,7 +57,6 @@ export const getMigrateFilters =
         // The filter could not be migrated at all.
         counters.filters.failed++;
 
-        const filesAncestry = _getFilesAncestry(filtersStructure);
         const folderName = filesAncestry[fileId].map(({ name }) => name);
         const folderId = filesAncestry[fileId].map(({ id }) => id);
 
