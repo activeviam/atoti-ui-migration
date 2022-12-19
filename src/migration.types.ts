@@ -97,8 +97,10 @@ export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
   widgetState: FromWidgetState,
   {
     dataModels,
+    keysOfWidgetPluginsToRemove,
   }: {
     dataModels: { [serverKey: string]: DataModel };
+    keysOfWidgetPluginsToRemove: string[];
   },
 ) => void | ToWidgetState;
 

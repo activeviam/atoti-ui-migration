@@ -181,6 +181,7 @@ yargs
 
       const migrateWidgets = getMigrateWidgets(contentServer, {
         dataModels,
+        keysOfWidgetPluginsToRemove,
         errorReport,
         counters,
         doesReportIncludeStacks,

@@ -25,11 +25,13 @@ export const getMigrateWidgets =
     contentServer: ContentRecord,
     {
       dataModels,
+      keysOfWidgetPluginsToRemove,
       errorReport,
       counters,
       doesReportIncludeStacks,
     }: {
       dataModels: { [serverKey: string]: DataModel };
+      keysOfWidgetPluginsToRemove: string[];
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
@@ -52,7 +54,10 @@ export const getMigrateWidgets =
       const widget = JSON.parse(entry.content);
 
       try {
-        migratedWidget = migrateWidget(widget, { dataModels });
+        migratedWidget = migrateWidget(widget, {
+          dataModels,
+          keysOfWidgetPluginsToRemove,
+        });
         // The widget was fully migrated.
         counters.widgets.success++;
       } catch (error) {
