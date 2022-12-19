@@ -76,6 +76,12 @@ export const getMigrateWidgets =
           fileId,
           name: metadata.name!,
         });
+        delete widgetsContent[fileId];
+        const parentFolder = folderId.reduce(
+          (acc, id) => acc.children![id],
+          widgetsStructure,
+        );
+        delete parentFolder.children![fileId];
         continue;
       }
 
