@@ -6,7 +6,7 @@ import {
 } from "@activeviam/activeui-sdk-5.0";
 import _mapKeys from "lodash/mapKeys";
 import _merge from "lodash/merge";
-import { migrateCalculatedMeasureRecord } from "./migrateCalculatedMeasureRecord";
+import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
 
@@ -88,10 +88,11 @@ export function migrateCalculatedMeasures(
         return;
       }
 
-      const migratedRecord = migrateCalculatedMeasureRecord(
-        record,
+      const migratedContent = migrateCalculatedMeasureContent(
+        JSON.parse(record.entry.content),
         measureName,
       );
+      record.entry.content = JSON.stringify(migratedContent);
 
       cubeNames.forEach((cubeName) => {
         if (cmFolder && cmFolder.children) {
@@ -111,7 +112,7 @@ export function migrateCalculatedMeasures(
             };
           }
           // This is created above if it does not already exist.
-          cmFolder.children[cubeName].children![measureName] = migratedRecord;
+          cmFolder.children[cubeName].children![measureName] = record;
         }
       });
     },
