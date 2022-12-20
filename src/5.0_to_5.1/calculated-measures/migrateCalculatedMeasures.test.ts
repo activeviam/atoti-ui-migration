@@ -8,6 +8,7 @@ import _cloneDeep from "lodash/cloneDeep";
 
 const dataModel = sandboxDataModel;
 const contentServerForTests = _cloneDeep(contentServer);
+const errorReport = {};
 
 contentServerForTests.children!.ui.children = {
   ...contentServerForTests.children!.ui.children,
@@ -15,7 +16,7 @@ contentServerForTests.children!.ui.children = {
   dashboards: uiDashboardsFolder,
   widgets: uiWidgetsFolder,
 };
-migrateCalculatedMeasures(contentServerForTests, dataModel);
+migrateCalculatedMeasures(contentServerForTests, dataModel, errorReport);
 
 describe("migrateCalculatedMeasures", () => {
   it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {

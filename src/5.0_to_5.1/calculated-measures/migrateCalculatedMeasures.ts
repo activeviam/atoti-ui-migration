@@ -10,11 +10,14 @@ import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasur
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
 import _mapKeys from "lodash/mapKeys";
 import _uniq from "lodash/uniq";
+import { _addErrorToReport } from "../../_addErrorToReport";
+import { ErrorReport } from "../../migration.types";
+import { _getFilesAncestry } from "../../_getFilesAncestry";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
-  id: any,
-): string[] => {
+  id: string,
+): string => {
   const { structure } = legacyCalculatedMeasureFolder.children ?? {};
   const ids = Object.keys(
     legacyCalculatedMeasureFolder.children?.content.children ?? {},
@@ -24,7 +27,6 @@ const getCalculatedMeasureName = (
   const calculatedMeasureName = JSON.parse(
     getMetaData(contentRecords[id].node, id),
   ).name;
-
   return calculatedMeasureName;
 };
 
@@ -36,7 +38,9 @@ const getCalculatedMeasureName = (
 export function migrateCalculatedMeasures(
   contentServer: ContentRecord,
   dataModel: DataModel,
-): any {
+  errorReport: ErrorReport,
+): void {
+  const calculatedMeasureNamesAndIds: { [measureName: string]: string } = {};
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
   const cmFolder: ContentRecord | undefined =
@@ -47,8 +51,14 @@ export function migrateCalculatedMeasures(
   } = legacyCalculatedMeasuresFolder?.children
     ? _mapKeys(
         legacyCalculatedMeasuresFolder.children.content.children,
-        (value, key) =>
-          getCalculatedMeasureName(legacyCalculatedMeasuresFolder, key),
+        (value, key) => {
+          const calculatedMeasureName = getCalculatedMeasureName(
+            legacyCalculatedMeasuresFolder,
+            key,
+          );
+          calculatedMeasureNamesAndIds[calculatedMeasureName] = key;
+          return calculatedMeasureName;
+        },
       )
     : {};
 
@@ -92,7 +102,27 @@ export function migrateCalculatedMeasures(
     ([measureName, record]) => {
       const cubeNames = measureToCubeMapping[measureName];
       if (!cubeNames) {
-        // TODO add a warning in the report that the calculated measure was not migrated since it's not used anywhere.
+        // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
+        const filesAncestry = _getFilesAncestry(
+          legacyCalculatedMeasuresFolder?.children?.structure!,
+        );
+        const calculatedMeasureId = calculatedMeasureNamesAndIds[measureName];
+        const folderId = filesAncestry[calculatedMeasureId].map(({ id }) => id);
+        const folderName = filesAncestry[calculatedMeasureId].map(
+          ({ name }) => name,
+        );
+        _addErrorToReport(errorReport, {
+          contentType: "calculated_measures",
+          folderId,
+          folderName,
+          fileErrorReport: {
+            error: {
+              message: `Warning: calculated measure ${measureName} was not migrated because it is not currently used in any saved widgets or dashboards.`,
+            },
+          },
+          fileId: calculatedMeasureId,
+          name: measureName,
+        });
         return;
       }
 

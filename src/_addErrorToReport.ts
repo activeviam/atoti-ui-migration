@@ -14,7 +14,7 @@ export function _addErrorToReport(
     name,
     fileErrorReport,
   }: {
-    contentType: "dashboards" | "widgets" | "filters";
+    contentType: "dashboards" | "widgets" | "filters" | "calculated_measures";
     folderId: string[];
     folderName: string[];
     fileErrorReport:
