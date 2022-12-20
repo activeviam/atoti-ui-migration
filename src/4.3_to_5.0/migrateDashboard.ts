@@ -24,42 +24,10 @@ import { DashboardErrorReport } from "../migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "../PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
+import { _addWidgetErrorToReport } from "../_addWidgetErrorToReport";
 
-/**
- * Adds `error` to `errorReport`, where `error` was thrown during the migration of a widget within the dashboard.
- * Mutates `errorReport`.
- */
-function addWidgetErrorToReport(
-  errorReport: DashboardErrorReport,
-  error: unknown,
-  {
-    doesReportIncludeStacks,
-    pageKey,
-    leafKey,
-    pageName,
-    widgetName,
-  }: {
-    doesReportIncludeStacks?: boolean;
-    pageKey: string;
-    leafKey: string;
-    pageName: string;
-    widgetName: string;
-  },
-) {
-  if (!errorReport.pages[pageKey]) {
-    errorReport.pages[pageKey] = {
-      pageName,
-      widgets: {},
-    };
-  }
-  errorReport.pages[pageKey].widgets[leafKey] = {
-    widgetName,
-    error: _serializeError(error, { doesReportIncludeStacks }),
-  };
-}
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
@@ -105,7 +73,7 @@ export function migrateDashboard(
           ...(keysOfLeavesToRemove[pageKey] ?? []),
           leafKey,
         ];
-        addWidgetErrorToReport(
+        _addWidgetErrorToReport(
           errorReport,
           new WidgetFlaggedForRemovalError(widgetPluginKey),
           {
@@ -130,7 +98,7 @@ export function migrateDashboard(
               widgetKey: widgetPluginKey,
             };
           }
-          addWidgetErrorToReport(errorReport, error, {
+          _addWidgetErrorToReport(errorReport, error, {
             doesReportIncludeStacks,
             leafKey,
             pageKey,
