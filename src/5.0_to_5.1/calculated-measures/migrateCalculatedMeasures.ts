@@ -35,8 +35,8 @@ const getCalculatedMeasureName = (
  */
 export function migrateCalculatedMeasures(
   contentServer: ContentRecord,
-  dataModel: DataModel,
-): any {
+  dataModels: { [serverKey: string]: DataModel },
+): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
   const cmFolder: ContentRecord | undefined =
@@ -61,7 +61,7 @@ export function migrateCalculatedMeasures(
     measureToCubeMapping: measureToCubeMappingInWidgets,
   } = migrateCalculatedMeasuresInWidgets(
     contentServer.children?.ui.children?.widgets!,
-    dataModel,
+    dataModels,
     namesOfCalculatedMeasuresToMigrate,
   );
 
@@ -70,7 +70,7 @@ export function migrateCalculatedMeasures(
     measureToCubeMapping: measureToCubeMappingInDashboards,
   } = migrateCalculatedMeasuresInDashboards(
     contentServer.children?.ui.children?.dashboards!,
-    dataModel,
+    dataModels,
     namesOfCalculatedMeasuresToMigrate,
   );
 

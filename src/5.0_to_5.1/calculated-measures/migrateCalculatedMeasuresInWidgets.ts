@@ -6,6 +6,7 @@ import {
   isWidgetWithQueryState,
   MdxSelect,
   WidgetWithQueryState,
+  MdxDrillthrough,
 } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
@@ -20,7 +21,7 @@ import _uniq from "lodash/uniq";
  */
 export const migrateCalculatedMeasuresInWidgets = (
   widgets: ContentRecord,
-  dataModel: DataModel,
+  dataModels: { [serverKey: string]: DataModel },
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
   measureToCubeMapping: { [measureName: string]: CubeName[] };
@@ -34,50 +35,55 @@ export const migrateCalculatedMeasuresInWidgets = (
       draft.children!.content.children,
       (widgetRecord) => {
         const serializedWidgetState: WidgetWithQueryState<
-          MdxSelect,
+          MdxSelect | MdxDrillthrough,
           "serialized"
         > = JSON.parse(widgetRecord.entry.content);
         const deserializedWidgetState = deserializeWidgetState(
           serializedWidgetState,
         );
-        if (isWidgetWithQueryState(deserializedWidgetState)) {
-          const mdx: MdxSelect | undefined = deserializedWidgetState.query.mdx;
 
-          if (!mdx) {
-            return widgetRecord;
-          }
-
-          const {
-            migratedMdx,
-            namesOfCalculatedMeasuresToMigrateInWidget,
-            cubeName,
-          } = migrateCalculatedMeasuresInMdx(
-            mdx,
-            namesOfCalculatedMeasurestoMigrate,
-            dataModel,
-          );
-
-          namesOfCalculatedMeasuresToMigrateInWidget.forEach(
-            (calculatedMeasureName) => {
-              measureToCubeMapping[calculatedMeasureName] =
-                measureToCubeMapping[calculatedMeasureName]
-                  ? _uniq([
-                      ...measureToCubeMapping[calculatedMeasureName],
-                      cubeName,
-                    ])
-                  : [cubeName];
-            },
-          );
-          const updatedWidgetState = produce(
+        if (
+          !isWidgetWithQueryState<MdxSelect | MdxDrillthrough>(
             deserializedWidgetState,
-            (draft) => {
-              draft.query.mdx = migratedMdx;
-            },
-          );
-          widgetRecord.entry.content = JSON.stringify(
-            serializeWidgetState(updatedWidgetState),
-          );
+          )
+        ) {
+          return widgetRecord;
         }
+
+        const mdx = deserializedWidgetState.query.mdx;
+        if (!mdx) {
+          return widgetRecord;
+        }
+
+        const {
+          migratedMdx,
+          namesOfCalculatedMeasuresToMigrateInWidget,
+          cubeName,
+        } = migrateCalculatedMeasuresInMdx({
+          mdx,
+          serverKey: deserializedWidgetState.serverKey,
+          dataModels,
+          namesOfCalculatedMeasurestoMigrate,
+        });
+
+        namesOfCalculatedMeasuresToMigrateInWidget.forEach(
+          (calculatedMeasureName) => {
+            measureToCubeMapping[calculatedMeasureName] = measureToCubeMapping[
+              calculatedMeasureName
+            ]
+              ? _uniq([
+                  ...measureToCubeMapping[calculatedMeasureName],
+                  cubeName,
+                ])
+              : [cubeName];
+          },
+        );
+        const updatedWidgetState = produce(deserializedWidgetState, (draft) => {
+          draft.query.mdx = migratedMdx;
+        });
+        widgetRecord.entry.content = JSON.stringify(
+          serializeWidgetState(updatedWidgetState),
+        );
         return widgetRecord;
       },
     );

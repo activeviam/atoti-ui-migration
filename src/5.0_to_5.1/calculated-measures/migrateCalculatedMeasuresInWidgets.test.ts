@@ -2,7 +2,10 @@ import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresI
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
 import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 
-const dataModel = sandboxDataModel;
+const dataModels = {
+  "Ranch 6.0": sandboxDataModel,
+  "Ranch 5.11": sandboxDataModel,
+};
 
 // "CM in 2 cubes" is used in widgets targeting "EquityDerivativesCube" or "EquityDerivativesCubeDist".
 // "pvSum ^ 2" is used in widgets targeting "EquityDerivativesCubeDist".
@@ -20,7 +23,7 @@ describe("migrateCalculatedMeasuresInWidgets", () => {
   const { measureToCubeMapping, migratedWidgetsRecord } =
     migrateCalculatedMeasuresInWidgets(
       uiWidgetsFolder,
-      dataModel,
+      dataModels,
       namesOfCalculatedMeasurestoMigrate,
     );
 
