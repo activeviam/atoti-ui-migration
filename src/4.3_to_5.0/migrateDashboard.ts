@@ -28,7 +28,6 @@ import { PartialMigrationError } from "../PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
 import { _addWidgetErrorToReport } from "../_addWidgetErrorToReport";
 
-
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
  * Specifically:
