@@ -1,10 +1,10 @@
 import {
   ContentRecord,
   CubeName,
-  DataModel,
   findContentRecords,
   getMetaData,
 } from "@activeviam/activeui-sdk-5.0";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
@@ -13,7 +13,7 @@ import _uniq from "lodash/uniq";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
-  id: any,
+  id: string,
 ): string[] => {
   const { structure } = legacyCalculatedMeasureFolder.children ?? {};
   const ids = Object.keys(

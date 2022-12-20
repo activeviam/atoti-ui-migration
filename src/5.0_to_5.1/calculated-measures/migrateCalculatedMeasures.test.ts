@@ -1,12 +1,12 @@
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import { dataModelsForTests } from "@activeviam/data-model-5.0";
+import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 import { contentServer } from "../__test_resources__/contentServer";
 import { uiCalculatedMeasuresFolder } from "../__test_resources__/uiCalculatedMeasuresFolder";
 import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
 import _cloneDeep from "lodash/cloneDeep";
 
-const dataModel = dataModelsForTests.sandbox;
+const dataModel = sandboxDataModel;
 const contentServerForTests = _cloneDeep(contentServer);
 
 contentServerForTests.children!.ui.children = {
