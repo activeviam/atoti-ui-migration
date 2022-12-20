@@ -709,6 +709,22 @@
     "@types/react" "^18.0.0"
     lodash "^4.17.15"
 
+"@activeviam/dashboard-base-5.1@npm:@activeviam/dashboard-base@5.1.0-20221220092919-bb816dc", "@activeviam/dashboard-base@5.1.0-20221220092919-bb816dc":
+  version "5.1.0-20221220092919-bb816dc"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.1.0-20221220092919-bb816dc.tgz#73a6a3ddf50424e275ceae3837daac18f3233c7c"
+  integrity sha512-V42zFWKzQ54DD5zc5EqZPBqYcOB6EykC0Aw8lXqW02H603F5RdWPshgv8t5CRgm1ynNU22M9Oi3dgDaiQrB/5g==
+  dependencies:
+    "@activeviam/tabs" "5.1.0-20221220092919-bb816dc"
+    "@activeviam/theme" "5.1.0-20221220092919-bb816dc"
+    "@activeviam/translation" "5.1.0-20221220092919-bb816dc"
+    "@activeviam/utils" "5.1.0-20221220092919-bb816dc"
+    "@activeviam/utils-react" "5.1.0-20221220092919-bb816dc"
+    "@emotion/core" "^10.3.1"
+    "@types/lodash" "^4.14.168"
+    immer "^9.0.14"
+    lodash "^4.17.15"
+    react-reverse-portal "^2.0.1"
+
 "@activeviam/dashboard-base@5.0.15":
   version "5.0.15"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.0.15.tgz#b4f8feff7a3046a63dc84717e302a05389a83d2d"
@@ -721,22 +737,6 @@
     "@activeviam/utils" "5.0.15"
     "@activeviam/utils-react" "5.0.15"
     "@emotion/core" "^10.0.27"
-    "@types/lodash" "^4.14.168"
-    immer "^9.0.14"
-    lodash "^4.17.15"
-    react-reverse-portal "^2.0.1"
-
-"@activeviam/dashboard-base@5.1.0-20221220092919-bb816dc":
-  version "5.1.0-20221220092919-bb816dc"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.1.0-20221220092919-bb816dc.tgz#73a6a3ddf50424e275ceae3837daac18f3233c7c"
-  integrity sha512-V42zFWKzQ54DD5zc5EqZPBqYcOB6EykC0Aw8lXqW02H603F5RdWPshgv8t5CRgm1ynNU22M9Oi3dgDaiQrB/5g==
-  dependencies:
-    "@activeviam/tabs" "5.1.0-20221220092919-bb816dc"
-    "@activeviam/theme" "5.1.0-20221220092919-bb816dc"
-    "@activeviam/translation" "5.1.0-20221220092919-bb816dc"
-    "@activeviam/utils" "5.1.0-20221220092919-bb816dc"
-    "@activeviam/utils-react" "5.1.0-20221220092919-bb816dc"
-    "@emotion/core" "^10.3.1"
     "@types/lodash" "^4.14.168"
     immer "^9.0.14"
     lodash "^4.17.15"
