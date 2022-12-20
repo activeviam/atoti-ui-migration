@@ -4,7 +4,7 @@ import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resourc
 
 const dataModels = {
   "Ranch 6.0": sandboxDataModel,
-  "Rancch 5.11": sandboxDataModel,
+  "Ranch 5.11": sandboxDataModel,
 };
 
 // "CM in 2 cubes" is used in widgets targeting "EquityDerivativesCube" or "EquityDerivativesCubeDist".
