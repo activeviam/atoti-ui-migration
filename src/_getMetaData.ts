@@ -1,17 +1,17 @@
 import { AMetaData, ContentRecord } from "@activeviam/activeui-sdk-5.0";
 
 /**
- * Returns the metadata of a file under `structure`.
+ * Returns the metadata of the file with id `fileId` under `structure`.
  */
 export function _getMetaData<MetaData extends AMetaData = AMetaData>(
   structure: ContentRecord,
   pathToParentFolder: string[],
-  id: string,
+  fileId: string,
 ): MetaData {
-  const parentFolder = pathToParentFolder.reduce(
-    (acc, id) => acc.children![id],
-    structure,
-  );
-  const metadataRecord = parentFolder.children![`${id}_metadata`];
+  const metadataRecord = [
+    ...pathToParentFolder,
+    fileId,
+    `${fileId}_metadata`,
+  ].reduce((acc, id) => acc.children![id], structure);
   return JSON.parse(metadataRecord.entry.content);
 }
