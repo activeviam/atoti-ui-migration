@@ -153,6 +153,7 @@ yargs
       // Handle the special case of 4.3 to 5.0 separately, as:
       // - the legacy content server structure is completely different
       // - the servers urls are needed
+      // - it is the only migration step with async logic
       if (fromVersion === "4.3") {
         await migrate_43_to_50(contentServer, {
           errorReport,
