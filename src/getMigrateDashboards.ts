@@ -2,11 +2,13 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
 import {
+  DashboardErrorReport,
   ErrorReport,
   MigrateDashboardCallback,
   OutcomeCounters,
 } from "./migration.types";
 import { _addErrorToReport } from "./_addErrorToReport";
+import { _addWidgetErrorToReport } from "./_addWidgetErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _getMetaData } from "./_getMetaData";
 import { _serializeError } from "./_serializeError";
@@ -58,14 +60,58 @@ export const getMigrateDashboards =
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
       const metadata = _getMetaData(dashboardsStructure, folderId, fileId);
+      const name = metadata.name!;
+
+      const dashboardErrorReport: DashboardErrorReport = {
+        name,
+        pages: {},
+      };
+
+      const onErrorWhileMigratingWidget = (
+        error: unknown,
+        {
+          pageKey,
+          leafKey,
+          pageName,
+          widgetName,
+        }: {
+          pageKey: string;
+          leafKey: string;
+          pageName: string;
+          widgetName: string;
+        },
+      ) => {
+        _addWidgetErrorToReport(dashboardErrorReport, error, {
+          doesReportIncludeStacks,
+          leafKey,
+          pageKey,
+          pageName,
+          widgetName,
+        });
+      };
 
       try {
         migratedDashboard = migrateDashboard(dashboard, {
           dataModels,
           keysOfWidgetPluginsToRemove,
+          onErrorWhileMigratingWidget,
         });
-        // The dashboard was fully migrated.
-        counters.dashboards.success++;
+
+        if (Object.keys(dashboardErrorReport.pages).length > 0) {
+          // The migration of some widgets within the dashboard failed.
+          counters.dashboards.partial++;
+          _addErrorToReport(errorReport, {
+            folderName,
+            folderId,
+            contentType: "dashboards",
+            fileErrorReport: dashboardErrorReport,
+            fileId,
+            name,
+          });
+        } else {
+          // The dashboard was fully migrated.
+          counters.dashboards.success++;
+        }
       } catch (error) {
         // The dashboard could not be migrated at all.
         counters.dashboards.failed++;
@@ -80,7 +126,7 @@ export const getMigrateDashboards =
             }),
           },
           fileId,
-          name: metadata.name!,
+          name,
         });
 
         migratedDashboard = dashboard;
