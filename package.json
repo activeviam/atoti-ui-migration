@@ -46,7 +46,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@activeviam/activeui-sdk-scripts": "5.0.15",
+    "@activeviam/activeui-sdk-scripts": "5.1.0-20221220092919-bb816dc",
     "@ant-design/icons": "^4.4.0",
     "@types/cli-progress": "^3.11.0",
     "@types/jest": "^26.0.14",
