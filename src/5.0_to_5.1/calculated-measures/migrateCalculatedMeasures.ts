@@ -13,7 +13,7 @@ import _uniq from "lodash/uniq";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
-  id: any,
+  id: string,
 ): string[] => {
   const { structure } = legacyCalculatedMeasureFolder.children ?? {};
   const ids = Object.keys(
