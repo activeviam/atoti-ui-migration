@@ -1,10 +1,10 @@
 import {
   ContentRecord,
   CubeName,
-  DataModel,
   findContentRecords,
   getMetaData,
 } from "@activeviam/activeui-sdk-5.0";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
