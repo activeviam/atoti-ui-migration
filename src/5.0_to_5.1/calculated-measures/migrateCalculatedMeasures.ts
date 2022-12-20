@@ -8,7 +8,7 @@ import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
-import _mapKeys from "lodash/mapKeys";
+import _forEach from "lodash/forEach";
 import _uniq from "lodash/uniq";
 import { _addErrorToReport } from "../../_addErrorToReport";
 import { ErrorReport } from "../../migration.types";
@@ -40,31 +40,28 @@ export function migrateCalculatedMeasures(
   dataModel: DataModel,
   errorReport: ErrorReport,
 ): void {
-  const calculatedMeasureNamesAndIds: { [measureName: string]: string } = {};
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
   const cmFolder: ContentRecord | undefined =
     contentServer.children?.pivot.children?.entitlements.children?.cm;
 
-  const legacyCalculatedMeasureRecords: {
-    [measureName: string]: ContentRecord;
-  } = legacyCalculatedMeasuresFolder?.children
-    ? _mapKeys(
-        legacyCalculatedMeasuresFolder.children.content.children,
-        (value, key) => {
-          const calculatedMeasureName = getCalculatedMeasureName(
-            legacyCalculatedMeasuresFolder,
-            key,
-          );
-          calculatedMeasureNamesAndIds[calculatedMeasureName] = key;
-          return calculatedMeasureName;
-        },
-      )
-    : {};
-
-  const namesOfCalculatedMeasuresToMigrate = Object.keys(
-    legacyCalculatedMeasureRecords,
-  );
+  const namesOfCalculatedMeasuresToMigrate: string[] = [];
+  const legacyCalculatedMeasures: {
+    [id: string]: { record: ContentRecord; name: string };
+  } = {};
+  if (legacyCalculatedMeasuresFolder) {
+    _forEach(
+      legacyCalculatedMeasuresFolder.children?.content.children,
+      (record, id) => {
+        const name = getCalculatedMeasureName(
+          legacyCalculatedMeasuresFolder,
+          id,
+        );
+        namesOfCalculatedMeasuresToMigrate.push(name);
+        legacyCalculatedMeasures[id] = { name, record };
+      },
+    );
+  }
 
   const {
     migratedWidgetsRecord,
@@ -98,19 +95,16 @@ export function migrateCalculatedMeasures(
     {},
   );
 
-  Object.entries(legacyCalculatedMeasureRecords).forEach(
-    ([measureName, record]) => {
+  Object.entries(legacyCalculatedMeasures).forEach(
+    ([id, { record, name: measureName }]) => {
       const cubeNames = measureToCubeMapping[measureName];
       if (!cubeNames) {
         // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
         const filesAncestry = _getFilesAncestry(
           legacyCalculatedMeasuresFolder?.children?.structure!,
         );
-        const calculatedMeasureId = calculatedMeasureNamesAndIds[measureName];
-        const folderId = filesAncestry[calculatedMeasureId].map(({ id }) => id);
-        const folderName = filesAncestry[calculatedMeasureId].map(
-          ({ name }) => name,
-        );
+        const folderId = filesAncestry[id].map(({ id }) => id);
+        const folderName = filesAncestry[id].map(({ name }) => name);
         _addErrorToReport(errorReport, {
           contentType: "calculated_measures",
           folderId,
@@ -120,7 +114,7 @@ export function migrateCalculatedMeasures(
               message: `Warning: calculated measure ${measureName} was not migrated because it is not currently used in any saved widgets or dashboards.`,
             },
           },
-          fileId: calculatedMeasureId,
+          fileId: id,
           name: measureName,
         });
         return;
