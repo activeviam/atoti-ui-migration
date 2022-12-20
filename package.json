@@ -23,20 +23,20 @@
   "scripts": {
     "build": "webpack",
     "lint": "activeui-sdk-scripts lint",
-    "test": "activeui-sdk-scripts test",
-    "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js"
+    "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' activeui-sdk-scripts test --config jest.config.js",
+    "ci:test": "cross-env CI=true yarn test"
   },
   "prettier": {
     "trailingComma": "all"
   },
   "dependencies": {
     "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.15",
-    "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221212094632-00c2372",
+    "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221220092919-bb816dc",
     "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.15",
     "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.15",
-    "@activeviam/data-model-5.1": "npm:@activeviam/data-model@5.1.0-20221212094632-00c2372",
+    "@activeviam/data-model-5.1": "npm:@activeviam/data-model@5.1.0-20221220092919-bb816dc",
     "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.15",
-    "@activeviam/mdx-5.1": "npm:@activeviam/mdx@5.1.0-20221212094632-00c2372",
+    "@activeviam/mdx-5.1": "npm:@activeviam/mdx@5.1.0-20221220092919-bb816dc",
     "cli-progress": "^3.11.2",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",

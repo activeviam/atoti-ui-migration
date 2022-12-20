@@ -1,5 +1,5 @@
 import { AWidgetState } from "@activeviam/activeui-sdk-5.0";
-import { PartialMigrationError } from "./PartialMigrationError";
+import { PartialMigrationError } from "../../PartialMigrationError";
 
 /**
  * Thrown when a widget contains a query whose update mode is unsupported.

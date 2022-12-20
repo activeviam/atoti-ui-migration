@@ -1,5 +1,5 @@
 import { TextEditorWidgetState } from "@activeviam/activeui-sdk-5.0";
-import { PartialMigrationError } from "./PartialMigrationError";
+import { PartialMigrationError } from "../../PartialMigrationError";
 
 /**
  * Thrown after migrating a `rich-text-editor` widget.

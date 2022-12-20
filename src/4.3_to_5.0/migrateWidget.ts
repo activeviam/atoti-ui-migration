@@ -8,7 +8,7 @@ import { migrateQuickFilter } from "./migrateQuickFilter";
 import { migrateDrillthrough } from "./migrateDrillthrough";
 import { migrateTextEditor } from "./migrateTextEditor";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
-import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
+import { UnsupportedWidgetKeyError } from "../UnsupportedWidgetKeyError";
 import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrationError";
 
 /**

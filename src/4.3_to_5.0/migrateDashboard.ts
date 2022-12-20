@@ -25,8 +25,8 @@ import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { _serializeError } from "../_serializeError";
-import { PartialMigrationError } from "./errors/PartialMigrationError";
-import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
+import { PartialMigrationError } from "../PartialMigrationError";
+import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
 
 /**
  * Adds `error` to `errorReport`, where `error` was thrown during the migration of a widget within the dashboard.
