@@ -33,6 +33,7 @@
     "@activeviam/activeui-sdk-5.0": "npm:@activeviam/activeui-sdk@5.0.15",
     "@activeviam/activeui-sdk-5.1": "npm:@activeviam/activeui-sdk@5.1.0-20221220092919-bb816dc",
     "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.15",
+    "@activeviam/dashboard-base-5.1": "npm:@activeviam/dashboard-base@5.1.0-20221212094632-00c2372",
     "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.15",
     "@activeviam/data-model-5.1": "npm:@activeviam/data-model@5.1.0-20221220092919-bb816dc",
     "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.15",
