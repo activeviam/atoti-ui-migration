@@ -4,16 +4,18 @@ import { contentServer } from "../__test_resources__/contentServer";
 import { uiCalculatedMeasuresFolder } from "../__test_resources__/uiCalculatedMeasuresFolder";
 import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
+import _cloneDeep from "lodash/cloneDeep";
 
 const dataModel = dataModelsForTests.sandbox;
+const contentServerForTests = _cloneDeep(contentServer);
 
-contentServer.children!.ui.children = {
-  ...contentServer.children!.ui.children,
+contentServerForTests.children!.ui.children = {
+  ...contentServerForTests.children!.ui.children,
   calculated_measures: uiCalculatedMeasuresFolder,
   dashboards: uiDashboardsFolder,
   widgets: uiWidgetsFolder,
 };
-migrateCalculatedMeasures(contentServer, dataModel);
+migrateCalculatedMeasures(contentServerForTests, dataModel);
 
 describe("migrateCalculatedMeasures", () => {
   it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {
@@ -25,8 +27,8 @@ describe("migrateCalculatedMeasures", () => {
     // "testo" and "new measure*" are already present in the `pivot/entitlements/cm` folder.
     expect(
       Object.keys(
-        contentServer.children!.pivot.children!.entitlements.children!.cm
-          .children!.EquityDerivativesCube.children!,
+        contentServerForTests.children!.pivot.children!.entitlements.children!
+          .cm.children!.EquityDerivativesCube.children!,
       ),
     ).toStrictEqual([
       "[Measures].[testo]",
@@ -39,8 +41,8 @@ describe("migrateCalculatedMeasures", () => {
 
     expect(
       Object.keys(
-        contentServer.children!.pivot.children!.entitlements.children!.cm
-          .children!.EquityDerivativesCubeDist.children!,
+        contentServerForTests.children!.pivot.children!.entitlements.children!
+          .cm.children!.EquityDerivativesCubeDist.children!,
       ),
     ).toStrictEqual(["[Measures].[CM in 2 cubes]"]);
   });
@@ -48,7 +50,7 @@ describe("migrateCalculatedMeasures", () => {
   it("changes the content of a calculated measure to the format supported by ActivePivot", () => {
     // The `content` property has been updated to contain the properties `className`, `additionalProperties`, `uniqueName`, `expression` and `formatStringExpression`.
     expect(
-      contentServer.children!.pivot.children!.entitlements.children!.cm
+      contentServerForTests.children!.pivot.children!.entitlements.children!.cm
         .children!.EquityDerivativesCube.children![
         "[Measures].[Distinct count city]"
       ],
@@ -75,12 +77,12 @@ describe("migrateCalculatedMeasures", () => {
   it("adds a calculated measure which can target several cubes to each of the targeted cubes in `pivot/entitlements/cm`", () => {
     // "CM in 2 cubes" is added to `pivot/entitlements/cm` for both `EquityDerivativesCube` and `EquityDerivativesCubeDist`.
     expect(
-      contentServer.children!.pivot.children!.entitlements.children!.cm
+      contentServerForTests.children!.pivot.children!.entitlements.children!.cm
         .children!.EquityDerivativesCube.children![
         "[Measures].[CM in 2 cubes]"
       ],
     ).toStrictEqual(
-      contentServer.children!.pivot.children!.entitlements.children!.cm
+      contentServerForTests.children!.pivot.children!.entitlements.children!.cm
         .children!.EquityDerivativesCubeDist.children![
         "[Measures].[CM in 2 cubes]"
       ],
@@ -90,7 +92,7 @@ describe("migrateCalculatedMeasures", () => {
   it("removes definitions of calculated measures saved in `ui/children/calculated_measures` from saved dashboards", () => {
     // Saved dashboard "b3e" contains calculated measure "Distinct count city".
     expect(
-      contentServer.children!.ui.children!.dashboards.children!.content
+      contentServerForTests.children!.ui.children!.dashboards.children!.content
         .children!["b3e"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
   });
@@ -98,7 +100,7 @@ describe("migrateCalculatedMeasures", () => {
   it("does not remove definitions of calculated measures from saved dashboards if they are not saved in `ui/children/calculated_measures`", () => {
     // Saved dashboard "a9e" contains a calculated measure that is not saved in `ui/children/calculated_measures`.
     expect(
-      contentServer.children!.ui.children!.dashboards.children!.content
+      contentServerForTests.children!.ui.children!.dashboards.children!.content
         .children!["a9e"].entry.content,
     ).toContain("WITH  Member [Measures].[Log City]");
   });
@@ -106,24 +108,22 @@ describe("migrateCalculatedMeasures", () => {
   it("removes definitions of calculated measures saved in `ui/children/calculated_measures` from saved widgets", () => {
     // Saved widget "854" contains calculated measure "Distinct count city".
     expect(
-      contentServer.children!.ui.children!.widgets.children!.content.children![
-        "854"
-      ].entry.content,
+      contentServerForTests.children!.ui.children!.widgets.children!.content
+        .children!["854"].entry.content,
     ).not.toContain("WITH  Member [Measures]");
   });
 
   it("does not remove definitions of calculated measures from saved widgets if they are not saved in `ui/children/calculated_measures`", () => {
     // Saved dashboard "a9e" contains a calculated measure that is not saved in `ui/children/calculated_measures`.
     expect(
-      contentServer.children!.ui.children!.widgets.children!.content.children![
-        "ee7"
-      ].entry.content,
+      contentServerForTests.children!.ui.children!.widgets.children!.content
+        .children!["ee7"].entry.content,
     ).toContain("WITH  Member [Measures].[activeui5 calculated measure]");
   });
 
   it("deletes the `ui/calculated_measures` folder", () => {
     expect(
-      contentServer.children!.ui.children!.calculated_measures,
+      contentServerForTests.children!.ui.children!.calculated_measures,
     ).toBeUndefined();
   });
 });
