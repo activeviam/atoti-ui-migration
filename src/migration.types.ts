@@ -1,3 +1,5 @@
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
+
 /**
  * The count of migrated files, per migration outcome.
  */
@@ -75,22 +77,77 @@ export interface ErrorReport {
 }
 
 /**
- * Callback containing the logic to migrate a dashboard from one version to another.
+ * A function that can be called to migrate a dashboard from one version to another.
  */
 export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   dashboardState: FromDashboardState,
-) => ToDashboardState;
+  {
+    dataModels,
+    keysOfWidgetPluginsToRemove,
+  }: {
+    dataModels: { [serverKey: string]: DataModel };
+    keysOfWidgetPluginsToRemove: string[];
+  },
+) => void | ToDashboardState;
 
 /**
- * Callback containing the logic to migrate a filter from one version to another.
- */
-export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
-  filterState: FromFilterState,
-) => ToFilterState;
-
-/**
- * Callback containing the logic to migrate a widget from one version to another.
+ * A function that can be called to migrate a widget from one version to another.
  */
 export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
   widgetState: FromWidgetState,
-) => ToWidgetState;
+  {
+    dataModels,
+  }: {
+    dataModels: { [serverKey: string]: DataModel };
+  },
+) => void | ToWidgetState;
+
+/**
+ * A function that can be called to migrate a filter from one version to another.
+ */
+export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
+  filterState: FromFilterState,
+  {
+    dataModels,
+  }: {
+    dataModels: { [serverKey: string]: DataModel };
+  },
+) => void | ToFilterState;
+
+export type MigrationFunction<
+  FromDashboardState = any,
+  ToDashboardState = any,
+  FromWidgetState = any,
+  ToWidgetState = any,
+  FromFilterState = any,
+  ToFilterState = any,
+> = (
+  contentServer: ContentRecord,
+  {
+    migrateDashboards,
+    migrateWidgets,
+    migrateFilters,
+    dataModels,
+    keysOfWidgetPluginsToRemove,
+    errorReport,
+    counters,
+    doesReportIncludeStacks,
+  }: {
+    migrateDashboards: (
+      callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
+    ) => void;
+    migrateWidgets: (
+      callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+    ) => void;
+    migrateFilters: (
+      callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
+    ) => void;
+    dataModels: {
+      [serverKey: string]: DataModel;
+    };
+    keysOfWidgetPluginsToRemove: string[];
+    errorReport: ErrorReport;
+    counters: OutcomeCounters;
+    doesReportIncludeStacks: boolean;
+  },
+) => void;
