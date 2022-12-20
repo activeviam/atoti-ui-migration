@@ -6,7 +6,7 @@ import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
 import _cloneDeep from "lodash/cloneDeep";
 
-const dataModels = { sandbox: sandboxDataModel };
+const dataModels = { "Ranch 6.0": sandboxDataModel };
 const contentServerForTests = _cloneDeep(contentServer);
 
 contentServerForTests.children!.ui.children = {

@@ -90,7 +90,7 @@ const namesOfCalculatedMeasurestoMigrate = [
   "Test calculated measure",
 ];
 
-const dataModels = { sandbox: sandboxDataModel };
+const dataModels = { "Ranch 6.0": sandboxDataModel };
 
 describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns `namesOfCalculatedMeasuresToMigrateInWidget` as an empty array and does not modify the MDX when there are no calculated measures", () => {
@@ -102,7 +102,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       mdx: mdxSelectWithNoCalculatedMeasures,
       namesOfCalculatedMeasurestoMigrate,
       dataModels,
-      serverKey: "sandbox",
+      serverKey: "Ranch 6.0",
     });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
@@ -119,7 +119,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       mdx: mdxSelectWithOneCalculatedMeasure,
       namesOfCalculatedMeasurestoMigrate,
       dataModels,
-      serverKey: "sandbox",
+      serverKey: "Ranch 6.0",
     });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
@@ -157,7 +157,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       mdx: mdxSelectWithTwoCalculatedMeasures,
       namesOfCalculatedMeasurestoMigrate,
       dataModels,
-      serverKey: "sandbox",
+      serverKey: "Ranch 6.0",
     });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
@@ -197,7 +197,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       mdx: mdxSelectWithCalculatedMeasureNotOnList,
       namesOfCalculatedMeasurestoMigrate,
       dataModels,
-      serverKey: "sandbox",
+      serverKey: "Ranch 6.0",
     });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCubeDist");
