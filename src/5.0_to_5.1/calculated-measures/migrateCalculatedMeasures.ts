@@ -9,6 +9,7 @@ import _merge from "lodash/merge";
 import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
+import _uniq from "lodash/uniq";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
@@ -73,10 +74,13 @@ export function migrateCalculatedMeasures(
     namesOfCalculatedMeasuresToMigrate,
   );
 
-  const measureToCubeMapping = _merge(
-    measureToCubeMappingInWidgets,
-    measureToCubeMappingInDashboards,
-  );
+  const measureToCubeMapping = namesOfCalculatedMeasuresToMigrate.reduce((acc, measureName) => {
+  const cubes = _uniq([...(measureToCubeMappingInWidgets[measureName] ?? []), ...(measureToCubeMappingInDashboards ?? [])]);
+  if(cubes.length > 0){
+    acc[measureName] = cubes;
+  }
+  return acc;
+}, {});
 
   Object.entries(legacyCalculatedMeasureRecords).forEach(
     ([measureName, record]) => {
