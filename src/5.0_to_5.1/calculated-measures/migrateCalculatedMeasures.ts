@@ -42,7 +42,7 @@ export function migrateCalculatedMeasures({
   counters,
 }: {
   contentServer: ContentRecord;
-  dataModel: DataModel;
+  dataModels: { [serverKey: string]: DataModel };
   errorReport: ErrorReport;
   counters: OutcomeCounters;
 }): void {
@@ -74,7 +74,7 @@ export function migrateCalculatedMeasures({
     measureToCubeMapping: measureToCubeMappingInWidgets,
   } = migrateCalculatedMeasuresInWidgets(
     contentServer.children?.ui.children?.widgets!,
-    dataModel,
+    dataModels,
     namesOfCalculatedMeasuresToMigrate,
   );
 
@@ -83,7 +83,7 @@ export function migrateCalculatedMeasures({
     measureToCubeMapping: measureToCubeMappingInDashboards,
   } = migrateCalculatedMeasuresInDashboards(
     contentServer.children?.ui.children?.dashboards!,
-    dataModel,
+    dataModels,
     namesOfCalculatedMeasuresToMigrate,
   );
 

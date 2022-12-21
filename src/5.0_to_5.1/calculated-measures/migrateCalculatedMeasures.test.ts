@@ -8,7 +8,10 @@ import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import _cloneDeep from "lodash/cloneDeep";
 import _fromPairs from "lodash/fromPairs";
 
-const dataModel = sandboxDataModel;
+const dataModels = {
+  "Ranch 6.0": sandboxDataModel,
+  "Ranch 5.11": sandboxDataModel,
+};
 const contentServerForTests = _cloneDeep(contentServer);
 const errorReport: ErrorReport = {};
 
@@ -37,10 +40,10 @@ const counters = _fromPairs(
 
 migrateCalculatedMeasures({
   contentServer: contentServerForTests,
-  dataModel,
+  dataModels,
   errorReport,
   counters,
-});
+}s);
 
 describe("migrateCalculatedMeasures", () => {
   it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {

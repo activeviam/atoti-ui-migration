@@ -89,9 +89,24 @@ export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   {
     dataModels,
     keysOfWidgetPluginsToRemove,
+    onErrorWhileMigratingWidget,
   }: {
     dataModels: { [serverKey: string]: DataModel };
     keysOfWidgetPluginsToRemove: string[];
+    onErrorWhileMigratingWidget: (
+      error: unknown,
+      {
+        pageKey,
+        leafKey,
+        pageName,
+        widgetName,
+      }: {
+        pageKey: string;
+        leafKey: string;
+        pageName: string;
+        widgetName: string;
+      },
+    ) => void;
   },
 ) => void | ToDashboardState;
 

@@ -1,25 +1,35 @@
-import { getCube, DataModel } from "@activeviam/activeui-sdk-5.1";
+import { DataModel, getTargetCube } from "@activeviam/activeui-sdk-5.1";
 import {
   CubeName,
   getCalculatedMeasures,
   getCubeName,
   MdxSelect,
+  MdxDrillthrough,
 } from "@activeviam/activeui-sdk-5.0";
-import { removeCalculatedMemberDefinition } from "@activeviam/mdx-5.1";
+import {
+  removeCalculatedMemberDefinition,
+  isMdxDrillthrough,
+} from "@activeviam/mdx-5.1";
 import _intersection from "lodash/intersection";
 
 /**
  * Removes the definitions of the calculated measures matching `namesOfCalculatedMeasuresToMigrate` from the `WITH` clause of `mdx`.
  * Returns the updated MDX, the names of those calculated measures, and the corresponding cube name.
  */
-export const migrateCalculatedMeasuresInMdx = (
-  mdx: MdxSelect,
-  namesOfCalculatedMeasurestoMigrate: string[],
-  dataModel: DataModel,
-): {
+export const migrateCalculatedMeasuresInMdx = ({
+  mdx,
+  serverKey,
+  dataModels,
+  namesOfCalculatedMeasurestoMigrate,
+}: {
+  mdx: MdxSelect | MdxDrillthrough;
+  serverKey?: string;
+  dataModels: { [serverKey: string]: DataModel };
+  namesOfCalculatedMeasurestoMigrate: string[];
+}): {
   cubeName: CubeName;
   namesOfCalculatedMeasuresToMigrateInWidget: string[];
-  migratedMdx: MdxSelect;
+  migratedMdx: MdxSelect | MdxDrillthrough;
 } => {
   const namesOfCalculatedMeasuresToMigrateInWidget = _intersection(
     Object.keys(getCalculatedMeasures(mdx)),
@@ -27,6 +37,9 @@ export const migrateCalculatedMeasuresInMdx = (
   );
 
   const cubeName = getCubeName(mdx);
+  const { cube } = getTargetCube({ dataModels, serverKey, cubeName });
+
+  const mdxSelect = isMdxDrillthrough(mdx) ? mdx.select : mdx;
 
   const updatedMdx = namesOfCalculatedMeasuresToMigrateInWidget.reduce(
     (acc, calculatedMeasureName) =>
@@ -34,14 +47,16 @@ export const migrateCalculatedMeasuresInMdx = (
         dimensionName: "Measures",
         hierarchyName: "Measures",
         calculatedMemberName: calculatedMeasureName,
-        cube: getCube(dataModel, cubeName),
+        cube,
       }),
-    mdx,
+    mdxSelect,
   );
 
   return {
     cubeName,
     namesOfCalculatedMeasuresToMigrateInWidget,
-    migratedMdx: updatedMdx,
+    migratedMdx: isMdxDrillthrough(mdx)
+      ? { ...mdx, select: updatedMdx }
+      : updatedMdx,
   };
 };

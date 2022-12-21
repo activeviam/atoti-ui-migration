@@ -4,8 +4,7 @@ import {
   DashboardState,
   serializeDashboardState,
   deserializeDashboardState,
-  MdxSelect,
-  WidgetWithQueryState,
+  AWidgetState,
 } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
@@ -17,7 +16,7 @@ import _uniq from "lodash/uniq";
  */
 export const migrateCalculatedMeasuresInDashboards = (
   dashboards: ContentRecord,
-  dataModel: DataModel,
+  dataModels: { [serverKey: string]: DataModel },
   namesOfCalculatedMeasurestoMigrate: string[],
 ): {
   measureToCubeMapping: { [measureName: string]: CubeName[] };
@@ -40,10 +39,11 @@ export const migrateCalculatedMeasuresInDashboards = (
       for (const pageId in dashboardPages) {
         const page = dashboardPages[pageId];
         const updatedWidgets: {
-          [widgetId: string]: WidgetWithQueryState;
+          [widgetId: string]: AWidgetState;
         } = produce(page.content, (draft) => {
           for (const widgetId in page.content) {
-            const mdx: MdxSelect | undefined = page.content[widgetId].query.mdx;
+            const widgetState = page.content[widgetId];
+            const mdx = widgetState.query?.mdx;
             if (!mdx) {
               return;
             }
@@ -51,11 +51,12 @@ export const migrateCalculatedMeasuresInDashboards = (
               migratedMdx,
               namesOfCalculatedMeasuresToMigrateInWidget,
               cubeName,
-            } = migrateCalculatedMeasuresInMdx(
+            } = migrateCalculatedMeasuresInMdx({
               mdx,
               namesOfCalculatedMeasurestoMigrate,
-              dataModel,
-            );
+              dataModels,
+              serverKey: widgetState.serverKey,
+            });
 
             namesOfCalculatedMeasuresToMigrateInWidget.forEach(
               (calculatedMeasureName) => {

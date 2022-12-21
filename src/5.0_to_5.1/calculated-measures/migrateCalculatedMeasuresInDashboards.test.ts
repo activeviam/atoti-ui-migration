@@ -2,7 +2,10 @@ import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 
-const dataModel = sandboxDataModel;
+const dataModels = {
+  "Ranch 6.0": sandboxDataModel,
+  "Ranch 5.11": sandboxDataModel,
+};
 
 // "pvSum ^ 2" is from cube "EquityDerivativesCubeDist", all others are from "EquityDerivativesCube".
 const calculatedMeasureNames = [
@@ -18,7 +21,7 @@ describe("migrateCalculatedMeasuresInDashboards", () => {
   const { migratedDashboards, measureToCubeMapping } =
     migrateCalculatedMeasuresInDashboards(
       uiDashboardsFolder,
-      dataModel,
+      dataModels,
       calculatedMeasureNames,
     );
 
