@@ -4,13 +4,13 @@ import { contentServer } from "../__test_resources__/contentServer";
 import { uiCalculatedMeasuresFolder } from "../__test_resources__/uiCalculatedMeasuresFolder";
 import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
 import { uiWidgetsFolder } from "../__test_resources__/uiWidgetsFolder";
-import { OutcomeCounters } from "../../migration.types";
+import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import _cloneDeep from "lodash/cloneDeep";
 import _fromPairs from "lodash/fromPairs";
 
 const dataModel = sandboxDataModel;
 const contentServerForTests = _cloneDeep(contentServer);
-const errorReport = {};
+const errorReport: ErrorReport = {};
 
 contentServerForTests.children!.ui.children = {
   ...contentServerForTests.children!.ui.children,
@@ -35,12 +35,12 @@ const counters = _fromPairs(
   // In this case, the keys used correspond to the attributes of OutcomeCounters.
 ) as OutcomeCounters;
 
-migrateCalculatedMeasures(
-  contentServerForTests,
+migrateCalculatedMeasures({
+  contentServer: contentServerForTests,
   dataModel,
   errorReport,
   counters,
-);
+});
 
 describe("migrateCalculatedMeasures", () => {
   it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {

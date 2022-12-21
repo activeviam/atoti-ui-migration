@@ -35,12 +35,17 @@ const getCalculatedMeasureName = (
  * Removes any query-scoped calculated measure definitions from saved dashboards and saved widgets.
  * Mutates `contentServer`.
  */
-export function migrateCalculatedMeasures(
-  contentServer: ContentRecord,
-  dataModel: DataModel,
-  errorReport: ErrorReport,
-  counters: OutcomeCounters,
-): void {
+export function migrateCalculatedMeasures({
+  contentServer,
+  dataModel,
+  errorReport,
+  counters,
+}: {
+  contentServer: ContentRecord;
+  dataModel: DataModel;
+  errorReport: ErrorReport;
+  counters: OutcomeCounters;
+}): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
   const cmFolder: ContentRecord | undefined =
