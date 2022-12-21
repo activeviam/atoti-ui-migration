@@ -6,7 +6,7 @@ import type { Mdx } from "@activeviam/activeui-sdk-5.0";
  */
 export function migrateFilters(filters?: Mdx[]): void {
   filters?.forEach((mdx, index) => {
-    // @ts-expect-error The point of the migration is to mutate the filters from mdx to {mdx}.
+    // @ts-expect-error The point of the migration is to mutate the filters from `mdx` to `{mdx}`.
     filters[index] = { mdx };
   });
 }
