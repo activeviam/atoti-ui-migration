@@ -21,7 +21,7 @@ import { _serializeError } from "./_serializeError";
  *
  * Mutates `contentServer`, `counters` and `errorReport`.
  */
-export const getMigrateFilters =
+export const getMigrateSavedFilters =
   (
     contentServer: ContentRecord,
     {
@@ -45,7 +45,7 @@ export const getMigrateFilters =
       contentServer.children?.ui.children?.filters.children?.structure!;
     const filesAncestry = _getFilesAncestry(filtersStructure);
 
-    const migrateFilters = produce(callback);
+    const migrateFilter = produce(callback);
 
     for (const fileId in filtersContent) {
       let migratedFilter;
@@ -57,7 +57,7 @@ export const getMigrateFilters =
       const metadata = _getMetaData(filtersStructure, folderId, fileId);
 
       try {
-        migratedFilter = migrateFilters(filter, { dataModels });
+        migratedFilter = migrateFilter(filter, { dataModels });
         // The filter was fully migrated.
         counters.filters.success++;
       } catch (error) {

@@ -10,7 +10,7 @@ import { MigrationFunction, OutcomeCounters } from "../migration.types";
 import { gte, coerce } from "semver";
 import { getMigrateDashboards } from "../getMigrateDashboards";
 import { getMigrateWidgets } from "../getMigrateWidgets";
-import { getMigrateFilters } from "../getMigrateFilters";
+import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
 
@@ -187,7 +187,7 @@ yargs
         doesReportIncludeStacks,
       });
 
-      const migrateFilters = getMigrateFilters(contentServer, {
+      const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
         dataModels,
         errorReport,
         counters,
@@ -200,7 +200,7 @@ yargs
           migrate(contentServer, {
             migrateDashboards,
             migrateWidgets,
-            migrateFilters,
+            migrateSavedFilters,
             dataModels,
             keysOfWidgetPluginsToRemove,
             errorReport,

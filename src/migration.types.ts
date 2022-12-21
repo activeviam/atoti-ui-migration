@@ -141,7 +141,7 @@ export type MigrationFunction<
   {
     migrateDashboards,
     migrateWidgets,
-    migrateFilters,
+    migrateSavedFilters,
     dataModels,
     keysOfWidgetPluginsToRemove,
     errorReport,
@@ -154,7 +154,7 @@ export type MigrationFunction<
     migrateWidgets: (
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     ) => void;
-    migrateFilters: (
+    migrateSavedFilters: (
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
     ) => void;
     dataModels: {
