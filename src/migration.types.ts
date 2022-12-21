@@ -103,7 +103,7 @@ export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
       },
     ) => void;
   },
-) => void | ToDashboardState;
+) => ToDashboardState;
 
 /**
  * A function that can be called to migrate a widget from one version to another.
@@ -115,7 +115,7 @@ export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
   }: {
     dataModels: { [serverKey: string]: DataModel };
   },
-) => void | ToWidgetState;
+) => ToWidgetState;
 
 /**
  * A function that can be called to migrate a filter from one version to another.
@@ -127,7 +127,7 @@ export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
   }: {
     dataModels: { [serverKey: string]: DataModel };
   },
-) => void | ToFilterState;
+) => ToFilterState;
 
 export type MigrationFunction<
   FromDashboardState = any,
