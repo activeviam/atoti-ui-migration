@@ -103,16 +103,67 @@ export function migrateCalculatedMeasures({
 
   Object.entries(legacyCalculatedMeasures).forEach(
     ([id, { record, name: measureName }]) => {
-      const cubeNames = measureToCubeMapping[measureName];
-      // If there are no `cubeNames`, the calculated measure is not used in any saved widgets or dashboards.
-      if (!cubeNames) {
-        // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
-        const filesAncestry = _getFilesAncestry(
-          legacyCalculatedMeasuresFolder?.children?.structure!,
-        );
-        const folderId = filesAncestry[id].map(({ id }) => id);
-        const folderName = filesAncestry[id].map(({ name }) => name);
+      // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
+      const filesAncestry = _getFilesAncestry(
+        legacyCalculatedMeasuresFolder?.children?.structure!,
+      );
+      const folderId = filesAncestry[id].map(({ id }) => id);
+      const folderName = filesAncestry[id].map(({ name }) => name);
 
+      const cubeNames = measureToCubeMapping[measureName];
+
+      try {
+        // If there are no `cubeNames`, the calculated measure is not used in any saved widgets or dashboards.
+        if (!cubeNames) {
+          // The calculated measure was not migrated.
+          counters.calculated_measures.failed++;
+          _addErrorToReport(errorReport, {
+            contentType: "calculated_measures",
+            folderId,
+            folderName,
+            fileErrorReport: {
+              error: {
+                message: `Warning: Calculated measure "${measureName}" was not migrated because it is not currently used in any saved widgets or dashboards.`,
+              },
+            },
+            fileId: id,
+            name: measureName,
+          });
+          return;
+        }
+
+        const migratedContent = migrateCalculatedMeasureContent(
+          JSON.parse(record.entry.content),
+          measureName,
+        );
+        record.entry.content = JSON.stringify(migratedContent);
+
+        cubeNames.forEach((cubeName) => {
+          if (cmFolder && cmFolder.children) {
+            // If `cubeName` property does not already exist, create it.
+            if (!cmFolder.children[cubeName]) {
+              cmFolder.children[cubeName] = {
+                entry: {
+                  isDirectory: true,
+                  owners: ["ROLE_USER"],
+                  readers: ["ROLE_USER"],
+                  timestamp: 1669281586947,
+                  lastEditor: "admin",
+                  canRead: true,
+                  canWrite: true,
+                },
+                children: {},
+              };
+            }
+            // `cmFolder.children[cubeName].children` is created above if it does not already exist.
+            cmFolder.children[cubeName].children![
+              `[Measures].[${measureName}]`
+            ] = record;
+          }
+        });
+        // The calculated measure was successfully migrated.
+        counters.calculated_measures.success++;
+      } catch (error) {
         // The calculated measure was not migrated.
         counters.calculated_measures.failed++;
         _addErrorToReport(errorReport, {
@@ -127,39 +178,7 @@ export function migrateCalculatedMeasures({
           fileId: id,
           name: measureName,
         });
-        return;
       }
-
-      const migratedContent = migrateCalculatedMeasureContent(
-        JSON.parse(record.entry.content),
-        measureName,
-      );
-      record.entry.content = JSON.stringify(migratedContent);
-
-      cubeNames.forEach((cubeName) => {
-        if (cmFolder && cmFolder.children) {
-          // If `cubeName` property does not already exist, create it.
-          if (!cmFolder.children[cubeName]) {
-            cmFolder.children[cubeName] = {
-              entry: {
-                isDirectory: true,
-                owners: ["ROLE_USER"],
-                readers: ["ROLE_USER"],
-                timestamp: 1669281586947,
-                lastEditor: "admin",
-                canRead: true,
-                canWrite: true,
-              },
-              children: {},
-            };
-          }
-          // `cmFolder.children[cubeName].children` is created above if it does not already exist.
-          cmFolder.children[cubeName].children![`[Measures].[${measureName}]`] =
-            record;
-        }
-      });
-      // The calculated measure was successfully migrated.
-      counters.calculated_measures.success++;
     },
   );
 
