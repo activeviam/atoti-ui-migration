@@ -1,6 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import { produce } from "immer";
 import {
   DashboardErrorReport,
   ErrorReport,
@@ -51,7 +50,6 @@ export const getMigrateDashboards =
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
     const filesAncestry = _getFilesAncestry(dashboardsStructure);
-    const migrateDashboard = produce(callback);
 
     for (const fileId in dashboardsContent) {
       const { entry } = dashboardsContent[fileId];
@@ -91,7 +89,7 @@ export const getMigrateDashboards =
       };
 
       try {
-        migratedDashboard = migrateDashboard(dashboard, {
+        migratedDashboard = callback(dashboard, {
           dataModels,
           keysOfWidgetPluginsToRemove,
           onErrorWhileMigratingWidget,

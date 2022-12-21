@@ -1,6 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import { produce } from "immer";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   ErrorReport,
@@ -48,8 +47,6 @@ export const getMigrateWidgets =
       contentServer.children?.ui.children?.widgets.children?.structure!;
     const filesAncestry = _getFilesAncestry(widgetsStructure);
 
-    const migrateWidget = produce(callback);
-
     for (const fileId in widgetsContent) {
       let migratedWidget;
       const { entry } = widgetsContent[fileId];
@@ -86,7 +83,7 @@ export const getMigrateWidgets =
       }
 
       try {
-        migratedWidget = migrateWidget(widget, {
+        migratedWidget = callback(widget, {
           dataModels,
         });
         // The widget was fully migrated.
