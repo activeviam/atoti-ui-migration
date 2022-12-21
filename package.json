@@ -26,6 +26,9 @@
     "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' activeui-sdk-scripts test --config jest.config.js",
     "ci:test": "cross-env CI=true yarn test"
   },
+  "eslintConfig": {
+    "extends": "activeui"
+  },
   "prettier": {
     "trailingComma": "all"
   },
