@@ -43,7 +43,7 @@ migrateCalculatedMeasures({
   dataModels,
   errorReport,
   counters,
-}s);
+});
 
 describe("migrateCalculatedMeasures", () => {
   it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {

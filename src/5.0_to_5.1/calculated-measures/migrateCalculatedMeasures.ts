@@ -37,7 +37,7 @@ const getCalculatedMeasureName = (
  */
 export function migrateCalculatedMeasures({
   contentServer,
-  dataModel,
+  dataModels,
   errorReport,
   counters,
 }: {
