@@ -8,7 +8,7 @@ describe("migrateFilters", () => {
     const filters = [euro];
     migrateFilters(filters);
     expect(filters).toHaveLength(1);
-    // @ts-expect-error The point of the migration is to mutate the filters from mdx to {mdx}.
+    // @ts-expect-error The point of the migration is to mutate the filters from `mdx` to `{mdx}`.
     expect(stringify(filters[0].mdx)).toBe(euroAsString);
   });
 });
