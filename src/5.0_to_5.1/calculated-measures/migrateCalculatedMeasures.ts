@@ -11,7 +11,7 @@ import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresI
 import _forEach from "lodash/forEach";
 import _uniq from "lodash/uniq";
 import { _addErrorToReport } from "../../_addErrorToReport";
-import { ErrorReport } from "../../migration.types";
+import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import { _getFilesAncestry } from "../../_getFilesAncestry";
 
 const getCalculatedMeasureName = (
@@ -39,6 +39,7 @@ export function migrateCalculatedMeasures(
   contentServer: ContentRecord,
   dataModel: DataModel,
   errorReport: ErrorReport,
+  counters: OutcomeCounters,
 ): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
@@ -98,6 +99,7 @@ export function migrateCalculatedMeasures(
   Object.entries(legacyCalculatedMeasures).forEach(
     ([id, { record, name: measureName }]) => {
       const cubeNames = measureToCubeMapping[measureName];
+      // If there are no `cubeNames`, the calculated measure is not used in any saved widgets or dashboards.
       if (!cubeNames) {
         // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
         const filesAncestry = _getFilesAncestry(
@@ -105,13 +107,16 @@ export function migrateCalculatedMeasures(
         );
         const folderId = filesAncestry[id].map(({ id }) => id);
         const folderName = filesAncestry[id].map(({ name }) => name);
+
+        // The calculated measure was not migrated.
+        counters.calculated_measures.failed++;
         _addErrorToReport(errorReport, {
           contentType: "calculated_measures",
           folderId,
           folderName,
           fileErrorReport: {
             error: {
-              message: `Warning: calculated measure ${measureName} was not migrated because it is not currently used in any saved widgets or dashboards.`,
+              message: `Warning: Calculated measure "${measureName}" was not migrated because it is not currently used in any saved widgets or dashboards.`,
             },
           },
           fileId: id,
@@ -148,6 +153,8 @@ export function migrateCalculatedMeasures(
             record;
         }
       });
+      // The calculated measure was successfully migrated.
+      counters.calculated_measures.success++;
     },
   );
 
