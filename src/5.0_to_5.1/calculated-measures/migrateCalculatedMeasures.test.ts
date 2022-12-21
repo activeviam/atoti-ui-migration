@@ -43,6 +43,7 @@ migrateCalculatedMeasures({
   dataModels,
   errorReport,
   counters,
+  doesReportIncludeStacks: false,
 });
 
 describe("migrateCalculatedMeasures", () => {

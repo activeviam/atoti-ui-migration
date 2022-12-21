@@ -13,6 +13,7 @@ import _uniq from "lodash/uniq";
 import { _addErrorToReport } from "../../_addErrorToReport";
 import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import { _getFilesAncestry } from "../../_getFilesAncestry";
+import { _serializeError } from "../../_serializeError";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
@@ -40,11 +41,13 @@ export function migrateCalculatedMeasures({
   dataModels,
   errorReport,
   counters,
+  doesReportIncludeStacks,
 }: {
   contentServer: ContentRecord;
   dataModels: { [serverKey: string]: DataModel };
   errorReport: ErrorReport;
   counters: OutcomeCounters;
+  doesReportIncludeStacks: boolean;
 }): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
@@ -171,9 +174,9 @@ export function migrateCalculatedMeasures({
           folderId,
           folderName,
           fileErrorReport: {
-            error: {
-              message: `Warning: Calculated measure "${measureName}" was not migrated because it is not currently used in any saved widgets or dashboards.`,
-            },
+            error: _serializeError(error, {
+              doesReportIncludeStacks,
+            }),
           },
           fileId: id,
           name: measureName,
