@@ -1,7 +1,7 @@
 import type { Mdx } from "@activeviam/activeui-sdk-5.0";
 
 /**
- * Wraps the MDX of each filter in `filters`.
+ * Wraps each filter in `filters` in an object.
  * Mutates `filters`.
  */
 export function migrateFilters(filters?: Mdx[]): void {
