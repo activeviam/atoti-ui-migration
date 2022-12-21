@@ -140,7 +140,7 @@ export type MigrationFunction<
   contentServer: ContentRecord,
   {
     migrateDashboards,
-    migrateWidgets,
+    migrateSavedWidgets,
     migrateSavedFilters,
     dataModels,
     keysOfWidgetPluginsToRemove,
@@ -151,7 +151,7 @@ export type MigrationFunction<
     migrateDashboards: (
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
     ) => void;
-    migrateWidgets: (
+    migrateSavedWidgets: (
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     ) => void;
     migrateSavedFilters: (

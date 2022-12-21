@@ -9,7 +9,7 @@ import { getIndexedDataModel } from "@activeviam/data-model-5.1";
 import { MigrationFunction, OutcomeCounters } from "../migration.types";
 import { gte, coerce } from "semver";
 import { getMigrateDashboards } from "../getMigrateDashboards";
-import { getMigrateWidgets } from "../getMigrateWidgets";
+import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
 import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
@@ -179,7 +179,7 @@ yargs
         doesReportIncludeStacks,
       });
 
-      const migrateWidgets = getMigrateWidgets(contentServer, {
+      const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
@@ -199,7 +199,7 @@ yargs
         .forEach(({ migrate }) => {
           migrate(contentServer, {
             migrateDashboards,
-            migrateWidgets,
+            migrateSavedWidgets,
             migrateSavedFilters,
             dataModels,
             keysOfWidgetPluginsToRemove,
