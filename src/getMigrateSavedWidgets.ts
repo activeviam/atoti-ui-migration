@@ -22,7 +22,7 @@ import { _getMetaData } from "./_getMetaData";
  *
  * Mutates `contentServer`, `counters` and `errorReport`.
  */
-export const getMigrateWidgets =
+export const getMigrateSavedWidgets =
   (
     contentServer: ContentRecord,
     {
