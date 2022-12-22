@@ -4,7 +4,12 @@ import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
  * The count of migrated files, per migration outcome.
  */
 export type OutcomeCounters = {
-  [folderName in "dashboards" | "widgets" | "filters" | "folders"]: {
+  [folderName in
+    | "dashboards"
+    | "widgets"
+    | "filters"
+    | "folders"
+    | "calculated_measures"]: {
     [outcome in "success" | "partial" | "failed" | "removed"]: number;
   };
 };
@@ -140,8 +145,8 @@ export type MigrationFunction<
   contentServer: ContentRecord,
   {
     migrateDashboards,
-    migrateWidgets,
-    migrateFilters,
+    migrateSavedWidgets,
+    migrateSavedFilters,
     dataModels,
     keysOfWidgetPluginsToRemove,
     errorReport,
@@ -151,10 +156,10 @@ export type MigrationFunction<
     migrateDashboards: (
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
     ) => void;
-    migrateWidgets: (
+    migrateSavedWidgets: (
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     ) => void;
-    migrateFilters: (
+    migrateSavedFilters: (
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
     ) => void;
     dataModels: {

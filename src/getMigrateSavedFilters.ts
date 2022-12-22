@@ -20,7 +20,7 @@ import { _serializeError } from "./_serializeError";
  *
  * Mutates `contentServer`, `counters` and `errorReport`.
  */
-export const getMigrateFilters =
+export const getMigrateSavedFilters =
   (
     contentServer: ContentRecord,
     {
