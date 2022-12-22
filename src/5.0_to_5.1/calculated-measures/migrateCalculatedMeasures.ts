@@ -8,13 +8,17 @@ import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
 import { migrateCalculatedMeasuresInDashboards } from "./migrateCalculatedMeasuresInDashboards";
 import { migrateCalculatedMeasuresInWidgets } from "./migrateCalculatedMeasuresInWidgets";
-import _mapKeys from "lodash/mapKeys";
+import _forEach from "lodash/forEach";
 import _uniq from "lodash/uniq";
+import { _addErrorToReport } from "../../_addErrorToReport";
+import { ErrorReport, OutcomeCounters } from "../../migration.types";
+import { _getFilesAncestry } from "../../_getFilesAncestry";
+import { _serializeError } from "../../_serializeError";
 
 const getCalculatedMeasureName = (
   legacyCalculatedMeasureFolder: ContentRecord,
   id: string,
-): string[] => {
+): string => {
   const { structure } = legacyCalculatedMeasureFolder.children ?? {};
   const ids = Object.keys(
     legacyCalculatedMeasureFolder.children?.content.children ?? {},
@@ -24,7 +28,6 @@ const getCalculatedMeasureName = (
   const calculatedMeasureName = JSON.parse(
     getMetaData(contentRecords[id].node, id),
   ).name;
-
   return calculatedMeasureName;
 };
 
@@ -33,28 +36,41 @@ const getCalculatedMeasureName = (
  * Removes any query-scoped calculated measure definitions from saved dashboards and saved widgets.
  * Mutates `contentServer`.
  */
-export function migrateCalculatedMeasures(
-  contentServer: ContentRecord,
-  dataModels: { [serverKey: string]: DataModel },
-): void {
+export function migrateCalculatedMeasures({
+  contentServer,
+  dataModels,
+  errorReport,
+  counters,
+  doesReportIncludeStacks,
+}: {
+  contentServer: ContentRecord;
+  dataModels: { [serverKey: string]: DataModel };
+  errorReport: ErrorReport;
+  counters: OutcomeCounters;
+  doesReportIncludeStacks: boolean;
+}): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui.children?.calculated_measures;
   const cmFolder: ContentRecord | undefined =
     contentServer.children?.pivot.children?.entitlements.children?.cm;
 
-  const legacyCalculatedMeasureRecords: {
-    [measureName: string]: ContentRecord;
-  } = legacyCalculatedMeasuresFolder?.children
-    ? _mapKeys(
-        legacyCalculatedMeasuresFolder.children.content.children,
-        (value, key) =>
-          getCalculatedMeasureName(legacyCalculatedMeasuresFolder, key),
-      )
-    : {};
-
-  const namesOfCalculatedMeasuresToMigrate = Object.keys(
-    legacyCalculatedMeasureRecords,
-  );
+  const namesOfCalculatedMeasuresToMigrate: string[] = [];
+  const legacyCalculatedMeasures: {
+    [id: string]: { record: ContentRecord; name: string };
+  } = {};
+  if (legacyCalculatedMeasuresFolder) {
+    _forEach(
+      legacyCalculatedMeasuresFolder.children?.content.children,
+      (record, id) => {
+        const name = getCalculatedMeasureName(
+          legacyCalculatedMeasuresFolder,
+          id,
+        );
+        namesOfCalculatedMeasuresToMigrate.push(name);
+        legacyCalculatedMeasures[id] = { name, record };
+      },
+    );
+  }
 
   const {
     migratedWidgetsRecord,
@@ -88,42 +104,84 @@ export function migrateCalculatedMeasures(
     {},
   );
 
-  Object.entries(legacyCalculatedMeasureRecords).forEach(
-    ([measureName, record]) => {
-      const cubeNames = measureToCubeMapping[measureName];
-      if (!cubeNames) {
-        // TODO add a warning in the report that the calculated measure was not migrated since it's not used anywhere.
-        return;
-      }
-
-      const migratedContent = migrateCalculatedMeasureContent(
-        JSON.parse(record.entry.content),
-        measureName,
+  Object.entries(legacyCalculatedMeasures).forEach(
+    ([id, { record, name: measureName }]) => {
+      // `legacyCalculatedMeasuresFolder.children` contains `content` and `structure` properties.
+      const filesAncestry = _getFilesAncestry(
+        legacyCalculatedMeasuresFolder?.children?.structure!,
       );
-      record.entry.content = JSON.stringify(migratedContent);
+      const folderId = filesAncestry[id].map(({ id }) => id);
+      const folderName = filesAncestry[id].map(({ name }) => name);
 
-      cubeNames.forEach((cubeName) => {
-        if (cmFolder && cmFolder.children) {
-          // If `cubeName` property does not already exist, create it.
-          if (!cmFolder.children[cubeName]) {
-            cmFolder.children[cubeName] = {
-              entry: {
-                isDirectory: true,
-                owners: ["ROLE_USER"],
-                readers: ["ROLE_USER"],
-                timestamp: 1669281586947,
-                lastEditor: "admin",
-                canRead: true,
-                canWrite: true,
+      const cubeNames = measureToCubeMapping[measureName];
+
+      try {
+        // If there are no `cubeNames`, the calculated measure is not used in any saved widgets or dashboards.
+        if (!cubeNames) {
+          // The calculated measure was not migrated.
+          counters.calculated_measures.failed++;
+          _addErrorToReport(errorReport, {
+            contentType: "calculated_measures",
+            folderId,
+            folderName,
+            fileErrorReport: {
+              error: {
+                message: `Warning: Calculated measure "${measureName}" was not migrated because it is not currently used in any saved widgets or dashboards.`,
               },
-              children: {},
-            };
-          }
-          // `cmFolder.children[cubeName].children` is created above if it does not already exist.
-          cmFolder.children[cubeName].children![`[Measures].[${measureName}]`] =
-            record;
+            },
+            fileId: id,
+            name: measureName,
+          });
+          return;
         }
-      });
+
+        const migratedContent = migrateCalculatedMeasureContent(
+          JSON.parse(record.entry.content),
+          measureName,
+        );
+        record.entry.content = JSON.stringify(migratedContent);
+
+        cubeNames.forEach((cubeName) => {
+          if (cmFolder && cmFolder.children) {
+            // If `cubeName` property does not already exist, create it.
+            if (!cmFolder.children[cubeName]) {
+              cmFolder.children[cubeName] = {
+                entry: {
+                  isDirectory: true,
+                  owners: ["ROLE_USER"],
+                  readers: ["ROLE_USER"],
+                  timestamp: 1669281586947,
+                  lastEditor: "admin",
+                  canRead: true,
+                  canWrite: true,
+                },
+                children: {},
+              };
+            }
+            // `cmFolder.children[cubeName].children` is created above if it does not already exist.
+            cmFolder.children[cubeName].children![
+              `[Measures].[${measureName}]`
+            ] = record;
+          }
+        });
+        // The calculated measure was successfully migrated.
+        counters.calculated_measures.success++;
+      } catch (error) {
+        // The calculated measure was not migrated.
+        counters.calculated_measures.failed++;
+        _addErrorToReport(errorReport, {
+          contentType: "calculated_measures",
+          folderId,
+          folderName,
+          fileErrorReport: {
+            error: _serializeError(error, {
+              doesReportIncludeStacks,
+            }),
+          },
+          fileId: id,
+          name: measureName,
+        });
+      }
     },
   );
 
