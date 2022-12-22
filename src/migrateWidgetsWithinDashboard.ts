@@ -44,15 +44,21 @@ export function migrateWidgetsWithinDashboard<
     ) => void;
   },
 ): void {
+  console.log("Inside migrateWidgetsWithinDashboard");
   _forEach(dashboardState.pages, (pageState, pageKey) => {
     _forEach(pageState.content, (widgetState, leafKey) => {
+      console.log("in the loop", widgetState.name);
       try {
         if (keysOfWidgetPluginsToRemove?.includes(widgetState.widgetKey)) {
+          console.log("Do we get here?", widgetState.name);
           const layoutPath = getLayoutPath(pageState.layout, leafKey);
           _removeWidgetFromPage(pageState, layoutPath, leafKey);
           throw new WidgetFlaggedForRemovalError(widgetState.widgetKey);
         }
-
+        console.log(
+          "Right before calling migrate widget callback",
+          widgetState.name,
+        );
         callback(widgetState, { dataModels });
       } catch (e) {
         onError(e, {

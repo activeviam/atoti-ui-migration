@@ -14,12 +14,17 @@ export const migrateDashboard: MigrateDashboardCallback<
   dashboardState,
   { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
 ) => {
+  console.log("Inside migrateDashboard", dashboardState.name);
   migrateFilters(dashboardState.filters);
+  console.log("After migrate dashboard filters");
   migrateContextValues(dashboardState.queryContext);
+  console.log("After migrate dashboard context values");
 
   _forEach(dashboardState.pages, (pageState) => {
     migrateFilters(pageState.filters);
+    console.log("After migrate page filters");
     migrateContextValues(pageState.queryContext);
+    console.log("After migrate page context values");
   });
 
   migrateWidgetsWithinDashboard(dashboardState, migrateWidget, {

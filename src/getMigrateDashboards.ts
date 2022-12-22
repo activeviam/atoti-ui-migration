@@ -91,11 +91,13 @@ export const getMigrateDashboards =
       };
 
       try {
+        console.log("Before calling migrateDashboard");
         migratedDashboard = migrateDashboard(dashboard, {
           dataModels,
           keysOfWidgetPluginsToRemove,
           onErrorWhileMigratingWidget,
         });
+        console.log("After calling migrateDashboard");
 
         if (Object.keys(dashboardErrorReport.pages).length > 0) {
           // The migration of some widgets within the dashboard failed.

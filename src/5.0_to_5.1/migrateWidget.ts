@@ -8,6 +8,9 @@ export const migrateWidget: MigrateWidgetCallback<
   AWidgetState50,
   AWidgetState51
 > = (widgetState) => {
+  console.log("Inside migrateWidget", widgetState.widgetKey);
   migrateFilters(widgetState.filters);
+  console.log("after migrate widget filters");
   migrateContextValues(widgetState.queryContext);
+  console.log("after migrate widget context values");
 };
