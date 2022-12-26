@@ -1,6 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
+import _cloneDeep from "lodash/cloneDeep";
 import {
   DashboardErrorReport,
   ErrorReport,
@@ -43,6 +44,8 @@ export const getMigrateDashboards =
   <FromDashboardState, ToDashboardState>(
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
   ): void => {
+    contentServer = _cloneDeep(contentServer);
+
     let migratedDashboard;
 
     const dashboardsContent =
@@ -91,13 +94,11 @@ export const getMigrateDashboards =
       };
 
       try {
-        console.log("Before calling migrateDashboard");
         migratedDashboard = migrateDashboard(dashboard, {
           dataModels,
           keysOfWidgetPluginsToRemove,
           onErrorWhileMigratingWidget,
         });
-        console.log("After calling migrateDashboard");
 
         if (Object.keys(dashboardErrorReport.pages).length > 0) {
           // The migration of some widgets within the dashboard failed.

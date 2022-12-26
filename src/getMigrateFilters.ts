@@ -1,6 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
+import _cloneDeep from "lodash/cloneDeep";
 import {
   ErrorReport,
   MigrateFilterCallback,
@@ -39,6 +40,8 @@ export const getMigrateFilters =
   <FromFilterState, ToFilterState>(
     callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
   ): void => {
+    contentServer = _cloneDeep(contentServer);
+
     const filtersContent =
       contentServer.children?.ui.children?.filters.children?.content.children;
     const filtersStructure =

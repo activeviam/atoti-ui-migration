@@ -1,6 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
+import _cloneDeep from "lodash/cloneDeep";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   ErrorReport,
@@ -42,6 +43,8 @@ export const getMigrateWidgets =
   <FromWidgetState, ToWidgetState>(
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
   ): void => {
+    contentServer = _cloneDeep(contentServer);
+
     const widgetsContent =
       contentServer.children?.ui.children?.widgets.children?.content.children;
     const widgetsStructure =

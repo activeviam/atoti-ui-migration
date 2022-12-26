@@ -14,6 +14,14 @@ import { getMigrateFilters } from "../getMigrateFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
 
+export const getQueryContextValue = (
+  contentServer: ContentRecord,
+): string | boolean =>
+  JSON.parse(
+    contentServer.children?.ui.children?.dashboards.children?.content
+      .children?.["14f"].entry.content,
+  ).pages["p-0"].content["0"].queryContext[0].value;
+
 const migrationSteps: {
   from: string;
   to: string;
@@ -208,6 +216,9 @@ yargs
             doesReportIncludeStacks,
           });
         });
+
+      const value = getQueryContextValue(contentServer);
+      console.log("result", value, typeof value);
 
       const { dir } = path.parse(outputPath);
 
