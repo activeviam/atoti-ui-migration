@@ -7,13 +7,12 @@ import {
   serializeDashboardState,
 } from "@activeviam/activeui-sdk-5.1";
 import { MigrateDashboardCallback } from "../migration.types";
-import { migrateFilters } from "./migrateFilters";
-import _forEach from "lodash/forEach";
-import { migrateContextValues } from "./migrateContextValues";
-import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
 import { produce } from "immer";
-import { mutateWidget } from "./migrateWidget";
+import { mutateDashboard } from "./mutateDashboard";
 
+/**
+ * Returns the 5.1 migrated version of the 5.0 `serializedDashboardState`.
+ */
 export const migrateDashboard: MigrateDashboardCallback<
   DashboardState50<"serialized">,
   DashboardState51<"serialized">
@@ -33,23 +32,4 @@ export const migrateDashboard: MigrateDashboardCallback<
 
   // At the end of the migration, `dashboardState` is of type `DashboardState51`.
   return serializeDashboardState(migratedDashboardState as DashboardState51);
-};
-
-const mutateDashboard: MigrateDashboardCallback<DashboardState50, void> = (
-  dashboardState,
-  { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
-) => {
-  migrateFilters(dashboardState.filters);
-  migrateContextValues(dashboardState.queryContext);
-
-  _forEach(dashboardState.pages, (pageState) => {
-    migrateFilters(pageState.filters);
-    migrateContextValues(pageState.queryContext);
-  });
-
-  migrateWidgetsWithinDashboard(dashboardState, mutateWidget, {
-    dataModels,
-    keysOfWidgetPluginsToRemove,
-    onError: onErrorWhileMigratingWidget,
-  });
 };
