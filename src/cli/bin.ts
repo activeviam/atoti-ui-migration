@@ -52,6 +52,11 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       removed:
         "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
     },
+    calculated_measures: {
+      success: "were successfully migrated.",
+      failed:
+        "could not be migrated because errors occurred during their migration.",
+    },
   };
 
 yargs
