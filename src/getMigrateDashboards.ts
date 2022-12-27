@@ -1,5 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
+import _cloneDeep from "lodash/cloneDeep";
 import {
   DashboardErrorReport,
   ErrorReport,
@@ -42,6 +43,11 @@ export const getMigrateDashboards =
   <FromDashboardState, ToDashboardState>(
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
   ): void => {
+    // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
+    // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
+    // This is done to override that behavior and have a fully mutable `contentServer` object.
+    contentServer = _cloneDeep(contentServer);
+
     let migratedDashboard;
 
     const dashboardsContent =
