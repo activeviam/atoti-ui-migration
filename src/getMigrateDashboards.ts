@@ -46,7 +46,7 @@ export const getMigrateDashboards =
     // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
     // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
     // This is done to override that behavior and have a fully mutable `contentServer` object.
-    contentServer = _cloneDeep(contentServer);
+    contentServer.children = _cloneDeep(contentServer.children);
 
     let migratedDashboard;
 
