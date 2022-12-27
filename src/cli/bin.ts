@@ -134,7 +134,13 @@ yargs
       } = await fs.readJSON(serversPath);
 
       const counters = _fromPairs(
-        ["dashboards", "widgets", "filters", "folders"].map((type) => [
+        [
+          "dashboards",
+          "widgets",
+          "filters",
+          "folders",
+          "calculated_measures",
+        ].map((type) => [
           type,
           {
             success: 0,
