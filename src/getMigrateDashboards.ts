@@ -2,6 +2,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
 import {
+  BehaviorOnError,
   DashboardErrorReport,
   ErrorReport,
   MigrateDashboardCallback,
@@ -38,6 +39,7 @@ export const getMigrateDashboards =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError?: BehaviorOnError;
     },
   ) =>
   <FromDashboardState, ToDashboardState>(

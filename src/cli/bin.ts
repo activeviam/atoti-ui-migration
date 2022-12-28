@@ -6,7 +6,11 @@ import fs from "fs-extra";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
 import { getIndexedDataModel } from "@activeviam/data-model-5.1";
-import { MigrationFunction, OutcomeCounters } from "../migration.types";
+import {
+  BehaviorOnError,
+  MigrationFunction,
+  OutcomeCounters,
+} from "../migration.types";
 import { gte, coerce } from "semver";
 import { getMigrateDashboards } from "../getMigrateDashboards";
 import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
@@ -64,6 +68,7 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
+    behaviorOnError?: BehaviorOnError;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
@@ -117,6 +122,14 @@ yargs
         default: false,
         desc: "Whether stacktraces are included in the error report file.",
       });
+      args.option("on-error", {
+        alias: "e",
+        type: "string",
+        demandOption: false,
+        choices: ["keep-original", "keep-latter", "keep-going"],
+        default: "keep-original",
+        desc: "The behavior to have when an error occurs during the migration of an item.",
+      });
     },
     async ({
       inputPath,
@@ -127,6 +140,7 @@ yargs
       removeWidgets: keysOfWidgetPluginsToRemove,
       debug,
       stack,
+      behaviorOnError,
     }) => {
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
       const servers: {
@@ -177,6 +191,7 @@ yargs
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
@@ -185,6 +200,7 @@ yargs
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
@@ -192,6 +208,7 @@ yargs
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       migrationSteps

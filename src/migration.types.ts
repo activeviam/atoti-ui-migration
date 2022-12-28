@@ -171,3 +171,11 @@ export type MigrationFunction<
     doesReportIncludeStacks: boolean;
   },
 ) => void;
+
+/**
+ * The behavior to have when an error occurs during the migration of an item:
+ * - "keep-original": if anything goes wrong during the migration of an item, the CLI `from-version` of the item is kept.
+ * - "keep-latter": if anything goes wrong during the migration of an item between n-version and n+1-version, the n-version of the item is kept.
+ * - "keep-going":  if anything goes wrong during the migration of an item, keep trying to migrate it, even though it's corrupt, until the CLI `to-version`.
+ */
+export type BehaviorOnError = "keep-original" | "keep-latter" | "keep-going";

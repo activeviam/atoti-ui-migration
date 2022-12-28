@@ -2,6 +2,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
 import {
+  BehaviorOnError,
   ErrorReport,
   MigrateFilterCallback,
   OutcomeCounters,
@@ -34,6 +35,7 @@ export const getMigrateSavedFilters =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError?: BehaviorOnError;
     },
   ) =>
   <FromFilterState, ToFilterState>(

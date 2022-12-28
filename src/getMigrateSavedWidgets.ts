@@ -3,6 +3,7 @@ import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
+  BehaviorOnError,
   ErrorReport,
   MigrateWidgetCallback,
   OutcomeCounters,
@@ -37,6 +38,7 @@ export const getMigrateSavedWidgets =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError?: BehaviorOnError;
     },
   ) =>
   <FromWidgetState, ToWidgetState>(
