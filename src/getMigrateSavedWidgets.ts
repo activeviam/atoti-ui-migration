@@ -96,7 +96,7 @@ export const getMigrateSavedWidgets =
         const deserializedMigratedWidget = produce(
           deserializedWidget,
           (draft) =>
-            callback(draft, {
+            callback(draft as FromWidgetState, {
               dataModels,
             }),
         );

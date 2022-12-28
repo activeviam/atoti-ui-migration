@@ -102,7 +102,7 @@ export const getMigrateDashboards =
         const deserializedMigratedDashboard = produce(
           deserializedDashboard,
           (draft) =>
-            callback(draft, {
+            callback(draft as FromDashboardState, {
               dataModels,
               keysOfWidgetPluginsToRemove,
               onErrorWhileMigratingWidget,
