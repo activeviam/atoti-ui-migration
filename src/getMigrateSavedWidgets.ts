@@ -11,6 +11,7 @@ import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 import { _getMetaData } from "./_getMetaData";
+import produce from "immer";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
@@ -41,6 +42,8 @@ export const getMigrateSavedWidgets =
   ) =>
   <FromWidgetState, ToWidgetState>(
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+    deserialize: (state: FromWidgetState) => FromWidgetState,
+    serialize: (state: ToWidgetState) => ToWidgetState,
   ): void => {
     // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
     // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
@@ -89,9 +92,17 @@ export const getMigrateSavedWidgets =
       }
 
       try {
-        migratedWidget = callback(widget, {
-          dataModels,
-        });
+        const deserializedWidget = deserialize(widget);
+        const deserializedMigratedWidget = produce(
+          deserializedWidget,
+          (draft) =>
+            callback(draft, {
+              dataModels,
+            }),
+        );
+        // At the end of the migration, `deserializedMigratedWidget` is of type `ToWidgetState`.
+        migratedWidget = serialize(deserializedMigratedWidget as ToWidgetState);
+
         // The widget was fully migrated.
         counters.widgets.success++;
       } catch (error) {

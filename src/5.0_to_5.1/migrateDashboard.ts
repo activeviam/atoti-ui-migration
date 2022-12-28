@@ -1,35 +1,33 @@
-import {
-  DashboardState as DashboardState50,
-  deserializeDashboardState,
-} from "@activeviam/activeui-sdk-5.0";
-import {
-  DashboardState as DashboardState51,
-  serializeDashboardState,
-} from "@activeviam/activeui-sdk-5.1";
+import { DashboardState as DashboardState50 } from "@activeviam/activeui-sdk-5.0";
+import _forEach from "lodash/forEach";
+import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
 import { MigrateDashboardCallback } from "../migration.types";
-import { produce } from "immer";
-import { mutateDashboard } from "./mutateDashboard";
+import { migrateContextValues } from "./migrateContextValues";
+import { migrateFilters } from "./migrateFilters";
+import { migrateWidget } from "./migrateWidget";
 
 /**
- * Returns the 5.1 migrated version of the 5.0 `serializedDashboardState`.
+ * Migrates the 5.0 `dashboardState` to a 5.1 dashboard state.
+ * Mutates `dashboardState`.
  */
 export const migrateDashboard: MigrateDashboardCallback<
-  DashboardState50<"serialized">,
-  DashboardState51<"serialized">
+  DashboardState50,
+  void
 > = (
-  serializedDashboardState,
+  dashboardState,
   { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
 ) => {
-  const dashboardState = deserializeDashboardState(serializedDashboardState);
+  migrateFilters(dashboardState.filters);
+  migrateContextValues(dashboardState.queryContext);
 
-  const migratedDashboardState = produce(dashboardState, (draft) => {
-    mutateDashboard(draft, {
-      dataModels,
-      keysOfWidgetPluginsToRemove,
-      onErrorWhileMigratingWidget,
-    });
+  _forEach(dashboardState.pages, (pageState) => {
+    migrateFilters(pageState.filters);
+    migrateContextValues(pageState.queryContext);
   });
 
-  // At the end of the migration, `dashboardState` is of type `DashboardState51`.
-  return serializeDashboardState(migratedDashboardState as DashboardState51);
+  migrateWidgetsWithinDashboard(dashboardState, migrateWidget, {
+    dataModels,
+    keysOfWidgetPluginsToRemove,
+    onError: onErrorWhileMigratingWidget,
+  });
 };

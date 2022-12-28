@@ -7,7 +7,7 @@ import { migrateFilters } from "./migrateFilters";
  * Migrates the 5.0 `deserializedWidgetState` to a 5.1 widget state.
  * Mutates `deserializedWidgetState`.
  */
-export const mutateWidget: MigrateWidgetCallback<AWidgetState50, void> = (
+export const migrateWidget: MigrateWidgetCallback<AWidgetState50, void> = (
   deserializedWidgetState,
 ) => {
   migrateFilters(deserializedWidgetState.filters);

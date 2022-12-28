@@ -1,5 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
+import produce from "immer";
 import _cloneDeep from "lodash/cloneDeep";
 import {
   DashboardErrorReport,
@@ -42,6 +43,8 @@ export const getMigrateDashboards =
   ) =>
   <FromDashboardState, ToDashboardState>(
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
+    deserialize: (state: FromDashboardState) => FromDashboardState,
+    serialize: (state: ToDashboardState) => ToDashboardState,
   ): void => {
     // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
     // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
@@ -95,11 +98,20 @@ export const getMigrateDashboards =
       };
 
       try {
-        migratedDashboard = callback(dashboard, {
-          dataModels,
-          keysOfWidgetPluginsToRemove,
-          onErrorWhileMigratingWidget,
-        });
+        const deserializedDashboard = deserialize(dashboard);
+        const deserializedMigratedDashboard = produce(
+          deserializedDashboard,
+          (draft) =>
+            callback(draft, {
+              dataModels,
+              keysOfWidgetPluginsToRemove,
+              onErrorWhileMigratingWidget,
+            }),
+        );
+        // At the end of the migration, `deserializedMigratedDashboard` is of type `ToDashboardState`.
+        migratedDashboard = serialize(
+          deserializedMigratedDashboard as ToDashboardState,
+        );
 
         if (Object.keys(dashboardErrorReport.pages).length > 0) {
           // The migration of some widgets within the dashboard failed.

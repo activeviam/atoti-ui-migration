@@ -155,9 +155,13 @@ export type MigrationFunction<
   }: {
     migrateDashboards: (
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
+      deserialize: (state: FromDashboardState) => FromDashboardState,
+      serialize: (state: ToDashboardState) => ToDashboardState,
     ) => void;
     migrateSavedWidgets: (
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+      deserialize: (state: FromWidgetState) => FromWidgetState,
+      serialize: (state: ToWidgetState) => ToWidgetState,
     ) => void;
     migrateSavedFilters: (
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
