@@ -95,14 +95,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: fromVersions,
+        choices: ["4.3", ...fromVersions],
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: toVersions,
+        choices: ["5.0", ...toVersions],
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
