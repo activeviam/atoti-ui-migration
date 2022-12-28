@@ -53,7 +53,7 @@ export const getMigrateSavedFilters =
     for (const fileId in filtersContent) {
       let migratedFilter;
       const { entry } = filtersContent[fileId];
-      const filter = JSON.parse(entry.content);
+      const filter = entry.content;
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
