@@ -11,7 +11,7 @@ import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 import { _getMetaData } from "./_getMetaData";
-import produce from "immer";
+import { produce } from "immer";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
