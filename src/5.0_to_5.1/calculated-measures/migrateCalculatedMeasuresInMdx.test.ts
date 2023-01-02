@@ -82,7 +82,7 @@ const mdxSelectWithCalculatedMeasureNotOnList: MdxSelect = parse(`
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
 `);
 
-const namesOfCalculatedMeasurestoMigrate = [
+const namesOfCalculatedMeasuresToMigrate = [
   "Distinct count city",
   "Exp gamma sum",
   "Log pv.SUM",
@@ -96,11 +96,12 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns `namesOfCalculatedMeasuresToMigrateInWidget` as an empty array and does not modify the MDX when there are no calculated measures", () => {
     const {
       cubeName,
-      namesOfCalculatedMeasuresToMigrateInWidget,
+      namesOfCalculatedMeasuresRemovedFromMdx:
+        namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx({
       mdx: mdxSelectWithNoCalculatedMeasures,
-      namesOfCalculatedMeasurestoMigrate,
+      namesOfCalculatedMeasuresToMigrate,
       dataModels,
       serverKey: "Ranch 6.0",
     });
@@ -113,11 +114,12 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   it("removes calculated measure definition from MDX when the widget contains a single calculated measure", () => {
     const {
       cubeName,
-      namesOfCalculatedMeasuresToMigrateInWidget,
+      namesOfCalculatedMeasuresRemovedFromMdx:
+        namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx({
       mdx: mdxSelectWithOneCalculatedMeasure,
-      namesOfCalculatedMeasurestoMigrate,
+      namesOfCalculatedMeasuresToMigrate,
       dataModels,
       serverKey: "Ranch 6.0",
     });
@@ -151,11 +153,12 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   it("removes calculated measure definitions from MDX when the widget contains two calculated measures", () => {
     const {
       cubeName,
-      namesOfCalculatedMeasuresToMigrateInWidget,
+      namesOfCalculatedMeasuresRemovedFromMdx:
+        namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx({
       mdx: mdxSelectWithTwoCalculatedMeasures,
-      namesOfCalculatedMeasurestoMigrate,
+      namesOfCalculatedMeasuresToMigrate,
       dataModels,
       serverKey: "Ranch 6.0",
     });
@@ -190,12 +193,13 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns the MDX unchanged if it contains a calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
     const {
       cubeName,
-      namesOfCalculatedMeasuresToMigrateInWidget,
+      namesOfCalculatedMeasuresRemovedFromMdx:
+        namesOfCalculatedMeasuresToMigrateInWidget,
       migratedMdx,
     } = migrateCalculatedMeasuresInMdx({
-      // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasurestoMigrate`.
+      // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasuresToMigrate`.
       mdx: mdxSelectWithCalculatedMeasureNotOnList,
-      namesOfCalculatedMeasurestoMigrate,
+      namesOfCalculatedMeasuresToMigrate,
       dataModels,
       serverKey: "Ranch 6.0",
     });

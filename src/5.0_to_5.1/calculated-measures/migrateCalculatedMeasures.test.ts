@@ -1,5 +1,4 @@
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
 import { contentServer } from "../__test_resources__/contentServer";
 import { uiCalculatedMeasuresFolder } from "../__test_resources__/uiCalculatedMeasuresFolder";
 import { uiDashboardsFolder } from "../__test_resources__/uiDashboardsFolder";
@@ -8,10 +7,6 @@ import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import _cloneDeep from "lodash/cloneDeep";
 import _fromPairs from "lodash/fromPairs";
 
-const dataModels = {
-  "Ranch 6.0": sandboxDataModel,
-  "Ranch 5.11": sandboxDataModel,
-};
 const contentServerForTests = _cloneDeep(contentServer);
 const errorReport: ErrorReport = {};
 
@@ -38,9 +33,18 @@ const counters = _fromPairs(
   // In this case, the keys used correspond to the attributes of OutcomeCounters.
 ) as OutcomeCounters;
 
+const measureToCubeMapping = {
+  "Distinct count city": ["EquityDerivativesCube"],
+  "Test calculated measure": ["EquityDerivativesCube"],
+  "Log pv.SUM": ["EquityDerivativesCube"],
+  "testo": ["EquityDerivativesCube"],
+  "new measure*": ["EquityDerivativesCube"],
+  "CM in 2 cubes": ["EquityDerivativesCube", "EquityDerivativesCubeDist"],
+};
+
 migrateCalculatedMeasures({
   contentServer: contentServerForTests,
-  dataModels,
+  measureToCubeMapping,
   errorReport,
   counters,
   doesReportIncludeStacks: false,
@@ -119,38 +123,6 @@ describe("migrateCalculatedMeasures", () => {
         "[Measures].[CM in 2 cubes]"
       ],
     );
-  });
-
-  it("removes definitions of calculated measures saved in `ui/children/calculated_measures` from saved dashboards", () => {
-    // Saved dashboard "b3e" contains calculated measure "Distinct count city".
-    expect(
-      contentServerForTests.children!.ui.children!.dashboards.children!.content
-        .children!["b3e"].entry.content,
-    ).not.toContain("WITH  Member [Measures]");
-  });
-
-  it("does not remove definitions of calculated measures from saved dashboards if they are not saved in `ui/children/calculated_measures`", () => {
-    // Saved dashboard "a9e" contains a calculated measure that is not saved in `ui/children/calculated_measures`.
-    expect(
-      contentServerForTests.children!.ui.children!.dashboards.children!.content
-        .children!["a9e"].entry.content,
-    ).toContain("WITH  Member [Measures].[Log City]");
-  });
-
-  it("removes definitions of calculated measures saved in `ui/children/calculated_measures` from saved widgets", () => {
-    // Saved widget "854" contains calculated measure "Distinct count city".
-    expect(
-      contentServerForTests.children!.ui.children!.widgets.children!.content
-        .children!["854"].entry.content,
-    ).not.toContain("WITH  Member [Measures]");
-  });
-
-  it("does not remove definitions of calculated measures from saved widgets if they are not saved in `ui/children/calculated_measures`", () => {
-    // Saved dashboard "a9e" contains a calculated measure that is not saved in `ui/children/calculated_measures`.
-    expect(
-      contentServerForTests.children!.ui.children!.widgets.children!.content
-        .children!["ee7"].entry.content,
-    ).toContain("WITH  Member [Measures].[activeui5 calculated measure]");
   });
 
   it("deletes the `ui/calculated_measures` folder", () => {

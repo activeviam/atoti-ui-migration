@@ -9,4 +9,5 @@ export const migrateDashboard: MigrateDashboardCallback<
   // TODO
   // - migrate dashboard and page filters (wrap in {mdx})
   // - migrate dashboard and page context values (stringify)
+  // - migrate calculated measures in widgets
 };
