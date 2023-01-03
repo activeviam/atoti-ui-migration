@@ -52,7 +52,6 @@ export function migrateWidgetsWithinDashboard<
           _removeWidgetFromPage(pageState, layoutPath, leafKey);
           throw new WidgetFlaggedForRemovalError(widgetState.widgetKey);
         }
-
         callback(widgetState, { dataModels });
       } catch (e) {
         onError(e, {

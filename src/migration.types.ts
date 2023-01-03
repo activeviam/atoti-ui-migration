@@ -83,6 +83,7 @@ export interface ErrorReport {
 
 /**
  * A function that can be called to migrate a dashboard from one version to another.
+ * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `dashboardState`.
  */
 export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   dashboardState: FromDashboardState,
@@ -124,6 +125,7 @@ export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
 
 /**
  * A function that can be called to migrate a filter from one version to another.
+ * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `filterState`.
  */
 export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
   filterState: FromFilterState,
@@ -154,13 +156,19 @@ export type MigrationFunction<
     doesReportIncludeStacks,
   }: {
     migrateDashboards: (
+      deserialize: (state: any) => FromDashboardState,
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
+      serialize: (state: ToDashboardState) => any,
     ) => void;
     migrateSavedWidgets: (
+      deserialize: (state: any) => FromWidgetState,
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+      serialize: (state: ToWidgetState) => any,
     ) => void;
     migrateSavedFilters: (
+      deserialize: (state: any) => FromDashboardState,
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
+      serialize: (state: ToDashboardState) => any,
     ) => void;
     dataModels: {
       [serverKey: string]: DataModel;
