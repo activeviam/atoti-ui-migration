@@ -2,7 +2,7 @@ import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resourc
 import { MdxSelect, parse, stringify } from "@activeviam/mdx-5.0";
 import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx";
 
-const mdxSelectWithNoCalculatedMeasures: MdxSelect = parse(`
+export const mdxSelectWithNoCalculatedMeasures: MdxSelect = parse(`
 SELECT 
   NON EMPTY Hierarchize(
     Descendants(
@@ -41,7 +41,7 @@ const mdxSelectWithOneCalculatedMeasure: MdxSelect = parse(`
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
 `);
 
-const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(`
+export const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(`
     WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"
     Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, 
       [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  

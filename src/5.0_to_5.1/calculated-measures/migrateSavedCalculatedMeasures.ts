@@ -1,5 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
-import { migrateCalculatedMeasureContent } from "./migrateCalculatedMeasureContent";
+import { migrateSavedCalculatedMeasureContent } from "./migrateSavedCalculatedMeasureContent";
 import _defaultsDeep from "lodash/defaultsDeep";
 
 import { _addErrorToReport } from "../../_addErrorToReport";
@@ -64,7 +64,7 @@ const contentServerWithEmptyPivotCalculatedMeasuresFolder = {
  * Transforms the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot.
  * Mutates `contentServer`.
  */
-export function migrateCalculatedMeasures({
+export function migrateSavedCalculatedMeasures({
   contentServer,
   measureToCubeMapping,
   errorReport,
@@ -120,7 +120,7 @@ export function migrateCalculatedMeasures({
         return;
       }
 
-      const migratedContent = migrateCalculatedMeasureContent(
+      const migratedContent = migrateSavedCalculatedMeasureContent(
         JSON.parse(record.entry.content),
         measureName,
       );

@@ -299,56 +299,6 @@ export const contentServer: ContentRecord = {
                     },
                   },
                 },
-                "2sp": {
-                  entry: {
-                    isDirectory: true,
-                    owners: ["admin"],
-                    readers: ["admin"],
-                    timestamp: 1669817887106,
-                    lastEditor: "admin",
-                    canRead: true,
-                    canWrite: true,
-                  },
-                  children: {
-                    "5m9": {
-                      entry: {
-                        isDirectory: true,
-                        owners: ["admin"],
-                        readers: ["admin"],
-                        timestamp: 1669805695656,
-                        lastEditor: "admin",
-                        canRead: true,
-                        canWrite: true,
-                      },
-                      children: {
-                        "5m9_metadata": {
-                          entry: {
-                            content: '{"name":"Exp pv.AVG"}',
-                            isDirectory: false,
-                            owners: ["admin"],
-                            readers: ["admin"],
-                            timestamp: 1669805695656,
-                            lastEditor: "admin",
-                            canRead: true,
-                            canWrite: true,
-                          },
-                        },
-                      },
-                    },
-                    "2sp_metadata": {
-                      entry: {
-                        content: '{"isFolder":true,"name":"cm folder"}',
-                        isDirectory: false,
-                        owners: ["admin"],
-                        readers: ["admin"],
-                        timestamp: 1669817887286,
-                        lastEditor: "admin",
-                        canRead: true,
-                        canWrite: true,
-                      },
-                    },
-                  },
-                },
               },
             },
           },

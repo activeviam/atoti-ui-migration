@@ -1,30 +1,31 @@
 import {
   ContentRecord,
   findContentRecords,
-  getMetaData,
 } from "@activeviam/activeui-sdk-5.0";
-import _mapValues from "lodash/mapValues";
+import _map from "lodash/map";
+import { _getMetaData } from "../../_getMetaData";
 
 /**
  * Returns the names of the calculated measures to migrate, indexed by the corresponding file ids under /ui/calculated_measures/content.
  */
-export function getNamesOfCalculatedMeasuresToMigrateById(
+export function getNamesOfCalculatedMeasuresToMigrate(
   contentServer: ContentRecord,
-): { [id: string]: string } {
+): string[] {
   const calculatedMeasuresFolder =
     contentServer.children?.ui?.children?.calculated_measures;
 
   const { content, structure } = calculatedMeasuresFolder?.children ?? {};
   if (!content?.children || !structure?.children) {
-    return {};
+    return [];
   }
 
   const structureRecords = findContentRecords(
     structure,
     Object.keys(content.children),
   );
-  return _mapValues(
-    structureRecords,
-    ({ node }, id) => getMetaData(node, id).name,
-  );
+
+  return _map(structureRecords, ({ pathToParentFolder }, id) => {
+    const metadata = _getMetaData(structure, pathToParentFolder, id);
+    return metadata.name!;
+  });
 }

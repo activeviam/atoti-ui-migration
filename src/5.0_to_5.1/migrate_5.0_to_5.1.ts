@@ -1,17 +1,21 @@
 import { MigrationFunction } from "../migration.types";
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateWidget } from "./migrateWidget";
-import { getNamesOfCalculatedMeasuresToMigrateById } from "./calculated-measures/getNamesOfCalculatedMeasuresToMigrate";
+import { getNamesOfCalculatedMeasuresToMigrate } from "./calculated-measures/getNamesOfCalculatedMeasuresToMigrate";
+import { migrateSavedCalculatedMeasures } from "./calculated-measures/migrateSavedCalculatedMeasures";
 
 export const migrate_50_to_51: MigrationFunction = (
   contentServer,
-  { migrateDashboards, migrateSavedWidgets },
+  {
+    migrateDashboards,
+    migrateSavedWidgets,
+    errorReport,
+    counters,
+    doesReportIncludeStacks,
+  },
 ) => {
-  const namesOfCalculatedMeasuresToMigrateById =
-    getNamesOfCalculatedMeasuresToMigrateById(contentServer);
-  const namesOfCalculatedMeasuresToMigrate = Object.values(
-    namesOfCalculatedMeasuresToMigrateById,
-  );
+  const namesOfCalculatedMeasuresToMigrate =
+    getNamesOfCalculatedMeasuresToMigrate(contentServer);
   // Accumulate the cubes to which the saved calculated measures belong.
   const measureToCubeMapping: { [measureName: string]: string[] } = {};
 
@@ -23,4 +27,12 @@ export const migrate_50_to_51: MigrationFunction = (
       measureToCubeMapping,
     }),
   );
+
+  migrateSavedCalculatedMeasures({
+    contentServer,
+    measureToCubeMapping,
+    errorReport,
+    counters,
+    doesReportIncludeStacks,
+  });
 };
