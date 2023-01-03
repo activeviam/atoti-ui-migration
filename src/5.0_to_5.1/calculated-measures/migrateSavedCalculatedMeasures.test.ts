@@ -33,7 +33,7 @@ const measureToCubeMapping = {
   "Distinct count city": ["EquityDerivativesCube"],
   "Test calculated measure": ["EquityDerivativesCube"],
   "Log pv.SUM": ["EquityDerivativesCube"],
-  "testo": ["EquityDerivativesCube"],
+  testo: ["EquityDerivativesCube"],
   "new measure*": ["EquityDerivativesCube"],
   "CM in 2 cubes": ["EquityDerivativesCube", "EquityDerivativesCubeDist"],
 };
