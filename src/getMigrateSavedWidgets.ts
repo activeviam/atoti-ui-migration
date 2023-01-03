@@ -54,8 +54,6 @@ export const getMigrateSavedWidgets =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      let migratedWidget;
-
       const { entry } = content.children[fileId];
       const widget = JSON.parse(entry.content);
 
@@ -99,12 +97,16 @@ export const getMigrateSavedWidgets =
             }),
         );
         // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
-        migratedWidget = serialize(deserializedMigratedWidget as ToWidgetState);
+        const migratedWidget = serialize(
+          deserializedMigratedWidget as ToWidgetState,
+        );
 
-        // The widget was fully migrated.
+        // The widget was successfully migrated.
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedWidget);
         counters.widgets.success++;
       } catch (error) {
-        // The widget could not be migrated at all.
+        // The widget could not be migrated.
         counters.widgets.failed++;
 
         _addErrorToReport(errorReport, {
@@ -119,15 +121,6 @@ export const getMigrateSavedWidgets =
           fileId,
           name: metadata.name!,
         });
-
-        migratedWidget = widget;
       }
-
-      content.children![fileId] = {
-        entry: {
-          ...entry,
-          content: JSON.stringify(migratedWidget),
-        },
-      };
     }
   };

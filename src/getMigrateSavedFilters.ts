@@ -51,7 +51,6 @@ export const getMigrateSavedFilters =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      let migratedFilter;
       const { entry } = content.children[fileId];
       const filter = JSON.parse(entry.content);
 
@@ -66,11 +65,16 @@ export const getMigrateSavedFilters =
           (draft) => callback(draft as FromFilterState, { dataModels }),
         );
         // It is the responsibility of `callback` to mutate a `FromFilterState` into a `ToFilterState`.
-        migratedFilter = serialize(deserializedMigratedFilter as ToFilterState);
-        // The filter was fully migrated.
+        const migratedFilter = serialize(
+          deserializedMigratedFilter as ToFilterState,
+        );
+
+        // The filter was successfully migrated.
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedFilter);
         counters.filters.success++;
       } catch (error) {
-        // The filter could not be migrated at all.
+        // The filter could not be migrated.
         counters.filters.failed++;
 
         _addErrorToReport(errorReport, {
@@ -85,15 +89,6 @@ export const getMigrateSavedFilters =
           fileId,
           name: metadata.name!,
         });
-
-        migratedFilter = filter;
       }
-
-      content.children![fileId] = {
-        entry: {
-          ...entry,
-          content: JSON.stringify(migratedFilter),
-        },
-      };
     }
   };

@@ -55,8 +55,6 @@ export const getMigrateDashboards =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      let migratedDashboard;
-
       const { entry } = content.children[fileId];
       const dashboard = JSON.parse(entry.content);
 
@@ -104,10 +102,13 @@ export const getMigrateDashboards =
               onErrorWhileMigratingWidget,
             }),
         );
-        migratedDashboard = serialize(
+        const migratedDashboard = serialize(
           // It is the responsibility of `callback` to mutate a `FromDashboardState` into a `ToDashboardState`.
           deserializedMigratedDashboard as ToDashboardState,
         );
+
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedDashboard);
 
         if (Object.keys(dashboardErrorReport.pages).length > 0) {
           // The migration of some widgets within the dashboard failed.
@@ -140,15 +141,6 @@ export const getMigrateDashboards =
           fileId,
           name,
         });
-
-        migratedDashboard = dashboard;
       }
-
-      content.children![fileId] = {
-        entry: {
-          ...entry,
-          content: JSON.stringify(migratedDashboard),
-        },
-      };
     }
   };
