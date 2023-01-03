@@ -1,6 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import _cloneDeep from "lodash/cloneDeep";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   ErrorReport,
@@ -42,28 +41,27 @@ export const getMigrateSavedWidgets =
   ) =>
   <FromWidgetState, ToWidgetState>(
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
-    deserialize: (state: FromWidgetState) => FromWidgetState,
-    serialize: (state: ToWidgetState) => ToWidgetState,
+    deserialize: (state: any) => FromWidgetState,
+    serialize: (state: ToWidgetState) => any,
   ): void => {
-    // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
-    // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
-    // This is done to override that behavior and have a fully mutable `contentServer` object.
-    contentServer.children = _cloneDeep(contentServer.children);
+    const { content, structure } =
+      contentServer.children?.ui.children?.widgets.children ?? {};
 
-    const widgetsContent =
-      contentServer.children?.ui.children?.widgets.children?.content.children;
-    const widgetsStructure =
-      contentServer.children?.ui.children?.widgets.children?.structure!;
-    const filesAncestry = _getFilesAncestry(widgetsStructure);
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    for (const fileId in widgetsContent) {
+    const filesAncestry = _getFilesAncestry(structure);
+
+    for (const fileId in content.children) {
       let migratedWidget;
-      const { entry } = widgetsContent[fileId];
+
+      const { entry } = content.children[fileId];
       const widget = JSON.parse(entry.content);
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(widgetsStructure, folderId, fileId);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
       if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
         // The widget's plugin key is flagged for removal.
@@ -82,10 +80,10 @@ export const getMigrateSavedWidgets =
           fileId,
           name: metadata.name!,
         });
-        delete widgetsContent[fileId];
+        delete content.children[fileId];
         const parentFolder = folderId.reduce(
           (acc, id) => acc.children![id],
-          widgetsStructure,
+          structure,
         );
         delete parentFolder.children![fileId];
         continue;
@@ -100,7 +98,7 @@ export const getMigrateSavedWidgets =
               dataModels,
             }),
         );
-        // At the end of the migration, `deserializedMigratedWidget` is of type `ToWidgetState`.
+        // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
         migratedWidget = serialize(deserializedMigratedWidget as ToWidgetState);
 
         // The widget was fully migrated.
@@ -125,7 +123,7 @@ export const getMigrateSavedWidgets =
         migratedWidget = widget;
       }
 
-      widgetsContent![fileId] = {
+      content.children![fileId] = {
         entry: {
           ...entry,
           content: JSON.stringify(migratedWidget),

@@ -83,6 +83,7 @@ export interface ErrorReport {
 
 /**
  * A function that can be called to migrate a dashboard from one version to another.
+ * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `dashboardState`.
  */
 export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
   dashboardState: FromDashboardState,
@@ -108,7 +109,7 @@ export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
       },
     ) => void;
   },
-) => ToDashboardState;
+) => ToDashboardState | void;
 
 /**
  * A function that can be called to migrate a widget from one version to another.
@@ -120,10 +121,11 @@ export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
   }: {
     dataModels: { [serverKey: string]: DataModel };
   },
-) => ToWidgetState;
+) => ToWidgetState | void;
 
 /**
  * A function that can be called to migrate a filter from one version to another.
+ * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `filterState`.
  */
 export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
   filterState: FromFilterState,
@@ -132,7 +134,7 @@ export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
   }: {
     dataModels: { [serverKey: string]: DataModel };
   },
-) => ToFilterState;
+) => ToFilterState | void;
 
 export type MigrationFunction<
   FromDashboardState = any,
@@ -155,16 +157,18 @@ export type MigrationFunction<
   }: {
     migrateDashboards: (
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
-      deserialize: (state: FromDashboardState) => FromDashboardState,
-      serialize: (state: ToDashboardState) => ToDashboardState,
+      deserialize: (state: any) => FromDashboardState,
+      serialize: (state: ToDashboardState) => any,
     ) => void;
     migrateSavedWidgets: (
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
-      deserialize: (state: FromWidgetState) => FromWidgetState,
-      serialize: (state: ToWidgetState) => ToWidgetState,
+      deserialize: (state: any) => FromWidgetState,
+      serialize: (state: ToWidgetState) => any,
     ) => void;
     migrateSavedFilters: (
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
+      deserialize: (state: any) => FromDashboardState,
+      serialize: (state: ToDashboardState) => any,
     ) => void;
     dataModels: {
       [serverKey: string]: DataModel;

@@ -1,6 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import _cloneDeep from "lodash/cloneDeep";
+import { produce } from "immer";
 import {
   ErrorReport,
   MigrateFilterCallback,
@@ -38,29 +38,35 @@ export const getMigrateSavedFilters =
   ) =>
   <FromFilterState, ToFilterState>(
     callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
+    deserialize: (state: any) => FromFilterState,
+    serialize: (state: ToFilterState) => any,
   ): void => {
-    // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
-    // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
-    // This is done to override that behavior and have a fully mutable `contentServer` object.
-    contentServer.children = _cloneDeep(contentServer.children);
+    const { content, structure } =
+      contentServer.children?.ui.children?.filters.children ?? {};
 
-    const filtersContent =
-      contentServer.children?.ui.children?.filters.children?.content.children;
-    const filtersStructure =
-      contentServer.children?.ui.children?.filters.children?.structure!;
-    const filesAncestry = _getFilesAncestry(filtersStructure);
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    for (const fileId in filtersContent) {
+    const filesAncestry = _getFilesAncestry(structure);
+
+    for (const fileId in content.children) {
       let migratedFilter;
-      const { entry } = filtersContent[fileId];
-      const filter = entry.content;
+      const { entry } = content.children[fileId];
+      const filter = JSON.parse(entry.content);
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(filtersStructure, folderId, fileId);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
       try {
-        migratedFilter = callback(filter, { dataModels });
+        const deserializedFilter = deserialize(filter);
+        const deserializedMigratedFilter = produce(
+          deserializedFilter,
+          (draft) => callback(draft as FromFilterState, { dataModels }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromFilterState` into a `ToFilterState`.
+        migratedFilter = serialize(deserializedMigratedFilter as ToFilterState);
         // The filter was fully migrated.
         counters.filters.success++;
       } catch (error) {
@@ -83,7 +89,7 @@ export const getMigrateSavedFilters =
         migratedFilter = filter;
       }
 
-      filtersContent![fileId] = {
+      content.children![fileId] = {
         entry: {
           ...entry,
           content: JSON.stringify(migratedFilter),

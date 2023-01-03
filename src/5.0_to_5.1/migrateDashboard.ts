@@ -1,4 +1,5 @@
 import { DashboardState as DashboardState50 } from "@activeviam/activeui-sdk-5.0";
+import { DashboardState as DashboardState51 } from "@activeviam/activeui-sdk-5.1";
 import _forEach from "lodash/forEach";
 import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
 import { MigrateDashboardCallback } from "../migration.types";
@@ -7,12 +8,11 @@ import { migrateFilters } from "./migrateFilters";
 import { migrateWidget } from "./migrateWidget";
 
 /**
- * Migrates the 5.0 `dashboardState` to a 5.1 dashboard state.
- * Mutates `dashboardState`.
+ * Mutates a 5.0 `dashboardState` into one usable in 5.1.
  */
 export const migrateDashboard: MigrateDashboardCallback<
   DashboardState50,
-  void
+  DashboardState51
 > = (
   dashboardState,
   { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },

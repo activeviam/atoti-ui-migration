@@ -1,7 +1,6 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
-import _cloneDeep from "lodash/cloneDeep";
 import {
   DashboardErrorReport,
   ErrorReport,
@@ -43,30 +42,27 @@ export const getMigrateDashboards =
   ) =>
   <FromDashboardState, ToDashboardState>(
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
-    deserialize: (state: FromDashboardState) => FromDashboardState,
-    serialize: (state: ToDashboardState) => ToDashboardState,
+    deserialize: (state: any) => FromDashboardState,
+    serialize: (state: ToDashboardState) => any,
   ): void => {
-    // This function returned by `getMigrateDashboards` and accessing its outer scope variable `contentServer` forms a closure.
-    // It causes some parts of the `contentServer` object to not be writable, hence not mutable.
-    // This is done to override that behavior and have a fully mutable `contentServer` object.
-    contentServer.children = _cloneDeep(contentServer.children);
+    const { content, structure } =
+      contentServer.children?.ui.children?.dashboards.children ?? {};
 
-    let migratedDashboard;
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    const dashboardsContent =
-      contentServer.children?.ui.children?.dashboards.children?.content
-        .children;
-    const dashboardsStructure =
-      contentServer.children?.ui.children?.dashboards.children?.structure!;
-    const filesAncestry = _getFilesAncestry(dashboardsStructure);
+    const filesAncestry = _getFilesAncestry(structure);
 
-    for (const fileId in dashboardsContent) {
-      const { entry } = dashboardsContent[fileId];
+    for (const fileId in content.children) {
+      let migratedDashboard;
+
+      const { entry } = content.children[fileId];
       const dashboard = JSON.parse(entry.content);
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(dashboardsStructure, folderId, fileId);
+      const metadata = _getMetaData(structure, folderId, fileId);
       const name = metadata.name!;
 
       const dashboardErrorReport: DashboardErrorReport = {
@@ -108,8 +104,8 @@ export const getMigrateDashboards =
               onErrorWhileMigratingWidget,
             }),
         );
-        // At the end of the migration, `deserializedMigratedDashboard` is of type `ToDashboardState`.
         migratedDashboard = serialize(
+          // It is the responsibility of `callback` to mutate a `FromDashboardState` into a `ToDashboardState`.
           deserializedMigratedDashboard as ToDashboardState,
         );
 
@@ -148,7 +144,7 @@ export const getMigrateDashboards =
         migratedDashboard = dashboard;
       }
 
-      dashboardsContent![fileId] = {
+      content.children![fileId] = {
         entry: {
           ...entry,
           content: JSON.stringify(migratedDashboard),
