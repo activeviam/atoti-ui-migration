@@ -9,7 +9,6 @@ import {
   stringify,
 } from "@activeviam/activeui-sdk-5.1";
 import { MigrationFunction } from "../migration.types";
-import { migrateCalculatedMeasures } from "./calculated-measures/migrateCalculatedMeasures";
 import { migrateDashboard } from "./migrateDashboard";
 import { migrateSavedFilter } from "./migrateSavedFilter";
 import { migrateWidget } from "./migrateWidget";
@@ -32,24 +31,35 @@ export const migrate_50_to_51: MigrationFunction = (
     getNamesOfCalculatedMeasuresToMigrate(contentServer);
   // Accumulate the cubes to which the saved calculated measures belong.
   const measureToCubeMapping: { [measureName: string]: string[] } = {};
-  
+
   migrateDashboards(
     deserializeDashboardState,
-    migrateDashboard,
+    (
+      dashboardState,
+      { keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
+    ) =>
+      migrateDashboard(dashboardState, {
+        dataModels,
+        keysOfWidgetPluginsToRemove,
+        onErrorWhileMigratingWidget,
+        namesOfCalculatedMeasuresToMigrate,
+        measureToCubeMapping,
+      }),
     serializeDashboardState,
   );
 
   migrateSavedWidgets(
     deserializeWidgetState,
-    (widgetState, { dataModels }) =>
-    migrateWidget(widgetState, {
-      dataModels,
-      namesOfCalculatedMeasuresToMigrate,
-      measureToCubeMapping,
-    }),,
+    (widgetState) =>
+      migrateWidget(widgetState, {
+        dataModels,
+        namesOfCalculatedMeasuresToMigrate,
+        measureToCubeMapping,
+      }),
     serializeWidgetState,
   );
 
+  // Must be called after `migrateDashboards` and `migrateSavedWidgets`, as `measureToCubeMapping` is accumulated during those steps.
   migrateSavedCalculatedMeasures({
     contentServer,
     measureToCubeMapping,

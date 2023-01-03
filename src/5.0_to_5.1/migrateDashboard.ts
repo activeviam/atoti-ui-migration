@@ -9,13 +9,24 @@ import { migrateWidget } from "./migrateWidget";
 
 /**
  * Mutates a 5.0 `dashboardState` into one usable in 5.1.
+ * Also mutates `measureToCubeMapping`.
  */
 export const migrateDashboard: MigrateDashboardCallback<
   DashboardState50,
-  DashboardState51
+  DashboardState51,
+  {
+    namesOfCalculatedMeasuresToMigrate: string[];
+    measureToCubeMapping: { [measureName: string]: string[] };
+  }
 > = (
   dashboardState,
-  { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
+  {
+    dataModels,
+    keysOfWidgetPluginsToRemove,
+    onErrorWhileMigratingWidget,
+    namesOfCalculatedMeasuresToMigrate,
+    measureToCubeMapping,
+  },
 ) => {
   migrateFilters(dashboardState.filters);
   migrateContextValues(dashboardState.queryContext);
@@ -25,9 +36,18 @@ export const migrateDashboard: MigrateDashboardCallback<
     migrateContextValues(pageState.queryContext);
   });
 
-  migrateWidgetsWithinDashboard(dashboardState, migrateWidget, {
-    dataModels,
-    keysOfWidgetPluginsToRemove,
-    onError: onErrorWhileMigratingWidget,
-  });
+  migrateWidgetsWithinDashboard(
+    dashboardState,
+    (widgetState) =>
+      migrateWidget(widgetState, {
+        dataModels,
+        namesOfCalculatedMeasuresToMigrate,
+        measureToCubeMapping,
+      }),
+    {
+      dataModels,
+      keysOfWidgetPluginsToRemove,
+      onError: onErrorWhileMigratingWidget,
+    },
+  );
 };
