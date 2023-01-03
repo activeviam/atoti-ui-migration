@@ -156,18 +156,18 @@ export type MigrationFunction<
     doesReportIncludeStacks,
   }: {
     migrateDashboards: (
-      callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
       deserialize: (state: any) => FromDashboardState,
+      callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
       serialize: (state: ToDashboardState) => any,
     ) => void;
     migrateSavedWidgets: (
-      callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
       deserialize: (state: any) => FromWidgetState,
+      callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
       serialize: (state: ToWidgetState) => any,
     ) => void;
     migrateSavedFilters: (
-      callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
       deserialize: (state: any) => FromDashboardState,
+      callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
       serialize: (state: ToDashboardState) => any,
     ) => void;
     dataModels: {

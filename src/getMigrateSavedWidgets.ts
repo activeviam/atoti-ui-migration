@@ -40,8 +40,8 @@ export const getMigrateSavedWidgets =
     },
   ) =>
   <FromWidgetState, ToWidgetState>(
-    callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     deserialize: (state: any) => FromWidgetState,
+    callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     serialize: (state: ToWidgetState) => any,
   ): void => {
     const { content, structure } =

@@ -35,22 +35,22 @@ export const migrate_50_to_51: MigrationFunction = (
   });
 
   migrateDashboards(
-    migrateDashboard,
     deserializeDashboardState,
+    migrateDashboard,
     serializeDashboardState,
   );
 
   migrateSavedWidgets(
-    migrateWidget,
     deserializeWidgetState,
+    migrateWidget,
     serializeWidgetState,
   );
 
   migrateSavedFilters(
-    migrateSavedFilter,
     ({ mdx }) => ({
       mdx: parse(mdx),
     }),
+    migrateSavedFilter,
     ({ mdx }) => ({ mdx: stringify(mdx) }),
   );
 };

@@ -41,8 +41,8 @@ export const getMigrateDashboards =
     },
   ) =>
   <FromDashboardState, ToDashboardState>(
-    callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
     deserialize: (state: any) => FromDashboardState,
+    callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
     serialize: (state: ToDashboardState) => any,
   ): void => {
     const { content, structure } =

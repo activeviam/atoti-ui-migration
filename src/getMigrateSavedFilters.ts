@@ -37,8 +37,8 @@ export const getMigrateSavedFilters =
     },
   ) =>
   <FromFilterState, ToFilterState>(
-    callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
     deserialize: (state: any) => FromFilterState,
+    callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
     serialize: (state: ToFilterState) => any,
   ): void => {
     const { content, structure } =
