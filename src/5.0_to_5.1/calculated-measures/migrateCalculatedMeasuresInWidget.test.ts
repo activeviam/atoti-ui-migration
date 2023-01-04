@@ -2,7 +2,7 @@ import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resourc
 import { getCalculatedMeasures } from "@activeviam/activeui-sdk-5.1";
 import {
   mdxSelectWithNoCalculatedMeasures,
-  mdxSelectWithTwoCalculatedMeasures,
+  mdxSelectWithThreeCalculatedMeasures,
 } from "./migrateCalculatedMeasuresInMdx.test";
 import { migrateCalculatedMeasuresInWidget } from "./migrateCalculatedMeasuresInWidget";
 import _cloneDeep from "lodash/cloneDeep";
@@ -12,7 +12,7 @@ const dataModels = { "Ranch 6.0": sandboxDataModel };
 const widgetWithCalculatedMeasuresState = {
   widgetKey: "pivot-table",
   query: {
-    mdx: mdxSelectWithTwoCalculatedMeasures,
+    mdx: mdxSelectWithThreeCalculatedMeasures,
   },
 };
 
@@ -27,50 +27,64 @@ const widgetWithNoQueryState = {
   widgetKey: "text-editor",
 };
 
-describe("migrateCalculatedMeasuresInWidget", () => {
-  // Assume that by the time where `migrateCalculatedMeasuresInWidget` is called, it has already been identified that "Log pv.SUM" is used in a widget targeting "Some other cube".
-  const measureToCubeMapping = { "Log pv.SUM": ["Some other cube"] };
-  migrateCalculatedMeasuresInWidget(widgetWithCalculatedMeasuresState, {
-    dataModels,
-    namesOfCalculatedMeasuresToMigrate: ["Log pv.SUM", "Some unused measure"],
-    measureToCubeMapping,
-  });
+const namesOfCalculatedMeasuresToMigrate = [
+  "Log pv.SUM",
+  "One",
+  "Some unused measure",
+];
 
-  it("removes the calculated measure definitions of saved measures from the widget's query", () => {
+// Assume that by the time where `migrateCalculatedMeasuresInWidget` is called, it has already been identified that "Log pv.SUM" is used in a widget targeting "Some other cube".
+const measureToCubeMapping = { "Log pv.SUM": ["Some other cube"] };
+
+describe("migrateCalculatedMeasuresInWidget", () => {
+  it("removes the calculated measure definitions of saved measures from the widget's query, and keeps track of the cube they belong to", () => {
+    const mutatedMeasureToCubeMapping = _cloneDeep(measureToCubeMapping);
+    migrateCalculatedMeasuresInWidget(widgetWithCalculatedMeasuresState, {
+      dataModels,
+      namesOfCalculatedMeasuresToMigrate,
+      measureToCubeMapping: mutatedMeasureToCubeMapping,
+    });
+
     expect(
       Object.keys(
         getCalculatedMeasures(widgetWithCalculatedMeasuresState.query.mdx),
       ),
-      // - "Log pv.SUM" is defined in the widget's query and is a saved calculated measure.
+      // - "Log pv.SUM" and "One" are defined in the widget's query and are saved calculated measures.
       // - "Distinct count city" is defined in the widget's query, but is not a saved calculated measure.
       // - "Some unused measure" is a saved calculated measure but is not defined in the widget's query.
       // After the migration, "Log pv.SUM" has been removed and only "Distinct count city" remains in the widget's query.
     ).toStrictEqual(["Distinct count city"]);
-  });
-
-  it("keeps track of the cube to which the removed calculated measures belong", () => {
-    expect(measureToCubeMapping).toStrictEqual({
+    expect(mutatedMeasureToCubeMapping).toStrictEqual({
       "Log pv.SUM": ["Some other cube", "EquityDerivativesCube"],
+      One: ["EquityDerivativesCube"],
     });
   });
 
   it("has no effect on a widget that does not have calculated measures", () => {
-    const clone = _cloneDeep(widgetWithNoCalculatedMeasuresState);
+    const widgetStateClone = _cloneDeep(widgetWithNoCalculatedMeasuresState);
+    const measureToCubeMappingClone = _cloneDeep(measureToCubeMapping);
+
     migrateCalculatedMeasuresInWidget(widgetWithNoCalculatedMeasuresState, {
       dataModels,
-      namesOfCalculatedMeasuresToMigrate: ["Log pv.SUM", "Some unused measure"],
+      namesOfCalculatedMeasuresToMigrate,
       measureToCubeMapping,
     });
-    expect(clone).toStrictEqual(widgetWithNoCalculatedMeasuresState);
+
+    expect(widgetStateClone).toStrictEqual(widgetWithNoCalculatedMeasuresState);
+    expect(measureToCubeMappingClone).toStrictEqual(measureToCubeMapping);
   });
 
   it("has no effect on a widget that does not have a query", () => {
-    const clone = _cloneDeep(widgetWithNoQueryState);
+    const widgetStateClone = _cloneDeep(widgetWithNoQueryState);
+    const measureToCubeMappingClone = _cloneDeep(measureToCubeMapping);
+
     migrateCalculatedMeasuresInWidget(widgetWithNoQueryState, {
       dataModels,
-      namesOfCalculatedMeasuresToMigrate: ["Log pv.SUM", "Some unused measure"],
+      namesOfCalculatedMeasuresToMigrate,
       measureToCubeMapping,
     });
-    expect(clone).toStrictEqual(widgetWithNoQueryState);
+
+    expect(widgetStateClone).toStrictEqual(widgetWithNoQueryState);
+    expect(measureToCubeMappingClone).toStrictEqual(measureToCubeMapping);
   });
 });

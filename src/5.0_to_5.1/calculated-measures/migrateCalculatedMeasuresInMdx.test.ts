@@ -41,10 +41,11 @@ const mdxSelectWithOneCalculatedMeasure: MdxSelect = parse(`
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
 `);
 
-export const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(`
+export const mdxSelectWithThreeCalculatedMeasures: MdxSelect = parse(`
     WITH  Member [Measures].[Log pv.SUM] AS Log([Measures].[pv.SUM], 10), FORMAT_STRING = "#,###.##"
     Member [Measures].[Distinct count city] AS Count(Descendants([Geography].[City].CurrentMember, 
-      [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"  
+      [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = "#,###.##"
+    Member [Measures].[One] AS 1
     SELECT 
       NON EMPTY Hierarchize(
         Descendants(
@@ -57,7 +58,8 @@ export const mdxSelectWithTwoCalculatedMeasures: MdxSelect = parse(`
         ) ON ROWS,
         NON EMPTY {
           [Measures].[Log pv.SUM],
-           [Measures].[Distinct count city]
+          [Measures].[Distinct count city],
+          [Measures].[One]
         } ON COLUMNS 
       FROM [EquityDerivativesCube] 
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
@@ -88,44 +90,37 @@ const namesOfCalculatedMeasuresToMigrate = [
   "Log pv.SUM",
   "activeui5 calculated measure",
   "Test calculated measure",
+  "One",
 ];
 
 const dataModels = { "Ranch 6.0": sandboxDataModel };
 
 describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns `namesOfCalculatedMeasuresToMigrateInWidget` as an empty array and does not modify the MDX when there are no calculated measures", () => {
-    const {
-      cubeName,
-      namesOfCalculatedMeasuresRemovedFromMdx:
-        namesOfCalculatedMeasuresToMigrateInWidget,
-      migratedMdx,
-    } = migrateCalculatedMeasuresInMdx({
-      mdx: mdxSelectWithNoCalculatedMeasures,
-      namesOfCalculatedMeasuresToMigrate,
-      dataModels,
-      serverKey: "Ranch 6.0",
-    });
+    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+      migrateCalculatedMeasuresInMdx({
+        mdx: mdxSelectWithNoCalculatedMeasures,
+        namesOfCalculatedMeasuresToMigrate,
+        dataModels,
+        serverKey: "Ranch 6.0",
+      });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([]);
+    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([]);
     expect(migratedMdx).toStrictEqual(mdxSelectWithNoCalculatedMeasures);
   });
 
-  it("removes calculated measure definition from MDX when the widget contains a single calculated measure", () => {
-    const {
-      cubeName,
-      namesOfCalculatedMeasuresRemovedFromMdx:
-        namesOfCalculatedMeasuresToMigrateInWidget,
-      migratedMdx,
-    } = migrateCalculatedMeasuresInMdx({
-      mdx: mdxSelectWithOneCalculatedMeasure,
-      namesOfCalculatedMeasuresToMigrate,
-      dataModels,
-      serverKey: "Ranch 6.0",
-    });
+  it("removes matching calculated measure definitions from MDX when the widget contains a single calculated measure", () => {
+    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+      migrateCalculatedMeasuresInMdx({
+        mdx: mdxSelectWithOneCalculatedMeasure,
+        namesOfCalculatedMeasuresToMigrate,
+        dataModels,
+        serverKey: "Ranch 6.0",
+      });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([
+    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([
       "Distinct count city",
     ]);
 
@@ -150,26 +145,22 @@ describe("migrateCalculatedMeasuresInMdx", () => {
     `);
   });
 
-  it("removes calculated measure definitions from MDX when the widget contains two calculated measures", () => {
-    const {
-      cubeName,
-      namesOfCalculatedMeasuresRemovedFromMdx:
-        namesOfCalculatedMeasuresToMigrateInWidget,
-      migratedMdx,
-    } = migrateCalculatedMeasuresInMdx({
-      mdx: mdxSelectWithTwoCalculatedMeasures,
-      namesOfCalculatedMeasuresToMigrate,
-      dataModels,
-      serverKey: "Ranch 6.0",
-    });
+  it("removes matching calculated measure definitions from MDX when the widget contains several calculated measures", () => {
+    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+      migrateCalculatedMeasuresInMdx({
+        mdx: mdxSelectWithThreeCalculatedMeasures,
+        namesOfCalculatedMeasuresToMigrate,
+        dataModels,
+        serverKey: "Ranch 6.0",
+      });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([
+    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([
       "Log pv.SUM",
       "Distinct count city",
+      "One",
     ]);
 
-    // Both calculated measure definitions have been removed from the MDX.
     expect(stringify(migratedMdx, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
         NON EMPTY Hierarchize(
@@ -183,32 +174,27 @@ describe("migrateCalculatedMeasuresInMdx", () => {
         ) ON ROWS,
         NON EMPTY {
           [Measures].[Log pv.SUM],
-          [Measures].[Distinct count city]
+          [Measures].[Distinct count city],
+          [Measures].[One]
         } ON COLUMNS
         FROM [EquityDerivativesCube]
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
     `);
   });
 
-  it("returns the MDX unchanged if it contains a calculated measure which is not on the list of `namesOfCalculatedMeasuresToMigrate`", () => {
-    const {
-      cubeName,
-      namesOfCalculatedMeasuresRemovedFromMdx:
-        namesOfCalculatedMeasuresToMigrateInWidget,
-      migratedMdx,
-    } = migrateCalculatedMeasuresInMdx({
-      // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasuresToMigrate`.
-      mdx: mdxSelectWithCalculatedMeasureNotOnList,
-      namesOfCalculatedMeasuresToMigrate,
-      dataModels,
-      serverKey: "Ranch 6.0",
-    });
+  it("does not remove the definitions of calculated measures that do not match `namesOfCalculatedMeasuresToMigrate`", () => {
+    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+      migrateCalculatedMeasuresInMdx({
+        // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasuresToMigrate`.
+        mdx: mdxSelectWithCalculatedMeasureNotOnList,
+        namesOfCalculatedMeasuresToMigrate,
+        dataModels,
+        serverKey: "Ranch 6.0",
+      });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCubeDist");
-    // No calculated measure names are returned.
-    expect(namesOfCalculatedMeasuresToMigrateInWidget).toStrictEqual([]);
+    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([]);
 
-    // The MDX is unchanged.
     expect(migratedMdx).toStrictEqual(mdxSelectWithCalculatedMeasureNotOnList);
   });
 });

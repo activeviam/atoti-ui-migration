@@ -236,6 +236,19 @@ export const contentServer: ContentRecord = {
                     canWrite: true,
                   },
                 },
+                "5m9": {
+                  entry: {
+                    content:
+                      '{"expression":"1","properties":["FORMAT_STRING = \\"#,###.##\\""]}',
+                    isDirectory: false,
+                    owners: ["admin"],
+                    readers: ["admin"],
+                    timestamp: 1669827289146,
+                    lastEditor: "admin",
+                    canRead: true,
+                    canWrite: true,
+                  },
+                },
               },
             },
             structure: {
@@ -292,6 +305,56 @@ export const contentServer: ContentRecord = {
                         owners: ["admin"],
                         readers: ["admin"],
                         timestamp: 1669805699247,
+                        lastEditor: "admin",
+                        canRead: true,
+                        canWrite: true,
+                      },
+                    },
+                  },
+                },
+                "2sp": {
+                  entry: {
+                    isDirectory: true,
+                    owners: ["admin"],
+                    readers: ["admin"],
+                    timestamp: 1669817887106,
+                    lastEditor: "admin",
+                    canRead: true,
+                    canWrite: true,
+                  },
+                  children: {
+                    "5m9": {
+                      entry: {
+                        isDirectory: true,
+                        owners: ["admin"],
+                        readers: ["admin"],
+                        timestamp: 1669805695656,
+                        lastEditor: "admin",
+                        canRead: true,
+                        canWrite: true,
+                      },
+                      children: {
+                        "5m9_metadata": {
+                          entry: {
+                            content: '{"name":"One"}',
+                            isDirectory: false,
+                            owners: ["admin"],
+                            readers: ["admin"],
+                            timestamp: 1669805695656,
+                            lastEditor: "admin",
+                            canRead: true,
+                            canWrite: true,
+                          },
+                        },
+                      },
+                    },
+                    "2sp_metadata": {
+                      entry: {
+                        content: '{"isFolder":true,"name":"cm folder"}',
+                        isDirectory: false,
+                        owners: ["admin"],
+                        readers: ["admin"],
+                        timestamp: 1669817887286,
                         lastEditor: "admin",
                         canRead: true,
                         canWrite: true,

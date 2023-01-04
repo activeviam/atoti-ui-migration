@@ -24,16 +24,14 @@ export const migrateCalculatedMeasuresInMdx = ({
 }: {
   mdx: MdxSelect | MdxDrillthrough;
   serverKey?: string;
-
   dataModels: { [serverKey: string]: DataModel };
-
   namesOfCalculatedMeasuresToMigrate: string[];
 }): {
   cubeName: CubeName;
   namesOfCalculatedMeasuresRemovedFromMdx: string[];
   migratedMdx: MdxSelect | MdxDrillthrough;
 } => {
-  const namesOfCalculatedMeasuresToMigrateInWidget = _intersection(
+  const namesOfMatchingCalculatedMeasures = _intersection(
     Object.keys(getCalculatedMeasures(mdx)),
     namesOfCalculatedMeasuresToMigrate,
   );
@@ -43,7 +41,7 @@ export const migrateCalculatedMeasuresInMdx = ({
 
   const mdxSelect = isMdxDrillthrough(mdx) ? mdx.select : mdx;
 
-  const updatedMdx = namesOfCalculatedMeasuresToMigrateInWidget.reduce(
+  const updatedMdx = namesOfMatchingCalculatedMeasures.reduce(
     (acc, calculatedMeasureName) =>
       removeCalculatedMemberDefinition(acc, {
         dimensionName: "Measures",
@@ -56,8 +54,7 @@ export const migrateCalculatedMeasuresInMdx = ({
 
   return {
     cubeName,
-    namesOfCalculatedMeasuresRemovedFromMdx:
-      namesOfCalculatedMeasuresToMigrateInWidget,
+    namesOfCalculatedMeasuresRemovedFromMdx: namesOfMatchingCalculatedMeasures,
     migratedMdx: isMdxDrillthrough(mdx)
       ? { ...mdx, select: updatedMdx }
       : updatedMdx,
