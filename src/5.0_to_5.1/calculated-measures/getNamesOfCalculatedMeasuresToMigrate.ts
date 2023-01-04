@@ -26,7 +26,7 @@ export function getNamesOfCalculatedMeasuresToMigrate(
 
   return _map(structureRecords, ({ pathToParentFolder }, id) => {
     const metadata = _getMetaData(structure, pathToParentFolder, id);
-    // TODO https://support.activeviam.com/jira/browse/UI-8110 Remove the cast when `name` is mandatory in the SDK. 
+    // TODO https://support.activeviam.com/jira/browse/UI-8110 Remove the cast when `name` is mandatory in the SDK.
     return metadata.name!;
   });
 }
