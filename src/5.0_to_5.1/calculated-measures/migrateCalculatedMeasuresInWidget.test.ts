@@ -36,7 +36,7 @@ describe("migrateCalculatedMeasuresInWidget", () => {
     measureToCubeMapping,
   });
 
-  it("removes the calculated measure definitions that correspond to a saved measure from the query in the widget state", () => {
+  it("removes the calculated measure definitions of saved measures from the widget's query", () => {
     expect(
       Object.keys(
         getCalculatedMeasures(widgetWithCalculatedMeasuresState.query.mdx),
