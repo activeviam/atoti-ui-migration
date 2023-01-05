@@ -28,7 +28,7 @@ export const migrateCalculatedMeasuresInMdx = ({
   namesOfCalculatedMeasuresToMigrate: string[];
 }): {
   cubeName: CubeName;
-  namesOfCalculatedMeasuresRemovedFromMdx: string[];
+  namesOfMigratedCalulatedMeasures: string[];
   migratedMdx: MdxSelect | MdxDrillthrough;
 } => {
   const namesOfMatchingCalculatedMeasures = _intersection(
@@ -54,7 +54,7 @@ export const migrateCalculatedMeasuresInMdx = ({
 
   return {
     cubeName,
-    namesOfCalculatedMeasuresRemovedFromMdx: namesOfMatchingCalculatedMeasures,
+    namesOfMigratedCalulatedMeasures: namesOfMatchingCalculatedMeasures,
     migratedMdx: isMdxDrillthrough(mdx)
       ? { ...mdx, select: updatedMdx }
       : updatedMdx,

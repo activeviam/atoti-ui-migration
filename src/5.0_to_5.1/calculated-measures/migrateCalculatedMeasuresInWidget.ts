@@ -40,7 +40,7 @@ export function migrateCalculatedMeasuresInWidget(
     return;
   }
 
-  const { migratedMdx, namesOfCalculatedMeasuresRemovedFromMdx, cubeName } =
+  const { migratedMdx, namesOfMigratedCalulatedMeasures, cubeName } =
     migrateCalculatedMeasuresInMdx({
       mdx,
       serverKey: widgetState.serverKey,
@@ -48,7 +48,7 @@ export function migrateCalculatedMeasuresInWidget(
       namesOfCalculatedMeasuresToMigrate,
     });
 
-  namesOfCalculatedMeasuresRemovedFromMdx.forEach((calculatedMeasureName) => {
+  namesOfMigratedCalulatedMeasures.forEach((calculatedMeasureName) => {
     measureToCubeMapping[calculatedMeasureName] = measureToCubeMapping[
       calculatedMeasureName
     ]

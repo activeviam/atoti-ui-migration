@@ -97,7 +97,7 @@ const dataModels = { "Ranch 6.0": sandboxDataModel };
 
 describe("migrateCalculatedMeasuresInMdx", () => {
   it("returns `namesOfCalculatedMeasuresToMigrateInWidget` as an empty array and does not modify the MDX when there are no calculated measures", () => {
-    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+    const { cubeName, namesOfMigratedCalulatedMeasures, migratedMdx } =
       migrateCalculatedMeasuresInMdx({
         mdx: mdxSelectWithNoCalculatedMeasures,
         namesOfCalculatedMeasuresToMigrate,
@@ -106,12 +106,12 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([]);
+    expect(namesOfMigratedCalulatedMeasures).toStrictEqual([]);
     expect(migratedMdx).toStrictEqual(mdxSelectWithNoCalculatedMeasures);
   });
 
   it("removes matching calculated measure definitions from MDX when the widget contains a single calculated measure", () => {
-    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+    const { cubeName, namesOfMigratedCalulatedMeasures, migratedMdx } =
       migrateCalculatedMeasuresInMdx({
         mdx: mdxSelectWithOneCalculatedMeasure,
         namesOfCalculatedMeasuresToMigrate,
@@ -120,7 +120,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([
+    expect(namesOfMigratedCalulatedMeasures).toStrictEqual([
       "Distinct count city",
     ]);
 
@@ -146,7 +146,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   });
 
   it("removes matching calculated measure definitions from MDX when the widget contains several calculated measures", () => {
-    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+    const { cubeName, namesOfMigratedCalulatedMeasures, migratedMdx } =
       migrateCalculatedMeasuresInMdx({
         mdx: mdxSelectWithThreeCalculatedMeasures,
         namesOfCalculatedMeasuresToMigrate,
@@ -155,7 +155,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCube");
-    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([
+    expect(namesOfMigratedCalulatedMeasures).toStrictEqual([
       "Log pv.SUM",
       "Distinct count city",
       "One",
@@ -183,7 +183,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
   });
 
   it("does not remove the definitions of calculated measures that do not match `namesOfCalculatedMeasuresToMigrate`", () => {
-    const { cubeName, namesOfCalculatedMeasuresRemovedFromMdx, migratedMdx } =
+    const { cubeName, namesOfMigratedCalulatedMeasures, migratedMdx } =
       migrateCalculatedMeasuresInMdx({
         // mdxSelectWithCalculatedMeasureNotOnList contains [Measures].[pvSum ^ 2], which is not on the list of `namesOfCalculatedMeasuresToMigrate`.
         mdx: mdxSelectWithCalculatedMeasureNotOnList,
@@ -193,7 +193,7 @@ describe("migrateCalculatedMeasuresInMdx", () => {
       });
 
     expect(cubeName).toStrictEqual("EquityDerivativesCubeDist");
-    expect(namesOfCalculatedMeasuresRemovedFromMdx).toStrictEqual([]);
+    expect(namesOfMigratedCalulatedMeasures).toStrictEqual([]);
 
     expect(migratedMdx).toStrictEqual(mdxSelectWithCalculatedMeasureNotOnList);
   });
