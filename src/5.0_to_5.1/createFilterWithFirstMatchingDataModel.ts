@@ -1,0 +1,28 @@
+import { stringify } from "@activeviam/activeui-sdk-5.0";
+import {
+  createFilter,
+  MdxExpression,
+  AFilter,
+  Cube,
+} from "@activeviam/activeui-sdk-5.1";
+
+/**
+ * Returns an {@link AFilter} based on the input `mdx`, with the first matching cube.
+ */
+export function createFilterWithFirstMatchingCube(
+  mdx: MdxExpression,
+  cubes: Cube[],
+): AFilter {
+  for (const cube of cubes) {
+    try {
+      return createFilter(mdx, cube);
+    } catch (e) {
+      // The filter creation might be successful with another cube.
+      // Continue.
+    }
+  }
+
+  throw new Error(
+    `The following MDX does not represent a filter: ${stringify(mdx)}`,
+  );
+}

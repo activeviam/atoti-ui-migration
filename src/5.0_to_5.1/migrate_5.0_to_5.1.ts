@@ -1,12 +1,11 @@
 import {
-  deserializeWidgetState,
-  deserializeDashboardState,
   parse,
+  deserializeDashboardState,
+  deserializeWidgetState,
 } from "@activeviam/activeui-sdk-5.0";
 import {
   serializeWidgetState,
   serializeDashboardState,
-  stringify,
 } from "@activeviam/activeui-sdk-5.1";
 import { MigrationFunction } from "../migration.types";
 import { migrateDashboard } from "./migrateDashboard";
@@ -72,7 +71,9 @@ export const migrate_50_to_51: MigrationFunction = (
     ({ mdx }) => ({
       mdx: parse(mdx),
     }),
-    migrateSavedFilter,
-    ({ mdx }) => ({ mdx: stringify(mdx) }),
+    ({ mdx }) => migrateSavedFilter({ mdx }, { dataModels }),
+    // `migrateSavedFilter` already transforms the raw MDX object into an AFilter.
+    // There is nothing more to do.
+    (filter) => filter,
   );
 };
