@@ -176,7 +176,10 @@ export type MigrationFunction<
  * The behavior when an error occurs during the migration of an item.
  * Assuming that the error occurred at step p out of a total of n:
  * - "keep-original": the item is kept untouched.
- * - "keep-last-successful-version": the version of the item obtained after the p-1 first successful steps is kept, and the n-p remaining steps are not applied.
- * - "keep-going":  the n-p remaining steps are applied on the version of the item obtained after the first p-1 successful steps.
+ * - "keep-last-successful-version": the item obtained after the first p-1 successful steps is kept, and the n-p remaining steps are not applied.
+ * - "keep-going": the n-p remaining steps are applied to the corrupt item obtained after the p-th error step.
  */
-export type BehaviorOnError = "keep-original" | "keep-latter" | "keep-going";
+export type BehaviorOnError =
+  | "keep-original"
+  | "keep-last-successful-version"
+  | "keep-going";

@@ -126,7 +126,11 @@ yargs
         alias: "e",
         type: "string",
         demandOption: false,
-        choices: ["keep-original", "keep-latter", "keep-going"],
+        choices: [
+          "keep-original",
+          "keep-last-successful-version",
+          "keep-going",
+        ],
         default: "keep-original",
         desc: "The behavior when an error occurs during the migration of an item.",
       });
