@@ -137,12 +137,18 @@ export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
 ) => ToFilterState | void;
 
 export type MigrationFunction<
+  FromSerializedDashboardState = any,
   FromDashboardState = any,
   ToDashboardState = any,
+  ToSerializedDashboardState = any,
+  FromSerializedWidgetState = any,
   FromWidgetState = any,
   ToWidgetState = any,
+  ToSerializedWidgetState = any,
+  FromSerializedFilterState = any,
   FromFilterState = any,
   ToFilterState = any,
+  ToSerializedFilterState = any,
 > = (
   contentServer: ContentRecord,
   {
@@ -156,19 +162,19 @@ export type MigrationFunction<
     doesReportIncludeStacks,
   }: {
     migrateDashboards: (
-      deserialize: (state: any) => FromDashboardState,
+      deserialize: (state: FromSerializedDashboardState) => FromDashboardState,
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
-      serialize: (state: ToDashboardState) => any,
+      serialize: (state: ToDashboardState) => ToSerializedDashboardState,
     ) => void;
     migrateSavedWidgets: (
-      deserialize: (state: any) => FromWidgetState,
+      deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
-      serialize: (state: ToWidgetState) => any,
+      serialize: (state: ToWidgetState) => ToSerializedWidgetState,
     ) => void;
     migrateSavedFilters: (
-      deserialize: (state: any) => FromDashboardState,
+      deserialize: (state: FromSerializedFilterState) => FromFilterState,
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
-      serialize: (state: ToDashboardState) => any,
+      serialize: (state: ToFilterState) => ToSerializedFilterState,
     ) => void;
     dataModels: {
       [serverKey: string]: DataModel;
