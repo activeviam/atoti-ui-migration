@@ -128,7 +128,7 @@ yargs
         demandOption: false,
         choices: ["keep-original", "keep-latter", "keep-going"],
         default: "keep-original",
-        desc: "The behavior to have when an error occurs during the migration of an item.",
+        desc: "The behavior when an error occurs during the migration of an item.",
       });
     },
     async ({
