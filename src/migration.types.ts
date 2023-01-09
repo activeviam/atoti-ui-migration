@@ -177,7 +177,7 @@ export type MigrationFunction<
  * Assuming that the error occurred at step p out of a total of n:
  * - "keep-original": the item is kept untouched.
  * - "keep-last-successful-version": the item obtained after the first p-1 successful steps is kept, and the n-p remaining steps are not applied.
- * - "keep-going": the n-p remaining steps are applied to the corrupt item obtained after the p-th error step.
+ * - "keep-going": the n-p remaining steps are applied to the item obtained after step p, despite the error.
  */
 export type BehaviorOnError =
   | "keep-original"
