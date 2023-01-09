@@ -36,10 +36,15 @@ export const getMigrateSavedFilters =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  <FromFilterState, ToFilterState>(
-    deserialize: (state: any) => FromFilterState,
+  <
+    FromSerializedFilterState,
+    FromFilterState,
+    ToFilterState,
+    ToSerializedFilterState,
+  >(
+    deserialize: (state: FromSerializedFilterState) => FromFilterState,
     callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
-    serialize: (state: ToFilterState) => any,
+    serialize: (state: ToFilterState) => ToSerializedFilterState,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.filters.children ?? {};

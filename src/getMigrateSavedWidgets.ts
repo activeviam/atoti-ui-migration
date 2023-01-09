@@ -39,10 +39,15 @@ export const getMigrateSavedWidgets =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  <FromWidgetState, ToWidgetState>(
-    deserialize: (state: any) => FromWidgetState,
+  <
+    FromSerializedWidgetState,
+    FromWidgetState,
+    ToWidgetState,
+    ToSerializedWidgetState,
+  >(
+    deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
-    serialize: (state: ToWidgetState) => any,
+    serialize: (state: ToWidgetState) => ToSerializedWidgetState,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.widgets.children ?? {};
