@@ -10,7 +10,7 @@ if (!root) {
 
 const extensions = ["js", "jsx", "ts", "tsx", "mjs", "json"];
 const esmPackages = [
-  "@activeviam/utils",
+  "@activeviam/*",
   "monaco-editor",
   "lodash-es",
   "@react-dnd",
