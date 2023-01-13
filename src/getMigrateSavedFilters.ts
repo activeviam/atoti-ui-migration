@@ -6,6 +6,7 @@ import {
   MigrateFilterCallback,
   OutcomeCounters,
 } from "./migration.types";
+import { _addCorruptFileToReport } from "./_addCorruptFileErrorToReport";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _getMetaData } from "./_getMetaData";
@@ -56,6 +57,15 @@ export const getMigrateSavedFilters =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileToReport(errorReport, {
+          contentType: "filters",
+          fileId,
+        });
+        continue;
+      }
+
       const { entry } = content.children[fileId];
       const filter = JSON.parse(entry.content);
 

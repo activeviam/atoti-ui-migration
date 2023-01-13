@@ -31,14 +31,14 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
     },
     filters: {
       success: "were successfully migrated.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
     },
     widgets: {
       success: "were successfully migrated.",
@@ -50,7 +50,7 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
     },
     folders: {
       removed:
-        "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
     },
     calculated_measures: {
       success: "were successfully migrated.",
