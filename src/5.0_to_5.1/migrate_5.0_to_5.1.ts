@@ -33,7 +33,18 @@ export const migrate_50_to_51: MigrationFunction = (
 
   migrateDashboards(
     deserializeDashboardState,
-    migrateDashboard,
+    (
+      dashboardState,
+      { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
+    ) => {
+      migrateDashboard(dashboardState, {
+        dataModels,
+        keysOfWidgetPluginsToRemove,
+        onErrorWhileMigratingWidget,
+        namesOfCalculatedMeasuresToMigrate,
+        measureToCubeMapping,
+      });
+    },
     serializeDashboardState,
   );
 
