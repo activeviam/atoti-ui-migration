@@ -1,7 +1,7 @@
 /**
  * Transforms the content of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
  */
-export const migrateCalculatedMeasureContent = (
+export const migrateSavedCalculatedMeasureContent = (
   legacyCalculatedMeasureContent: { expression: string; properties: string[] },
   calculatedMeasureName: string,
 ): {

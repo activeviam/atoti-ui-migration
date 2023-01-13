@@ -236,6 +236,19 @@ export const contentServer: ContentRecord = {
                     canWrite: true,
                   },
                 },
+                "5m9": {
+                  entry: {
+                    content:
+                      '{"expression":"1","properties":["FORMAT_STRING = \\"#,###.##\\""]}',
+                    isDirectory: false,
+                    owners: ["admin"],
+                    readers: ["admin"],
+                    timestamp: 1669827289146,
+                    lastEditor: "admin",
+                    canRead: true,
+                    canWrite: true,
+                  },
+                },
               },
             },
             structure: {
@@ -323,7 +336,7 @@ export const contentServer: ContentRecord = {
                       children: {
                         "5m9_metadata": {
                           entry: {
-                            content: '{"name":"Exp pv.AVG"}',
+                            content: '{"name":"One"}',
                             isDirectory: false,
                             owners: ["admin"],
                             readers: ["admin"],
