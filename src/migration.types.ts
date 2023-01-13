@@ -181,7 +181,7 @@ export type MigrationFunction<
  * Each of these three steps might fail.
  *
  * More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
- * - "keep-original": keep the original item untouched, as before any migration step.
+* - "keep-original": keep the original item untouched, as before the whole migration.
  * - "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
  * - "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
  *
