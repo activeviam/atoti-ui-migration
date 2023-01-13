@@ -1,12 +1,12 @@
 import {
-  deserializeWidgetState,
-  deserializeDashboardState,
   parse,
+  deserializeDashboardState,
+  deserializeWidgetState,
 } from "@activeviam/activeui-sdk-5.0";
 import {
+  stringify,
   serializeWidgetState,
   serializeDashboardState,
-  stringify,
 } from "@activeviam/activeui-sdk-5.1";
 import { MigrationFunction } from "../migration.types";
 import { migrateDashboard } from "./migrateDashboard";
@@ -21,6 +21,7 @@ export const migrate_50_to_51: MigrationFunction = (
     migrateDashboards,
     migrateSavedWidgets,
     migrateSavedFilters,
+    dataModels,
     errorReport,
     counters,
     doesReportIncludeStacks,
@@ -35,22 +36,21 @@ export const migrate_50_to_51: MigrationFunction = (
     deserializeDashboardState,
     (
       dashboardState,
-      { dataModels, keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
-    ) => {
+      { keysOfWidgetPluginsToRemove, onErrorWhileMigratingWidget },
+    ) =>
       migrateDashboard(dashboardState, {
         dataModels,
         keysOfWidgetPluginsToRemove,
         onErrorWhileMigratingWidget,
         namesOfCalculatedMeasuresToMigrate,
         measureToCubeMapping,
-      });
-    },
+      }),
     serializeDashboardState,
   );
 
   migrateSavedWidgets(
     deserializeWidgetState,
-    (widgetState, { dataModels }) =>
+    (widgetState) =>
       migrateWidget(widgetState, {
         dataModels,
         namesOfCalculatedMeasuresToMigrate,
@@ -59,6 +59,7 @@ export const migrate_50_to_51: MigrationFunction = (
     serializeWidgetState,
   );
 
+  // Must be called after `migrateDashboards` and `migrateSavedWidgets`, as `measureToCubeMapping` is accumulated during those steps.
   migrateSavedCalculatedMeasures({
     contentServer,
     measureToCubeMapping,

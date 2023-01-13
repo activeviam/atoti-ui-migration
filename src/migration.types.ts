@@ -85,13 +85,13 @@ export interface ErrorReport {
  * A function that can be called to migrate a dashboard from one version to another.
  * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `dashboardState`.
  */
-export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
+export type MigrateDashboardCallback<
+  FromDashboardState,
+  ToDashboardState,
+  Options extends Record<string, unknown> = Record<string, unknown>,
+> = (
   dashboardState: FromDashboardState,
-  {
-    dataModels,
-    keysOfWidgetPluginsToRemove,
-    onErrorWhileMigratingWidget,
-  }: {
+  args: {
     dataModels: { [serverKey: string]: DataModel };
     keysOfWidgetPluginsToRemove: string[];
     onErrorWhileMigratingWidget: (
@@ -108,33 +108,37 @@ export type MigrateDashboardCallback<FromDashboardState, ToDashboardState> = (
         widgetName: string;
       },
     ) => void;
-  },
-) => ToDashboardState | void;
+  } & Options,
+) => void | ToDashboardState;
 
 /**
  * A function that can be called to migrate a widget from one version to another.
  */
-export type MigrateWidgetCallback<FromWidgetState, ToWidgetState> = (
+export type MigrateWidgetCallback<
+  FromWidgetState,
+  ToWidgetState,
+  Options extends Record<string, unknown> = Record<string, unknown>,
+> = (
   widgetState: FromWidgetState,
-  {
-    dataModels,
-  }: {
+  args: {
     dataModels: { [serverKey: string]: DataModel };
-  },
-) => ToWidgetState | void;
+  } & Options,
+) => void | ToWidgetState;
 
 /**
  * A function that can be called to migrate a filter from one version to another.
  * It is called within {@link produce | https://immerjs.github.io/immer/produce}, so it can safely mutate its input `filterState`.
  */
-export type MigrateFilterCallback<FromFilterState, ToFilterState> = (
+export type MigrateFilterCallback<
+  FromFilterState,
+  ToFilterState,
+  Options extends Record<string, unknown> = Record<string, unknown>,
+> = (
   filterState: FromFilterState,
-  {
-    dataModels,
-  }: {
+  args: {
     dataModels: { [serverKey: string]: DataModel };
-  },
-) => ToFilterState | void;
+  } & Options,
+) => void | ToFilterState;
 
 export type MigrationFunction<
   FromSerializedDashboardState = any,
