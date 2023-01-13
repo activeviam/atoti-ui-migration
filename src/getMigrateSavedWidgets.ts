@@ -1,6 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import { produce } from "immer";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   ErrorReport,
@@ -11,6 +10,7 @@ import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 import { _getMetaData } from "./_getMetaData";
+import { produce } from "immer";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
@@ -39,25 +39,32 @@ export const getMigrateSavedWidgets =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  <FromWidgetState, ToWidgetState>(
+  <
+    FromSerializedWidgetState,
+    FromWidgetState,
+    ToWidgetState,
+    ToSerializedWidgetState,
+  >(
+    deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+    serialize: (state: ToWidgetState) => ToSerializedWidgetState,
   ): void => {
-    const widgetsContent =
-      contentServer.children?.ui.children?.widgets.children?.content.children;
-    const widgetsStructure =
-      contentServer.children?.ui.children?.widgets.children?.structure!;
-    const filesAncestry = _getFilesAncestry(widgetsStructure);
+    const { content, structure } =
+      contentServer.children?.ui.children?.widgets.children ?? {};
 
-    const migrateWidget = produce(callback);
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    for (const fileId in widgetsContent) {
-      let migratedWidget;
-      const { entry } = widgetsContent[fileId];
+    const filesAncestry = _getFilesAncestry(structure);
+
+    for (const fileId in content.children) {
+      const { entry } = content.children[fileId];
       const widget = JSON.parse(entry.content);
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(widgetsStructure, folderId, fileId);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
       if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
         // The widget's plugin key is flagged for removal.
@@ -76,23 +83,35 @@ export const getMigrateSavedWidgets =
           fileId,
           name: metadata.name!,
         });
-        delete widgetsContent[fileId];
+        delete content.children[fileId];
         const parentFolder = folderId.reduce(
           (acc, id) => acc.children![id],
-          widgetsStructure,
+          structure,
         );
         delete parentFolder.children![fileId];
         continue;
       }
 
       try {
-        migratedWidget = migrateWidget(widget, {
-          dataModels,
-        });
-        // The widget was fully migrated.
+        const deserializedWidget = deserialize(widget);
+        const deserializedMigratedWidget = produce(
+          deserializedWidget,
+          (draft) =>
+            callback(draft as FromWidgetState, {
+              dataModels,
+            }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
+        const migratedWidget = serialize(
+          deserializedMigratedWidget as ToWidgetState,
+        );
+
+        // The widget was successfully migrated.
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedWidget);
         counters.widgets.success++;
       } catch (error) {
-        // The widget could not be migrated at all.
+        // The widget could not be migrated.
         counters.widgets.failed++;
 
         _addErrorToReport(errorReport, {
@@ -107,15 +126,6 @@ export const getMigrateSavedWidgets =
           fileId,
           name: metadata.name!,
         });
-
-        migratedWidget = widget;
       }
-
-      widgetsContent![fileId] = {
-        entry: {
-          ...entry,
-          content: JSON.stringify(migratedWidget),
-        },
-      };
     }
   };
