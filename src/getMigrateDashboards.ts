@@ -41,10 +41,15 @@ export const getMigrateDashboards =
       doesReportIncludeStacks: boolean;
     },
   ) =>
-  <FromDashboardState, ToDashboardState>(
-    deserialize: (state: any) => FromDashboardState,
+  <
+    FromSerializedDashboardState,
+    FromDashboardState,
+    ToDashboardState,
+    ToSerializedDashboardState,
+  >(
+    deserialize: (state: FromSerializedDashboardState) => FromDashboardState,
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
-    serialize: (state: ToDashboardState) => any,
+    serialize: (state: ToDashboardState) => ToSerializedDashboardState,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.dashboards.children ?? {};

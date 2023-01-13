@@ -57,6 +57,11 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       failed:
         "could not be migrated because errors occurred during their migration.",
     },
+    calculated_measures: {
+      success: "were successfully migrated.",
+      failed:
+        "could not be migrated because errors occurred during their migration.",
+    },
   };
 
 yargs
