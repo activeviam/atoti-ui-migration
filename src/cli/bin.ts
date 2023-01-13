@@ -123,7 +123,6 @@ yargs
         desc: "Whether stacktraces are included in the error report file.",
       });
       args.option("on-error", {
-        alias: "e",
         type: "string",
         demandOption: false,
         choices: [

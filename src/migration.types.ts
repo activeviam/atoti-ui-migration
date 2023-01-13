@@ -174,10 +174,18 @@ export type MigrationFunction<
 
 /**
  * The behavior when an error occurs during the migration of an item.
- * Assuming that the error occurred at step p out of a total of n:
- * - "keep-original": the item is kept untouched.
- * - "keep-last-successful-version": the item obtained after the first p-1 successful steps is kept, and the n-p remaining steps are not applied.
- * - "keep-going": the n-p remaining steps are applied to the item obtained after step p, despite the error.
+ * This has an effect only when migrating through several versions in one go.
+ *
+ * For example, suppose that you're migrating from 5.0 to 5.3.
+ * For each saved item (e.g. a dashboard), three migration steps are applied: 5.0 => 5.1, 5.1 => 5.2, and 5.2 => 5.3.
+ * Each of these three steps might fail.
+ *
+ * More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
+ * - "keep-original": keep the original item untouched, as before any migration step.
+ * - "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
+ * - "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
+ *
+ * Defaults to "keep-original".
  */
 export type BehaviorOnError =
   | "keep-original"
