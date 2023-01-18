@@ -11,6 +11,7 @@ import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 import { _getMetaData } from "./_getMetaData";
 import { produce } from "immer";
+import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
@@ -59,6 +60,15 @@ export const getMigrateSavedWidgets =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileErrorToReport(errorReport, {
+          contentType: "widgets",
+          fileId,
+        });
+        continue;
+      }
+
       const { entry } = content.children[fileId];
       const widget = JSON.parse(entry.content);
 
