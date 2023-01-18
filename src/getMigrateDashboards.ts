@@ -7,7 +7,7 @@ import {
   MigrateDashboardCallback,
   OutcomeCounters,
 } from "./migration.types";
-import { _addCorruptFileToReport } from "./_addCorruptFileErrorToReport";
+import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _addWidgetErrorToReport } from "./_addWidgetErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
@@ -63,7 +63,7 @@ export const getMigrateDashboards =
     for (const fileId in content.children) {
       if (!filesAncestry[fileId]) {
         counters.dashboards.removed++;
-        _addCorruptFileToReport(errorReport, {
+        _addCorruptFileErrorToReport(errorReport, {
           contentType: "dashboards",
           fileId,
         });

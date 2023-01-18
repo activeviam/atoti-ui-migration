@@ -23,7 +23,7 @@ import cliProgress from "cli-progress";
 import { _addErrorToReport } from "../_addErrorToReport";
 import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 import { _getFolderName } from "./_getFolderName";
-import { _addCorruptFileToReport } from "../_addCorruptFileErrorToReport";
+import { _addCorruptFileErrorToReport } from "../_addCorruptFileErrorToReport";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -279,8 +279,8 @@ export async function migrate_43_to_50(
 
         counters[errorReportSection].removed++;
 
-        _addCorruptFileToReport(errorReport, {
-          // Folders have no content entry anyway.
+        _addCorruptFileErrorToReport(errorReport, {
+          // Folders have no content entry.
           contentType: errorReportSection as
             | "dashboards"
             | "widgets"

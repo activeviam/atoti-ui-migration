@@ -4,7 +4,7 @@ import { ErrorReport } from "./migration.types";
 /**
  * Reports that no entry matching `fileId` was found in the `/ui/${contentType}/structure` folder.
  */
-export function _addCorruptFileToReport(
+export function _addCorruptFileErrorToReport(
   errorReport: ErrorReport,
   {
     contentType,
