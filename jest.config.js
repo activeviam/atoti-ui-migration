@@ -10,14 +10,7 @@ if (!root) {
 
 const extensions = ["js", "jsx", "ts", "tsx", "mjs", "json"];
 const esmPackages = [
-  "@activeviam/data-model",
-  "@activeviam/icons",
-  "@activeviam/mdx",
-  "@activeviam/mdx-lexer",
-  "@activeviam/mdx-parser",
-  "@activeviam/plugins-core",
-  "@activeviam/theme",
-  "@activeviam/utils",
+  "@activeviam/*",
   "monaco-editor",
   "lodash-es",
   "@react-dnd",
