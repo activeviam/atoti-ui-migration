@@ -3412,7 +3412,6 @@
     "@activeviam/icons" "5.0.15"
     "@activeviam/theme" "5.0.15"
     "@emotion/core" "^10.0.27"
-    antd "4.12.2"
     katex "^0.13.11"
     lodash "^4.17.15"
     marked "^4.0.12"
