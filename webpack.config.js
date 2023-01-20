@@ -2,6 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 const webpack = require("webpack");
+const { peerDependenciesInBrowser } = require("./peerDependenciesInBrowser");
 
 // Instead of using `activeui-sdk-scripts build`, this package is built with a Webpack config that mocks browser APIs.
 // This allows the functions exported by this package to be run smoothly in a Node.js environment (see https://support.activeviam.com/jira/browse/UI-6165).
@@ -56,6 +57,13 @@ module.exports = {
     alias: {
       "mocked-window": path.resolve(__dirname, "./mockedWindow"),
       "mocked-navigator": path.resolve(__dirname, "./mockedNavigator"),
+      // Ignore the peer dependencies of @activeviam packages that are not needed in a Node environment.
+      ...peerDependenciesInBrowser.reduce((acc, dependencyName) => {
+        acc[dependencyName] = path.resolve(__dirname, "./noop.js");
+        return acc;
+      }, {}),
+      antd: false,
+      "@ant-design/icons": false,
     },
   },
   mode: "none",

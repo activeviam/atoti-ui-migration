@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { jestConfig } = require("@activeviam/activeui-sdk-scripts");
 const pkgDir = require("pkg-dir");
+const { peerDependenciesInBrowser } = require("./peerDependenciesInBrowser");
 
 const root = pkgDir.sync();
 
@@ -13,14 +13,20 @@ const esmPackages = [
   "@activeviam/*",
   "monaco-editor",
   "lodash-es",
-  "@react-dnd",
-  "react-dnd",
-  "dnd-core",
+  // "@react-dnd",
+  // "react-dnd",
+  // "dnd-core",
 ];
 
 module.exports = {
-  ...jestConfig,
-  reporters: ["default"],
+  // TODO manually mock globals such as window and use the default "node" test environment instead.
+  testEnvironment: "jsdom",
+  // Mock the peer dependencies of @activeviam packages that are not needed in a Node environment.
+  moduleNameMapper: peerDependenciesInBrowser.reduce((acc, dependencyName) => {
+    acc[dependencyName] = "<rootDir>/noop.js";
+    return acc;
+  }, {}),
+  // transform: { "^.+\\.[jt]sx?$": require.resolve("./jestBabelTransform.js") },
   transformIgnorePatterns: [
     // Transpiling ESM packages to CJS because Jest doesn't support ESM fully yet.
     // See https://jestjs.io/docs/en/ecmascript-modules.

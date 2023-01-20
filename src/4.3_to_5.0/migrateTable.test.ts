@@ -15,40 +15,40 @@ import { servers } from "./__test_resources__/servers";
 describe("migrateTable", () => {
   it("migrates a tree table widget", () => {
     expect(migrateTable(legacyTreeTable, servers)).toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {
+      {
+        "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
-        "filters": Array [
+        "filters": [
           "TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])",
           "{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]}",
         ],
-        "mapping": Object {
-          "columns": Array [
+        "mapping": {
+          "columns": [
             "ALL_MEASURES",
           ],
-          "measures": Array [
+          "measures": [
             "[Measures].[contributors.COUNT]",
           ],
-          "rows": Array [
+          "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Tree table",
-        "query": Object {
+        "query": {
           "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
-        "queryContext": Array [
-          Object {
+        "queryContext": [
+          {
             "key": "queriesTimeLimit",
             "value": 60,
           },
-          Object {
+          {
             "key": "mdx.casesensitive",
             "value": true,
           },
-          Object {
+          {
             "key": "mdx.defaultmembers.[Geography].[City]",
             "value": "[AllMember].[Berlin]",
           },
@@ -61,21 +61,21 @@ describe("migrateTable", () => {
 
   it("migrates an empty table widget", () => {
     expect(migrateTable(emptyLegacyTable, servers)).toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {},
-        "filters": Array [],
-        "mapping": Object {
-          "columns": Array [
+      {
+        "columnWidths": {},
+        "filters": [],
+        "mapping": {
+          "columns": [
             "ALL_MEASURES",
           ],
-          "measures": Array [],
-          "rows": Array [],
+          "measures": [],
+          "rows": [],
         },
         "name": "Table",
-        "query": Object {
+        "query": {
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "tree-table",
       }
@@ -84,26 +84,26 @@ describe("migrateTable", () => {
 
   it("migrates a tabular view widget", () => {
     expect(migrateTable(legacyTabularView, servers)).toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {
+      {
+        "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
-        "filters": Array [],
-        "mapping": Object {
-          "columns": Array [
+        "filters": [],
+        "mapping": {
+          "columns": [
             "ALL_MEASURES",
           ],
-          "measures": Array [],
-          "rows": Array [
+          "measures": [],
+          "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Tabular View",
-        "query": Object {
+        "query": {
           "mdx": "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "table",
       }
@@ -112,26 +112,26 @@ describe("migrateTable", () => {
 
   it("migrates a pivot table widget", () => {
     expect(migrateTable(legacyPivotTable, servers)).toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {
+      {
+        "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
-        "filters": Array [],
-        "mapping": Object {
-          "columns": Array [
+        "filters": [],
+        "mapping": {
+          "columns": [
             "ALL_MEASURES",
           ],
-          "measures": Array [],
-          "rows": Array [
+          "measures": [],
+          "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Pivot Table",
-        "query": Object {
+        "query": {
           "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "pivot-table",
       }
@@ -140,35 +140,35 @@ describe("migrateTable", () => {
 
   it("migrates a table widget", () => {
     expect(migrateTable(legacyTable, servers)).toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {
+      {
+        "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
-        "filters": Array [],
-        "mapping": Object {
-          "columns": Array [
+        "filters": [],
+        "mapping": {
+          "columns": [
             "ALL_MEASURES",
           ],
-          "measures": Array [],
-          "rows": Array [
+          "measures": [],
+          "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Table",
-        "query": Object {
+        "query": {
           "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
-        "queryContext": Array [
-          Object {
+        "queryContext": [
+          {
             "key": "queriesTimeLimit",
             "value": 60,
           },
-          Object {
+          {
             "key": "mdx.casesensitive",
             "value": true,
           },
-          Object {
+          {
             "key": "mdx.defaultmembers.[Geography].[City]",
             "value": "[AllMember].[Berlin]",
           },
