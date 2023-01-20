@@ -1,5 +1,5 @@
 // Used by Jest to transpile files before running test.
-// The `transformIgnorePatterns` propery in the Jest config controls which files the transformations are applied to.
+// The `transformIgnorePatterns` property in the Jest config controls which files the transformations are applied to.
 module.exports = {
   presets: [
     [
