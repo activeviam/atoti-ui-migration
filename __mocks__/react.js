@@ -8,15 +8,12 @@ module.exports = {
     Provider: () => ({}),
     Consumer: () => ({}),
   }),
+  createElement: () => ({}),
   lazy: () => () => ({}),
   forwardRef: () => () => ({}),
   memo: () => () => ({}),
+
   isElement: () => false,
   isFragment: () => false,
-  DropTarget: () => () => ({}),
-  DragSource: () => () => ({}),
-  createElement: () => ({}),
-
-  jsx: () => ({}),
-  jsxs: () => ({}),
+  version: "18.0.0",
 };
