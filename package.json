@@ -23,7 +23,7 @@
   "scripts": {
     "build": "webpack",
     "lint": "activeui-sdk-scripts lint",
-    "test": "jest --config=jest.config.js",
+    "test": "jest --config=jest.config.js --runInBand",
     "ci:test": "cross-env CI=true yarn test"
   },
   "prettier": {
