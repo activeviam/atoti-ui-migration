@@ -1,4 +1,1 @@
-module.exports = {
-  jsx: () => ({}),
-  jsxs: () => ({}),
-};
+module.exports = {};
