@@ -58,6 +58,7 @@ module.exports = {
       "mocked-navigator": path.resolve(__dirname, "mockedNavigator"),
       "react-dnd": path.resolve(__dirname, "__mocks__", "react-dnd"),
       "@emotion/react/jsx-runtime": path.resolve(
+        __dirname,
         "__mocks__",
         "@emotion",
         "react",
