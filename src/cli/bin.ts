@@ -3,6 +3,7 @@ import _capitalize from "lodash/capitalize";
 import _fromPairs from "lodash/fromPairs";
 import _mapValues from "lodash/mapValues";
 import fs from "fs-extra";
+import _cloneDeep from "lodash/cloneDeep";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
 import { getIndexedDataModel } from "@activeviam/data-model-5.1";
@@ -145,7 +146,10 @@ yargs
       stack,
       behaviorOnError,
     }) => {
+      // `contentServer` is going to be mutated.
+      // `originalContentServer` will be used if the user wants to keep the original version of an item if an error happens during the migration.
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
+      const originalContentServer = _cloneDeep(contentServer);
       const servers: {
         [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
       } = await fs.readJSON(serversPath);
@@ -198,6 +202,7 @@ yargs
       });
 
       const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
+        originalContentServer,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
