@@ -46,6 +46,9 @@ jest.mock(`./generateId`, () => {
 
 let errorReport: ErrorReport;
 let counters: OutcomeCounters;
+let idsOfDashboardsToMigrate: Set<string>;
+let idsOfWidgetsToMigrate: Set<string>;
+let idsOfFiltersToMigrate: Set<string>;
 
 describe("migrate_43_to_50", () => {
   beforeEach(() => {
@@ -63,6 +66,9 @@ describe("migrate_43_to_50", () => {
       // _fromPairs returns a Dictionary.
       // In this case, the keys used correspond to the attributes of OutcomeCounters.
     ) as OutcomeCounters;
+    idsOfDashboardsToMigrate = new Set<string>();
+    idsOfWidgetsToMigrate = new Set<string>();
+    idsOfFiltersToMigrate = new Set<string>();
   });
 
   it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
@@ -72,6 +78,9 @@ describe("migrate_43_to_50", () => {
       counters,
       servers,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
     const migratedUIFolder = contentServer.children?.ui;
     expect(migratedUIFolder).toMatchSnapshot();
@@ -86,6 +95,9 @@ describe("migrate_43_to_50", () => {
       counters,
       servers,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
     const migratedUIFolder = contentServer.children?.ui;
     expect(migratedUIFolder).toMatchSnapshot();
@@ -103,6 +115,9 @@ describe("migrate_43_to_50", () => {
       counters,
       servers,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
 
     const migratedUIFolder = contentServer.children?.ui;
@@ -121,6 +136,9 @@ describe("migrate_43_to_50", () => {
       servers,
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
 
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
@@ -186,6 +204,9 @@ describe("migrate_43_to_50", () => {
       counters,
       servers,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
 
     const migratedUIFolder = contentServer.children?.ui;
@@ -250,6 +271,9 @@ describe("migrate_43_to_50", () => {
       counters,
       servers,
       doesReportIncludeStacks: false,
+      idsOfDashboardsToMigrate,
+      idsOfWidgetsToMigrate,
+      idsOfFiltersToMigrate,
     });
 
     const migratedUIFolder = contentServer.children?.ui;

@@ -14,7 +14,11 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import { OutcomeCounters, ErrorReport } from "../migration.types";
+import {
+  OutcomeCounters,
+  ErrorReport,
+  BehaviorOnError,
+} from "../migration.types";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "../PartialMigrationError";
@@ -198,13 +202,14 @@ const accumulateStructure = ({
 
 /**
  * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
- * Also keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
+ * Keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
+ * Also keeps track of the files to keep migrating in `idsOfDashboardsToMigrate`, `idsOfWidgetsToMigrate` and `idsOfFiltersToMigrate`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
  * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
  * - for a saved ActiveUI 4.3 dashboard including a matching widget, the widget is removed from the output ActiveUI 5.0 dashboard, and the layout is adapted so that siblings take the remaining space.
  *
- * Mutates `contentServer`, `errorReport` and `counters`.
+ * Mutates `contentServer`, `errorReport`, `counters`, `idsOfDashboardsToMigrate`, `idsOfWidgetsToMigrate` and `idsOfFiltersToMigrate`.
  */
 export async function migrate_43_to_50(
   contentServer: ContentRecord,
@@ -214,12 +219,20 @@ export async function migrate_43_to_50(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
+    idsOfDashboardsToMigrate,
+    idsOfWidgetsToMigrate,
+    idsOfFiltersToMigrate,
+    behaviorOnError,
   }: {
     errorReport: ErrorReport;
     counters: OutcomeCounters;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
+    idsOfDashboardsToMigrate: Set<string>;
+    idsOfWidgetsToMigrate: Set<string>;
+    idsOfFiltersToMigrate: Set<string>;
+    behaviorOnError?: BehaviorOnError;
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
@@ -308,8 +321,14 @@ export async function migrate_43_to_50(
               },
             };
             counters.filters.success++;
+            idsOfFiltersToMigrate.add(fileId);
           } catch (error) {
             counters.filters.failed++;
+
+            if (behaviorOnError === "keep-going") {
+              // Stop the migration for this filter here, unless otherwise specified.
+              idsOfFiltersToMigrate.add(fileId);
+            }
 
             filters[fileId] = {
               content: { mdx: "" },
@@ -360,8 +379,9 @@ export async function migrate_43_to_50(
                 name: bookmark.name,
               });
             } else {
-              // The dashboard was fully migrated.
+              // The dashboard was fully migrated, its migration can continue.
               counters.dashboards.success++;
+              idsOfDashboardsToMigrate.add(fileId);
             }
           } catch (error) {
             // The dashboard could not be migrated at all.
@@ -379,6 +399,12 @@ export async function migrate_43_to_50(
               fileId,
               name: bookmark.name,
             });
+
+            if (behaviorOnError === "keep-going") {
+              // Stop the migration for this dashboard here, unless otherwise specified.
+              idsOfDashboardsToMigrate.add(fileId);
+            }
+
             migratedDashboard = bookmark;
           }
 
@@ -418,7 +444,13 @@ export async function migrate_43_to_50(
           try {
             migratedWidget = migrateWidget(bookmark, servers);
             counters.widgets.success++;
+            idsOfWidgetsToMigrate.add(fileId);
           } catch (error) {
+            if (behaviorOnError === "keep-going") {
+              // Stop the migration for this widget here, unless otherwise specified.
+              idsOfWidgetsToMigrate.add(fileId);
+            }
+
             if (error instanceof PartialMigrationError) {
               counters.widgets.partial++;
               migratedWidget = error.migratedWidgetState;

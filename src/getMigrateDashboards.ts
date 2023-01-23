@@ -23,19 +23,24 @@ import { _serializeError } from "./_serializeError";
  * - the logic of traversing and updating files in `/ui/dashboards`
  * - the error handling.
  *
- * Mutates `contentServer`, `counters` and `errorReport`.
+ * Mutates `contentServer`, `counters`, `errorReport` and `idsOfDashboardsToMigrate`.
  */
 export const getMigrateDashboards =
   (
     contentServer: ContentRecord,
     {
+      originalContentServer,
       dataModels,
+      idsOfDashboardsToMigrate,
       keysOfWidgetPluginsToRemove,
       errorReport,
       counters,
       doesReportIncludeStacks,
+      behaviorOnError = "keep-original",
     }: {
+      originalContentServer: ContentRecord;
       dataModels: { [serverKey: string]: DataModel };
+      idsOfDashboardsToMigrate: Set<string>;
       keysOfWidgetPluginsToRemove: string[];
       errorReport: ErrorReport;
       counters: OutcomeCounters;
@@ -55,6 +60,8 @@ export const getMigrateDashboards =
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.dashboards.children ?? {};
+    const originalContent =
+      originalContentServer.children?.ui.children?.dashboard.children?.content;
 
     if (!content?.children || !structure?.children) {
       return;
@@ -63,101 +70,120 @@ export const getMigrateDashboards =
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      if (!filesAncestry[fileId]) {
-        counters.dashboards.removed++;
-        _addCorruptFileErrorToReport(errorReport, {
-          contentType: "dashboards",
-          fileId,
-        });
-        continue;
-      }
+      if (idsOfDashboardsToMigrate.has(fileId)) {
+        if (!filesAncestry[fileId]) {
+          counters.dashboards.removed++;
+          _addCorruptFileErrorToReport(errorReport, {
+            contentType: "dashboards",
+            fileId,
+          });
+          continue;
+        }
 
-      const { entry } = content.children[fileId];
-      const dashboard = JSON.parse(entry.content);
+        const { entry } = content.children[fileId];
+        const dashboard = JSON.parse(entry.content);
 
-      const folderName = filesAncestry[fileId].map(({ name }) => name);
-      const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(structure, folderId, fileId);
-      const name = metadata.name!;
+        const folderName = filesAncestry[fileId].map(({ name }) => name);
+        const folderId = filesAncestry[fileId].map(({ id }) => id);
+        const metadata = _getMetaData(structure, folderId, fileId);
+        const name = metadata.name!;
 
-      const dashboardErrorReport: DashboardErrorReport = {
-        name,
-        pages: {},
-      };
+        const dashboardErrorReport: DashboardErrorReport = {
+          name,
+          pages: {},
+        };
 
-      const onErrorWhileMigratingWidget = (
-        error: unknown,
-        {
-          pageKey,
-          leafKey,
-          pageName,
-          widgetName,
-        }: {
-          pageKey: string;
-          leafKey: string;
-          pageName: string;
-          widgetName: string;
-        },
-      ) => {
-        _addWidgetErrorToReport(dashboardErrorReport, error, {
-          doesReportIncludeStacks,
-          leafKey,
-          pageKey,
-          pageName,
-          widgetName,
-        });
-      };
+        const onErrorWhileMigratingWidget = (
+          error: unknown,
+          {
+            pageKey,
+            leafKey,
+            pageName,
+            widgetName,
+          }: {
+            pageKey: string;
+            leafKey: string;
+            pageName: string;
+            widgetName: string;
+          },
+        ) => {
+          _addWidgetErrorToReport(dashboardErrorReport, error, {
+            doesReportIncludeStacks,
+            leafKey,
+            pageKey,
+            pageName,
+            widgetName,
+          });
+        };
 
-      try {
-        const deserializedDashboard = deserialize(dashboard);
-        const deserializedMigratedDashboard = produce(
-          deserializedDashboard,
-          (draft) =>
-            callback(draft as FromDashboardState, {
-              dataModels,
-              keysOfWidgetPluginsToRemove,
-              onErrorWhileMigratingWidget,
-            }),
-        );
-        const migratedDashboard = serialize(
-          // It is the responsibility of `callback` to mutate a `FromDashboardState` into a `ToDashboardState`.
-          deserializedMigratedDashboard as ToDashboardState,
-        );
+        let migratedDashboard;
 
-        content.children![fileId].entry.content =
-          JSON.stringify(migratedDashboard);
+        try {
+          const deserializedDashboard = deserialize(dashboard);
+          const deserializedMigratedDashboard = produce(
+            deserializedDashboard,
+            (draft) =>
+              callback(draft as FromDashboardState, {
+                dataModels,
+                keysOfWidgetPluginsToRemove,
+                onErrorWhileMigratingWidget,
+              }),
+          );
+          migratedDashboard = serialize(
+            // It is the responsibility of `callback` to mutate a `FromDashboardState` into a `ToDashboardState`.
+            deserializedMigratedDashboard as ToDashboardState,
+          );
 
-        if (Object.keys(dashboardErrorReport.pages).length > 0) {
-          // The migration of some widgets within the dashboard failed.
-          counters.dashboards.partial++;
+          if (Object.keys(dashboardErrorReport.pages).length > 0) {
+            // The migration of some widgets within the dashboard failed.
+            counters.dashboards.partial++;
+            _addErrorToReport(errorReport, {
+              folderName,
+              folderId,
+              contentType: "dashboards",
+              fileErrorReport: dashboardErrorReport,
+              fileId,
+              name,
+            });
+          } else {
+            // The dashboard was fully migrated.
+            counters.dashboards.success++;
+          }
+        } catch (error) {
+          // The dashboard could not be migrated at all.
+          counters.dashboards.failed++;
+
           _addErrorToReport(errorReport, {
             folderName,
             folderId,
             contentType: "dashboards",
-            fileErrorReport: dashboardErrorReport,
+            fileErrorReport: {
+              error: _serializeError(error, {
+                doesReportIncludeStacks,
+              }),
+            },
             fileId,
             name,
           });
-        } else {
-          // The dashboard was fully migrated.
-          counters.dashboards.success++;
-        }
-      } catch (error) {
-        // The dashboard could not be migrated at all.
-        counters.dashboards.failed++;
 
-        _addErrorToReport(errorReport, {
-          folderName,
-          folderId,
-          contentType: "dashboards",
-          fileErrorReport: {
-            error: _serializeError(error, {
-              doesReportIncludeStacks,
-            }),
-          },
-          fileId,
-          name,
-        });
+          switch (behaviorOnError) {
+            case "keep-last-successful-version":
+              migratedDashboard = dashboard;
+              idsOfDashboardsToMigrate.delete(fileId);
+              break;
+            case "keep-going":
+              migratedDashboard = dashboard;
+              break;
+            // The default behavior is "keep-original".
+            default:
+              // All dashboards that are in `content` were initially in `originalContent`.
+              migratedDashboard = originalContent!.children![fileId].entry;
+              idsOfDashboardsToMigrate.delete(fileId);
+          }
+        }
+
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedDashboard);
       }
     }
   };

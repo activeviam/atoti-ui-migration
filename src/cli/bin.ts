@@ -155,6 +155,18 @@ yargs
       // `originalContentServer` will be used if the user wants to keep the original version of an item if an error happens during the migration.
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
       const originalContentServer = _cloneDeep(contentServer);
+
+      const dashboardsContent =
+        contentServer.children?.ui.children?.dashboards.children?.content;
+      const widgetsContent =
+        contentServer.children?.ui.children?.widgets.children?.content;
+      const filtersContent =
+        contentServer.children?.ui.children?.filters.children?.content;
+
+      let idsOfDashboardsToMigrate = new Set<string>();
+      let idsOfWidgetsToMigrate = new Set<string>();
+      let idsOfFiltersToMigrate = new Set<string>();
+
       const servers: {
         [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
       } = await fs.readJSON(serversPath);
@@ -192,6 +204,10 @@ yargs
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks,
+          idsOfDashboardsToMigrate,
+          idsOfWidgetsToMigrate,
+          idsOfFiltersToMigrate,
+          behaviorOnError,
         });
       }
 
@@ -203,7 +219,16 @@ yargs
         getIndexedDataModel(dataModel),
       );
 
+      if (fromVersion === "4.3") {
+        // If the migration started from 4.3, `idsOfDashboardsToMigrate` is already populated.
+        idsOfDashboardsToMigrate = new Set(
+          Object.keys(dashboardsContent?.children || {}),
+        );
+      }
+
       const migrateDashboards = getMigrateDashboards(contentServer, {
+        originalContentServer,
+        idsOfDashboardsToMigrate,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
@@ -212,7 +237,15 @@ yargs
         behaviorOnError,
       });
 
+      if (fromVersion === "4.3") {
+        // If the migration started from 4.3, `idsOfWidgetsToMigrate` is already populated.
+        idsOfWidgetsToMigrate = new Set(
+          Object.keys(widgetsContent?.children || {}),
+        );
+      }
+
       const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
+        idsOfWidgetsToMigrate,
         originalContentServer,
         dataModels,
         keysOfWidgetPluginsToRemove,
@@ -222,7 +255,16 @@ yargs
         behaviorOnError,
       });
 
+      if (fromVersion === "4.3") {
+        // If the migration started from 4.3, `idsOfFiltersToMigrate` is already populated.
+        idsOfFiltersToMigrate = new Set(
+          Object.keys(filtersContent?.children || {}),
+        );
+      }
+
       const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
+        originalContentServer,
+        idsOfFiltersToMigrate,
         dataModels,
         errorReport,
         counters,
