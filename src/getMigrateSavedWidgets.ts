@@ -1,6 +1,5 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
-import { produce } from "immer";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
   BehaviorOnError,
@@ -12,6 +11,8 @@ import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _serializeError } from "./_serializeError";
 import { _getMetaData } from "./_getMetaData";
+import { produce } from "immer";
+import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 
 /**
  * Returns a function which can be called to migrate ActiveUI 5+ widgets.
@@ -46,101 +47,119 @@ export const getMigrateSavedWidgets =
       behaviorOnError?: BehaviorOnError;
     },
   ) =>
-  <FromWidgetState, ToWidgetState>(
+  <
+    FromSerializedWidgetState,
+    FromWidgetState,
+    ToWidgetState,
+    ToSerializedWidgetState,
+  >(
+    deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
+    serialize: (state: ToWidgetState) => ToSerializedWidgetState,
   ): void => {
-    const widgetsContent =
-      contentServer.children?.ui.children?.widgets.children?.content.children;
-    const originalWidgetsContent =
-      originalContentServer.children?.ui.children?.widgets.children?.content
-        .children;
-    const widgetsStructure =
-      contentServer.children?.ui.children?.widgets.children?.structure!;
-    const filesAncestry = _getFilesAncestry(widgetsStructure);
+    const { content, structure } =
+      contentServer.children?.ui.children?.widgets.children ?? {};
+    const { content: originalContent } =
+      originalContentServer.children?.ui.children?.widgets.children ?? {};
 
-    const migrateWidget = produce(callback);
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    for (const fileId in widgetsContent) {
-      if (idsOfWidgetsToMigrate.has(fileId)) {
-        let migratedWidget;
-        const { entry } = widgetsContent[fileId];
-        const widget = JSON.parse(entry.content);
+    const filesAncestry = _getFilesAncestry(structure);
 
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
-        const metadata = _getMetaData(widgetsStructure, folderId, fileId);
+    for (const fileId in content.children) {
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileErrorToReport(errorReport, {
+          contentType: "widgets",
+          fileId,
+        });
+        continue;
+      }
 
-        if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
-          // The widget's plugin key is flagged for removal.
-          // Remove the widget instead of migrating it.
-          counters.widgets.removed++;
-          _addErrorToReport(errorReport, {
-            folderName,
-            folderId,
-            contentType: "widgets",
-            fileErrorReport: {
-              error: _serializeError(
-                new WidgetFlaggedForRemovalError(widget.key),
-                { doesReportIncludeStacks },
-              ),
-            },
-            fileId,
-            name: metadata.name!,
-          });
-          delete widgetsContent[fileId];
-          const parentFolder = folderId.reduce(
-            (acc, id) => acc.children![id],
-            widgetsStructure,
-          );
-          delete parentFolder.children![fileId];
-          continue;
-        }
+      const { entry } = content.children[fileId];
+      const widget = JSON.parse(entry.content);
 
-        try {
-          migratedWidget = migrateWidget(widget, {
-            dataModels,
-          });
-          // The widget was fully migrated.
-          counters.widgets.success++;
-        } catch (error) {
-          // The widget could not be migrated at all.
-          counters.widgets.failed++;
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
-          _addErrorToReport(errorReport, {
-            folderName,
-            folderId,
-            contentType: "widgets",
-            fileErrorReport: {
-              error: _serializeError(error, {
-                doesReportIncludeStacks,
-              }),
-            },
-            fileId,
-            name: metadata.name!,
-          });
-
-          switch (behaviorOnError) {
-            case "keep-last-successful-version":
-              migratedWidget = widget;
-              idsOfWidgetsToMigrate.delete(fileId);
-              break;
-            case "keep-going":
-              migratedWidget = widget;
-              break;
-            // The default behavior is the "keep-original" one.
-            default:
-              // All widgets that are in `widgetContent` were in `originalWidgetsContent` initially.
-              migratedWidget = originalWidgetsContent![fileId].entry;
-              idsOfWidgetsToMigrate.delete(fileId);
-          }
-        }
-
-        widgetsContent![fileId] = {
-          entry: {
-            ...entry,
-            content: JSON.stringify(migratedWidget),
+      if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
+        // The widget's plugin key is flagged for removal.
+        // Remove the widget instead of migrating it.
+        counters.widgets.removed++;
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "widgets",
+          fileErrorReport: {
+            error: _serializeError(
+              new WidgetFlaggedForRemovalError(widget.key),
+              { doesReportIncludeStacks },
+            ),
           },
-        };
+          fileId,
+          name: metadata.name!,
+        });
+        delete content.children[fileId];
+        const parentFolder = folderId.reduce(
+          (acc, id) => acc.children![id],
+          structure,
+        );
+        delete parentFolder.children![fileId];
+        continue;
+      }
+
+      try {
+        const deserializedWidget = deserialize(widget);
+        const deserializedMigratedWidget = produce(
+          deserializedWidget,
+          (draft) =>
+            callback(draft as FromWidgetState, {
+              dataModels,
+            }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
+        const migratedWidget = serialize(
+          deserializedMigratedWidget as ToWidgetState,
+        );
+
+        // The widget was successfully migrated.
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedWidget);
+        counters.widgets.success++;
+      } catch (error) {
+        // The widget could not be migrated.
+        counters.widgets.failed++;
+
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "widgets",
+          fileErrorReport: {
+            error: _serializeError(error, {
+              doesReportIncludeStacks,
+            }),
+          },
+          fileId,
+          name: metadata.name!,
+        });
+
+        switch (behaviorOnError) {
+          case "keep-last-successful-version":
+            migratedWidget = widget;
+            idsOfWidgetsToMigrate.delete(fileId);
+            break;
+          case "keep-going":
+            migratedWidget = widget;
+            break;
+          // The default behavior is the "keep-original" one.
+          default:
+            // All widgets that are in `widgetContent` were in `originalWidgetsContent` initially.
+            migratedWidget = originalWidgetsContent![fileId].entry;
+            idsOfWidgetsToMigrate.delete(fileId);
+        }
       }
     }
   };

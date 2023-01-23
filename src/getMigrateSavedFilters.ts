@@ -7,6 +7,7 @@ import {
   MigrateFilterCallback,
   OutcomeCounters,
 } from "./migration.types";
+import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _getMetaData } from "./_getMetaData";
@@ -38,32 +39,59 @@ export const getMigrateSavedFilters =
       behaviorOnError?: BehaviorOnError;
     },
   ) =>
-  <FromFilterState, ToFilterState>(
+  <
+    FromSerializedFilterState,
+    FromFilterState,
+    ToFilterState,
+    ToSerializedFilterState,
+  >(
+    deserialize: (state: FromSerializedFilterState) => FromFilterState,
     callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
+    serialize: (state: ToFilterState) => ToSerializedFilterState,
   ): void => {
-    const filtersContent =
-      contentServer.children?.ui.children?.filters.children?.content.children;
-    const filtersStructure =
-      contentServer.children?.ui.children?.filters.children?.structure!;
-    const filesAncestry = _getFilesAncestry(filtersStructure);
+    const { content, structure } =
+      contentServer.children?.ui.children?.filters.children ?? {};
 
-    const migrateFilter = produce(callback);
+    if (!content?.children || !structure?.children) {
+      return;
+    }
 
-    for (const fileId in filtersContent) {
-      let migratedFilter;
-      const { entry } = filtersContent[fileId];
+    const filesAncestry = _getFilesAncestry(structure);
+
+    for (const fileId in content.children) {
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileErrorToReport(errorReport, {
+          contentType: "filters",
+          fileId,
+        });
+        continue;
+      }
+
+      const { entry } = content.children[fileId];
       const filter = JSON.parse(entry.content);
 
       const folderName = filesAncestry[fileId].map(({ name }) => name);
       const folderId = filesAncestry[fileId].map(({ id }) => id);
-      const metadata = _getMetaData(filtersStructure, folderId, fileId);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
       try {
-        migratedFilter = migrateFilter(filter, { dataModels });
-        // The filter was fully migrated.
+        const deserializedFilter = deserialize(filter);
+        const deserializedMigratedFilter = produce(
+          deserializedFilter,
+          (draft) => callback(draft as FromFilterState, { dataModels }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromFilterState` into a `ToFilterState`.
+        const migratedFilter = serialize(
+          deserializedMigratedFilter as ToFilterState,
+        );
+
+        // The filter was successfully migrated.
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedFilter);
         counters.filters.success++;
       } catch (error) {
-        // The filter could not be migrated at all.
+        // The filter could not be migrated.
         counters.filters.failed++;
 
         _addErrorToReport(errorReport, {
@@ -78,15 +106,6 @@ export const getMigrateSavedFilters =
           fileId,
           name: metadata.name!,
         });
-
-        migratedFilter = filter;
       }
-
-      filtersContent![fileId] = {
-        entry: {
-          ...entry,
-          content: JSON.stringify(migratedFilter),
-        },
-      };
     }
   };

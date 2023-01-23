@@ -16,6 +16,16 @@ module.exports = {
     // Gives false positives. Let TypeScript handle it.
     "import/named": "off",
     "import/no-extraneous-dependencies": "error",
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": true,
+        "ts-nocheck": true,
+        "ts-check": false,
+        minimumDescriptionLength: 10,
+      },
+    ],
     // Rules to consider re-enabling:
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",

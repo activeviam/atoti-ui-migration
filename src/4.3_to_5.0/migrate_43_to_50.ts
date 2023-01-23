@@ -1,5 +1,4 @@
 import _set from "lodash/set";
-import _setWith from "lodash/setWith";
 import _omit from "lodash/omit";
 import _cloneDeep from "lodash/cloneDeep";
 
@@ -24,6 +23,7 @@ import cliProgress from "cli-progress";
 import { _addErrorToReport } from "../_addErrorToReport";
 import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 import { _getFolderName } from "./_getFolderName";
+import { _addCorruptFileErrorToReport } from "../_addCorruptFileErrorToReport";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -279,17 +279,16 @@ export async function migrate_43_to_50(
 
         counters[errorReportSection].removed++;
 
-        _setWith(
-          errorReport,
-          [errorReportSection, fileId],
-          {
-            name: bookmark.name,
-            error: {
-              message: "Could not find the entry in the structure folder.",
-            },
-          },
-          Object,
-        );
+        _addCorruptFileErrorToReport(errorReport, {
+          // Folders have no content entry.
+          contentType: errorReportSection as
+            | "dashboards"
+            | "widgets"
+            | "filters"
+            | "calculated_measures",
+          fileId,
+          name: bookmark.name,
+        });
       } else {
         const folderId = mapOfFolderIds[fileId];
         const folderName = _getFolderName(legacyContent, folderId);

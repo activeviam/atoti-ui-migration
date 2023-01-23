@@ -36,14 +36,14 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
     },
     filters: {
       success: "were successfully migrated.",
       failed:
         "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
       removed:
-        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
     },
     widgets: {
       success: "were successfully migrated.",
@@ -55,7 +55,12 @@ const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
     },
     folders: {
       removed:
-        "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
+        "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
+    },
+    calculated_measures: {
+      success: "were successfully migrated.",
+      failed:
+        "could not be migrated because errors occurred during their migration.",
     },
   };
 
@@ -96,14 +101,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: fromVersions,
+        choices: ["4.3", ...fromVersions],
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: toVersions,
+        choices: ["5.0", ...toVersions],
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
@@ -155,7 +160,13 @@ yargs
       } = await fs.readJSON(serversPath);
 
       const counters = _fromPairs(
-        ["dashboards", "widgets", "filters", "folders"].map((type) => [
+        [
+          "dashboards",
+          "widgets",
+          "filters",
+          "folders",
+          "calculated_measures",
+        ].map((type) => [
           type,
           {
             success: 0,
