@@ -1,7 +1,7 @@
 import { Filter } from "@activeviam/activeui-sdk-5.1";
 import { MdxExpression } from "@activeviam/activeui-sdk-5.0";
 import { MigrateFilterCallback } from "../migration.types";
-import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchingDataModel";
+import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchingCube";
 import { getAllCubes } from "./getAllCubes";
 
 /**

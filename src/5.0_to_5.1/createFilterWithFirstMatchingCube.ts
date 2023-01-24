@@ -15,6 +15,7 @@ export function createFilterWithFirstMatchingCube(
 ): Filter {
   for (const cube of cubes) {
     try {
+      console.log(cube)
       return createFilter(mdx, cube);
     } catch (e) {
       // The filter creation might be successful with another cube.
@@ -23,6 +24,8 @@ export function createFilterWithFirstMatchingCube(
   }
 
   throw new Error(
-    `The following MDX does not represent a filter: ${stringify(mdx)}`,
+    `The following MDX does not represent a filter: ${stringify(mdx, {
+      indent: true,
+    })}`,
   );
 }

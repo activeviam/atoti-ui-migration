@@ -5,7 +5,7 @@ import {
 } from "@activeviam/activeui-sdk-5.1";
 import { Mdx } from "@activeviam/activeui-sdk-5.0";
 import { getAllCubes } from "./getAllCubes";
-import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchingDataModel";
+import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchingCube";
 
 /**
  * In 5.0, a filter in a widget/dashboard state is just an MdxExpression.
