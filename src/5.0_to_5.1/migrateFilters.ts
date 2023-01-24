@@ -8,8 +8,8 @@ import { getAllCubes } from "./getAllCubes";
 import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchingCube";
 
 /**
- * In 5.0, a filter in a widget/dashboard state is just an MdxExpression.
- * In 5.1, it is a Filter.
+ * In 5.0, a filter in a widget/dashboard state is just an {@link MdxExpression}.
+ * In 5.1, it is a {@link Filter}.
  * Mutates `filters`.
  */
 export function migrateFilters(

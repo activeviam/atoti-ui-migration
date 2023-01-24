@@ -31,7 +31,7 @@ export const migrateWidget: MigrateWidgetCallback<
   });
 
   if (isWidgetWithQueryState(widgetState)) {
-    const mdx = widgetState.query?.mdx;
+    const mdx = widgetState.query.mdx;
     const cubeName = mdx ? getCubeName(mdx) : undefined;
     migrateFilters(widgetState.filters, {
       dataModels,

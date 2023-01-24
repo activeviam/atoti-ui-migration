@@ -7,7 +7,7 @@ import {
 } from "@activeviam/activeui-sdk-5.1";
 
 /**
- * Returns a {@link Filter} based on the input `mdx`, with the first matching cube.
+ * Returns a {@link Filter} based on `mdx`, with the first cube containing the hierarchies expressed in the MDX expression.
  */
 export function createFilterWithFirstMatchingCube(
   mdx: MdxExpression,

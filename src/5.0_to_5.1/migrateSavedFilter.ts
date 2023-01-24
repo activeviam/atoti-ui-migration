@@ -5,7 +5,7 @@ import { createFilterWithFirstMatchingCube } from "./createFilterWithFirstMatchi
 import { getAllCubes } from "./getAllCubes";
 
 /**
- * Mutates a 5.0 `filterState` into one usable in 5.1.
+ * Mutates a 5.0 saved filter into one usable in 5.1.
  */
 export const migrateSavedFilter: MigrateFilterCallback<
   { mdx: MdxExpression },
