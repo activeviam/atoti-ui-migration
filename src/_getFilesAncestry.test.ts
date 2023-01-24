@@ -6,42 +6,42 @@ describe("_getFilesAncestry", () => {
     const dashboardsStructure =
       contentServer.children?.ui.children?.dashboards.children?.structure!;
     expect(_getFilesAncestry(dashboardsStructure)).toMatchInlineSnapshot(`
-      Object {
-        "14f": Array [
-          Object {
+      {
+        "14f": [
+          {
             "id": "346",
             "name": "MAD",
           },
         ],
-        "241": Array [
-          Object {
+        "241": [
+          {
             "id": "346",
             "name": "MAD",
           },
-          Object {
+          {
             "id": "31b",
             "name": "lil mad",
           },
         ],
-        "31b": Array [
-          Object {
+        "31b": [
+          {
             "id": "346",
             "name": "MAD",
           },
         ],
-        "346": Array [],
-        "387": Array [],
-        "478": Array [
-          Object {
+        "346": [],
+        "387": [],
+        "478": [
+          {
             "id": "346",
             "name": "MAD",
           },
-          Object {
+          {
             "id": "31b",
             "name": "lil mad",
           },
         ],
-        "524": Array [],
+        "524": [],
       }
     `);
   });

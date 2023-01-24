@@ -81,7 +81,7 @@ describe("_migrateTableColumnWidths", () => {
 
     expect(_migrateTableColumnWidths({ legacyColumns, mapping, cube }))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "[Booking].[Desk].[AllMember].[LegalEntityA]": 200,
         "[Currency].[Currency].[Currency]": 152,
         "[Geography].[City].[ALL].[AllMember].[Berlin],[CounterParty].[CounterParty].[ALL].[AllMember].[Unilever]": 50,

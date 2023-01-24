@@ -53,7 +53,7 @@ describe("_findErroneousUnionNode", () => {
     })!;
 
     expect(path).toMatchInlineSnapshot(`
-      Array [
+      [
         "axes",
         0,
         "expression",

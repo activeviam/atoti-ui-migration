@@ -7,17 +7,17 @@ describe("migrateDrillthrough", () => {
   it("returns the ActiveUI5 drillthrough-table widget state corresponding to the given ActiveUI4 drillthrough widget state", () => {
     expect(migrateDrillthrough(legacyDrillthrough, servers))
       .toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {},
-        "filters": Array [
+      {
+        "columnWidths": {},
+        "filters": [
           "[Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA]",
         ],
         "name": "Drillthrough LegalEntityA ➜ BusinessUnitA",
-        "query": Object {
+        "query": {
           "mdx": "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "drillthrough-table",
       }
@@ -27,14 +27,14 @@ describe("migrateDrillthrough", () => {
   it("migrates an empty drillthrough widget", () => {
     expect(migrateDrillthrough(emptyLegacyDrillthrough, servers))
       .toMatchInlineSnapshot(`
-      Object {
-        "columnWidths": Object {},
-        "filters": Array [],
+      {
+        "columnWidths": {},
+        "filters": [],
         "name": "Untitled Drillthrough Table",
-        "query": Object {
+        "query": {
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "drillthrough-table",
       }

@@ -1,13 +1,10 @@
-import { FilterState as FilterState51 } from "@activeviam/dashboard-base-5.1";
+import { Filter, Mdx } from "@activeviam/activeui-sdk-5.1";
 import { MigrateFilterCallback } from "../migration.types";
 
 /**
- * Mutates a 5.0 `filterState` into one usable in 5.1.
+ * Mutates a 5.0 saved filter into one usable in 5.1.
  */
-export const migrateSavedFilter: MigrateFilterCallback<
-  FilterState51,
-  FilterState51
-> = () => {
-  // The state of saved filters is the same between 5.0 and 5.1 in the Content Server.
-  // Nothing to do.
-};
+export const migrateSavedFilter: MigrateFilterCallback<{ mdx: Mdx }, Filter> =
+  () => {
+    // TODO implement.
+  };

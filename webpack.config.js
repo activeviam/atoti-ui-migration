@@ -3,7 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 
-// Instead of using `activeui-sdk-scripts build`, this package is built with a Webpack config that mocks browser APIs.
+// Instead of using `activeui-sdk-scripts build`, this package is built with a Webpack config that mocks browser APIs and UI related modules.
 // This allows the functions exported by this package to be run smoothly in a Node.js environment (see https://support.activeviam.com/jira/browse/UI-6165).
 module.exports = {
   entry: {
@@ -54,8 +54,21 @@ module.exports = {
     extensions: [".js", ".ts"],
     modules: ["node_modules"],
     alias: {
-      "mocked-window": path.resolve(__dirname, "./mockedWindow"),
-      "mocked-navigator": path.resolve(__dirname, "./mockedNavigator"),
+      "mocked-window": path.resolve(__dirname, "mockedWindow"),
+      "mocked-navigator": path.resolve(__dirname, "mockedNavigator"),
+      "react-dnd": path.resolve(__dirname, "__mocks__", "react-dnd"),
+      "@emotion/react/jsx-runtime": path.resolve(
+        __dirname,
+        "__mocks__",
+        "@emotion",
+        "react",
+        "jsx-runtime",
+      ),
+      react: path.resolve(__dirname, "__mocks__", "react"),
+      "react-dom": false,
+      "react-intl": false,
+      antd: false,
+      "@ant-design/icons": false,
     },
   },
   mode: "none",

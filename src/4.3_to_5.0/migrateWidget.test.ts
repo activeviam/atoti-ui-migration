@@ -31,29 +31,29 @@ describe("migrateWidget", () => {
     };
 
     expect(migrateWidget(legacyWidgetState, servers)).toMatchInlineSnapshot(`
-      Object {
-        "filters": Array [],
-        "mapping": Object {
-          "horizontalSubplots": Array [],
-          "secondaryValues": Array [],
-          "splitBy": Array [
+      {
+        "filters": [],
+        "mapping": {
+          "horizontalSubplots": [],
+          "secondaryValues": [],
+          "splitBy": [
             "[Booking].[Desk].[LegalEntity]",
             "ALL_MEASURES",
           ],
-          "values": Array [
+          "values": [
             "[Measures].[contributors.COUNT]",
           ],
-          "verticalSubplots": Array [],
-          "xAxis": Array [
+          "verticalSubplots": [],
+          "xAxis": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Untitled chart",
-        "query": Object {
+        "query": {
           "mdx": "SELECT NON EMPTY Crossjoin([Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]",
           "updateMode": "once",
         },
-        "queryContext": Array [],
+        "queryContext": [],
         "serverKey": "my-server",
         "widgetKey": "plotly-line-chart",
       }
@@ -74,7 +74,7 @@ describe("migrateWidget", () => {
     expect(() =>
       migrateWidget(legacyWidgetState, servers),
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unsupported widgetKey: \\"context-values\\""`,
+      `"Unsupported widgetKey: "context-values""`,
     );
   });
 });
