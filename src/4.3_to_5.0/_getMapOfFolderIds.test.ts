@@ -8,58 +8,58 @@ describe("_getMapOfFolderIds", () => {
         legacyUIFolder.children!.bookmarks!.children!.structure,
       ),
     ).toMatchInlineSnapshot(`
-      Object {
-        "02d": Array [],
-        "0xb": Array [],
-        "158": Array [],
-        "1fe": Array [],
-        "296": Array [
+      {
+        "02d": [],
+        "0xb": [],
+        "158": [],
+        "1fe": [],
+        "296": [
           "41c",
         ],
-        "310": Array [
+        "310": [
           "a05",
         ],
-        "34d": Array [],
-        "3a2": Array [],
-        "3f3": Array [],
-        "419": Array [],
-        "41c": Array [],
-        "4aa": Array [],
-        "695": Array [],
-        "75a": Array [],
-        "76c": Array [],
-        "77d": Array [
+        "34d": [],
+        "3a2": [],
+        "3f3": [],
+        "419": [],
+        "41c": [],
+        "4aa": [],
+        "695": [],
+        "75a": [],
+        "76c": [],
+        "77d": [
           "3f3",
         ],
-        "9e3": Array [],
-        "a05": Array [],
-        "a5b": Array [
+        "9e3": [],
+        "a05": [],
+        "a5b": [
           "41c",
         ],
-        "a9c": Array [],
-        "abc": Array [],
-        "afd": Array [],
-        "b06": Array [
+        "a9c": [],
+        "abc": [],
+        "afd": [],
+        "b06": [
           "3f3",
         ],
-        "bed": Array [],
-        "c1a": Array [],
-        "c8a": Array [],
-        "cfd": Array [],
-        "d67": Array [],
-        "dec": Array [],
-        "dfa": Array [],
-        "e18": Array [],
-        "e2b": Array [],
-        "e5d": Array [],
-        "eac": Array [
+        "bed": [],
+        "c1a": [],
+        "c8a": [],
+        "cfd": [],
+        "d67": [],
+        "dec": [],
+        "dfa": [],
+        "e18": [],
+        "e2b": [],
+        "e5d": [],
+        "eac": [
           "41c",
         ],
-        "eef": Array [],
-        "f06": Array [
+        "eef": [],
+        "f06": [
           "3f3",
         ],
-        "fba": Array [],
+        "fba": [],
       }
     `);
   });

@@ -14,9 +14,9 @@ describe("migrateQuickFilter", () => {
     );
     expect(migrateQuickFilter(legacyQuickFilterInCheckboxMode, servers))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "cubeName": "EquityDerivativesCube",
-        "levelCoordinates": Object {
+        "levelCoordinates": {
           "dimensionName": "Currency",
           "hierarchyName": "Currency",
           "levelName": "Currency",
@@ -36,9 +36,9 @@ describe("migrateQuickFilter", () => {
     });
     expect(migrateQuickFilter(legacyQuickFilterInRadioMode, servers))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "cubeName": "EquityDerivativesCube",
-        "levelCoordinates": Object {
+        "levelCoordinates": {
           "dimensionName": "Currency",
           "hierarchyName": "Currency",
           "levelName": "Currency",
@@ -61,9 +61,9 @@ describe("migrateQuickFilter", () => {
     );
     expect(migrateQuickFilter(legacyQuickFilterInMultiSelectMode, servers))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "cubeName": "EquityDerivativesCube",
-        "levelCoordinates": Object {
+        "levelCoordinates": {
           "dimensionName": "Currency",
           "hierarchyName": "Currency",
           "levelName": "Currency",
@@ -86,9 +86,9 @@ describe("migrateQuickFilter", () => {
     );
     expect(migrateQuickFilter(legacyQuickFilterInSingleSelectMode, servers))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "cubeName": "EquityDerivativesCube",
-        "levelCoordinates": Object {
+        "levelCoordinates": {
           "dimensionName": "Currency",
           "hierarchyName": "Currency",
           "levelName": "Currency",
@@ -117,9 +117,9 @@ describe("migrateQuickFilter", () => {
     );
     expect(migrateQuickFilter(legacyQuickFilterOnSlicingLevel, servers))
       .toMatchInlineSnapshot(`
-      Object {
+      {
         "cubeName": "EquityDerivativesCube",
-        "levelCoordinates": Object {
+        "levelCoordinates": {
           "dimensionName": "Time",
           "hierarchyName": "HistoricalDates",
           "levelName": "AsOfDate",

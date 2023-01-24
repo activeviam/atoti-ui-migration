@@ -87,17 +87,17 @@ describe("migrateSavedCalculatedMeasures", () => {
         "[Measures].[Distinct count city]"
       ],
     ).toMatchInlineSnapshot(`
-      Object {
-        "entry": Object {
+      {
+        "entry": {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"className\\":\\"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription\\",\\"additionalProperties\\":{},\\"uniqueName\\":\\"[Measures].[Distinct count city]\\",\\"expression\\":\\"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)\\",\\"formatStringExpression\\":\\"\\\\\\"#,###.##\\\\\\"\\"}",
+          "content": "{"className":"com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription","additionalProperties":{},"uniqueName":"[Measures].[Distinct count city]","expression":"Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY)","formatStringExpression":"\\"#,###.##\\""}",
           "isDirectory": false,
           "lastEditor": "admin",
-          "owners": Array [
+          "owners": [
             "admin",
           ],
-          "readers": Array [
+          "readers": [
             "admin",
           ],
           "timestamp": 1666091498549,

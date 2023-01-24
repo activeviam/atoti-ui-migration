@@ -31,17 +31,17 @@ describe("_flattenLayout", () => {
     _flattenLayout(layout);
 
     expect(layout).toMatchInlineSnapshot(`
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "leafKey": "1",
             "size": 0.34,
           },
-          Object {
+          {
             "leafKey": "2",
             "size": 0.34980000000000006,
           },
-          Object {
+          {
             "leafKey": "3",
             "size": 0.3102,
           },
@@ -76,17 +76,17 @@ describe("_flattenLayout", () => {
     _flattenLayout(layout);
 
     expect(layout).toMatchInlineSnapshot(`
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "leafKey": "3",
             "size": 0.25,
           },
-          Object {
+          {
             "leafKey": "2",
             "size": 0.25,
           },
-          Object {
+          {
             "leafKey": "1",
             "size": undefined,
           },
@@ -165,31 +165,31 @@ describe("_flattenLayout", () => {
     _flattenLayout(layout);
 
     expect(layout).toMatchInlineSnapshot(`
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "leafKey": "3",
             "size": 0.175,
           },
-          Object {
+          {
             "leafKey": "2",
             "size": 0.1625,
           },
-          Object {
+          {
             "leafKey": "4",
             "size": 0.1625,
           },
-          Object {
-            "children": Array [
-              Object {
+          {
+            "children": [
+              {
                 "leafKey": "5",
                 "size": 0.32,
               },
-              Object {
+              {
                 "leafKey": "7",
                 "size": 0.32,
               },
-              Object {
+              {
                 "leafKey": "6",
                 "size": 0.36,
               },
@@ -197,11 +197,11 @@ describe("_flattenLayout", () => {
             "direction": "column",
             "size": 0.25,
           },
-          Object {
+          {
             "leafKey": "8",
             "size": 0.125,
           },
-          Object {
+          {
             "leafKey": "1",
             "size": 0.125,
           },

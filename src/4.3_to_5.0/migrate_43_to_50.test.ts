@@ -157,17 +157,17 @@ describe("migrate_43_to_50", () => {
       expect.not.arrayContaining(keysOfWidgetPluginsToRemove),
     );
     expect(layout).toMatchInlineSnapshot(`
-      Object {
-        "children": Array [
-          Object {
+      {
+        "children": [
+          {
             "leafKey": "3",
             "size": 0.3,
           },
-          Object {
+          {
             "leafKey": "1",
             "size": 0.27999999999999997,
           },
-          Object {
+          {
             "leafKey": "2",
             "size": 0.42,
           },
@@ -195,17 +195,17 @@ describe("migrate_43_to_50", () => {
         "158"
       ],
     ).toMatchInlineSnapshot(`
-      Object {
-        "entry": Object {
+      {
+        "entry": {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"pages\\":{\\"p-0\\":{\\"layout\\":{\\"children\\":[{\\"leafKey\\":\\"2\\"},{\\"leafKey\\":\\"1\\"}],\\"direction\\":\\"row\\"},\\"name\\":\\"Page 1\\",\\"filters\\":[],\\"content\\":{\\"1\\":{\\"serverUrl\\":\\"\\",\\"mdx\\":\\"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [foo] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS\\",\\"contextValues\\":{\\"mdx.hiddengrandtotals\\":\\"1\\"},\\"updateMode\\":\\"once\\",\\"ranges\\":{\\"row\\":{\\"chunkSize\\":2000,\\"thresholdPercentage\\":0.1},\\"column\\":{\\"chunkSize\\":50,\\"thresholdPercentage\\":0.2}},\\"configuration\\":{\\"tabular\\":{\\"pinnedHeaderSelector\\":\\"member\\",\\"sortingMode\\":\\"non-breaking\\",\\"addButtonFilter\\":\\"numeric\\",\\"cellRenderers\\":[\\"tree-layout\\"],\\"statisticsShown\\":true,\\"columnsGroups\\":[{\\"captionProducer\\":\\"firstColumn\\",\\"cellFactory\\":\\"kpi-status\\",\\"selector\\":\\"kpi-status\\"},{\\"captionProducer\\":\\"firstColumn\\",\\"cellFactory\\":\\"lookup\\",\\"selector\\":\\"lookup\\"},{\\"captionProducer\\":\\"expiry\\",\\"cellFactory\\":\\"expiry\\",\\"selector\\":\\"kpi-expiry\\"},{\\"captionProducer\\":\\"columnMerge\\",\\"cellFactory\\":{\\"args\\":{},\\"key\\":\\"treeCells\\"},\\"selector\\":\\"member\\"}],\\"hideAddButton\\":true,\\"defaultOptions\\":{},\\"expansion\\":{\\"automaticExpansion\\":true}}},\\"name\\":\\"Untitled Pivot Table\\",\\"widgetKey\\":\\"pivot-table\\"},\\"2\\":{\\"switchedTo\\":\\"plotly-clustered-column-chart\\",\\"mapping\\":{\\"xAxis\\":[\\"[Currency].[Currency].[Currency]\\"],\\"values\\":[\\"[Measures].[pnl.FOREX]\\"],\\"secondaryValues\\":[],\\"splitBy\\":[\\"[Booking].[Desk].[LegalEntity]\\",\\"ALL_MEASURES\\"],\\"horizontalSubplots\\":[],\\"verticalSubplots\\":[]},\\"query\\":{\\"mdx\\":\\"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube]\\",\\"updateMode\\":\\"once\\"},\\"filters\\":[],\\"queryContext\\":[],\\"serverKey\\":\\"my-server\\",\\"name\\":\\"Untitled Chart\\",\\"widgetKey\\":\\"plotly-line-chart\\"}},\\"queryContext\\":[]}},\\"pagesOrder\\":[\\"p-0\\"],\\"filters\\":[],\\"queryContext\\":[]}",
+          "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"2"},{"leafKey":"1"}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"serverUrl":"","mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [foo] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues":{"mdx.hiddengrandtotals":"1"},"updateMode":"once","ranges":{"row":{"chunkSize":2000,"thresholdPercentage":0.1},"column":{"chunkSize":50,"thresholdPercentage":0.2}},"configuration":{"tabular":{"pinnedHeaderSelector":"member","sortingMode":"non-breaking","addButtonFilter":"numeric","cellRenderers":["tree-layout"],"statisticsShown":true,"columnsGroups":[{"captionProducer":"firstColumn","cellFactory":"kpi-status","selector":"kpi-status"},{"captionProducer":"firstColumn","cellFactory":"lookup","selector":"lookup"},{"captionProducer":"expiry","cellFactory":"expiry","selector":"kpi-expiry"},{"captionProducer":"columnMerge","cellFactory":{"args":{},"key":"treeCells"},"selector":"member"}],"hideAddButton":true,"defaultOptions":{},"expansion":{"automaticExpansion":true}}},"name":"Untitled Pivot Table","widgetKey":"pivot-table"},"2":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnl.FOREX]"],"secondaryValues":[],"splitBy":["[Booking].[Desk].[LegalEntity]","ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
           "isDirectory": false,
           "lastEditor": "admin",
-          "owners": Array [
+          "owners": [
             "admin",
           ],
-          "readers": Array [
+          "readers": [
             "admin",
           ],
           "timestamp": 1607879735685,
@@ -216,19 +216,19 @@ describe("migrate_43_to_50", () => {
     expect(counters.dashboards.partial).toEqual(1);
     expect(counters.dashboards.success).toEqual(0);
     expect(errorReport).toMatchInlineSnapshot(`
-      Object {
-        "dashboards": Object {
-          "158": Object {
-            "folderId": Array [],
-            "folderName": Array [],
+      {
+        "dashboards": {
+          "158": {
+            "folderId": [],
+            "folderName": [],
             "name": "hidden grand totals",
-            "pages": Object {
-              "p-0": Object {
+            "pages": {
+              "p-0": {
                 "pageName": "Page 1",
-                "widgets": Object {
-                  "1": Object {
-                    "error": Object {
-                      "message": "Cube not found: \\"foo\\". Available cubes are [\\"EquityDerivativesCube\\",\\"EquityDerivativesCubeDist\\"]",
+                "widgets": {
+                  "1": {
+                    "error": {
+                      "message": "Cube not found: "foo". Available cubes are ["EquityDerivativesCube","EquityDerivativesCubeDist"]",
                     },
                     "widgetName": "Untitled Pivot Table",
                   },
@@ -256,17 +256,17 @@ describe("migrate_43_to_50", () => {
     expect(
       migratedUIFolder?.children?.filters?.children?.content?.children?.["158"],
     ).toMatchInlineSnapshot(`
-      Object {
-        "entry": Object {
+      {
+        "entry": {
           "canRead": true,
           "canWrite": true,
-          "content": "{\\"name\\":\\"AUI4 filter\\",\\"type\\":\\"mdx\\",\\"invalidvalue\\":{\\"shouldReplace\\":true,\\"type\\":\\"filter\\",\\"mdx\\":\\"{[Geography].[City].[ALL].[AllMember].[Berlin], [Geography].[City].[ALL].[AllMember].[London]}\\",\\"cube\\":\\"EquityDerivativesCube\\"}}",
+          "content": "{"name":"AUI4 filter","type":"mdx","invalidvalue":{"shouldReplace":true,"type":"filter","mdx":"{[Geography].[City].[ALL].[AllMember].[Berlin], [Geography].[City].[ALL].[AllMember].[London]}","cube":"EquityDerivativesCube"}}",
           "isDirectory": false,
           "lastEditor": "admin",
-          "owners": Array [
+          "owners": [
             "admin",
           ],
-          "readers": Array [
+          "readers": [
             "admin",
           ],
           "timestamp": 1607879735685,
@@ -276,14 +276,14 @@ describe("migrate_43_to_50", () => {
     expect(counters.filters.failed).toEqual(1);
     expect(counters.filters.success).toEqual(0);
     expect(errorReport).toMatchInlineSnapshot(`
-      Object {
-        "filters": Object {
-          "158": Object {
-            "error": Object {
+      {
+        "filters": {
+          "158": {
+            "error": {
               "message": "Cannot read properties of undefined (reading 'mdx')",
             },
-            "folderId": Array [],
-            "folderName": Array [],
+            "folderId": [],
+            "folderName": [],
             "name": "AUI4 filter",
           },
         },

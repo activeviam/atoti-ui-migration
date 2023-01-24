@@ -43,12 +43,12 @@ describe("migrateWidgetsWithinDashboard", () => {
     );
 
     expect(dashboardState.pages["p-0"].content).toMatchInlineSnapshot(`
-      Object {
-        "1": Object {
+      {
+        "1": {
           "name": "Widget 1 Suffix",
           "widgetKey": "foo",
         },
-        "2": Object {
+        "2": {
           "name": "Widget 2 Suffix",
           "widgetKey": "bar",
         },

@@ -16,25 +16,25 @@ describe("_migrateQuery", () => {
       cube,
     });
     expect(migratedQuery).toMatchInlineSnapshot(`
-        Object {
-          "filters": Array [],
-          "query": Object {
-            "mdx": Object {
-              "axes": Array [],
-              "cellProps": Array [],
-              "elementType": "Select",
-              "from": Object {
-                "cubeName": "EquityDerivativesCube",
-                "elementType": "From",
-              },
-              "slicerAxis": undefined,
-              "withClause": Array [],
+      {
+        "filters": [],
+        "query": {
+          "mdx": {
+            "axes": [],
+            "cellProps": [],
+            "elementType": "Select",
+            "from": {
+              "cubeName": "EquityDerivativesCube",
+              "elementType": "From",
             },
-            "updateMode": "once",
+            "slicerAxis": undefined,
+            "withClause": [],
           },
-          "queryContext": Array [],
-        }
-      `);
+          "updateMode": "once",
+        },
+        "queryContext": [],
+      }
+    `);
     expect(isUsingUnsupportedUpdateMode).toBe(true);
   });
 
