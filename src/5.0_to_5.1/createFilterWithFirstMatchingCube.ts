@@ -15,7 +15,6 @@ export function createFilterWithFirstMatchingCube(
 ): Filter {
   for (const cube of cubes) {
     try {
-      console.log(cube)
       return createFilter(mdx, cube);
     } catch (e) {
       // The filter creation might be successful with another cube.
