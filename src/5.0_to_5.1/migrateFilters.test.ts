@@ -1,8 +1,14 @@
 import { parse } from "@activeviam/activeui-sdk-5.0";
-import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
+import {
+  dualCatalogDataModel,
+  sandboxDataModel,
+} from "@activeviam/data-model-5.1/dist/__test_resources__";
 import { migrateFilters } from "./migrateFilters";
 
-const dataModels = { sandbox: sandboxDataModel };
+const dataModels = {
+  sandbox: sandboxDataModel,
+  dualCatalog: dualCatalogDataModel,
+};
 
 describe("migrateFilters", () => {
   it("transforms each MdxExpression into a Filter", () => {
@@ -36,5 +42,42 @@ describe("migrateFilters", () => {
         },
       ]
     `);
+  });
+
+  it("uses the target cube identified by `cubeName` to create a Filter", () => {
+    const berlin = "[Geography].[City].[ALL].[AllMember].[Berlin]";
+    const filters = [berlin].map(parse);
+    migrateFilters(filters, {
+      dataModels,
+      // EmptyCube1 is a cube of `dualCatalogDataModel`.
+      cubeName: "EmptyCube1",
+    });
+    expect(filters).toMatchInlineSnapshot(`
+      [
+        {
+          "dimensionName": "Geography",
+          "hierarchyName": "City",
+          "members": [
+            [
+              "AllMember",
+              "Berlin",
+            ],
+          ],
+          "type": "members",
+        },
+      ]
+    `);
+  });
+
+  it("throws if there is no cube containing the hierarchies expressed in Filter", () => {
+    const squirtle = "[Pokemon].[Water].[ALL].[AllMember].[Squirtle]";
+    const filters = [squirtle].map(parse);
+    expect(() => {
+      migrateFilters(filters, {
+        dataModels,
+      });
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"The following MDX does not represent a filter: [Pokemon].[Water].[ALL].[AllMember].[Squirtle]"`,
+    );
   });
 });
