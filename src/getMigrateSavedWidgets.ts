@@ -22,7 +22,7 @@ import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
  * - the logic of traversing and updating files in `/ui/widgets`
  * - the error handling.
  *
- * Mutates `contentServer`, `counters`, `errorReport` and `idsOfWidgetsToMigrate`.
+ * Mutates `contentServer`, `counters` and `errorReport`.
  */
 export const getMigrateSavedWidgets =
   (

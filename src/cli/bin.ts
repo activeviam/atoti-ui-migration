@@ -218,7 +218,6 @@ yargs
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks,
-          behaviorOnError,
         });
       }
 

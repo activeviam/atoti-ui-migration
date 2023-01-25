@@ -21,7 +21,7 @@ import { _serializeError } from "./_serializeError";
  * - the logic of traversing and updating files in `/ui/filters`
  * - the error handling.
  *
- * Mutates `contentServer`, `counters`, `errorReport` and `idsOfFiltersToMigrate`.
+ * Mutates `contentServer`, `counters` and `errorReport`.
  */
 export const getMigrateSavedFilters =
   (

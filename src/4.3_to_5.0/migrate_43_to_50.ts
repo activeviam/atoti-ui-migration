@@ -14,11 +14,7 @@ import { migrateFilter } from "./migrateFilter";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { migrateCalculatedMeasures } from "./migrateCalculatedMeasures";
-import {
-  OutcomeCounters,
-  ErrorReport,
-  BehaviorOnError,
-} from "../migration.types";
+import { OutcomeCounters, ErrorReport } from "../migration.types";
 import { _getMapOfFolderIds } from "./_getMapOfFolderIds";
 import { _serializeError } from "../_serializeError";
 import { PartialMigrationError } from "../PartialMigrationError";
@@ -203,13 +199,12 @@ const accumulateStructure = ({
 /**
  * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
  * Keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
- * Also keeps track of the files to keep migrating in `idsOfDashboardsToMigrate`, `idsOfWidgetsToMigrate` and `idsOfFiltersToMigrate`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
  * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
  * - for a saved ActiveUI 4.3 dashboard including a matching widget, the widget is removed from the output ActiveUI 5.0 dashboard, and the layout is adapted so that siblings take the remaining space.
  *
- * Mutates `contentServer`, `errorReport`, `counters`, `idsOfDashboardsToMigrate`, `idsOfWidgetsToMigrate` and `idsOfFiltersToMigrate`.
+ * Mutates `contentServer`, `errorReport` and `counters`.
  */
 export async function migrate_43_to_50(
   contentServer: ContentRecord,
@@ -219,14 +214,12 @@ export async function migrate_43_to_50(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
-    behaviorOnError,
   }: {
     errorReport: ErrorReport;
     counters: OutcomeCounters;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
-    behaviorOnError?: BehaviorOnError;
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
@@ -315,14 +308,8 @@ export async function migrate_43_to_50(
               },
             };
             counters.filters.success++;
-            idsOfFiltersToMigrate.add(fileId);
           } catch (error) {
             counters.filters.failed++;
-
-            if (behaviorOnError === "keep-going") {
-              // Stop the migration for this filter here, unless otherwise specified.
-              idsOfFiltersToMigrate.add(fileId);
-            }
 
             filters[fileId] = {
               content: { mdx: "" },

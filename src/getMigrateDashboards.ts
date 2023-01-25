@@ -24,7 +24,7 @@ import { _serializeError } from "./_serializeError";
  * - the logic of traversing and updating files in `/ui/dashboards`
  * - the error handling.
  *
- * Mutates `contentServer`, `counters`, `errorReport` and `idsOfDashboardsToMigrate`.
+ * Mutates `contentServer`, `counters` and `errorReport`.
  */
 export const getMigrateDashboards =
   (
