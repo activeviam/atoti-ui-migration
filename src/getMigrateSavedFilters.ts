@@ -96,9 +96,9 @@ export const getMigrateSavedFilters =
         );
 
         // The filter was successfully migrated.
-        counters.filters.success++;
         content.children![fileId].entry.content =
           JSON.stringify(migratedFilter);
+        counters.filters.success++;
       } catch (error) {
         // The filter could not be migrated.
         counters.filters.failed++;

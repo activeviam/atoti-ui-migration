@@ -139,6 +139,9 @@ export const getMigrateDashboards =
           deserializedMigratedDashboard as ToDashboardState,
         );
 
+        content.children![fileId].entry.content =
+          JSON.stringify(migratedDashboard);
+
         if (Object.keys(dashboardErrorReport.pages).length > 0) {
           // The migration of some widgets within the dashboard failed.
           counters.dashboards.partial++;
@@ -153,8 +156,6 @@ export const getMigrateDashboards =
         } else {
           // The dashboard was fully migrated.
           counters.dashboards.success++;
-          content.children![fileId].entry.content =
-            JSON.stringify(migratedDashboard);
         }
       } catch (error) {
         // The dashboard could not be migrated at all.

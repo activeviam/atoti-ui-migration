@@ -128,9 +128,9 @@ export const getMigrateSavedWidgets =
         );
 
         // The widget was successfully migrated.
-        counters.widgets.success++;
         content.children![fileId].entry.content =
           JSON.stringify(migratedWidget);
+        counters.widgets.success++;
       } catch (error) {
         // The widget could not be migrated.
         counters.widgets.failed++;

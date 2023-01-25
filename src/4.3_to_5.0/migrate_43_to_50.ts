@@ -198,7 +198,7 @@ const accumulateStructure = ({
 
 /**
  * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
- * Keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
+ * Also keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
  * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
@@ -360,7 +360,7 @@ export async function migrate_43_to_50(
                 name: bookmark.name,
               });
             } else {
-              // The dashboard was fully migrated, its migration can continue.
+              // The dashboard was fully migrated.
               counters.dashboards.success++;
             }
           } catch (error) {
@@ -379,7 +379,6 @@ export async function migrate_43_to_50(
               fileId,
               name: bookmark.name,
             });
-
             migratedDashboard = bookmark;
           }
 
