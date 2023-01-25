@@ -62,13 +62,13 @@ export interface ErrorReport {
       dashboardId: string
     ]: // If the error was thrown by `migrateDashboard` itself, not an underlying call to `migrateWidget`.
     // This should happen rarely.
-    // In this case, the whole outdated dashboard is copied as is.
+    // In this case, what happens to the whole outdated dashboard is decided by the BehaviorOnError chosen by the user.
     | FileErrorReport
       // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
       // This should happen more frequently.
       // In this case, the dashboard is migrated successfully, except for the widgets which threw errors.
       // These failing widgets are copied as is into the new dashboard.
-      | DashboardErrorReport;
+      | (Omit<FileErrorReport, "error"> & DashboardErrorReport);
   };
   widgets?: {
     [widgetId: string]: FileErrorReport;

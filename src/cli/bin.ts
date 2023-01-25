@@ -18,6 +18,9 @@ import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
 import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
+import { getDashboardsContent } from "../getDashboardsContent";
+import { getWidgetsContent } from "../getWidgetsContent";
+import { getFiltersContent } from "../getFiltersContent";
 
 const migrationSteps: {
   from: string;
@@ -137,7 +140,15 @@ yargs
           "keep-going",
         ],
         default: "keep-original",
-        desc: "The behavior when an error occurs during the migration of an item.",
+        desc: `The behavior when an error occurs during the migration of an item. This has an effect only when migrating through several versions in one go.
+         
+          For example, suppose that you're migrating from 5.0 to 5.3. For each saved item (e.g. a dashboard), three migration steps are applied: 5.0 => 5.1, 5.1 => 5.2, and 5.2 => 5.3. Each of these three steps might fail.
+         
+          More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
+          \n- "keep-original": keep the original item untouched, as before the whole migration.
+          \n- "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
+          \n- "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
+        `,
       });
     },
     async ({
@@ -156,16 +167,22 @@ yargs
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
       const originalContentServer = _cloneDeep(contentServer);
 
-      const dashboardsContent =
-        contentServer.children?.ui.children?.dashboards.children?.content;
-      const widgetsContent =
-        contentServer.children?.ui.children?.widgets.children?.content;
-      const filtersContent =
-        contentServer.children?.ui.children?.filters.children?.content;
+      const originalDashboardsContent = getDashboardsContent(
+        originalContentServer,
+        fromVersion,
+      );
+      const originalWidgetsContent = getWidgetsContent(
+        originalContentServer,
+        fromVersion,
+      );
+      const originalFiltersContent = getFiltersContent(
+        originalContentServer,
+        fromVersion,
+      );
 
-      let idsOfDashboardsToMigrate = new Set<string>();
-      let idsOfWidgetsToMigrate = new Set<string>();
-      let idsOfFiltersToMigrate = new Set<string>();
+      const idsOfDashboardsToMigrate = new Set<string>();
+      const idsOfWidgetsToMigrate = new Set<string>();
+      const idsOfFiltersToMigrate = new Set<string>();
 
       const servers: {
         [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
@@ -219,16 +236,8 @@ yargs
         getIndexedDataModel(dataModel),
       );
 
-      if (fromVersion === "4.3") {
-        // If the migration started from 4.3, `idsOfDashboardsToMigrate` is already populated.
-        idsOfDashboardsToMigrate = new Set(
-          Object.keys(dashboardsContent?.children || {}),
-        );
-      }
-
       const migrateDashboards = getMigrateDashboards(contentServer, {
-        originalContentServer,
-        idsOfDashboardsToMigrate,
+        originalContent: originalDashboardsContent,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
@@ -236,17 +245,9 @@ yargs
         doesReportIncludeStacks,
         behaviorOnError,
       });
-
-      if (fromVersion === "4.3") {
-        // If the migration started from 4.3, `idsOfWidgetsToMigrate` is already populated.
-        idsOfWidgetsToMigrate = new Set(
-          Object.keys(widgetsContent?.children || {}),
-        );
-      }
 
       const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
-        idsOfWidgetsToMigrate,
-        originalContentServer,
+        originalContent: originalWidgetsContent,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
@@ -255,16 +256,8 @@ yargs
         behaviorOnError,
       });
 
-      if (fromVersion === "4.3") {
-        // If the migration started from 4.3, `idsOfFiltersToMigrate` is already populated.
-        idsOfFiltersToMigrate = new Set(
-          Object.keys(filtersContent?.children || {}),
-        );
-      }
-
       const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
-        originalContentServer,
-        idsOfFiltersToMigrate,
+        originalContent: originalFiltersContent,
         dataModels,
         errorReport,
         counters,

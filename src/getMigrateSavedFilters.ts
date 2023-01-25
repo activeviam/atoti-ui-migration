@@ -27,16 +27,14 @@ export const getMigrateSavedFilters =
   (
     contentServer: ContentRecord,
     {
-      originalContentServer,
-      idsOfFiltersToMigrate,
+      originalContent,
       dataModels,
       errorReport,
       counters,
       doesReportIncludeStacks,
       behaviorOnError = "keep-original",
     }: {
-      originalContentServer: ContentRecord;
-      idsOfFiltersToMigrate: Set<string>;
+      originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
       errorReport: ErrorReport;
       counters: OutcomeCounters;
@@ -56,83 +54,73 @@ export const getMigrateSavedFilters =
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.filters.children ?? {};
-    const originalContent =
-      originalContentServer.children?.ui.children?.filters.children?.content;
 
-    if (!content?.children || !structure?.children) {
+    if (!content?.children || !structure?.children || !originalContent) {
       return;
     }
 
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      if (idsOfFiltersToMigrate.has(fileId)) {
-        if (!filesAncestry[fileId]) {
-          counters.dashboards.removed++;
-          _addCorruptFileErrorToReport(errorReport, {
-            contentType: "filters",
-            fileId,
-          });
-          continue;
-        }
+      if (errorReport.filters?.[fileId] && behaviorOnError !== "keep-going") {
+        // The migration of this filter failed at a previous step.
+        // The behavior on error is not to keep going, hence the migration of this filter should not go further.
+        return;
+      }
 
-        const { entry } = content.children[fileId];
-        const filter = JSON.parse(entry.content);
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileErrorToReport(errorReport, {
+          contentType: "filters",
+          fileId,
+        });
+        continue;
+      }
 
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
-        const metadata = _getMetaData(structure, folderId, fileId);
+      const { entry } = content.children[fileId];
+      const filter = JSON.parse(entry.content);
 
-        let migratedFilter;
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
-        try {
-          const deserializedFilter = deserialize(filter);
-          const deserializedMigratedFilter = produce(
-            deserializedFilter,
-            (draft) => callback(draft as FromFilterState, { dataModels }),
-          );
-          // It is the responsibility of `callback` to mutate a `FromFilterState` into a `ToFilterState`.
-          migratedFilter = serialize(
-            deserializedMigratedFilter as ToFilterState,
-          );
+      try {
+        const deserializedFilter = deserialize(filter);
+        const deserializedMigratedFilter = produce(
+          deserializedFilter,
+          (draft) => callback(draft as FromFilterState, { dataModels }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromFilterState` into a `ToFilterState`.
+        const migratedFilter = serialize(
+          deserializedMigratedFilter as ToFilterState,
+        );
 
-          // The filter was successfully migrated.
-          counters.filters.success++;
-        } catch (error) {
-          // The filter could not be migrated.
-          counters.filters.failed++;
-
-          _addErrorToReport(errorReport, {
-            folderName,
-            folderId,
-            contentType: "filters",
-            fileErrorReport: {
-              error: _serializeError(error, {
-                doesReportIncludeStacks,
-              }),
-            },
-            fileId,
-            name: metadata.name!,
-          });
-
-          switch (behaviorOnError) {
-            case "keep-last-successful-version":
-              migratedFilter = filter;
-              idsOfFiltersToMigrate.delete(fileId);
-              break;
-            case "keep-going":
-              migratedFilter = filter;
-              break;
-            // The default behavior is "keep-original".
-            default:
-              // All filters that are in `content` were initially in `originalContent`.
-              migratedFilter = originalContent!.children![fileId].entry;
-              idsOfFiltersToMigrate.delete(fileId);
-          }
-        }
-
+        // The filter was successfully migrated.
+        counters.filters.success++;
         content.children![fileId].entry.content =
           JSON.stringify(migratedFilter);
+      } catch (error) {
+        // The filter could not be migrated.
+        counters.filters.failed++;
+
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "filters",
+          fileErrorReport: {
+            error: _serializeError(error, {
+              doesReportIncludeStacks,
+            }),
+          },
+          fileId,
+          name: metadata.name!,
+        });
+
+        // If the behavior is "keep-last-successful-version" or "keep-going", the filter is kept as it is.
+        if (behaviorOnError === "keep-original") {
+          // All filters that are in `content` were initially in `originalContent`.
+          content.children[fileId] = originalContent.children![fileId];
+        }
       }
     }
   };

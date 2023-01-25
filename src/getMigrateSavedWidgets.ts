@@ -28,8 +28,7 @@ export const getMigrateSavedWidgets =
   (
     contentServer: ContentRecord,
     {
-      originalContentServer,
-      idsOfWidgetsToMigrate,
+      originalContent,
       dataModels,
       keysOfWidgetPluginsToRemove,
       errorReport,
@@ -37,9 +36,8 @@ export const getMigrateSavedWidgets =
       doesReportIncludeStacks,
       behaviorOnError = "keep-original",
     }: {
-      originalContentServer: ContentRecord;
+      originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
-      idsOfWidgetsToMigrate: Set<string>;
       keysOfWidgetPluginsToRemove: string[];
       errorReport: ErrorReport;
       counters: OutcomeCounters;
@@ -59,112 +57,102 @@ export const getMigrateSavedWidgets =
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.widgets.children ?? {};
-    const originalContent =
-      originalContentServer.children?.ui.children?.widgets.children?.content;
 
-    if (!content?.children || !structure?.children) {
+    if (!content?.children || !structure?.children || !originalContent) {
       return;
     }
 
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
-      if (idsOfWidgetsToMigrate.has(fileId)) {
-        if (!filesAncestry[fileId]) {
-          counters.dashboards.removed++;
-          _addCorruptFileErrorToReport(errorReport, {
-            contentType: "widgets",
-            fileId,
-          });
-          continue;
-        }
+      if (errorReport.widgets?.[fileId] && behaviorOnError !== "keep-going") {
+        // The migration of this widget failed at a previous step.
+        // The behavior on error is not to keep going, hence the migration of this widget should not go further.
+        return;
+      }
 
-        const { entry } = content.children[fileId];
-        const widget = JSON.parse(entry.content);
+      if (!filesAncestry[fileId]) {
+        counters.dashboards.removed++;
+        _addCorruptFileErrorToReport(errorReport, {
+          contentType: "widgets",
+          fileId,
+        });
+        continue;
+      }
 
-        const folderName = filesAncestry[fileId].map(({ name }) => name);
-        const folderId = filesAncestry[fileId].map(({ id }) => id);
-        const metadata = _getMetaData(structure, folderId, fileId);
+      const { entry } = content.children[fileId];
+      const widget = JSON.parse(entry.content);
 
-        if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
-          // The widget's plugin key is flagged for removal.
-          // Remove the widget instead of migrating it.
-          counters.widgets.removed++;
-          _addErrorToReport(errorReport, {
-            folderName,
-            folderId,
-            contentType: "widgets",
-            fileErrorReport: {
-              error: _serializeError(
-                new WidgetFlaggedForRemovalError(widget.key),
-                { doesReportIncludeStacks },
-              ),
-            },
-            fileId,
-            name: metadata.name!,
-          });
-          delete content.children[fileId];
-          const parentFolder = folderId.reduce(
-            (acc, id) => acc.children![id],
-            structure,
-          );
-          delete parentFolder.children![fileId];
-          continue;
-        }
+      const folderName = filesAncestry[fileId].map(({ name }) => name);
+      const folderId = filesAncestry[fileId].map(({ id }) => id);
+      const metadata = _getMetaData(structure, folderId, fileId);
 
-        let migratedWidget;
+      if (keysOfWidgetPluginsToRemove?.includes(widget.key)) {
+        // The widget's plugin key is flagged for removal.
+        // Remove the widget instead of migrating it.
+        counters.widgets.removed++;
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "widgets",
+          fileErrorReport: {
+            error: _serializeError(
+              new WidgetFlaggedForRemovalError(widget.key),
+              { doesReportIncludeStacks },
+            ),
+          },
+          fileId,
+          name: metadata.name!,
+        });
+        delete content.children[fileId];
+        const parentFolder = folderId.reduce(
+          (acc, id) => acc.children![id],
+          structure,
+        );
+        delete parentFolder.children![fileId];
+        continue;
+      }
 
-        try {
-          const deserializedWidget = deserialize(widget);
-          const deserializedMigratedWidget = produce(
-            deserializedWidget,
-            (draft) =>
-              callback(draft as FromWidgetState, {
-                dataModels,
-              }),
-          );
-          // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
-          migratedWidget = serialize(
-            deserializedMigratedWidget as ToWidgetState,
-          );
+      try {
+        const deserializedWidget = deserialize(widget);
+        const deserializedMigratedWidget = produce(
+          deserializedWidget,
+          (draft) =>
+            callback(draft as FromWidgetState, {
+              dataModels,
+            }),
+        );
+        // It is the responsibility of `callback` to mutate a `FromWidgetState` into a `ToWidgetState`.
+        const migratedWidget = serialize(
+          deserializedMigratedWidget as ToWidgetState,
+        );
 
-          // The widget was successfully migrated.
-          counters.widgets.success++;
-        } catch (error) {
-          // The widget could not be migrated.
-          counters.widgets.failed++;
-
-          _addErrorToReport(errorReport, {
-            folderName,
-            folderId,
-            contentType: "widgets",
-            fileErrorReport: {
-              error: _serializeError(error, {
-                doesReportIncludeStacks,
-              }),
-            },
-            fileId,
-            name: metadata.name!,
-          });
-
-          switch (behaviorOnError) {
-            case "keep-last-successful-version":
-              migratedWidget = widget;
-              idsOfWidgetsToMigrate.delete(fileId);
-              break;
-            case "keep-going":
-              migratedWidget = widget;
-              break;
-            // The default behavior is "keep-original".
-            default:
-              // All widgets that are in `content` were initially in `originalContent`.
-              migratedWidget = originalContent!.children![fileId].entry;
-              idsOfWidgetsToMigrate.delete(fileId);
-          }
-        }
-
+        // The widget was successfully migrated.
+        counters.widgets.success++;
         content.children![fileId].entry.content =
           JSON.stringify(migratedWidget);
+      } catch (error) {
+        // The widget could not be migrated.
+        counters.widgets.failed++;
+
+        _addErrorToReport(errorReport, {
+          folderName,
+          folderId,
+          contentType: "widgets",
+          fileErrorReport: {
+            error: _serializeError(error, {
+              doesReportIncludeStacks,
+            }),
+          },
+          fileId,
+          name: metadata.name!,
+        });
+
+        // If the behavior is "keep-last-successful-version" or "keep-going", the widget is kept as it is.
+        if (behaviorOnError === "keep-original") {
+          // All widgets that are in `content` were initially in `originalContent`.
+          content.children[fileId] = originalContent.children![fileId];
+        }
       }
     }
   };
