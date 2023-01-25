@@ -219,9 +219,6 @@ export async function migrate_43_to_50(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
-    idsOfDashboardsToMigrate,
-    idsOfWidgetsToMigrate,
-    idsOfFiltersToMigrate,
     behaviorOnError,
   }: {
     errorReport: ErrorReport;
@@ -229,9 +226,6 @@ export async function migrate_43_to_50(
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
-    idsOfDashboardsToMigrate: Set<string>;
-    idsOfWidgetsToMigrate: Set<string>;
-    idsOfFiltersToMigrate: Set<string>;
     behaviorOnError?: BehaviorOnError;
   },
 ): Promise<void> {
@@ -381,7 +375,6 @@ export async function migrate_43_to_50(
             } else {
               // The dashboard was fully migrated, its migration can continue.
               counters.dashboards.success++;
-              idsOfDashboardsToMigrate.add(fileId);
             }
           } catch (error) {
             // The dashboard could not be migrated at all.
@@ -399,11 +392,6 @@ export async function migrate_43_to_50(
               fileId,
               name: bookmark.name,
             });
-
-            if (behaviorOnError === "keep-going") {
-              // Stop the migration for this dashboard here, unless otherwise specified.
-              idsOfDashboardsToMigrate.add(fileId);
-            }
 
             migratedDashboard = bookmark;
           }
@@ -444,13 +432,7 @@ export async function migrate_43_to_50(
           try {
             migratedWidget = migrateWidget(bookmark, servers);
             counters.widgets.success++;
-            idsOfWidgetsToMigrate.add(fileId);
           } catch (error) {
-            if (behaviorOnError === "keep-going") {
-              // Stop the migration for this widget here, unless otherwise specified.
-              idsOfWidgetsToMigrate.add(fileId);
-            }
-
             if (error instanceof PartialMigrationError) {
               counters.widgets.partial++;
               migratedWidget = error.migratedWidgetState;

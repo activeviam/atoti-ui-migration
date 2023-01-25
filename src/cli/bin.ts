@@ -181,10 +181,6 @@ yargs
         fromVersion,
       );
 
-      const idsOfDashboardsToMigrate = new Set<string>();
-      const idsOfWidgetsToMigrate = new Set<string>();
-      const idsOfFiltersToMigrate = new Set<string>();
-
       const servers: {
         [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
       } = await fs.readJSON(serversPath);
@@ -222,9 +218,6 @@ yargs
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks,
-          idsOfDashboardsToMigrate,
-          idsOfWidgetsToMigrate,
-          idsOfFiltersToMigrate,
           behaviorOnError,
         });
       }
