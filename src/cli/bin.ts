@@ -18,9 +18,7 @@ import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
 import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
-import { getDashboardsContent } from "../getDashboardsContent";
-import { getWidgetsContent } from "../getWidgetsContent";
-import { getFiltersContent } from "../getFiltersContent";
+import { getContent } from "../getContent";
 
 const migrationSteps: {
   from: string;
@@ -167,15 +165,18 @@ yargs
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
       const originalContentServer = _cloneDeep(contentServer);
 
-      const originalDashboardsContent = getDashboardsContent(
+      const originalDashboardsContent = getContent(
+        "dashboard",
         originalContentServer,
         fromVersion,
       );
-      const originalWidgetsContent = getWidgetsContent(
+      const originalWidgetsContent = getContent(
+        "widget",
         originalContentServer,
         fromVersion,
       );
-      const originalFiltersContent = getFiltersContent(
+      const originalFiltersContent = getContent(
+        "filter",
         originalContentServer,
         fromVersion,
       );
