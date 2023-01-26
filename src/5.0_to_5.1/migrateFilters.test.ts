@@ -71,7 +71,7 @@ describe("migrateFilters", () => {
 
   it("throws if there is no cube containing the hierarchies expressed in Filter", () => {
     const squirtle = "[Pokemon].[Water].[ALL].[AllMember].[Squirtle]";
-    const filters = [squirtle].map(parse);
+    const filters = [parse(squirtle)];
     expect(() => {
       migrateFilters(filters, {
         dataModels,
