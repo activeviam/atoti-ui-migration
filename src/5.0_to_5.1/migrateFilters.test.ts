@@ -11,7 +11,7 @@ const dataModels = {
 };
 
 describe("migrateFilters", () => {
-  it("transforms each MdxExpression into a Filter", () => {
+  it("transforms each MdxExpression into a Filter, with the first cube containing the hierarchies expressed in the MDX expression", () => {
     const euro = "[Currency].[Currency].[ALL].[AllMember].[EUR]";
     const berlin = "[Geography].[City].[ALL].[AllMember].[Berlin]";
     const filters = [euro, berlin].map(parse);
