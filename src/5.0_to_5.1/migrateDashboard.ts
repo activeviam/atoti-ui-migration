@@ -28,11 +28,11 @@ export const migrateDashboard: MigrateDashboardCallback<
     measureToCubeMapping,
   },
 ) => {
-  migrateFilters(dashboardState.filters);
+  migrateFilters(dashboardState.filters, { dataModels });
   migrateContextValues(dashboardState.queryContext);
 
   _forEach(dashboardState.pages, (pageState) => {
-    migrateFilters(pageState.filters);
+    migrateFilters(pageState.filters, { dataModels });
     migrateContextValues(pageState.queryContext);
   });
 
