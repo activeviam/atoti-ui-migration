@@ -1,7 +1,7 @@
 import { ContentRecord, ContentType } from "@activeviam/activeui-sdk-5.0";
 
 /**
- * Returns the `contentType` content from the `contentServer` of version `fromVersion`.
+ * Returns the content of type `contentType` created with ActiveUI version `fromVersion` on `contentServer`.
  */
 export const getContent = (
   contentType: ContentType,
