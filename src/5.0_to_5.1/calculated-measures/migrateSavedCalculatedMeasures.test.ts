@@ -38,12 +38,15 @@ const measureToCubeMapping = {
   "CM in 2 cubes": ["EquityDerivativesCube", "EquityDerivativesCubeDist"],
 };
 
+const toVersion = "5.3";
+
 migrateSavedCalculatedMeasures({
   contentServer: contentServerForTests,
   measureToCubeMapping,
   errorReport,
   counters,
   doesReportIncludeStacks: false,
+  toVersion,
 });
 
 describe("migrateSavedCalculatedMeasures", () => {
@@ -138,6 +141,7 @@ describe("migrateSavedCalculatedMeasures", () => {
           folderId: ["a14"],
           folderName: ["New folder"],
           name: "Exp gamma sum",
+          failVersion: toVersion,
         },
       },
     });

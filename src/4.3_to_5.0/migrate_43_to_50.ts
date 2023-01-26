@@ -334,6 +334,7 @@ export async function migrate_43_to_50(
               },
               fileId,
               name: bookmark.name,
+              failVersion: "5.0",
             });
           }
         } else if (bookmark.value.containerKey === "dashboard") {
@@ -358,6 +359,7 @@ export async function migrate_43_to_50(
                 fileErrorReport: dashboardErrorReport,
                 fileId,
                 name: bookmark.name,
+                failVersion: "5.0",
               });
             } else {
               // The dashboard was fully migrated.
@@ -378,6 +380,7 @@ export async function migrate_43_to_50(
               },
               fileId,
               name: bookmark.name,
+              failVersion: "5.0",
             });
             migratedDashboard = bookmark;
           }
@@ -409,6 +412,7 @@ export async function migrate_43_to_50(
               },
               fileId,
               name: bookmark.name,
+              failVersion: "5.0",
             });
 
             continue;
@@ -441,6 +445,7 @@ export async function migrate_43_to_50(
               },
               fileId,
               name: bookmark.name,
+              failVersion: "5.0",
             });
           }
 

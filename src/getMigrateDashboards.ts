@@ -56,6 +56,7 @@ export const getMigrateDashboards =
     deserialize: (state: FromSerializedDashboardState) => FromDashboardState,
     callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
     serialize: (state: ToDashboardState) => ToSerializedDashboardState,
+    toVersion: string,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.dashboards.children ?? {};
@@ -149,6 +150,7 @@ export const getMigrateDashboards =
             fileErrorReport: dashboardErrorReport,
             fileId,
             name,
+            failVersion: toVersion,
           });
         } else {
           // The dashboard was fully migrated.
@@ -169,6 +171,7 @@ export const getMigrateDashboards =
           },
           fileId,
           name,
+          failVersion: toVersion,
         });
 
         if (behaviorOnError === "keep-original") {

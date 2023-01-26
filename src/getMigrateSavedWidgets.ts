@@ -54,6 +54,7 @@ export const getMigrateSavedWidgets =
     deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     serialize: (state: ToWidgetState) => ToSerializedWidgetState,
+    toVersion: string,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.widgets.children ?? {};
@@ -101,6 +102,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
+          failVersion: toVersion,
         });
         delete content.children[fileId];
         const parentFolder = folderId.reduce(
@@ -144,6 +146,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
+          failVersion: toVersion,
         });
 
         if (behaviorOnError === "keep-original") {

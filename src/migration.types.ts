@@ -24,6 +24,8 @@ export interface FileErrorReport {
   folderName: string[];
   // The name of the file on which the error occurred.
   name: string;
+  // The version which the item was failed being migrated to.
+  failVersion: string;
   // The thrown error.
   error: {
     message: string;
@@ -169,16 +171,19 @@ export type MigrationFunction<
       deserialize: (state: FromSerializedDashboardState) => FromDashboardState,
       callback: MigrateDashboardCallback<FromDashboardState, ToDashboardState>,
       serialize: (state: ToDashboardState) => ToSerializedDashboardState,
+      toVersion: string,
     ) => void;
     migrateSavedWidgets: (
       deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
       callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
       serialize: (state: ToWidgetState) => ToSerializedWidgetState,
+      toVersion: string,
     ) => void;
     migrateSavedFilters: (
       deserialize: (state: FromSerializedFilterState) => FromFilterState,
       callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
       serialize: (state: ToFilterState) => ToSerializedFilterState,
+      toVersion: string,
     ) => void;
     dataModels: {
       [serverKey: string]: DataModel;
