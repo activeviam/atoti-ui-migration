@@ -1,7 +1,7 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
-import { isDashboardErrorReport } from "./isDashboardErrorReport";
+import { isWithinDashboardErrorReport } from "./isWithinDashboardErrorReport";
 import {
   BehaviorOnError,
   DashboardErrorReport,
@@ -69,12 +69,9 @@ export const getMigrateDashboards =
     for (const fileId in content.children) {
       if (
         errorReport.dashboards?.[fileId] &&
-        !isDashboardErrorReport(errorReport.dashboards?.[fileId]) &&
+        !isWithinDashboardErrorReport(errorReport.dashboards?.[fileId]) &&
         behaviorOnError !== "keep-going"
       ) {
-        // The migration of this dashboard failed at a previous step.
-        // It is is not a partial failure (i.e. an error on the migration of one of its widgets).
-        // The behavior on error is not to keep going, hence the migration of this dashboard should not go further.
         return;
       }
 
@@ -174,7 +171,6 @@ export const getMigrateDashboards =
           name,
         });
 
-        // If the behavior is "keep-last-successful-version" or "keep-going", the dashboard is kept as it is.
         if (behaviorOnError === "keep-original") {
           // All dashboards that are in `content` were initially in `originalContent`.
           content.children[fileId] = originalContent.children![fileId];

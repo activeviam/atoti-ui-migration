@@ -3,7 +3,6 @@ import _capitalize from "lodash/capitalize";
 import _fromPairs from "lodash/fromPairs";
 import _mapValues from "lodash/mapValues";
 import fs from "fs-extra";
-import _cloneDeep from "lodash/cloneDeep";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
 import { getIndexedDataModel } from "@activeviam/data-model-5.1";
@@ -163,21 +162,20 @@ yargs
       // `contentServer` is going to be mutated.
       // `originalContentServer` will be used if the user wants to keep the original version of an item if an error happens during the migration.
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
-      const originalContentServer = _cloneDeep(contentServer);
 
       const originalDashboardsContent = getContent(
+        contentServer,
         "dashboard",
-        originalContentServer,
         fromVersion,
       );
       const originalWidgetsContent = getContent(
+        contentServer,
         "widget",
-        originalContentServer,
         fromVersion,
       );
       const originalFiltersContent = getContent(
+        contentServer,
         "filter",
-        originalContentServer,
         fromVersion,
       );
 

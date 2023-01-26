@@ -66,8 +66,6 @@ export const getMigrateSavedWidgets =
 
     for (const fileId in content.children) {
       if (errorReport.widgets?.[fileId] && behaviorOnError !== "keep-going") {
-        // The migration of this widget failed at a previous step.
-        // The behavior on error is not to keep going, hence the migration of this widget should not go further.
         return;
       }
 
@@ -148,7 +146,6 @@ export const getMigrateSavedWidgets =
           name: metadata.name!,
         });
 
-        // If the behavior is "keep-last-successful-version" or "keep-going", the widget is kept as it is.
         if (behaviorOnError === "keep-original") {
           // All widgets that are in `content` were initially in `originalContent`.
           content.children[fileId] = originalContent.children![fileId];
