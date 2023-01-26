@@ -23,7 +23,7 @@ export function createFilterWithFirstMatchingCube(
   }
 
   throw new Error(
-    `The following MDX does not represent a filter: ${stringify(mdx, {
+    `No cube contains the hierarchies expressed in the following filter MDX: ${stringify(mdx, {
       indent: true,
     })}`,
   );
