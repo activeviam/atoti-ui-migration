@@ -77,7 +77,7 @@ describe("migrateFilters", () => {
         dataModels,
       });
     }).toThrowErrorMatchingInlineSnapshot(
-      `"The following MDX does not represent a filter: [Pokemon].[Water].[ALL].[AllMember].[Squirtle]"`,
+      `"No cube contains the hierarchies expressed in the following filter MDX: [Pokemon].[Water].[ALL].[AllMember].[Squirtle]"`,
     );
   });
 });
