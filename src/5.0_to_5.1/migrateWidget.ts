@@ -30,15 +30,18 @@ export const migrateWidget: MigrateWidgetCallback<
     measureToCubeMapping,
   });
 
-  if (isWidgetWithQueryState(widgetState)) {
-    const mdx = widgetState.query.mdx;
-    const cubeName = mdx ? getCubeName(mdx) : undefined;
-    migrateFilters(widgetState.filters, {
-      dataModels,
-      cubeName,
-      serverKey: widgetState.serverKey,
-    });
-  }
+  const cubeName =
+    isWidgetWithQueryState(widgetState) && widgetState.query.mdx
+      ? getCubeName(widgetState.query.mdx)
+      : undefined;
+  const serverKey = isWidgetWithQueryState(widgetState)
+    ? widgetState.serverKey
+    : undefined;
+  migrateFilters(widgetState.filters, {
+    dataModels,
+    cubeName,
+    serverKey,
+  });
 
   migrateContextValues(widgetState.queryContext);
 };
