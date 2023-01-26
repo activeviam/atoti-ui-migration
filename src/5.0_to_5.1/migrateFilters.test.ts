@@ -44,7 +44,7 @@ describe("migrateFilters", () => {
     `);
   });
 
-  it("uses the target cube identified by `cubeName` to create a Filter", () => {
+  it("transforms each MdxExpression into a Filter, with the target cube identified by `cubeName`", () => {
     const berlin = "[Geography].[City].[ALL].[AllMember].[Berlin]";
     const filters = [berlin].map(parse);
     migrateFilters(filters, {
