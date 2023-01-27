@@ -33,6 +33,7 @@ export const getMigrateSavedFilters =
       counters,
       doesReportIncludeStacks,
       behaviorOnError,
+      step,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -40,6 +41,7 @@ export const getMigrateSavedFilters =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
       behaviorOnError: BehaviorOnError;
+      step: string;
     },
   ) =>
   <
@@ -51,7 +53,6 @@ export const getMigrateSavedFilters =
     deserialize: (state: FromSerializedFilterState) => FromFilterState,
     callback: MigrateFilterCallback<FromFilterState, ToFilterState>,
     serialize: (state: ToFilterState) => ToSerializedFilterState,
-    toVersion: string,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.filters.children ?? {};
@@ -113,7 +114,7 @@ export const getMigrateSavedFilters =
           },
           fileId,
           name: metadata.name!,
-          failVersion: toVersion,
+          step,
         });
 
         if (behaviorOnError === "keep-original") {

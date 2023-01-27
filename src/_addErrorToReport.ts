@@ -13,7 +13,7 @@ export function _addErrorToReport(
     fileId,
     name,
     fileErrorReport,
-    failVersion,
+    step,
   }: {
     contentType: "dashboards" | "widgets" | "filters" | "calculated_measures";
     folderId: string[];
@@ -23,7 +23,7 @@ export function _addErrorToReport(
       | PartialDashboardErrorReport;
     fileId: string;
     name: string;
-    failVersion: string;
+    step: string;
   },
 ): void {
   // `_set` would normally be used here, however `fileId` could be a numerical string that `_set` would interpret as an index in an array instead of an object key
@@ -36,7 +36,7 @@ export function _addErrorToReport(
       folderId,
       folderName,
       name,
-      failVersion,
+      step,
       ...fileErrorReport,
     },
     Object,

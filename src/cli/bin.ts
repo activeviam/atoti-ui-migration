@@ -227,38 +227,42 @@ yargs
         getIndexedDataModel(dataModel),
       );
 
-      const migrateDashboards = getMigrateDashboards(contentServer, {
-        originalContent: originalDashboardsContent,
-        dataModels,
-        keysOfWidgetPluginsToRemove,
-        errorReport,
-        counters,
-        doesReportIncludeStacks,
-        behaviorOnError,
-      });
-
-      const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
-        originalContent: originalWidgetsContent,
-        dataModels,
-        keysOfWidgetPluginsToRemove,
-        errorReport,
-        counters,
-        doesReportIncludeStacks,
-        behaviorOnError,
-      });
-
-      const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
-        originalContent: originalFiltersContent,
-        dataModels,
-        errorReport,
-        counters,
-        doesReportIncludeStacks,
-        behaviorOnError,
-      });
-
       migrationSteps
         .slice(fromVersionIndex, toVersionIndex + 1)
-        .forEach(({ migrate }) => {
+        .forEach(({ migrate, from, to }) => {
+          const step = `${from} to ${to}`;
+          const migrateDashboards = getMigrateDashboards(contentServer, {
+            originalContent: originalDashboardsContent,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
+          const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
+            originalContent: originalWidgetsContent,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
+          const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
+            originalContent: originalFiltersContent,
+            dataModels,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
           migrate(contentServer, {
             migrateDashboards,
             migrateSavedWidgets,

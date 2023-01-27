@@ -35,6 +35,7 @@ export const getMigrateSavedWidgets =
       counters,
       doesReportIncludeStacks,
       behaviorOnError,
+      step,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -43,6 +44,7 @@ export const getMigrateSavedWidgets =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
       behaviorOnError: BehaviorOnError;
+      step: string;
     },
   ) =>
   <
@@ -54,7 +56,6 @@ export const getMigrateSavedWidgets =
     deserialize: (state: FromSerializedWidgetState) => FromWidgetState,
     callback: MigrateWidgetCallback<FromWidgetState, ToWidgetState>,
     serialize: (state: ToWidgetState) => ToSerializedWidgetState,
-    toVersion: string,
   ): void => {
     const { content, structure } =
       contentServer.children?.ui.children?.widgets.children ?? {};
@@ -102,7 +103,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
-          failVersion: toVersion,
+          step,
         });
         delete content.children[fileId];
         const parentFolder = folderId.reduce(
@@ -146,7 +147,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
-          failVersion: toVersion,
+          step,
         });
 
         if (behaviorOnError === "keep-original") {

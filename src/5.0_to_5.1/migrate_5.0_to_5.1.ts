@@ -46,7 +46,6 @@ export const migrate_50_to_51: MigrationFunction = (
         measureToCubeMapping,
       }),
     serializeDashboardState,
-    "5.1",
   );
 
   migrateSavedWidgets(
@@ -58,7 +57,6 @@ export const migrate_50_to_51: MigrationFunction = (
         measureToCubeMapping,
       }),
     serializeWidgetState,
-    "5.1",
   );
 
   // Must be called after `migrateDashboards` and `migrateSavedWidgets`, as `measureToCubeMapping` is accumulated during those steps.
@@ -68,7 +66,7 @@ export const migrate_50_to_51: MigrationFunction = (
     errorReport,
     counters,
     doesReportIncludeStacks,
-    toVersion: "5.1",
+    step: "5.0 to 5.1",
   });
 
   migrateSavedFilters(
@@ -77,6 +75,5 @@ export const migrate_50_to_51: MigrationFunction = (
     }),
     ({ mdx }) => migrateSavedFilter({ mdx }, { dataModels }),
     serializeFilter,
-    "5.1",
   );
 };
