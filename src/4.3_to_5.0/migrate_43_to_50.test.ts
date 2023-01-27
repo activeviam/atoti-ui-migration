@@ -219,7 +219,6 @@ describe("migrate_43_to_50", () => {
       {
         "dashboards": {
           "158": {
-            "step": "4.3 to 5.0",
             "folderId": [],
             "folderName": [],
             "name": "hidden grand totals",
@@ -236,6 +235,7 @@ describe("migrate_43_to_50", () => {
                 },
               },
             },
+            "step": "4.3 to 5.0",
           },
         },
       }
@@ -283,10 +283,10 @@ describe("migrate_43_to_50", () => {
             "error": {
               "message": "Cannot read properties of undefined (reading 'mdx')",
             },
-            "step": "4.3 to 5.0",
             "folderId": [],
             "folderName": [],
             "name": "AUI4 filter",
+            "step": "4.3 to 5.0",
           },
         },
       }

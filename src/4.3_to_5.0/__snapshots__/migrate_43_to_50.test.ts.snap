@@ -2076,7 +2076,6 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
 {
   "dashboards": {
     "eef": {
-      "step": "4.3 to 5.0",
       "folderId": [],
       "folderName": [],
       "name": "1 page, 4 widgets",
@@ -2093,6 +2092,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
           },
         },
       },
+      "step": "4.3 to 5.0",
     },
   },
   "widgets": {
@@ -2100,10 +2100,10 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
       "error": {
         "message": "Unsupported widgetKey: "filters"",
       },
-      "step": "4.3 to 5.0",
       "folderId": [],
       "folderName": [],
       "name": "Page filters",
+      "step": "4.3 to 5.0",
     },
   },
 }
