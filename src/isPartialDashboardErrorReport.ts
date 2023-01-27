@@ -5,7 +5,7 @@ import {
 
 /**
  * Asserts whether `fileErrorReport` is a {@link PartialDashboardErrorReport}.
- * Partial dashboard errors are reported when the migration of a dashboard is successful was a whole, but the migration of some widgets within it failed.
+ * Partial dashboard errors are reported when the migration of a dashboard is successful as a whole, but the migration of some widgets within it failed.
  */
 export const isPartialDashboardErrorReport = (
   fileErrorReport: FileErrorReport | PartialDashboardErrorReport,

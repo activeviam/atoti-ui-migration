@@ -32,7 +32,7 @@ export const getMigrateSavedFilters =
       errorReport,
       counters,
       doesReportIncludeStacks,
-      behaviorOnError = "keep-original",
+      behaviorOnError,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };

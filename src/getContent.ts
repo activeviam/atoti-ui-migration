@@ -9,6 +9,7 @@ export const getContent = (
   contentType: ContentType,
   activeUIVersion: string,
 ): ContentRecord | undefined => {
+  // In 4.3, all the types of contents are saved in the same flat "/ui/bookmarks/content" folder.
   const folderName =
     activeUIVersion === "4.3" ? "bookmarks" : `${contentType}s`;
   const content =
