@@ -1,5 +1,5 @@
 import _setWith from "lodash/setWith";
-import { DashboardErrorReport, ErrorReport } from "./migration.types";
+import { PartialDashboardErrorReport, ErrorReport } from "./migration.types";
 
 /**
  * Adds `fileErrorReport` in `contentType` within the full error report.
@@ -20,7 +20,7 @@ export function _addErrorToReport(
     folderName: string[];
     fileErrorReport:
       | { error: { message: string; stack?: string[] } }
-      | DashboardErrorReport;
+      | PartialDashboardErrorReport;
     fileId: string;
     name: string;
     failVersion: string;

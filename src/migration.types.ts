@@ -36,7 +36,7 @@ export interface FileErrorReport {
 /**
  * Report of errors that occurred during the migration of a dashboard.
  */
-export interface DashboardErrorReport {
+export interface PartialDashboardErrorReport {
   name: string;
   pages: {
     [pageKey: string]: {
@@ -70,7 +70,7 @@ export interface ErrorReport {
       // This should happen more frequently.
       // In this case, the dashboard is migrated successfully, except for the widgets which threw errors.
       // These failing widgets are copied as is into the new dashboard.
-      | (Omit<FileErrorReport, "error"> & DashboardErrorReport);
+      | (Omit<FileErrorReport, "error"> & PartialDashboardErrorReport);
   };
   widgets?: {
     [widgetId: string]: FileErrorReport;

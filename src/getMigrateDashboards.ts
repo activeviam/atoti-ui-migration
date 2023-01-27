@@ -1,10 +1,10 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
-import { isWithinDashboardErrorReport } from "./isWithinDashboardErrorReport";
+import { isPartialDashboardErrorReport } from "./isPartialDashboardErrorReport";
 import {
   BehaviorOnError,
-  DashboardErrorReport,
+  PartialDashboardErrorReport,
   ErrorReport,
   MigrateDashboardCallback,
   OutcomeCounters,
@@ -36,7 +36,7 @@ export const getMigrateDashboards =
       errorReport,
       counters,
       doesReportIncludeStacks,
-      behaviorOnError = "keep-original",
+      behaviorOnError,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -44,7 +44,7 @@ export const getMigrateDashboards =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      behaviorOnError?: BehaviorOnError;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <
@@ -70,7 +70,7 @@ export const getMigrateDashboards =
     for (const fileId in content.children) {
       if (
         errorReport.dashboards?.[fileId] &&
-        !isWithinDashboardErrorReport(errorReport.dashboards?.[fileId]) &&
+        !isPartialDashboardErrorReport(errorReport.dashboards?.[fileId]) &&
         behaviorOnError !== "keep-going"
       ) {
         return;
@@ -93,7 +93,7 @@ export const getMigrateDashboards =
       const metadata = _getMetaData(structure, folderId, fileId);
       const name = metadata.name!;
 
-      const dashboardErrorReport: DashboardErrorReport = {
+      const dashboardErrorReport: PartialDashboardErrorReport = {
         name,
         pages: {},
       };

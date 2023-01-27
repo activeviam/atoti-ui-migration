@@ -2,29 +2,17 @@ import _cloneDeep from "lodash/cloneDeep";
 import { ContentRecord, ContentType } from "@activeviam/activeui-sdk-5.0";
 
 /**
- * Returns the content of type `contentType` created with ActiveUI version `fromVersion` on `contentServer`.
- * Doesn't mutate `contentServer`.
+ * Returns a copy of the content of type `contentType` created with ActiveUI version `activeUIVersion` on `contentServer`.
  */
 export const getContent = (
   contentServer: ContentRecord,
   contentType: ContentType,
-  fromVersion: string,
+  activeUIVersion: string,
 ): ContentRecord | undefined => {
-  let content;
-
-  switch (fromVersion) {
-    case "4.3":
-      // In 4.3, all the types of contents are saved in the same flat "/ui/bookmarks/content" folder.
-      content = _cloneDeep(
-        contentServer.children?.ui.children?.bookmarks?.children?.content,
-      );
-      break;
-    default:
-      content = _cloneDeep(
-        contentServer.children?.ui.children?.[`${contentType}s`].children
-          ?.content,
-      );
-  }
-
-  return content;
+  // In 4.3, all the types of contents are saved in the same flat "/ui/bookmarks/content" folder.
+  const folderName =
+    activeUIVersion === "4.3" ? "bookmarks" : `${contentType}s`;
+  const content =
+    contentServer.children?.ui?.children?.[folderName].children?.content;
+  return _cloneDeep(content);
 };

@@ -1,4 +1,8 @@
-import { AWidgetState as AWidgetState50 } from "@activeviam/activeui-sdk-5.0";
+import {
+  AWidgetState as AWidgetState50,
+  getCubeName,
+  isWidgetWithQueryState,
+} from "@activeviam/activeui-sdk-5.0";
 import { AWidgetState as AWidgetState51 } from "@activeviam/activeui-sdk-5.1";
 import { MigrateWidgetCallback } from "../migration.types";
 import { migrateCalculatedMeasuresInWidget } from "./calculated-measures/migrateCalculatedMeasuresInWidget";
@@ -25,6 +29,23 @@ export const migrateWidget: MigrateWidgetCallback<
     namesOfCalculatedMeasuresToMigrate,
     measureToCubeMapping,
   });
-  migrateFilters(widgetState.filters);
+
+  const cubeName =
+    isWidgetWithQueryState(widgetState) && widgetState.query.mdx
+      ? getCubeName(widgetState.query.mdx)
+      : undefined;
+  const serverKey = isWidgetWithQueryState(widgetState)
+    ? widgetState.serverKey
+    : undefined;
+  migrateFilters(widgetState.filters, {
+    dataModels,
+    cubeName,
+    serverKey,
+  });
+
   migrateContextValues(widgetState.queryContext);
+
+  if (widgetState.widgetKey === "plotly-clustered-column-and-line-chart") {
+    widgetState.widgetKey = "plotly-columns-and-lines-chart";
+  }
 };

@@ -74,7 +74,7 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
-    behaviorOnError?: BehaviorOnError;
+    behaviorOnError: BehaviorOnError;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",

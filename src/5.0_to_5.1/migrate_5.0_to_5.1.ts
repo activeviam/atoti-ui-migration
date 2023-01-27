@@ -4,9 +4,9 @@ import {
   deserializeWidgetState,
 } from "@activeviam/activeui-sdk-5.0";
 import {
-  stringify,
   serializeWidgetState,
   serializeDashboardState,
+  serializeFilter,
 } from "@activeviam/activeui-sdk-5.1";
 import { MigrationFunction } from "../migration.types";
 import { migrateDashboard } from "./migrateDashboard";
@@ -75,8 +75,8 @@ export const migrate_50_to_51: MigrationFunction = (
     ({ mdx }) => ({
       mdx: parse(mdx),
     }),
-    migrateSavedFilter,
-    ({ mdx }) => ({ mdx: stringify(mdx) }),
+    ({ mdx }) => migrateSavedFilter({ mdx }, { dataModels }),
+    serializeFilter,
     "5.1",
   );
 };

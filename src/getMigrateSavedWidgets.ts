@@ -34,7 +34,7 @@ export const getMigrateSavedWidgets =
       errorReport,
       counters,
       doesReportIncludeStacks,
-      behaviorOnError = "keep-original",
+      behaviorOnError,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -42,7 +42,7 @@ export const getMigrateSavedWidgets =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      behaviorOnError?: BehaviorOnError;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <
