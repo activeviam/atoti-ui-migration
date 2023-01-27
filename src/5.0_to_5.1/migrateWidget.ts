@@ -44,4 +44,8 @@ export const migrateWidget: MigrateWidgetCallback<
   });
 
   migrateContextValues(widgetState.queryContext);
+
+  if (widgetState.widgetKey === "plotly-clustered-column-and-line-chart") {
+    widgetState.widgetKey = "plotly-columns-and-lines-chart";
+  }
 };
