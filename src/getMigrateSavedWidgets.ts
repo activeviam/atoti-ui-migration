@@ -42,7 +42,7 @@ export const getMigrateSavedWidgets =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      behaviorOnError?: BehaviorOnError;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <

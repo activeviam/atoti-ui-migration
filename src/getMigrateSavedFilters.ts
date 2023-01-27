@@ -39,7 +39,7 @@ export const getMigrateSavedFilters =
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
-      behaviorOnError?: BehaviorOnError;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <

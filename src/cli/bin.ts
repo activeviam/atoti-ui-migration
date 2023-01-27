@@ -74,7 +74,7 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
-    behaviorOnError?: BehaviorOnError;
+    behaviorOnError: BehaviorOnError;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
@@ -159,8 +159,6 @@ yargs
       stack,
       behaviorOnError,
     }) => {
-      // `contentServer` is going to be mutated.
-      // `originalContentServer` will be used if the user wants to keep the original version of an item if an error happens during the migration.
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
       const originalDashboardsContent = getContent(

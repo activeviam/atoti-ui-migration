@@ -20,7 +20,7 @@ import type {
   LegacyDashboardState,
   LegacyDashboardPage,
 } from "./migration.types";
-import { DashboardErrorReport } from "../migration.types";
+import { PartialDashboardErrorReport } from "../migration.types";
 import { isLegacyLayoutLeaf } from "./isLegacyLayoutLeaf";
 import { _migrateContextValues } from "./_migrateContextValues";
 import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
@@ -50,10 +50,10 @@ export function migrateDashboard(
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
   },
-): [DashboardState<"serialized">, DashboardErrorReport?] {
+): [DashboardState<"serialized">, PartialDashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
   const body = legacyDashboardState.value.body;
-  const errorReport: DashboardErrorReport = {
+  const errorReport: PartialDashboardErrorReport = {
     name: legacyDashboardState.name,
     pages: {},
   };
