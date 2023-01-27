@@ -1,8 +1,10 @@
 import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
+import { isPartialDashboardErrorReport } from "./isPartialDashboardErrorReport";
 import {
-  DashboardErrorReport,
+  BehaviorOnError,
+  PartialDashboardErrorReport,
   ErrorReport,
   MigrateDashboardCallback,
   OutcomeCounters,
@@ -28,17 +30,21 @@ export const getMigrateDashboards =
   (
     contentServer: ContentRecord,
     {
+      originalContent,
       dataModels,
       keysOfWidgetPluginsToRemove,
       errorReport,
       counters,
       doesReportIncludeStacks,
+      behaviorOnError,
     }: {
+      originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
       keysOfWidgetPluginsToRemove: string[];
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <
@@ -54,13 +60,21 @@ export const getMigrateDashboards =
     const { content, structure } =
       contentServer.children?.ui.children?.dashboards.children ?? {};
 
-    if (!content?.children || !structure?.children) {
+    if (!content?.children || !structure?.children || !originalContent) {
       return;
     }
 
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
+      if (
+        errorReport.dashboards?.[fileId] &&
+        !isPartialDashboardErrorReport(errorReport.dashboards?.[fileId]) &&
+        behaviorOnError !== "keep-going"
+      ) {
+        return;
+      }
+
       if (!filesAncestry[fileId]) {
         counters.dashboards.removed++;
         _addCorruptFileErrorToReport(errorReport, {
@@ -78,7 +92,7 @@ export const getMigrateDashboards =
       const metadata = _getMetaData(structure, folderId, fileId);
       const name = metadata.name!;
 
-      const dashboardErrorReport: DashboardErrorReport = {
+      const dashboardErrorReport: PartialDashboardErrorReport = {
         name,
         pages: {},
       };
@@ -156,6 +170,11 @@ export const getMigrateDashboards =
           fileId,
           name,
         });
+
+        if (behaviorOnError === "keep-original") {
+          // All dashboards that are in `content` were initially in `originalContent`.
+          content.children[fileId] = originalContent.children![fileId];
+        }
       }
     }
   };

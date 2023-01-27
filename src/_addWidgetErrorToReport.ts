@@ -1,4 +1,4 @@
-import { DashboardErrorReport } from "./migration.types";
+import { PartialDashboardErrorReport } from "./migration.types";
 import { _serializeError } from "./_serializeError";
 
 /**
@@ -6,7 +6,7 @@ import { _serializeError } from "./_serializeError";
  * Mutates `errorReport`.
  */
 export function _addWidgetErrorToReport(
-  errorReport: DashboardErrorReport,
+  errorReport: PartialDashboardErrorReport,
   error: unknown,
   {
     doesReportIncludeStacks,

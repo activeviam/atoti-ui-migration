@@ -2,6 +2,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { produce } from "immer";
 import {
+  BehaviorOnError,
   ErrorReport,
   MigrateFilterCallback,
   OutcomeCounters,
@@ -26,15 +27,19 @@ export const getMigrateSavedFilters =
   (
     contentServer: ContentRecord,
     {
+      originalContent,
       dataModels,
       errorReport,
       counters,
       doesReportIncludeStacks,
+      behaviorOnError,
     }: {
+      originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <
@@ -50,13 +55,17 @@ export const getMigrateSavedFilters =
     const { content, structure } =
       contentServer.children?.ui.children?.filters.children ?? {};
 
-    if (!content?.children || !structure?.children) {
+    if (!content?.children || !structure?.children || !originalContent) {
       return;
     }
 
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
+      if (errorReport.filters?.[fileId] && behaviorOnError !== "keep-going") {
+        return;
+      }
+
       if (!filesAncestry[fileId]) {
         counters.dashboards.removed++;
         _addCorruptFileErrorToReport(errorReport, {
@@ -104,6 +113,11 @@ export const getMigrateSavedFilters =
           fileId,
           name: metadata.name!,
         });
+
+        if (behaviorOnError === "keep-original") {
+          // All filters that are in `content` were initially in `originalContent`.
+          content.children[fileId] = originalContent.children![fileId];
+        }
       }
     }
   };

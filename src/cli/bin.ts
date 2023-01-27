@@ -6,13 +6,18 @@ import fs from "fs-extra";
 import path from "path";
 import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
 import { getIndexedDataModel } from "@activeviam/data-model-5.1";
-import { MigrationFunction, OutcomeCounters } from "../migration.types";
+import {
+  BehaviorOnError,
+  MigrationFunction,
+  OutcomeCounters,
+} from "../migration.types";
 import { gte, coerce } from "semver";
 import { getMigrateDashboards } from "../getMigrateDashboards";
 import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
 import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../4.3_to_5.0";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
+import { getContent } from "../getContent";
 
 const migrationSteps: {
   from: string;
@@ -69,6 +74,7 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
+    behaviorOnError: BehaviorOnError;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
@@ -122,6 +128,25 @@ yargs
         default: false,
         desc: "Whether stacktraces are included in the error report file.",
       });
+      args.option("on-error", {
+        type: "string",
+        demandOption: false,
+        choices: [
+          "keep-original",
+          "keep-last-successful-version",
+          "keep-going",
+        ],
+        default: "keep-original",
+        desc: `The behavior when an error occurs during the migration of an item. This has an effect only when migrating through several versions in one go.
+         
+          For example, suppose that you're migrating from 5.0 to 5.3. For each saved item (e.g. a dashboard), three migration steps are applied: 5.0 => 5.1, 5.1 => 5.2, and 5.2 => 5.3. Each of these three steps might fail.
+         
+          More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
+          \n- "keep-original": keep the original item untouched, as before the whole migration.
+          \n- "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
+          \n- "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
+        `,
+      });
     },
     async ({
       inputPath,
@@ -132,8 +157,26 @@ yargs
       removeWidgets: keysOfWidgetPluginsToRemove,
       debug,
       stack,
+      behaviorOnError,
     }) => {
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
+
+      const originalDashboardsContent = getContent(
+        contentServer,
+        "dashboard",
+        fromVersion,
+      );
+      const originalWidgetsContent = getContent(
+        contentServer,
+        "widget",
+        fromVersion,
+      );
+      const originalFiltersContent = getContent(
+        contentServer,
+        "filter",
+        fromVersion,
+      );
+
       const servers: {
         [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
       } = await fs.readJSON(serversPath);
@@ -183,26 +226,32 @@ yargs
       );
 
       const migrateDashboards = getMigrateDashboards(contentServer, {
+        originalContent: originalDashboardsContent,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
+        originalContent: originalWidgetsContent,
         dataModels,
         keysOfWidgetPluginsToRemove,
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
+        originalContent: originalFiltersContent,
         dataModels,
         errorReport,
         counters,
         doesReportIncludeStacks,
+        behaviorOnError,
       });
 
       migrationSteps

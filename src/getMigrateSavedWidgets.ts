@@ -2,6 +2,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { DataModel } from "@activeviam/activeui-sdk-5.1";
 import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import {
+  BehaviorOnError,
   ErrorReport,
   MigrateWidgetCallback,
   OutcomeCounters,
@@ -27,17 +28,21 @@ export const getMigrateSavedWidgets =
   (
     contentServer: ContentRecord,
     {
+      originalContent,
       dataModels,
       keysOfWidgetPluginsToRemove,
       errorReport,
       counters,
       doesReportIncludeStacks,
+      behaviorOnError,
     }: {
+      originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
       keysOfWidgetPluginsToRemove: string[];
       errorReport: ErrorReport;
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
+      behaviorOnError: BehaviorOnError;
     },
   ) =>
   <
@@ -53,13 +58,17 @@ export const getMigrateSavedWidgets =
     const { content, structure } =
       contentServer.children?.ui.children?.widgets.children ?? {};
 
-    if (!content?.children || !structure?.children) {
+    if (!content?.children || !structure?.children || !originalContent) {
       return;
     }
 
     const filesAncestry = _getFilesAncestry(structure);
 
     for (const fileId in content.children) {
+      if (errorReport.widgets?.[fileId] && behaviorOnError !== "keep-going") {
+        return;
+      }
+
       if (!filesAncestry[fileId]) {
         counters.dashboards.removed++;
         _addCorruptFileErrorToReport(errorReport, {
@@ -136,6 +145,11 @@ export const getMigrateSavedWidgets =
           fileId,
           name: metadata.name!,
         });
+
+        if (behaviorOnError === "keep-original") {
+          // All widgets that are in `content` were initially in `originalContent`.
+          content.children[fileId] = originalContent.children![fileId];
+        }
       }
     }
   };

@@ -34,7 +34,7 @@ export interface FileErrorReport {
 /**
  * Report of errors that occurred during the migration of a dashboard.
  */
-export interface DashboardErrorReport {
+export interface PartialDashboardErrorReport {
   name: string;
   pages: {
     [pageKey: string]: {
@@ -62,13 +62,13 @@ export interface ErrorReport {
       dashboardId: string
     ]: // If the error was thrown by `migrateDashboard` itself, not an underlying call to `migrateWidget`.
     // This should happen rarely.
-    // In this case, the whole outdated dashboard is copied as is.
+    // In this case, what happens to the whole outdated dashboard is decided by the BehaviorOnError chosen by the user.
     | FileErrorReport
       // If the error was thrown by one or several underlying call(s) to `migrateWidget`.
       // This should happen more frequently.
       // In this case, the dashboard is migrated successfully, except for the widgets which threw errors.
       // These failing widgets are copied as is into the new dashboard.
-      | DashboardErrorReport;
+      | (Omit<FileErrorReport, "error"> & PartialDashboardErrorReport);
   };
   widgets?: {
     [widgetId: string]: FileErrorReport;
@@ -189,3 +189,23 @@ export type MigrationFunction<
     doesReportIncludeStacks: boolean;
   },
 ) => void;
+
+/**
+ * The behavior when an error occurs during the migration of an item.
+ * This has an effect only when migrating through several versions in one go.
+ *
+ * For example, suppose that you're migrating from 5.0 to 5.3.
+ * For each saved item (e.g. a dashboard), three migration steps are applied: 5.0 => 5.1, 5.1 => 5.2, and 5.2 => 5.3.
+ * Each of these three steps might fail.
+ *
+ * More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
+ * - "keep-original": keep the original item untouched, as before the whole migration.
+ * - "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
+ * - "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
+ *
+ * Defaults to "keep-original".
+ */
+export type BehaviorOnError =
+  | "keep-original"
+  | "keep-last-successful-version"
+  | "keep-going";
