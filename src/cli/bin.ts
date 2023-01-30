@@ -159,8 +159,6 @@ yargs
       stack,
       behaviorOnError,
     }) => {
-      // `contentServer` is going to be mutated.
-      // `originalContentServer` will be used if the user wants to keep the original version of an item if an error happens during the migration.
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
       const originalDashboardsContent = getContent(
