@@ -9,10 +9,6 @@ const esmPackages = ["@activeviam/*", "lodash-es", "monaco-editor"];
 const config = {
   // TODO manually mock globals such as window and use the default "node" test environment instead.
   testEnvironment: "jsdom",
-  // moduleNameMapper: {
-  //   // Required in addition to the antd mock so that submodules such as antd/lib/button are effectively mocked as well.
-  //   antd: "<rootDir>/__mocks__/antd.js",
-  // },
   transformIgnorePatterns: [
     // See babel.config.js.
     // Transpiling ESM packages to CJS because Jest doesn't support ESM fully yet.
