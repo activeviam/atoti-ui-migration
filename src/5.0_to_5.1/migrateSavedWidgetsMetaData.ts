@@ -1,4 +1,5 @@
-import { ContentRecord, WidgetMetaData } from "@activeviam/activeui-sdk-5.0";
+import { WidgetMetaData } from "@activeviam/activeui-sdk-5.1";
+import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import { _getFilesAncestry } from "../_getFilesAncestry";
 import { _getMetaData } from "../_getMetaData";
 

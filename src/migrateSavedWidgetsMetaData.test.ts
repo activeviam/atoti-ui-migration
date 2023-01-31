@@ -3,7 +3,7 @@ import { migrateSavedWidgetsMetaData } from "./5.0_to_5.1/migrateSavedWidgetsMet
 import { contentServer as testContentServer } from "./5.0_to_5.1/__test_resources__/contentServer";
 import { _getFilesAncestry } from "./_getFilesAncestry";
 import { _getMetaData } from "./_getMetaData";
-import { WidgetMetaData } from "@activeviam/activeui-sdk-5.0";
+import { WidgetMetaData } from "@activeviam/activeui-sdk-5.1";
 
 describe("migrateSavedWidgetsMetaData", () => {
   it("adds a `version` attribute set to 1 to saved widgets that don't have one", () => {
@@ -45,7 +45,7 @@ describe("migrateSavedWidgetsMetaData", () => {
         default:
           const originalWidgetsStructure =
             contentServer.children!.ui.children!.widgets.children!.structure;
-          const originalMetaData = _getMetaData(
+          const originalMetaData = _getMetaData<WidgetMetaData>(
             originalWidgetsStructure,
             pathToParentFolder,
             widgetId,
