@@ -9,6 +9,7 @@ import {
   MigrateDashboardCallback,
   OutcomeCounters,
 } from "./migration.types";
+import { WidgetFlaggedForRemovalError } from "./WidgetFlaggedForRemovalError";
 import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 import { _addErrorToReport } from "./_addErrorToReport";
 import { _addWidgetErrorToReport } from "./_addWidgetErrorToReport";
@@ -111,6 +112,9 @@ export const getMigrateDashboards =
           widgetName: string;
         },
       ) => {
+        if (error instanceof WidgetFlaggedForRemovalError) {
+          counters.widgets.removed++;
+        }
         _addWidgetErrorToReport(dashboardErrorReport, error, {
           doesReportIncludeStacks,
           leafKey,
