@@ -44,7 +44,7 @@ describe("migrateSavedWidgetsMetaData", () => {
           break;
         default:
           const originalWidgetsStructure =
-            contentServer.children.ui.children.widgets.children.structure;
+            contentServer.children!.ui.children!.widgets.children!.structure;
           const originalMetaData = _getMetaData(
             originalWidgetsStructure,
             pathToParentFolder,
