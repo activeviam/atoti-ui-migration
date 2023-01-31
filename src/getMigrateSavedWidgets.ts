@@ -77,6 +77,7 @@ export const getMigrateSavedWidgets =
           contentType: "widgets",
           fileId,
         });
+        delete content.children[fileId];
         continue;
       }
 
