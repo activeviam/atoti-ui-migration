@@ -40,7 +40,7 @@ const summaryMessages: {
       "keep-original":
         "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
       "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
       "keep-going":
         "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
@@ -53,7 +53,7 @@ const summaryMessages: {
       "keep-original":
         "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
       "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
       "keep-going":
         "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
@@ -69,7 +69,7 @@ const summaryMessages: {
       "keep-original":
         "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
       "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
       "keep-going":
         "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
