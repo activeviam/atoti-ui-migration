@@ -84,6 +84,7 @@ export const getMigrateDashboards =
           contentType: "dashboards",
           fileId,
         });
+        delete content.children[fileId];
         continue;
       }
 

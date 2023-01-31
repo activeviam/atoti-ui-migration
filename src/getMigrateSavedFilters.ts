@@ -74,6 +74,7 @@ export const getMigrateSavedFilters =
           contentType: "filters",
           fileId,
         });
+        delete content.children[fileId];
         continue;
       }
 
