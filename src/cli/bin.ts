@@ -42,7 +42,7 @@ const summaryMessages: {
       "keep-last-successful-version":
         "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
       "keep-going":
-        "Errors occurred during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
     removed:
       "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
@@ -55,7 +55,7 @@ const summaryMessages: {
       "keep-last-successful-version":
         "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
       "keep-going":
-        "Errors occurred during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
     removed:
       "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
@@ -71,7 +71,7 @@ const summaryMessages: {
       "keep-last-successful-version":
         "could not be migrated because errors occurred during their migration. The version of the last successful migration was copied as is into the migrated folder.",
       "keep-going":
-        "Errors occurred during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
   },
   folders: {
