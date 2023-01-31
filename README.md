@@ -104,10 +104,22 @@ npx migrate -i "content.json" -o migrated-content.json -s servers.json --from-ve
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in the target version of ActiveUI.
 
-Optionally, you can pass an extra `--remove-widgets` option to remove all widgets with the given keys during the migration.
-For example, suppose you have 200 ActiveUI 4 bookmarks in which you use Page Filters and/or Page Context Values.
-These plugins are not supported anymore in ActiveUI 5 as it was deemed a better user experience to remove them altogether.
-If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
+#### Options
+
+The CLI offers several options.
+You can see them all by running:
+
+```
+npx migrate --help
+```
+
+In particular:
+
+- The `--debug` and `--stack` allow respectively to generate an error report and the stack of those errors. This is useful to understand and address any error that may occur the migration.
+- The `--remove-widgets` option to remove all widgets with the given keys during the migration.
+  For example, suppose you have 200 ActiveUI 4 bookmarks in which you use Page Filters and/or Page Context Values.
+  These plugins are not supported anymore in ActiveUI 5 as it was deemed a better user experience to remove them altogether.
+  If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
 
 ```
 npx migrate -i "content.json" -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
@@ -129,5 +141,6 @@ Finally open your dashboards, widgets, filters, ... Make sure they work as expec
 
 If you are migrating a project with custom ActiveUI extensions, then you must also update the code of these extensions.
 Learn how in our dedicated documentation pages:
+
 - Migrating from [ActiveUI 4 to 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-4-to-5).
 - Migrating from [ActiveUI 5.0 to 5.1](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-5.0-to-5.1).
