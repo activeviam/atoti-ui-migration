@@ -70,12 +70,14 @@ export function migrateSavedCalculatedMeasures({
   errorReport,
   counters,
   doesReportIncludeStacks,
+  step,
 }: {
   contentServer: ContentRecord;
   measureToCubeMapping: { [measureName: string]: string[] };
   errorReport: ErrorReport;
   counters: OutcomeCounters;
   doesReportIncludeStacks: boolean;
+  step: string;
 }): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui?.children?.calculated_measures;
@@ -116,6 +118,7 @@ export function migrateSavedCalculatedMeasures({
           },
           fileId: id,
           name: measureName,
+          step,
         });
         return;
       }
@@ -163,6 +166,7 @@ export function migrateSavedCalculatedMeasures({
         },
         fileId: id,
         name: measureName,
+        step,
       });
     }
   });

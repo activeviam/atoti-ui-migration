@@ -35,6 +35,7 @@ export const getMigrateSavedWidgets =
       counters,
       doesReportIncludeStacks,
       behaviorOnError,
+      step,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -43,6 +44,7 @@ export const getMigrateSavedWidgets =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
       behaviorOnError: BehaviorOnError;
+      step: string;
     },
   ) =>
   <
@@ -101,6 +103,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
+          step,
         });
         delete content.children[fileId];
         const parentFolder = folderId.reduce(
@@ -144,6 +147,7 @@ export const getMigrateSavedWidgets =
           },
           fileId,
           name: metadata.name!,
+          step,
         });
 
         if (behaviorOnError === "keep-original") {

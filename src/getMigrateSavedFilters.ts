@@ -33,6 +33,7 @@ export const getMigrateSavedFilters =
       counters,
       doesReportIncludeStacks,
       behaviorOnError,
+      step,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -40,6 +41,7 @@ export const getMigrateSavedFilters =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
       behaviorOnError: BehaviorOnError;
+      step: string;
     },
   ) =>
   <
@@ -112,6 +114,7 @@ export const getMigrateSavedFilters =
           },
           fileId,
           name: metadata.name!,
+          step,
         });
 
         if (behaviorOnError === "keep-original") {

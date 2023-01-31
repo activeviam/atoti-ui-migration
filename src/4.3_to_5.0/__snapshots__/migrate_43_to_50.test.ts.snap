@@ -2092,6 +2092,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
           },
         },
       },
+      "step": "4.3 to 5.0",
     },
   },
   "widgets": {
@@ -2102,6 +2103,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
       "folderId": [],
       "folderName": [],
       "name": "Page filters",
+      "step": "4.3 to 5.0",
     },
   },
 }

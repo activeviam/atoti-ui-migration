@@ -235,6 +235,7 @@ describe("migrate_43_to_50", () => {
                 },
               },
             },
+            "step": "4.3 to 5.0",
           },
         },
       }
@@ -285,6 +286,7 @@ describe("migrate_43_to_50", () => {
             "folderId": [],
             "folderName": [],
             "name": "AUI4 filter",
+            "step": "4.3 to 5.0",
           },
         },
       }

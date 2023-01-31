@@ -38,6 +38,7 @@ export const getMigrateDashboards =
       counters,
       doesReportIncludeStacks,
       behaviorOnError,
+      step,
     }: {
       originalContent: ContentRecord | undefined;
       dataModels: { [serverKey: string]: DataModel };
@@ -46,6 +47,7 @@ export const getMigrateDashboards =
       counters: OutcomeCounters;
       doesReportIncludeStacks: boolean;
       behaviorOnError: BehaviorOnError;
+      step: string;
     },
   ) =>
   <
@@ -153,6 +155,7 @@ export const getMigrateDashboards =
             fileErrorReport: dashboardErrorReport,
             fileId,
             name,
+            step,
           });
         } else {
           // The dashboard was fully migrated.
@@ -173,6 +176,7 @@ export const getMigrateDashboards =
           },
           fileId,
           name,
+          step,
         });
 
         if (behaviorOnError === "keep-original") {

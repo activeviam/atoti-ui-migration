@@ -24,6 +24,8 @@ export interface FileErrorReport {
   folderName: string[];
   // The name of the file on which the error occurred.
   name: string;
+  // The step during which the error occurred.
+  step: string;
   // The thrown error.
   error: {
     message: string;

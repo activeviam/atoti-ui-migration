@@ -44,6 +44,7 @@ migrateSavedCalculatedMeasures({
   errorReport,
   counters,
   doesReportIncludeStacks: false,
+  step: "5.0 to 5.1",
 });
 
 describe("migrateSavedCalculatedMeasures", () => {
@@ -138,6 +139,7 @@ describe("migrateSavedCalculatedMeasures", () => {
           folderId: ["a14"],
           folderName: ["New folder"],
           name: "Exp gamma sum",
+          step: "5.0 to 5.1",
         },
       },
     });
