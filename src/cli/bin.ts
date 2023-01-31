@@ -77,7 +77,7 @@ yargs
     behaviorOnError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
+    "Migrates a JSON /ui folder to a more recent version of ActiveUI than the one it was saved with. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used in the ActiveUI version to migrate to.",
     (args) => {
       args.option("input-path", {
         alias: "i",
@@ -114,7 +114,7 @@ yargs
       args.option("remove-widgets", {
         type: "array",
         demandOption: false,
-        desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
+        desc: "A list of keys of widget plugins that should be removed during the migration.",
       });
       args.option("debug", {
         type: "boolean",
