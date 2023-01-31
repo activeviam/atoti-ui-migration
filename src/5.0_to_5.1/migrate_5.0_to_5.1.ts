@@ -4,6 +4,7 @@ import {
   deserializeWidgetState,
 } from "@activeviam/activeui-sdk-5.0";
 import {
+  WidgetMetaData,
   serializeWidgetState,
   serializeDashboardState,
   serializeFilter,
@@ -14,6 +15,9 @@ import { migrateSavedFilter } from "./migrateSavedFilter";
 import { migrateWidget } from "./migrateWidget";
 import { getNamesOfCalculatedMeasuresToMigrate } from "./calculated-measures/getNamesOfCalculatedMeasuresToMigrate";
 import { migrateSavedCalculatedMeasures } from "./calculated-measures/migrateSavedCalculatedMeasures";
+import { _getMetaData } from "../_getMetaData";
+import { _getFilesAncestry } from "../_getFilesAncestry";
+import { _addCorruptFileErrorToReport } from "../_addCorruptFileErrorToReport";
 
 export const migrate_50_to_51: MigrationFunction = (
   contentServer,
@@ -50,12 +54,13 @@ export const migrate_50_to_51: MigrationFunction = (
 
   migrateSavedWidgets(
     deserializeWidgetState,
-    (widgetState) =>
+    (widgetState) => {
       migrateWidget(widgetState, {
         dataModels,
         namesOfCalculatedMeasuresToMigrate,
         measureToCubeMapping,
-      }),
+      });
+    },
     serializeWidgetState,
   );
 
@@ -76,4 +81,29 @@ export const migrate_50_to_51: MigrationFunction = (
     ({ mdx }) => migrateSavedFilter({ mdx }, { dataModels }),
     serializeFilter,
   );
+
+  const { content: widgetContent, structure: widgetStructure } =
+    contentServer.children?.ui.children?.widgets.children ?? {};
+  for (const fileId in widgetContent.children) {
+    const filesAncestry = _getFilesAncestry(widgetStructure);
+    const pathToParentFolder = (filesAncestry[fileId] || []).map(
+      ({ id }) => id,
+    );
+    console.log(pathToParentFolder, fileId);
+    const widgetMetaData = _getMetaData<WidgetMetaData>(
+      widgetStructure,
+      pathToParentFolder,
+      fileId,
+    );
+    if (widgetMetaData.version === undefined) {
+      widgetMetaData.version = 1;
+      console.log(widgetMetaData);
+      const metadataRecord = [
+        ...pathToParentFolder,
+        fileId,
+        `${fileId}_metadata`,
+      ].reduce((acc, id) => acc.children![id], widgetStructure);
+      metadataRecord.entry.content = JSON.stringify(widgetMetaData);
+    }
+  }
 };
