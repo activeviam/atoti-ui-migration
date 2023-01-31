@@ -38,7 +38,7 @@ Right-click at the root of the file tree, and click **Export**. This will downlo
 ![](/documentation/download-content.gif)
 
 :warning: Importing/exporting at the root of the file tree is available in atoti+ Admin UI version 5.1.0 and higher.
-If you don't see these actions in the context menu, it means that you are using an older Admin UI version.
+If you don't see these actions in the context menu, it means that you are using an older Admin UI version and will have to upgrade.
 If you are embedding Admin UI in your server like it is done on the ActivePivot sandbox, you can do so by simply bumping the dependency version in the `pom.xml`.
 
 :bulb: You can also import/export programatically. See the [dedicated documentation](https://activeviam.com/activepivot/6.0.0/docs/content_server/cs_overview/#import-and-export) for more details.
