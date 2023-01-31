@@ -67,7 +67,7 @@ export const getMigrateSavedFilters =
       }
 
       if (!filesAncestry[fileId]) {
-        counters.dashboards.removed++;
+        counters.filters.removed++;
         _addCorruptFileErrorToReport(errorReport, {
           contentType: "filters",
           fileId,
