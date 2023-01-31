@@ -70,7 +70,7 @@ export const getMigrateSavedWidgets =
       }
 
       if (!filesAncestry[fileId]) {
-        counters.dashboards.removed++;
+        counters.widgets.removed++;
         _addCorruptFileErrorToReport(errorReport, {
           contentType: "widgets",
           fileId,
