@@ -38,6 +38,7 @@ module.exports = {
     ],
   },
   output: {
+    hashFunction: "xxhash64",
     globalObject: "window",
     filename: (pathData) => {
       return pathData.chunk.name === "bin" ? "cli/[name].js" : "[name].js";
