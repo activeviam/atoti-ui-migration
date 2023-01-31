@@ -1,5 +1,4 @@
-import { AMetaData } from "@activeviam/activeui-sdk-5.1";
-import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
+import { ContentRecord, AMetaData } from "@activeviam/activeui-sdk-5.0";
 
 /**
  * Returns the metadata of the file with id `fileId` under `structure`.
