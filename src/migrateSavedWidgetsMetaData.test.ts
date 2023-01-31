@@ -31,7 +31,7 @@ describe("migrateSavedWidgetsMetaData", () => {
     // - with the value 1 if they didn't have one previously
     Object.keys(widgetsContent.children!).forEach((widgetId) => {
       const pathToParentFolder = filesAncestry[widgetId].map(({ id }) => id);
-      const metaData = _getMetaData(
+      const metaData = _getMetaData<WidgetMetaData>(
         widgetsStructure,
         pathToParentFolder,
         widgetId,
