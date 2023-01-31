@@ -68,6 +68,11 @@ module.exports = {
       react: path.resolve(__dirname, "__mocks__", "react"),
       "react-dom": false,
       "react-intl": false,
+      // Mocks exact imports from antd, such as "import { Button } from antd".
+      // This is required because of the activeui-sdk-5.1 dependency.
+      antd$: path.resolve(__dirname, "__mocks__", "antd"),
+      // Mocks import from antd submodules, such as "import Button from antd/lib/button"
+      // This is required because of the activeui-sdk-5.0 dependency.
       antd: false,
       "@ant-design/icons": false,
     },
