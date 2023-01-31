@@ -9,8 +9,10 @@ const esmPackages = ["@activeviam/*", "lodash-es", "monaco-editor"];
 const config = {
   // TODO manually mock globals such as window and use the default "node" test environment instead.
   testEnvironment: "jsdom",
+  transform: {
+    "^.+\\.[jt]s?$": ["@swc/jest"],
+  },
   transformIgnorePatterns: [
-    // See babel.config.js.
     // Transpiling ESM packages to CJS because Jest doesn't support ESM fully yet.
     // See https://jestjs.io/docs/en/ecmascript-modules.
     `[/\\\\]node_modules[/\\\\](?!${esmPackages.join(

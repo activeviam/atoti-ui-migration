@@ -50,6 +50,8 @@
     "@activeviam/activeui-sdk-scripts": "5.0.15",
     "@babel/core": "^7.20.12",
     "@babel/preset-typescript": "^7.18.6",
+    "@swc/core": "^1.3.31",
+    "@swc/jest": "^0.2.24",
     "@types/cli-progress": "^3.11.0",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.168",
