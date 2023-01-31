@@ -7,7 +7,9 @@ import { _getMetaData } from "../_getMetaData";
  * Ensures all the saved widgets metadata have a `version` attribute, set to 1 by default.
  * Mutates `contentServer`.
  */
-export const migrateSavedWidgetsMetaData = (contentServer: ContentRecord) => {
+export const migrateSavedWidgetsMetaData = (
+  contentServer: ContentRecord,
+): void => {
   const { content: widgetContent, structure: widgetStructure } =
     contentServer.children?.ui.children?.widgets.children ?? {};
 
