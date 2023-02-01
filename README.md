@@ -69,7 +69,7 @@ Download the data model from your ActivePivot server. The URL of the relevant RE
 For instance, considering the ActivePivot server you used while going through the tutorial:
 
 - it is deployed at https://activeui-tutorial-server.activeviam.com:9090/pivot
-- its `discovery` service is accessible at https://activeui-tutorial-server.activeviam.com:9090/pivot/rest/v8/cube/discovery
+- its `discovery` service is accessible at https://activeui-tutorial-server.activeviam.com:9090/pivot/rest/v5/cube/discovery
 
 The server response looks like this:
 
