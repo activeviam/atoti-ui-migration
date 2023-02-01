@@ -100,7 +100,7 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON /ui folder to a more recent version of ActiveUI than the one it was saved with. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used in the ActiveUI version to migrate to.",
+    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
