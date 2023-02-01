@@ -29,7 +29,9 @@ const toVersions = migrationSteps.map(({ to }) => to);
 
 const summaryMessages: {
   [folderName: string]: {
-    [outcome: string]: string | { [behaviorOnError: string]: string };
+    [outcome: string]:
+      | string
+      | { [behaviorOnError in BehaviorOnError]: string };
   };
 } = {
   dashboards: {
@@ -95,7 +97,7 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
-    behaviorOnError: BehaviorOnError;
+    onError: BehaviorOnError;
   }>(
     "$0",
     "Migrates a JSON /ui folder to a more recent version of ActiveUI than the one it was saved with. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used in the ActiveUI version to migrate to.",
@@ -178,7 +180,7 @@ yargs
       removeWidgets: keysOfWidgetPluginsToRemove,
       debug,
       stack,
-      behaviorOnError,
+      onError: behaviorOnError,
     }) => {
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
@@ -310,7 +312,7 @@ yargs
             if (counter > 0) {
               console.log(
                 `- ${counter} ${
-                  outcome === "fail" && folderName !== "calculated_measures"
+                  outcome === "failed" && folderName !== "calculated_measures"
                     ? // Apart from calculated measures, all the content types with a failed outcome have a message per behavior on error.
                       (
                         summaryMessages[folderName][outcome] as {
