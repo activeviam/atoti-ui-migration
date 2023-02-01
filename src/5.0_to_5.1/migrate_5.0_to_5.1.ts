@@ -14,6 +14,7 @@ import { migrateSavedFilter } from "./migrateSavedFilter";
 import { migrateWidget } from "./migrateWidget";
 import { getNamesOfCalculatedMeasuresToMigrate } from "./calculated-measures/getNamesOfCalculatedMeasuresToMigrate";
 import { migrateSavedCalculatedMeasures } from "./calculated-measures/migrateSavedCalculatedMeasures";
+import { migrateSavedWidgetsMetaData } from "./migrateSavedWidgetsMetaData";
 
 export const migrate_50_to_51: MigrationFunction = (
   contentServer,
@@ -76,4 +77,6 @@ export const migrate_50_to_51: MigrationFunction = (
     ({ mdx }) => migrateSavedFilter({ mdx }, { dataModels }),
     serializeFilter,
   );
+
+  migrateSavedWidgetsMetaData(contentServer);
 };

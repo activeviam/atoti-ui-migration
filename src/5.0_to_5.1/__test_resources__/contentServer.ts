@@ -618,8 +618,7 @@ export const contentServer: ContentRecord = {
                   children: {
                     "663_metadata": {
                       entry: {
-                        content:
-                          '{"isFolder":true,"name":"rosi widgets","version":1}',
+                        content: '{"isFolder":true,"name":"rosi widgets"}',
                         isDirectory: false,
                         owners: ["admin"],
                         readers: ["admin"],
@@ -671,7 +670,7 @@ export const contentServer: ContentRecord = {
                     "953_metadata": {
                       entry: {
                         content:
-                          '{"name":"second widget that\'s a quick filter","widgetKey":"quick-filter","version":1}',
+                          '{"name":"second widget that\'s a quick filter","widgetKey":"quick-filter","version":2}',
                         isDirectory: false,
                         owners: ["admin"],
                         readers: ["admin"],
@@ -708,7 +707,7 @@ export const contentServer: ContentRecord = {
                         df2_metadata: {
                           entry: {
                             content:
-                              '{"name":"New pivot table test","widgetKey":"pivot-table","version":1}',
+                              '{"name":"New pivot table test","widgetKey":"pivot-table"}',
                             isDirectory: false,
                             owners: ["admin"],
                             readers: ["admin"],
