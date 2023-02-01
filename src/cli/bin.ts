@@ -27,42 +27,65 @@ const migrationSteps: {
 const fromVersions = migrationSteps.map(({ from }) => from);
 const toVersions = migrationSteps.map(({ to }) => to);
 
-const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
-  {
-    dashboards: {
-      success: "were successfully migrated.",
-      partial:
-        "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-      removed:
-        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
-    },
-    filters: {
-      success: "were successfully migrated.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-      removed:
-        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
-    },
-    widgets: {
-      success: "were successfully migrated.",
-      partial: "were migrated with warnings.",
-      removed:
-        "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-    },
-    folders: {
-      removed:
-        "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
-    },
-    calculated_measures: {
-      success: "were successfully migrated.",
-      failed:
-        "could not be migrated because errors occurred during their migration.",
-    },
+const summaryMessages: {
+  [folderName: string]: {
+    [outcome: string]:
+      | string
+      | { [behaviorOnError in BehaviorOnError]: string };
   };
+} = {
+  dashboards: {
+    success: "were successfully migrated.",
+    partial:
+      "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+    removed:
+      "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  filters: {
+    success: "were successfully migrated.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+    removed:
+      "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  widgets: {
+    success: "were successfully migrated.",
+    partial: "were migrated with warnings.",
+    removed:
+      "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+  },
+  folders: {
+    removed:
+      "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  calculated_measures: {
+    success: "were successfully migrated.",
+    failed:
+      "could not be migrated because errors occurred during their migration.",
+  },
+};
 
 yargs
   .command<{
@@ -74,10 +97,10 @@ yargs
     removeWidgets: string[];
     debug: boolean;
     stack: boolean;
-    behaviorOnError: BehaviorOnError;
+    onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
+    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
@@ -114,7 +137,7 @@ yargs
       args.option("remove-widgets", {
         type: "array",
         demandOption: false,
-        desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
+        desc: "A list of keys of widget plugins that should be removed during the migration.",
       });
       args.option("debug", {
         type: "boolean",
@@ -157,7 +180,7 @@ yargs
       removeWidgets: keysOfWidgetPluginsToRemove,
       debug,
       stack,
-      behaviorOnError,
+      onError: behaviorOnError,
     }) => {
       const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
@@ -288,7 +311,16 @@ yargs
           Object.entries(countersForFolder).forEach(([outcome, counter]) => {
             if (counter > 0) {
               console.log(
-                `- ${counter} ${summaryMessages[folderName][outcome]}`,
+                `- ${counter} ${
+                  outcome === "failed" && folderName !== "calculated_measures"
+                    ? // Apart from calculated measures, all the content types with a failed outcome have a message per behavior on error.
+                      (
+                        summaryMessages[folderName][outcome] as {
+                          [behaviorOnError: string]: string;
+                        }
+                      )[behaviorOnError]
+                    : summaryMessages[folderName][outcome]
+                }`,
               );
             }
           });
