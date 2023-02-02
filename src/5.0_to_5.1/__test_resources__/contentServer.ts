@@ -178,7 +178,8 @@ export const contentServer: ContentRecord = {
       children: {
         organization_settings: {
           entry: {
-            content: "{}",
+            content:
+              '{"userFilters.areEnabled": false, "userQueryContext.isEnabled": true, "calculatedMeasures.areEnabled": false, "theme": "light-activeviam", "homePageLayout": "list"}',
             isDirectory: false,
             owners: ["ROLE_CS_ROOT"],
             readers: ["ROLE_USER"],
@@ -483,7 +484,8 @@ export const contentServer: ContentRecord = {
         },
         organization_permissions: {
           entry: {
-            content: '{"canUseCalculatedMeasures":true}',
+            content:
+              '{"canUseUserQueryContext": false, "canManageContent": true, "canShare": true}',
             isDirectory: false,
             owners: ["ROLE_CS_ROOT"],
             readers: ["ROLE_USER"],
@@ -1156,6 +1158,18 @@ export const contentServer: ContentRecord = {
                     canWrite: true,
                   },
                 },
+                permissions: {
+                  entry: {
+                    content: '{"canShare":true}',
+                    isDirectory: false,
+                    owners: ["admin"],
+                    readers: ["admin"],
+                    timestamp: 1669391209111,
+                    lastEditor: "admin",
+                    canRead: true,
+                    canWrite: true,
+                  },
+                },
               },
             },
             admin: {
@@ -1190,18 +1204,6 @@ export const contentServer: ContentRecord = {
                     owners: ["admin"],
                     readers: ["admin"],
                     timestamp: 1671024573022,
-                    lastEditor: "admin",
-                    canRead: true,
-                    canWrite: true,
-                  },
-                },
-                permissions: {
-                  entry: {
-                    content: '{"canShare":true}',
-                    isDirectory: false,
-                    owners: ["admin"],
-                    readers: ["admin"],
-                    timestamp: 1669391209111,
                     lastEditor: "admin",
                     canRead: true,
                     canWrite: true,
