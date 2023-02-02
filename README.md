@@ -127,11 +127,6 @@ In particular:
 npx migrate -i "content.json" -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
 ```
 
-There are two other optional flags that can help you during the migration process:
-
-- `--debug`: writes all errors in a `report.json` file, organized by folders and type of entity.
-- `--stack`: used with `--debug`, adds a stacktrace to each error reported in the `report.json` file.
-
 ### Test the migrated content
 
 Use the Admin UI again, this time to import the migrated content.
