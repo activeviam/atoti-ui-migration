@@ -1,127 +1,305 @@
 import yargs from "yargs";
 import _capitalize from "lodash/capitalize";
+import _fromPairs from "lodash/fromPairs";
+import _mapValues from "lodash/mapValues";
 import fs from "fs-extra";
-import { migrateUIFolder } from "../migrateUIFolder";
 import path from "path";
+import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
+import { getIndexedDataModel } from "@activeviam/data-model-5.1";
+import {
+  BehaviorOnError,
+  MigrationFunction,
+  OutcomeCounters,
+} from "../migration.types";
+import { gte, coerce } from "semver";
+import { getMigrateDashboards } from "../getMigrateDashboards";
+import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
+import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
+import { migrate_43_to_50 } from "../4.3_to_5.0";
+import { migrate_50_to_51 } from "../5.0_to_5.1";
+import { getContent } from "../getContent";
 
-const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
-  {
-    dashboards: {
-      success: "were successfully migrated.",
-      partial:
-        "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-      removed:
-        "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in ActiveUI 4.",
-    },
-    filters: {
-      success: "were successfully migrated.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-      removed:
-        "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in ActiveUI 4.",
-    },
-    widgets: {
-      success: "were successfully migrated.",
-      partial: "were migrated with warnings.",
-      removed:
-        "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
-      failed:
-        "could not be migrated because errors occurred during their migration. They were copied as is into the migrated folder.",
-    },
-    folders: {
-      removed:
-        "were cleaned up because they could not be found in their structure folder. They were already not visible in ActiveUI 4.",
-    },
+const migrationSteps: {
+  from: string;
+  to: string;
+  migrate: MigrationFunction;
+}[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
+const fromVersions = migrationSteps.map(({ from }) => from);
+const toVersions = migrationSteps.map(({ to }) => to);
+
+const summaryMessages: {
+  [folderName: string]: {
+    [outcome: string]:
+      | string
+      | { [behaviorOnError in BehaviorOnError]: string };
   };
+} = {
+  dashboards: {
+    success: "were successfully migrated.",
+    partial:
+      "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+    removed:
+      "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  filters: {
+    success: "were successfully migrated.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+    removed:
+      "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  widgets: {
+    success: "were successfully migrated.",
+    partial: "were migrated with warnings.",
+    removed:
+      "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
+    failed: {
+      "keep-original":
+        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
+      "keep-last-successful-version":
+        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
+      "keep-going":
+        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
+    },
+  },
+  folders: {
+    removed:
+      "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
+  },
+  calculated_measures: {
+    success: "were successfully migrated.",
+    failed:
+      "could not be migrated because errors occurred during their migration.",
+  },
+};
 
 yargs
   .command<{
     inputPath: string;
     outputPath: string;
     serversPath: string;
+    fromVersion: string;
+    toVersion: string;
     removeWidgets: string[];
-    pivotInputPath?: string;
     debug: boolean;
     stack: boolean;
+    onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
-    (argv) => {
-      argv.option("input-path", {
+    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
+    (args) => {
+      args.option("input-path", {
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the ActiveUI 4 /ui folder.",
+        desc: "The path to the JSON export of the Content Server to migrate.",
       });
-      argv.option("output-path", {
+      args.option("output-path", {
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in ActiveUI 5.",
+        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
       });
-      argv.option("servers-path", {
+      args.option("servers-path", {
         alias: "s",
         type: "string",
         demandOption: true,
         desc: "The path to the JSON file holding the servers information.",
       });
-      argv.option("remove-widgets", {
+      args.option("from-version", {
+        alias: "f",
+        type: "string",
+        demandOption: true,
+        choices: ["4.3", ...fromVersions],
+        desc: "The version to migrate from.",
+      });
+      args.option("to-version", {
+        alias: "t",
+        type: "string",
+        demandOption: true,
+        choices: ["5.0", ...toVersions],
+        desc: "The version to migrate to.",
+      });
+      args.option("remove-widgets", {
         type: "array",
         demandOption: false,
-        desc: "A list of keys of ActiveUI 4 widget plugins that should be removed during the migration.",
+        desc: "A list of keys of widget plugins that should be removed during the migration.",
       });
-      argv.option("pivot-input-path", {
-        alias: "p",
-        type: "string",
-        demandOption: false,
-        desc: "The path to the JSON export of the /pivot folder on the content server.",
-      });
-      argv.option("debug", {
+      args.option("debug", {
         type: "boolean",
         demandOption: false,
         default: false,
         desc: "Whether an error report file is created at the end of the migration.",
       });
-      argv.option("stack", {
+      args.option("stack", {
         type: "boolean",
         demandOption: false,
         default: false,
         desc: "Whether stacktraces are included in the error report file.",
       });
-      argv.implies("stack", "debug");
+      args.option("on-error", {
+        type: "string",
+        demandOption: false,
+        choices: [
+          "keep-original",
+          "keep-last-successful-version",
+          "keep-going",
+        ],
+        default: "keep-original",
+        desc: `The behavior when an error occurs during the migration of an item. This has an effect only when migrating through several versions in one go.
+         
+          For example, suppose that you're migrating from 5.0 to 5.3. For each saved item (e.g. a dashboard), three migration steps are applied: 5.0 => 5.1, 5.1 => 5.2, and 5.2 => 5.3. Each of these three steps might fail.
+         
+          More generically, assuming that the error occurred at step p out of a total of n, you can choose one of the following behaviors:
+          \n- "keep-original": keep the original item untouched, as before the whole migration.
+          \n- "keep-last-successful-version": keep the version of the item obtained after the first p-1 successful steps.
+          \n- "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
+        `,
+      });
+      args.implies("stack", "debug");
     },
     async ({
       inputPath,
       outputPath,
       serversPath,
+      fromVersion,
+      toVersion,
       removeWidgets: keysOfWidgetPluginsToRemove,
-      pivotInputPath,
       debug,
       stack,
+      onError: behaviorOnError,
     }) => {
-      const legacyUIFolder = await fs.readJSON(inputPath);
-      const legacyPivotFolder = pivotInputPath
-        ? await fs.readJSON(pivotInputPath)
-        : undefined;
-      const servers = await fs.readJSON(serversPath);
+      const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
-      const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
-        legacyUIFolder,
-        {
-          legacyPivotFolder,
+      const originalDashboardsContent = getContent(
+        contentServer,
+        "dashboard",
+        fromVersion,
+      );
+      const originalWidgetsContent = getContent(
+        contentServer,
+        "widget",
+        fromVersion,
+      );
+      const originalFiltersContent = getContent(
+        contentServer,
+        "filter",
+        fromVersion,
+      );
+
+      const servers: {
+        [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
+      } = await fs.readJSON(serversPath);
+
+      const counters = _fromPairs(
+        [
+          "dashboards",
+          "widgets",
+          "filters",
+          "folders",
+          "calculated_measures",
+        ].map((type) => [
+          type,
+          {
+            success: 0,
+            partial: 0,
+            failed: 0,
+            removed: 0,
+          },
+        ]),
+        // _fromPairs returns a Dictionary.
+        // In this case, the keys used correspond to the attributes of OutcomeCounters.
+      ) as OutcomeCounters;
+      const errorReport = {};
+
+      const doesReportIncludeStacks = stack;
+
+      // Handle the special case of 4.3 to 5.0 separately, as:
+      // - the corresponding migration function has a different signature than all others
+      // - in particular, it is the only migration step with async logic
+      if (fromVersion === "4.3") {
+        await migrate_43_to_50(contentServer, {
+          errorReport,
+          counters,
           servers,
           keysOfWidgetPluginsToRemove,
-          doesReportIncludeStacks: stack,
-        },
+          doesReportIncludeStacks,
+        });
+      }
+
+      const fromVersionIndex =
+        fromVersion === "4.3" ? 0 : fromVersions.indexOf(fromVersion);
+      const toVersionIndex = toVersions.indexOf(toVersion);
+
+      const dataModels = _mapValues(servers, ({ dataModel }) =>
+        getIndexedDataModel(dataModel),
       );
+
+      migrationSteps
+        .slice(fromVersionIndex, toVersionIndex + 1)
+        .forEach(({ migrate, from, to }) => {
+          const step = `${from} to ${to}`;
+          const migrateDashboards = getMigrateDashboards(contentServer, {
+            originalContent: originalDashboardsContent,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
+          const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
+            originalContent: originalWidgetsContent,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
+          const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
+            originalContent: originalFiltersContent,
+            dataModels,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+            behaviorOnError,
+            step,
+          });
+
+          migrate(contentServer, {
+            migrateDashboards,
+            migrateSavedWidgets,
+            migrateSavedFilters,
+            dataModels,
+            keysOfWidgetPluginsToRemove,
+            errorReport,
+            counters,
+            doesReportIncludeStacks,
+          });
+        });
 
       const { dir } = path.parse(outputPath);
 
-      await fs.writeJSON(outputPath, migratedUIFolder, {
-        spaces: 2,
-      });
+      await fs.writeJSON(outputPath, contentServer, { spaces: 2 });
 
       console.log("--------- END OF CONTENT MIGRATION ---------");
 
@@ -134,7 +312,16 @@ yargs
           Object.entries(countersForFolder).forEach(([outcome, counter]) => {
             if (counter > 0) {
               console.log(
-                `- ${counter} ${summaryMessages[folderName][outcome]}`,
+                `- ${counter} ${
+                  outcome === "failed" && folderName !== "calculated_measures"
+                    ? // Apart from calculated measures, all the content types with a failed outcome have a message per behavior on error.
+                      (
+                        summaryMessages[folderName][outcome] as {
+                          [behaviorOnError: string]: string;
+                        }
+                      )[behaviorOnError]
+                    : summaryMessages[folderName][outcome]
+                }`,
               );
             }
           });
@@ -176,6 +363,14 @@ This will output a file named \`report.json\` containing the error messages.`);
       process.exit(0);
     },
   )
+  .check(({ fromVersion, toVersion }) => {
+    // The formats of `fromVersion` and `toVersion` are already validated, with yargs' `choices` option.
+    // They must be of the form "X.Y", hence `coerce` won't return null.
+    if (gte(coerce(fromVersion)!, coerce(toVersion)!)) {
+      throw new Error("--to-version must be greater than --from-version");
+    }
+    return true;
+  })
   .demandCommand(1)
   .strict()
   .parse();

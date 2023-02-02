@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`migrateSettingsFolder returns an empty 'organization_settings' file and an empty 'users' folder when there is no settings folder 1`] = `
+{
+  "organization_settings": {
+    "entry": {
+      "content": "{}",
+      "isDirectory": false,
+      "owners": [
+        "ROLE_CS_ROOT",
+      ],
+      "readers": [
+        "ROLE_USER",
+      ],
+    },
+  },
+  "users": {
+    "entry": {
+      "isDirectory": true,
+      "owners": [
+        "ROLE_USER",
+      ],
+      "readers": [
+        "ROLE_USER",
+      ],
+    },
+  },
+}
+`;
+
+exports[`migrateSettingsFolder returns the folders corresponding to the converted ActiveUI 4 settings folder, ready to be used by ActiveUI 5 1`] = `
+{
+  "organization_settings": {
+    "entry": {
+      "content": "{"theme":"light-activeviam"}",
+      "owners": [
+        "ROLE_CS_ROOT",
+      ],
+      "readers": [
+        "ROLE_USER",
+      ],
+    },
+  },
+  "users": {
+    "children": {
+      "admin": {
+        "children": {
+          "activity": {
+            "entry": {
+              "content": "{"userFilters":["[Geography].[City].[ALL].[AllMember].[Berlin]"]}",
+              "owners": [
+                "admin",
+              ],
+              "readers": [
+                "admin",
+              ],
+            },
+          },
+          "settings": {
+            "entry": {
+              "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true}",
+              "owners": [
+                "admin",
+              ],
+              "readers": [
+                "admin",
+              ],
+            },
+          },
+        },
+        "entry": {
+          "canRead": true,
+          "canWrite": true,
+          "isDirectory": true,
+          "lastEditor": "admin",
+          "owners": [
+            "admin",
+          ],
+          "readers": [
+            "admin",
+          ],
+          "timestamp": 1607879735685,
+        },
+      },
+      "user1": {
+        "children": {
+          "activity": {
+            "entry": {
+              "content": "{}",
+              "owners": [
+                "user1",
+              ],
+              "readers": [
+                "user1",
+              ],
+            },
+          },
+          "settings": {
+            "entry": {
+              "content": "{"userFilters.areEnabled":false}",
+              "owners": [
+                "user1",
+              ],
+              "readers": [
+                "user1",
+              ],
+            },
+          },
+        },
+        "entry": {
+          "canRead": true,
+          "canWrite": true,
+          "isDirectory": true,
+          "lastEditor": "admin",
+          "owners": [
+            "user1",
+          ],
+          "readers": [
+            "user1",
+          ],
+          "timestamp": 1607879735685,
+        },
+      },
+    },
+    "entry": {
+      "isDirectory": true,
+      "owners": [
+        "ROLE_USER",
+      ],
+      "readers": [
+        "ROLE_USER",
+      ],
+    },
+  },
+}
+`;

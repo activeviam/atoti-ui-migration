@@ -1,0 +1,2673 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 1`] = `
+{
+  "children": {
+    "calculated_measures": {
+      "children": {
+        "content": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "dashboards": {
+      "children": {
+        "content": {
+          "children": {
+            "158": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"2"},{"leafKey":"1"}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[{"key":"mdx.hiddengrandtotals","value":"1"}],"mapping":{"rows":["[Geography].[City].[City]","[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}},"2":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnl.FOREX]"],"secondaryValues":[],"splitBy":["[Booking].[Desk].[LegalEntity]","ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "296": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":[],"columns":["ALL_MEASURES"],"measures":[]},"name":"dimensions/PNLs","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "310": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "3a2": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"switchedTo":"plotly-stacked-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "419": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"2"},{"leafKey":"1"}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY {[Measures].[pnl.FOREX], [Measures].[pnl.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Geography].[City].[City]","[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnl.FOREX]","[Measures].[pnl.SUM]"]},"name":"Should be filtered when you click on the chart","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}},"2":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["TopCount(Filter([Currency].[Currency].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])"],"queryContext":[],"serverKey":"my-server","name":"Top currencies (click to filter pivot table)","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "77d": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"1","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Geography].[City].[City]","[Booking].[Desk].[LegalEntity]"],"values":["[Measures].[pnl.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.SUM] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "a5b": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Crossjoin([Geography].[City].[City].Members, {[Measures].[pnl.SUM], [Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]}) ON COLUMNS, NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["[Geography].[City].[City]","ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"]},"name":"Dimensions/PNLs","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{"[Currency].[Currency].[Currency]":81}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "a9c": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"1","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":[],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Featured Values","serverKey":"my-server","widgetKey":"kpi"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "afd": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"DRILLTHROUGH SELECT FROM [EquityDerivativesCube] RETURN MemberValue([City name]), Caption([City name]), MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([UnderlierValue]), Caption([UnderlierValue])","updateMode":"once"},"filters":[],"queryContext":[],"name":"Untitled Drillthrough Table","serverKey":"my-server","widgetKey":"drillthrough-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "b06": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"children":[{"size":0.46,"leafKey":"1"},{"size":0.30240000000000006,"leafKey":"6"},{"children":[{"size":0.2,"leafKey":"4"},{"size":0.8,"leafKey":"5"}],"size":0.2376,"direction":"column"}],"direction":"row"},{"children":[{"leafKey":"2"},{"leafKey":"3"}],"direction":"row"}],"direction":"column"},"name":"Page 1","filters":["{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}"],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([CounterParty].[CounterParty].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[CounterParty].[CounterParty].[CounterPartyGroup]","[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"]},"name":"Counterparties and currencies","serverKey":"my-server","widgetKey":"pivot-table","columnWidths":{}},"2":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Trades].[Trades].[ALL].[AllMember])) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM], [Measures].[pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Trades].[Trades].[TradeId]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]","[Measures].[pv.SUM]"]},"name":"PnL / trade","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{"[Trades].[Trades].[TradeId]":142}},"3":{"mapping":{"xAxis":["[Time].[TimeBucket].[Value Date]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS, NON EMPTY [Time].[TimeBucket].[Value Date].Members ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Evolution","widgetKey":"plotly-line-chart"},"4":{"mode":"multi-select","name":"Select currencies to filter on them","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server","widgetKey":"quick-filter"},"5":{"query":{"mdx":"SELECT NON EMPTY [Measures].[pnl.SUM] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"comparison":{"dimensionName":"Geography","hierarchyName":"City","comparedMemberNamePath":["AllMember","London"],"referenceMemberNamePath":["AllMember","New York"]},"mapping":{"rows":[],"columns":[],"measures":["[Measures].[pnl.SUM]"]},"name":"London vs New York: PnL","serverKey":"my-server","widgetKey":"kpi"},"6":{"mapping":{"xAxis":["[Booking].[Desk].[LegalEntity]"],"values":["[Measures].[contributors.COUNT]"],"stackBy":["[Currency].[Currency].[Currency]","ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin([Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}","{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}","{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}"],"queryContext":[],"serverKey":"my-server","name":"Number of trades / legal entity","widgetKey":"plotly-stacked-column-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "bed": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"children":[{"leafKey":"1"},{"leafKey":"2"}],"size":0.69,"direction":"row"},{"size":0.31,"leafKey":"0"}],"direction":"column"},"name":"Page 1","filters":[],"content":{"0":{"plotly":{"data":{"overridesByTraceKey":{"[Measures].[pnlVega.SUM]":{"name":"Taux de marge","yaxis":"y2"}}},"layout":{"xaxis":{"showticklabels":false,"showgrid":false,"showline":false},"yaxis":{"showticklabels":true,"showline":false},"yaxis2":{"showticklabels":true,"showline":true,"side":"right","range":[-1000,1000],"overlaying":"y"},"margin":{"t":20,"l":20,"r":20,"b":20}}},"switchedTo":"plotly-line-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"},"1":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnl.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnl.SUM]} ON COLUMNS, NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"},"2":{"mapping":{"xAxis":[],"values":[],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "c8a": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"1","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"comparison":{"dimensionName":"Booking","hierarchyName":"Desk","comparedMemberNamePath":["AllMember","LegalEntityA"],"referenceMemberNamePath":["AllMember","LegalEntityB"]},"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":[],"measures":["[Measures].[pnl.FOREX]"]},"name":"Comparison values","serverKey":"my-server","widgetKey":"kpi"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "dec": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY [CounterParty].[CounterParty].[CounterPartyGroup].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[CounterParty].[CounterParty].[CounterPartyGroup]"],"columns":["ALL_MEASURES"],"measures":[]},"name":"Untitled Tabular View","serverKey":"my-server","widgetKey":"table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "eac": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Crossjoin([Geography].[City].[City].Members, {[Measures].[pnl.SUM], [Measures].[pnlVega.SUM], [Measures].[pnlDelta.SUM]}) ON COLUMNS, NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["[Geography].[City].[City]","ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[pnlVega.SUM]","[Measures].[pnlDelta.SUM]"]},"name":"dimensions/PNLs","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{"[Currency].[Currency].[Currency]":123}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "eef": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"size":0.2,"leafKey":"4"},{"size":0.8,"children":[{"size":0.3,"leafKey":"3"},{"size":0.27999999999999997,"leafKey":"1"},{"size":0.42,"leafKey":"2"}],"direction":"column"}],"direction":"row"},"name":"Start page","contextValues":{"EquityDerivativesCube":{"mdx.lightCrossjoin":true},"EquityDerivativesCubeDist":{"mdx.aggressiveFormulaEvaluation":true}},"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":["TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])","{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]}"],"queryContext":[{"key":"queriesTimeLimit","value":60},{"key":"mdx.casesensitive","value":true},{"key":"mdx.defaultmembers.[Geography].[City]","value":"[AllMember].[Berlin]"}],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Tree table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{"[Currency].[Currency].[Currency]":250}},"2":{"plotly":{"data":{"overridesByTraceKey":{"[Measures].[pnlVega.SUM]":{"name":"Taux de marge","yaxis":"y2"}}},"layout":{"xaxis":{"showticklabels":false,"showgrid":false,"showline":false},"yaxis":{"showticklabels":true,"showline":false},"yaxis2":{"showticklabels":true,"showline":true,"side":"right","range":[-1000,1000],"overlaying":"y"},"margin":{"t":20,"l":20,"r":20,"b":20}}},"switchedTo":"plotly-line-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Chart","widgetKey":"plotly-line-chart"},"3":{"mode":"checkbox","name":"Quick filter","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server","widgetKey":"quick-filter"},"4":{"name":"Page filters","widgetKey":"filters"}},"filters":[],"queryContext":[{"key":"mdx.lightCrossjoin","value":true},{"key":"mdx.aggressiveFormulaEvaluation","value":true}]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[{"key":"queriesTimeLimit","value":60},{"key":"mdx.casesensitive","value":false},{"key":"mdx.defaultmembers.[Geography].[City]","value":"[AllMember].[Paris]"}]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "f06": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"children":[{"size":0.46,"leafKey":"1"},{"size":0.30240000000000006,"leafKey":"6"},{"children":[{"size":0.2,"leafKey":"4"},{"size":0.8,"leafKey":"5"}],"size":0.2376,"direction":"column"}],"direction":"row"},{"children":[{"leafKey":"2"},{"leafKey":"3"}],"direction":"row"}],"direction":"column"},"name":"Page 1","filters":["{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}"],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([CounterParty].[CounterParty].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[CounterParty].[CounterParty].[CounterPartyGroup]","[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"]},"name":"Counterparties and currencies","serverKey":"my-server","widgetKey":"pivot-table","columnWidths":{}},"2":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Trades].[Trades].[ALL].[AllMember])) ON ROWS, NON EMPTY {[Measures].[pnl.SUM], [Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM], [Measures].[pv.SUM]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Trades].[Trades].[TradeId]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[pnl.SUM]","[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]","[Measures].[pv.SUM]"]},"name":"PnL / trade","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{"[Trades].[Trades].[TradeId]":142}},"3":{"mapping":{"xAxis":["[Time].[TimeBucket].[Value Date]"],"values":["[Measures].[pnlDelta.SUM]","[Measures].[pnlVega.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY {[Measures].[pnlDelta.SUM], [Measures].[pnlVega.SUM]} ON COLUMNS, NON EMPTY [Time].[TimeBucket].[Value Date].Members ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Evolution","widgetKey":"plotly-line-chart"},"4":{"mode":"multi-select","name":"Select currencies to filter on them","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server","widgetKey":"quick-filter"},"5":{"query":{"mdx":"SELECT NON EMPTY [Measures].[pnl.SUM] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"comparison":{"dimensionName":"Geography","hierarchyName":"City","comparedMemberNamePath":["AllMember","London"],"referenceMemberNamePath":["AllMember","New York"]},"mapping":{"rows":[],"columns":[],"measures":["[Measures].[pnl.SUM]"]},"name":"London vs New York: PnL","serverKey":"my-server","widgetKey":"kpi"},"6":{"mapping":{"xAxis":["[Booking].[Desk].[LegalEntity]"],"values":["[Measures].[contributors.COUNT]"],"stackBy":["[Currency].[Currency].[Currency]","ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin([Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}","{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}","{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD], [Currency].[Currency].[ALL].[AllMember].[JPY]}"],"queryContext":[],"serverKey":"my-server","name":"Number of trades / legal entity","widgetKey":"plotly-stacked-column-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "fba": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":[]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {
+            "158": {
+              "children": {
+                "158_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"hidden grand totals"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "3a2": {
+              "children": {
+                "3a2_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"mad chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "3f3": {
+              "children": {
+                "3f3_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"BAM","isFolder":true}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "77d": {
+                  "children": {
+                    "77d_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"UI-4918"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "b06": {
+                  "children": {
+                    "b06_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"Performance dashboard"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "f06": {
+                  "children": {
+                    "f06_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"Performance dashboard - 2"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "419": {
+              "children": {
+                "419_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"UI-4917"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "41c": {
+              "children": {
+                "296": {
+                  "children": {
+                    "296_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"dimensions/PNLs"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "41c_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"TBL","isFolder":true}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "a5b": {
+                  "children": {
+                    "a5b_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"Dimensions/PNLs"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "eac": {
+                  "children": {
+                    "eac_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"dimensions/PNLs"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "a05": {
+              "children": {
+                "310": {
+                  "children": {
+                    "310_metadata": {
+                      "entry": {
+                        "canRead": true,
+                        "canWrite": true,
+                        "content": "{"name":"pivot"}",
+                        "isDirectory": true,
+                        "lastEditor": "admin",
+                        "owners": [
+                          "admin",
+                        ],
+                        "readers": [
+                          "admin",
+                        ],
+                        "timestamp": 1607879735685,
+                      },
+                    },
+                  },
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+                "a05_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"MAD","isFolder":true}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "a9c": {
+              "children": {
+                "a9c_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Featured values without description"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "afd": {
+              "children": {
+                "afd_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"OME/TEST"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "bed": {
+              "children": {
+                "bed_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"chart tests"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "c8a": {
+              "children": {
+                "c8a_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Dashboard with comparison values"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "dec": {
+              "children": {
+                "dec_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Tabular"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "eef": {
+              "children": {
+                "eef_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"1 page, 4 widgets"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "fba": {
+              "children": {
+                "fba_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"OpenDrillthrough action"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "thumbnails": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "filters": {
+      "children": {
+        "content": {
+          "children": {
+            "75a": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mdx":"[Geography].[City].[ALL].[AllMember].[Paris]"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e2b": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mdx":"{[Geography].[City].[ALL].[AllMember].[Berlin], [Geography].[City].[ALL].[AllMember].[London]}"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {
+            "75a": {
+              "children": {
+                "75a_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"MadFilter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e2b": {
+              "children": {
+                "e2b_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"AUI4 filter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "organization_permissions": {
+      "entry": {
+        "content": "{}",
+        "isDirectory": false,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "organization_settings": {
+      "entry": {
+        "content": "{"theme":"light-activeviam"}",
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "user_roles": {
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "users": {
+      "children": {
+        "admin": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{"userFilters":["[Geography].[City].[ALL].[AllMember].[Berlin]"]}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+        "user1": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{"userFilters.areEnabled":false}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "user1",
+            ],
+            "readers": [
+              "user1",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_USER",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "widgets": {
+      "children": {
+        "content": {
+          "children": {
+            "02d": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mode":"multi-select","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "0xb": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "1fe": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xValues":["[Measures].[contributors.COUNT]"],"yValues":["[Measures].[pnl.FOREX]"],"splitBy":["[Currency].[Currency].[Currency]"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT {[Measures].[contributors.COUNT], [Measures].[pnl.FOREX]} ON COLUMNS, NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "34d": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnl.SUM]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, [Measures].[pnl.SUM] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "4aa": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"comparison":{"dimensionName":"Booking","hierarchyName":"Desk","comparedMemberNamePath":["AllMember","LegalEntityA"],"referenceMemberNamePath":["AllMember","LegalEntityB"]},"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":[],"measures":["[Measures].[pnl.FOREX]"]},"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "695": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"yAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"stackBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "76c": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mode":"radio","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "9e3": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mode":"select","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "abc": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])) ON ROWS, NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])), {[Measures].[pnl.FOREX], [Measures].[pnl.SUM]}) ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Geography].[City].[City]"],"columns":["[Currency].[Currency].[Currency]","ALL_MEASURES"],"measures":["[Measures].[pnl.FOREX]","[Measures].[pnl.SUM]"]},"serverKey":"my-server","columnWidths":{"[Currency].[Currency].[ALL].[AllMember].[EUR],[Measures].[pnl.FOREX]":185}}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "c1a": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "cfd": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"stackBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "d67": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xValues":["[Measures].[contributors.COUNT]"],"yValues":["[Measures].[pnl.FOREX]"],"size":["[Measures].[pnl.FOREX]"],"color":["[Booking].[Desk].[LegalEntity]"],"splitBy":["[Currency].[Currency].[Currency]"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT {[Measures].[contributors.COUNT], [Measures].[pnl.FOREX]} ON COLUMNS, NON EMPTY Crossjoin([Currency].[Currency].[Currency].Members, [Booking].[Desk].[LegalEntity].Members) ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "dfa": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[contributors.COUNT]"],"secondaryValues":[],"splitBy":["ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin([Geography].[City].[City].Members, [Booking].[Desk].[LegalEntity].Members, [Currency].[Currency].[Currency].Members) ON ROWS, [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e18": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mapping":{"values":["[Measures].[contributors.COUNT]"],"sliceBy":["[Currency].[Currency].[Currency]"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT [Measures].[contributors.COUNT] ON COLUMNS, NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e5d": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"mode":"checkbox","levelCoordinates":{"dimensionName":"Currency","hierarchyName":"Currency","levelName":"Currency"},"cubeName":"EquityDerivativesCube","serverKey":"my-server"}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {
+            "02d": {
+              "children": {
+                "02d_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Quick filter","widgetKey":"quick-filter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "0xb": {
+              "children": {
+                "0xb_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Page filters","widgetKey":"filters"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "1fe": {
+              "children": {
+                "1fe_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy scatter plot","widgetKey":"plotly-scatter-plot"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "34d": {
+              "children": {
+                "34d_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy line chart","widgetKey":"plotly-line-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "4aa": {
+              "children": {
+                "4aa_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Comparison values","widgetKey":"kpi"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "695": {
+              "children": {
+                "695_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy bar chart","widgetKey":"plotly-stacked-bar-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "76c": {
+              "children": {
+                "76c_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Quick filter Radio","widgetKey":"quick-filter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "9e3": {
+              "children": {
+                "9e3_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Quick filter Select","widgetKey":"quick-filter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "abc": {
+              "children": {
+                "abc_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Pivot table","widgetKey":"tree-table"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "c1a": {
+              "children": {
+                "c1a_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy area chart","widgetKey":"plotly-area-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "cfd": {
+              "children": {
+                "cfd_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy column chart","widgetKey":"plotly-stacked-column-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "d67": {
+              "children": {
+                "d67_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy scatter plot 2","widgetKey":"plotly-scatter-plot"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "dfa": {
+              "children": {
+                "dfa_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy subplots","widgetKey":"plotly-line-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e18": {
+              "children": {
+                "e18_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Legacy pie chart","widgetKey":"plotly-pie-chart"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+            "e5d": {
+              "children": {
+                "e5d_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"Quick filter Checkboxes","widgetKey":"quick-filter"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+  },
+  "entry": {
+    "isDirectory": true,
+    "owners": [
+      "ROLE_CS_ROOT",
+    ],
+    "readers": [
+      "ROLE_CS_ROOT",
+    ],
+  },
+}
+`;
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 2`] = `
+{
+  "dashboards": {
+    "eef": {
+      "folderId": [],
+      "folderName": [],
+      "name": "1 page, 4 widgets",
+      "pages": {
+        "p-0": {
+          "pageName": "Start page",
+          "widgets": {
+            "4": {
+              "error": {
+                "message": "Unsupported widgetKey: "filters"",
+              },
+              "widgetName": "Page filters",
+            },
+          },
+        },
+      },
+      "step": "4.3 to 5.0",
+    },
+  },
+  "widgets": {
+    "0xb": {
+      "error": {
+        "message": "Unsupported widgetKey: "filters"",
+      },
+      "folderId": [],
+      "folderName": [],
+      "name": "Page filters",
+      "step": "4.3 to 5.0",
+    },
+  },
+}
+`;
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 3`] = `
+{
+  "dashboards": {
+    "failed": 0,
+    "partial": 1,
+    "removed": 0,
+    "success": 16,
+  },
+  "filters": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 2,
+  },
+  "folders": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "widgets": {
+    "failed": 1,
+    "partial": 0,
+    "removed": 0,
+    "success": 14,
+  },
+}
+`;
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 1`] = `
+{
+  "children": {
+    "calculated_measures": {
+      "children": {
+        "content": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "dashboards": {
+      "children": {
+        "content": {
+          "children": {
+            "158": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"2"},{"leafKey":"1"}],"direction":"row"},"name":"Page 1","filters":[],"content":{"1":{"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[{"key":"mdx.hiddengrandtotals","value":"1"}],"mapping":{"rows":["[Geography].[City].[City]","[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}},"2":{"switchedTo":"plotly-clustered-column-chart","mapping":{"xAxis":["[Currency].[Currency].[Currency]"],"values":["[Measures].[pnl.FOREX]"],"secondaryValues":[],"splitBy":["[Booking].[Desk].[LegalEntity]","ALL_MEASURES"],"horizontalSubplots":[],"verticalSubplots":[]},"query":{"mdx":"SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency])), Hierarchize(DrilldownLevel([Booking].[Desk].[ALL].[AllMember]))) ON ROWS, NON EMPTY [Measures].[pnl.FOREX] ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":[],"queryContext":[],"serverKey":"my-server","name":"Untitled Chart","widgetKey":"plotly-line-chart"}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {
+            "158": {
+              "children": {
+                "158_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"hidden grand totals"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "thumbnails": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "filters": {
+      "children": {
+        "content": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "organization_permissions": {
+      "entry": {
+        "content": "{}",
+        "isDirectory": false,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "organization_settings": {
+      "entry": {
+        "content": "{}",
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "user_roles": {
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+    "users": {
+      "children": {
+        "admin": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{"userFilters":["[Geography].[City].[ALL].[AllMember].[Berlin]"]}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+        "user1": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "user1",
+            ],
+            "readers": [
+              "user1",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_USER",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "widgets": {
+      "children": {
+        "content": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+        "structure": {
+          "children": {},
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_USER",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_CS_ROOT",
+        ],
+        "readers": [
+          "ROLE_CS_ROOT",
+        ],
+      },
+    },
+  },
+  "entry": {
+    "isDirectory": true,
+    "owners": [
+      "ROLE_CS_ROOT",
+    ],
+    "readers": [
+      "ROLE_CS_ROOT",
+    ],
+  },
+}
+`;
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 2`] = `
+{
+  "dashboards": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 1,
+  },
+  "filters": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "folders": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+  "widgets": {
+    "failed": 0,
+    "partial": 0,
+    "removed": 0,
+    "success": 0,
+  },
+}
+`;
+
+exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
+{
+  "children": {
+    "content": {
+      "children": {
+        "000": {
+          "entry": {
+            "content": "{"expression":"IIf(IsEmpty(([Booking].[Desk].CurrentMember.Parent, [Measures].[pnl.SUM])), null, [Measures].[pnl.SUM] / ([Booking].[Desk].CurrentMember.Parent, [Measures].[pnl.SUM]))","properties":["FORMAT_STRING=\\"#,###.##%\\""]}",
+            "isDirectory": false,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+        "001": {
+          "entry": {
+            "content": "{"expression":"IIf(IsEmpty(([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX])), null, [Measures].[pnl.FOREX] / ([Currency].[Currency].[ALL].[AllMember], [Measures].[pnl.FOREX]))","properties":["FORMAT_STRING=\\"#,###.##%\\""]}",
+            "isDirectory": false,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+        "002": {
+          "entry": {
+            "content": "{"expression":"Count(Descendants([CounterParty].[CounterParty].CurrentMember, [CounterParty].[CounterParty].[CounterPartyGroup]), EXCLUDEEMPTY)","properties":["FORMAT_STRING=\\"#,###.##\\""]}",
+            "isDirectory": false,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_USER",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+    "structure": {
+      "children": {
+        "000": {
+          "children": {
+            "000_metadata": {
+              "entry": {
+                "content": "{"name":"[Measures].[third calculated measure]"}",
+                "isDirectory": false,
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+        "001": {
+          "children": {
+            "001_metadata": {
+              "entry": {
+                "content": "{"name":"[Measures].[second calculated measure]"}",
+                "isDirectory": false,
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+        "002": {
+          "children": {
+            "002_metadata": {
+              "entry": {
+                "content": "{"name":"[Measures].[first calculated measure]"}",
+                "isDirectory": false,
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+          },
+        },
+      },
+      "entry": {
+        "isDirectory": true,
+        "owners": [
+          "ROLE_USER",
+        ],
+        "readers": [
+          "ROLE_USER",
+        ],
+      },
+    },
+  },
+  "entry": {
+    "isDirectory": true,
+    "owners": [
+      "ROLE_CS_ROOT",
+    ],
+    "readers": [
+      "ROLE_CS_ROOT",
+    ],
+  },
+}
+`;
