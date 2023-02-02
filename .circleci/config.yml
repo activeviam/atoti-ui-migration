@@ -17,7 +17,7 @@ jobs:
   build-and-test:
     executor:
       name: node/default
-      tag: "16.10.0"
+      tag: "18.12.1"
     resource_class: xlarge
     steps:
       - checkout
