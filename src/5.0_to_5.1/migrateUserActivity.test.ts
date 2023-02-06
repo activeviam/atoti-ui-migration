@@ -11,7 +11,7 @@ const dataModels = {
 };
 
 describe("migrateUserActivity", () => {
-  it("migrates 5.0 `userFilters` and `userQueryContext` to usable data in 5.1", () => {
+  it("migrates 5.0 user filters and query context to usable ones in 5.1", () => {
     const parsed50UserActivity = JSON.parse(
       contentServer.children?.ui.children?.users.children?.user2.children
         ?.activity.entry.content,
