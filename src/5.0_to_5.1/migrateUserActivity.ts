@@ -11,21 +11,18 @@ export const migrateUserActivity = (
   contentServer: ContentRecord,
   dataModels: { [serverKey: string]: DataModel },
 ): void => {
-  const users = contentServer.children?.ui.children?.users;
+  const users = contentServer.children?.ui.children?.users.children || {};
 
-  if (users?.children === undefined) {
-    return;
-  }
-  Object.values(users.children).forEach((user) => {
-    if (user.children?.activity) {
-      const userActivity = JSON.parse(user.children?.activity.entry.content);
-      const userFilters = userActivity.userFilters.map(parse);
+  for (const userName in users) {
+    const user = users[userName];
+    const userActivity = user.children?.activity;
+    if (userActivity) {
+      const userActivityContent = JSON.parse(userActivity.entry.content);
+      const userFilters = userActivityContent.userFilters.map(parse);
       migrateFilters(userFilters, { dataModels });
-      const stringifiedUserFilters = userFilters.map(serializeFilter);
-      userActivity.userFilters = stringifiedUserFilters;
-      migrateContextValues(userActivity.userQueryContext);
-      const stringifiedUserActivity = JSON.stringify(userActivity);
-      user.children.activity.entry.content = stringifiedUserActivity;
+      userActivityContent.userFilters = userFilters.map(serializeFilter);
+      migrateContextValues(userActivityContent.userQueryContext);
+      userActivity.entry.content = JSON.stringify(userActivityContent);
     }
-  });
+  }
 };
