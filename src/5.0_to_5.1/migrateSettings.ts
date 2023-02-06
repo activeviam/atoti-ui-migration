@@ -78,7 +78,7 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
             content: "{}",
             isDirectory: false,
             owners: ["ROLE_CS_ROOT"],
-            readers: ["ROLE_USER"],
+            readers: [userName],
           },
         };
         permissions = users[userName].children!.permissions;

@@ -117,10 +117,18 @@ describe("migrateSettings", () => {
     userPermissions =
       contentServer.children!.ui.children!.users.children!["admin"].children!
         .permissions;
-    expect(JSON.parse(userPermissions.entry.content)).toMatchInlineSnapshot(`
+    expect(userPermissions).toMatchInlineSnapshot(`
       {
-        "canUseCalculatedMeasures": false,
-        "canUseUserFilters": true,
+        "entry": {
+          "content": "{"canUseUserFilters":true,"canUseCalculatedMeasures":false}",
+          "isDirectory": false,
+          "owners": [
+            "ROLE_CS_ROOT",
+          ],
+          "readers": [
+            "admin",
+          ],
+        },
       }
     `);
   });
@@ -154,12 +162,18 @@ describe("migrateSettings", () => {
 
     const organizationPermissions =
       contentServer.children!.ui.children!["organization_permissions"];
-    expect(JSON.parse(organizationPermissions.entry.content))
-      .toMatchInlineSnapshot(`
+    expect(organizationPermissions).toMatchInlineSnapshot(`
       {
-        "canUseCalculatedMeasures": false,
-        "canUseUserFilters": false,
-        "canUseUserQueryContext": true,
+        "entry": {
+          "content": "{"canUseUserFilters":false,"canUseUserQueryContext":true,"canUseCalculatedMeasures":false}",
+          "isDirectory": false,
+          "owners": [
+            "ROLE_CS_ROOT",
+          ],
+          "readers": [
+            "ROLE_USER",
+          ],
+        },
       }
     `);
   });
