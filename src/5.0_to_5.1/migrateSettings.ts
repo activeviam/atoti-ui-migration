@@ -47,7 +47,8 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
   if (organizationSettings) {
     if (!organizationPermissions) {
       // Creates the "organization_permissions" file before doing the move.
-      contentServer.children.ui.children["organization_permissions"] = {
+      // `organizationSettings` is defined, ensuring the following path to "organization_permissions" exists.
+      contentServer.children!.ui.children!["organization_permissions"] = {
         entry: {
           content: "{}",
           isDirectory: false,
@@ -56,7 +57,7 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
         },
       };
       organizationPermissions =
-        contentServer.children.ui.children["organization_permissions"];
+        contentServer.children!.ui.children!["organization_permissions"];
     }
 
     moveSettingsToPermissions(organizationSettings, organizationPermissions);
@@ -71,7 +72,8 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
     if (settings) {
       if (!permissions) {
         // Creates the "permissions" file before doing the move.
-        users[userName].children.permissions = {
+        // `settings` is defined, ensuring the following path to "permissions" exists.
+        users[userName].children!.permissions = {
           entry: {
             content: "{}",
             isDirectory: false,
@@ -79,7 +81,7 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
             readers: ["ROLE_USER"],
           },
         };
-        permissions = users[userName].children.permissions;
+        permissions = users[userName].children!.permissions;
       }
 
       moveSettingsToPermissions(settings, permissions);
