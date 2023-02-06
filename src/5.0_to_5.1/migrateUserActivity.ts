@@ -5,7 +5,9 @@ import { migrateContextValues } from "./migrateContextValues";
 import { migrateFilters } from "./migrateFilters";
 
 /**
- * Mutates 5.0 `userFilters` and `userQueryContext` into usable data in 5.1.
+ * Migrates the 5.0 user activity into one usable in 5.1.
+ * In particular, migrates the user filters and the user query context.
+ * Mutates `contentServer`.
  */
 export const migrateUserActivity = (
   contentServer: ContentRecord,
