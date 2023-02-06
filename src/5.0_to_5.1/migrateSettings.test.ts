@@ -35,39 +35,6 @@ describe("migrateSettings", () => {
     expect(userPermissionsClone).toStrictEqual(userPermissions);
   });
 
-  it("deletes some settings if there are no permissions", () => {
-    const userSettings =
-      contentServer.children!.ui.children!.users.children!["admin"].children!
-        .settings;
-    const userPermissions =
-      contentServer.children!.ui.children!.users.children!["admin"].children!
-        .permissions;
-
-    expect(JSON.parse(userSettings.entry.content)).toMatchInlineSnapshot(`
-      {
-        "calculatedMeasures.areEnabled": false,
-        "homePageLayout": "list",
-        "smartFiltering.ignoredHierarchies": [
-          "[Underlyings].[Products]",
-        ],
-        "userFilters.areEnabled": true,
-      }
-    `);
-    expect(userPermissions).toBeUndefined();
-
-    migrateSettings(contentServer);
-
-    expect(JSON.parse(userSettings.entry.content)).toMatchInlineSnapshot(`
-      {
-        "homePageLayout": "list",
-        "smartFiltering.ignoredHierarchies": [
-          "[Underlyings].[Products]",
-        ],
-      }
-    `);
-    expect(userPermissions).toBeUndefined();
-  });
-
   it("transforms some settings attributes into permissions attributes.", () => {
     const organizationSettings =
       contentServer.children!.ui.children!["organization_settings"];
@@ -112,6 +79,87 @@ describe("migrateSettings", () => {
         "canUseCalculatedMeasures": false,
         "canUseUserFilters": false,
         "canUseUserQueryContext": false,
+      }
+    `);
+  });
+
+  it("creates the 'permissions' file if it doesn't exist before transforming the settings attributes", () => {
+    const userSettings =
+      contentServer.children!.ui.children!.users.children!["admin"].children!
+        .settings;
+    let userPermissions =
+      contentServer.children!.ui.children!.users.children!["admin"].children!
+        .permissions;
+
+    expect(JSON.parse(userSettings.entry.content)).toMatchInlineSnapshot(`
+      {
+        "calculatedMeasures.areEnabled": false,
+        "homePageLayout": "list",
+        "smartFiltering.ignoredHierarchies": [
+          "[Underlyings].[Products]",
+        ],
+        "userFilters.areEnabled": true,
+      }
+    `);
+    expect(userPermissions).toBeUndefined();
+
+    migrateSettings(contentServer);
+
+    expect(JSON.parse(userSettings.entry.content)).toMatchInlineSnapshot(`
+      {
+        "homePageLayout": "list",
+        "smartFiltering.ignoredHierarchies": [
+          "[Underlyings].[Products]",
+        ],
+      }
+    `);
+
+    userPermissions =
+      contentServer.children!.ui.children!.users.children!["admin"].children!
+        .permissions;
+    expect(JSON.parse(userPermissions.entry.content)).toMatchInlineSnapshot(`
+      {
+        "canUseCalculatedMeasures": false,
+        "canUseUserFilters": true,
+      }
+    `);
+  });
+
+  it("creates the 'organization_permissions' file if it doesn't exist before transforming the settings attributes", () => {
+    const organizationSettings =
+      contentServer.children!.ui.children!["organization_settings"];
+
+    delete contentServer.children!.ui.children!["organization_permissions"];
+
+    expect(JSON.parse(organizationSettings.entry.content))
+      .toMatchInlineSnapshot(`
+      {
+        "calculatedMeasures.areEnabled": false,
+        "homePageLayout": "list",
+        "theme": "light-activeviam",
+        "userFilters.areEnabled": false,
+        "userQueryContext.isEnabled": true,
+      }
+    `);
+
+    migrateSettings(contentServer);
+
+    expect(JSON.parse(organizationSettings.entry.content))
+      .toMatchInlineSnapshot(`
+      {
+        "homePageLayout": "list",
+        "theme": "light-activeviam",
+      }
+    `);
+
+    const organizationPermissions =
+      contentServer.children!.ui.children!["organization_permissions"];
+    expect(JSON.parse(organizationPermissions.entry.content))
+      .toMatchInlineSnapshot(`
+      {
+        "canUseCalculatedMeasures": false,
+        "canUseUserFilters": false,
+        "canUseUserQueryContext": true,
       }
     `);
   });

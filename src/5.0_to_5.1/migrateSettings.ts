@@ -9,40 +9,28 @@ const settingsToPermissionsMapping = {
 /**
  * Moves some attributes from `settings` to `permissions` and updates their name.
  * Only moves an attribute if the corresponding permission doesn't exist yet.
- * If there is no `permissions`, deletes the `settings` attribute that were supposed to be moved.
  * Mutates `settings` and `permissions`.
  */
 const moveSettingsToPermissions = (
   settings: ContentRecord,
-  permissions: ContentRecord | undefined,
+  permissions: ContentRecord,
 ): void => {
   const settingsContent = JSON.parse(settings.entry.content);
+  const permissionsContent = JSON.parse(permissions.entry.content);
 
-  if (!permissions) {
-    Object.keys(settingsToPermissionsMapping).forEach((settingKey) => {
+  Object.entries(settingsToPermissionsMapping).forEach(
+    ([settingKey, permissionKey]) => {
       if (settingKey in settingsContent) {
+        if (!(permissionKey in permissionsContent)) {
+          permissionsContent[permissionKey] = settingsContent[settingKey];
+        }
         delete settingsContent[settingKey];
       }
-    });
+    },
+  );
 
-    settings.entry.content = JSON.stringify(settingsContent);
-  } else {
-    const permissionsContent = JSON.parse(permissions.entry.content);
-
-    Object.entries(settingsToPermissionsMapping).forEach(
-      ([settingKey, permissionKey]) => {
-        if (settingKey in settingsContent) {
-          if (!(permissionKey in permissionsContent)) {
-            permissionsContent[permissionKey] = settingsContent[settingKey];
-          }
-          delete settingsContent[settingKey];
-        }
-      },
-    );
-
-    settings.entry.content = JSON.stringify(settingsContent);
-    permissions.entry.content = JSON.stringify(permissionsContent);
-  }
+  settings.entry.content = JSON.stringify(settingsContent);
+  permissions.entry.content = JSON.stringify(permissionsContent);
 };
 
 /**
@@ -53,10 +41,24 @@ const moveSettingsToPermissions = (
 export const migrateSettings = (contentServer: ContentRecord): void => {
   const organizationSettings =
     contentServer.children?.ui.children?.["organization_settings"];
-  const organizationPermissions =
+  let organizationPermissions =
     contentServer.children?.ui.children?.["organization_permissions"];
 
   if (organizationSettings) {
+    if (!organizationPermissions) {
+      // Creates the "organization_permissions" file before doing the move.
+      contentServer.children.ui.children["organization_permissions"] = {
+        entry: {
+          content: "{}",
+          isDirectory: false,
+          owners: ["ROLE_CS_ROOT"],
+          readers: ["ROLE_USER"],
+        },
+      };
+      organizationPermissions =
+        contentServer.children.ui.children["organization_permissions"];
+    }
+
     moveSettingsToPermissions(organizationSettings, organizationPermissions);
   }
 
@@ -64,9 +66,22 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
 
   for (const userName in users) {
     const settings = users[userName].children?.settings;
-    const permissions = users[userName].children?.permissions;
+    let permissions = users[userName].children?.permissions;
 
     if (settings) {
+      if (!permissions) {
+        // Creates the "permissions" file before doing the move.
+        users[userName].children.permissions = {
+          entry: {
+            content: "{}",
+            isDirectory: false,
+            owners: ["ROLE_CS_ROOT"],
+            readers: ["ROLE_USER"],
+          },
+        };
+        permissions = users[userName].children.permissions;
+      }
+
       moveSettingsToPermissions(settings, permissions);
     }
   }
