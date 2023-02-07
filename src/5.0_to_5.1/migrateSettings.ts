@@ -63,7 +63,10 @@ export const migrateSettings = (contentServer: ContentRecord): void => {
     moveSettingsToPermissions(organizationSettings, organizationPermissions);
   }
 
-  const users = contentServer.children?.ui.children?.users.children || {};
+  const users = contentServer.children?.ui?.children?.users?.children;
+  if (!users) {
+    return;
+  }
 
   for (const userName in users) {
     const settings = users[userName].children?.settings;

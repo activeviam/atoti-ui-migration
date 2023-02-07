@@ -11,8 +11,6 @@ describe("migrateSettings", () => {
   });
 
   it("doesn't do anything if there is no settings", () => {
-    const contentServerClone = _cloneDeep(contentServer);
-
     const userSettings =
       contentServer.children!.ui.children!.users.children!["user2"].children!
         .settings;
@@ -25,10 +23,10 @@ describe("migrateSettings", () => {
     migrateSettings(contentServer);
 
     const userSettingsClone =
-      contentServerClone.children!.ui.children!.users.children!["user2"]
+      testContentServer.children!.ui.children!.users.children!["user2"]
         .children!.settings;
     const userPermissionsClone =
-      contentServerClone.children!.ui.children!.users.children!["user2"]
+      testContentServer.children!.ui.children!.users.children!["user2"]
         .children!.permissions;
 
     expect(userSettingsClone).toStrictEqual(userSettings);
