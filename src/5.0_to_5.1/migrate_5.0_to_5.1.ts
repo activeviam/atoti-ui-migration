@@ -15,6 +15,7 @@ import { migrateWidget } from "./migrateWidget";
 import { getNamesOfCalculatedMeasuresToMigrate } from "./calculated-measures/getNamesOfCalculatedMeasuresToMigrate";
 import { migrateSavedCalculatedMeasures } from "./calculated-measures/migrateSavedCalculatedMeasures";
 import { migrateSavedWidgetsMetaData } from "./migrateSavedWidgetsMetaData";
+import { migrateSettings } from "./migrateSettings";
 import { migrateUserActivity } from "./migrateUserActivity";
 
 export const migrate_50_to_51: MigrationFunction = (
@@ -80,6 +81,8 @@ export const migrate_50_to_51: MigrationFunction = (
   );
 
   migrateSavedWidgetsMetaData(contentServer);
+
+  migrateSettings(contentServer);
 
   migrateUserActivity(contentServer, dataModels);
 };
