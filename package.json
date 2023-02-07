@@ -1,6 +1,6 @@
 {
   "name": "activeui-migration",
-  "version": "5.1.0-SNAPSHOT",
+  "version": "5.1.0",
   "description": "Functions useful to migrate content, in order to make it usable with a more recent version of ActiveUI than the one it was saved with.",
   "bugs": {
     "url": "https://github.com/activeviam/activeui-migration/issues"
