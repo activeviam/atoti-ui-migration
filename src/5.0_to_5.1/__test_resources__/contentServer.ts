@@ -1148,7 +1148,7 @@ export const contentServer: ContentRecord = {
                 activity: {
                   entry: {
                     content:
-                      '{"recentlyOpenedDashboards":[{"id":"e54","lastOpened":1670589758805},{"id":"7d7","lastOpened":1669821874599}],"userFilters":[],"userQueryContext":[]}',
+                      '{"recentlyOpenedDashboards":[{"id":"e54","lastOpened":1670589758805},{"id":"7d7","lastOpened":1669821874599}],"userFilters":["[Currency].[Currency].[ALL].[AllMember].[EUR]"],"userQueryContext":[{"key": "queriesTimeLimit", "value": 30 }]}',
                     isDirectory: false,
                     owners: ["user2"],
                     readers: ["user2"],
