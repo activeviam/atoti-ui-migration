@@ -21,17 +21,16 @@ export const migrateUserActivity = (
     if (userActivity) {
       const userActivityContent = JSON.parse(userActivity.entry.content);
 
-      const userFilters = userActivityContent.userFilters?.map(parse);
-      if (userFilters) {
+      if (userActivityContent.userFilters) {
+        const userFilters = userActivityContent.userFilters.map(parse);
         migrateFilters(userFilters, { dataModels });
         userActivityContent.userFilters = userFilters.map(serializeFilter);
       }
 
-      const userQueryContext = userActivityContent.userQueryContext;
-      if (userQueryContext) {
-        migrateContextValues(userQueryContext);
+      if (userActivityContent.userQueryContext) {
+        migrateContextValues(userActivityContent.userQueryContext);
       }
-      
+
       userActivity.entry.content = JSON.stringify(userActivityContent);
     }
   }
