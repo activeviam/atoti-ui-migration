@@ -1199,7 +1199,7 @@ export const contentServer: ContentRecord = {
                 activity: {
                   entry: {
                     content:
-                      '{"recentlyOpenedDashboards":[{"id":"1c9","lastOpened":1671024572978},{"id":"c05","lastOpened":1671024515384},{"id":"b99","lastOpened":1671023711562},{"id":"bd8","lastOpened":1671023708821},{"id":"c07","lastOpened":1671023580734},{"id":"fdb","lastOpened":1671022213315},{"id":"b00","lastOpened":1671018021780},{"id":"3c4","lastOpened":1671016928010},{"id":"a9e","lastOpened":1671015748391},{"id":"7d7","lastOpened":1671015719292}],"userFilters":[],"userQueryContext":[]}',
+                      '{"recentlyOpenedDashboards":[{"id":"1c9","lastOpened":1671024572978},{"id":"c05","lastOpened":1671024515384},{"id":"b99","lastOpened":1671023711562},{"id":"bd8","lastOpened":1671023708821},{"id":"c07","lastOpened":1671023580734},{"id":"fdb","lastOpened":1671022213315},{"id":"b00","lastOpened":1671018021780},{"id":"3c4","lastOpened":1671016928010},{"id":"a9e","lastOpened":1671015748391},{"id":"7d7","lastOpened":1671015719292}]}',
                     isDirectory: false,
                     owners: ["admin"],
                     readers: ["admin"],
