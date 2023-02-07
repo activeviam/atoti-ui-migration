@@ -170,6 +170,7 @@ yargs
           \n- "keep-going": try to apply the n-p remaining steps to the version of the item obtained after step p, despite the error. Note that the remaining steps are likely to fail too, and in that case the result will be the same as "keep-last-succesful-version".
         `,
       });
+      args.implies("stack", "debug");
     },
     async ({
       inputPath,
