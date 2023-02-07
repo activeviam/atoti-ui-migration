@@ -62,7 +62,7 @@ describe("migrateSettings", () => {
 
     migrateSettings(contentServer);
 
-    // "calculatedMeasures.areEnabled", "userFilters.areEnabled" and "userQueryContext.isEnabled" are moved from the settings to become permissions.
+    // "calculatedMeasures.areEnabled", "userFilters.areEnabled" and "userQueryContext.isEnabled" are moved from settings to permissions, with different keys.
     // "canUseUserQueryContext" keeps its value, because it was already in the permissions.
     expect(JSON.parse(organizationSettings.entry.content))
       .toMatchInlineSnapshot(`
