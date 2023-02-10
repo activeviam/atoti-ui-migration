@@ -278,7 +278,6 @@ describe("migrateDashboard", () => {
       servers,
       keysOfWidgetPluginsToRemove: widgetKeysToRemove,
     });
-
     const { content, layout } = dashboard.pages["p-0"];
     const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
     expect(widgetPluginKeys).toEqual([
@@ -304,6 +303,37 @@ describe("migrateDashboard", () => {
           },
         ],
         "direction": "column",
+      }
+    `);
+  });
+
+  it("removes the specified widget keys from a single page dashboard, and adapts the layout, leaving only 1 widget in the page", () => {
+    const widgetKeysToRemove = ["filters", "quick-filter", "chart"];
+
+    // Otherwise this test would be useless.
+    expect(
+      legacyDashboard.value.body.pages[0].content.map(
+        (widgetState) => widgetState.bookmark.value.containerKey,
+      ),
+    ).toEqual(expect.arrayContaining(widgetKeysToRemove));
+
+    const [dashboard] = migrateDashboard(legacyDashboard, {
+      servers,
+      keysOfWidgetPluginsToRemove: widgetKeysToRemove,
+    });
+    const { content, layout } = dashboard.pages["p-0"];
+    const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
+    expect(widgetPluginKeys).toEqual(["tree-table"]);
+    console.log(layout);
+    expect(layout).toMatchInlineSnapshot(`
+      Object {
+        "children": Array [
+          Object {
+            "leafKey": "1",
+            "size": 1,
+          },
+        ],
+        "direction": "row",
       }
     `);
   });
