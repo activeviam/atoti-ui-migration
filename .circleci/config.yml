@@ -10,7 +10,7 @@ commands:
       - run:
           name: Log into artifactory & Link @activeviam packages to the internal registry
           command: |
-            npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email activeui@activeviam.com
+            npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email clients.rnd@activeviam.com
             npm config set @activeviam:registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/
 
 jobs:
