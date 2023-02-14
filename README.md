@@ -139,7 +139,9 @@ Learn how in our dedicated documentation pages:
 - Migrating from [ActiveUI 4 to 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-4-to-5).
 - Migrating from [ActiveUI 5.0 to 5.1](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-5.0-to-5.1).
 
-## Adding your own migration code
+## Customizing the migration
+
+This paragraph will help you if you maintain an ActiveUI extension, decided to change the state it relies on and are looking to migrate some saved content so that it works with the new version of your extension.
 
 `activeui-migration` is an open source repository.
 If you need to add/change migration logic, you can clone the repository and adapt the code as you please.
