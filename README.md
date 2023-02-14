@@ -93,7 +93,7 @@ At this stage, your `migration` folder looks like this:
 Open a terminal in it and run the command below after adapting the `--from-version` and `--to-version` arguments as needed:
 
 ```
-npx -- package=activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
+npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
 ```
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in the target version of ActiveUI.
@@ -104,7 +104,7 @@ The CLI offers several options.
 You can see them all by running:
 
 ```
-npx -- package=activeui-migration migrate --help
+npx -- activeui-migration migrate --help
 ```
 
 In particular:
@@ -116,7 +116,7 @@ In particular:
   If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
 
 ```
-npx -- package=activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
+npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
 ```
 
 ### Test the migrated content
