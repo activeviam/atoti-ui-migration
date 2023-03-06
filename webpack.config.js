@@ -7,7 +7,6 @@ const webpack = require("webpack");
 // This allows the functions exported by this package to be run smoothly in a Node.js environment (see https://support.activeviam.com/jira/browse/UI-6165).
 module.exports = {
   entry: {
-    index: "./src/index.ts",
     bin: "./src/cli/bin.ts",
   },
   module: {

@@ -1,24 +1,18 @@
 # ActiveUI Migration
 
-A command line to migrate content that was saved in older versions of ActiveUI to be compatible with newer versions.
+A command line interface to migrate content that was saved in older versions of ActiveUI to be compatible with newer versions.
 
-## Installation
+You need [NodeJS](https://nodejs.org/en/download/) to run it.
+
+## Usage
 
 Create a folder in your workspace. Here, we call it _"migration"_.
 Navigate to it.
-Initialize it as an NPM module.
-Finally, install `activeui-migration` as a dependency.
 
-```shell
+```bash
 mkdir migration
 cd migration
-npm init
-npm install activeui-migration
 ```
-
-:pencil: To run this, you need [NodeJS](https://nodejs.org/en/download/), which comes with `npm`.
-
-## Usage
 
 `activeui-migration` requires two JSON files:
 
@@ -45,7 +39,7 @@ If you are embedding Admin UI in your server like it is done on the ActivePivot 
 
 ### Download the servers information
 
-Create a file in the `migration` folder and name it `servers.json`.
+Create a file called `servers.json`.
 
 Copy and paste the snippet below into this file. It is not a valid JSON object. This is intended: we must replace a few things.
 
@@ -92,8 +86,6 @@ As an example, this would be the [servers.json](/documentation/servers-example.j
 At this stage, your `migration` folder looks like this:
 
 ```
-> node_modules
-- package.json
 - content.json
 - servers.json
 ```
@@ -101,7 +93,7 @@ At this stage, your `migration` folder looks like this:
 Open a terminal in it and run the command below after adapting the `--from-version` and `--to-version` arguments as needed:
 
 ```
-npx migrate -i "content.json" -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
+npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
 ```
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in the target version of ActiveUI.
@@ -112,7 +104,7 @@ The CLI offers several options.
 You can see them all by running:
 
 ```
-npx migrate --help
+npx -- activeui-migration migrate --help
 ```
 
 In particular:
@@ -124,7 +116,7 @@ In particular:
   If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
 
 ```
-npx migrate -i "content.json" -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
+npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
 ```
 
 ### Test the migrated content
@@ -146,3 +138,19 @@ Learn how in our dedicated documentation pages:
 
 - Migrating from [ActiveUI 4 to 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-4-to-5).
 - Migrating from [ActiveUI 5.0 to 5.1](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-5.0-to-5.1).
+
+## Customizing the migration
+
+This paragraph will help you if you maintain an ActiveUI extension, decided to change the state it relies on and are looking to migrate some saved content so that it works with the new version of your extension.
+
+`activeui-migration` is an open source repository.
+If you need to add/change migration logic, you can clone the repository and adapt the code as you please.
+
+To run the CLI with your custom code, you must install and build the package yourself first.
+Since it depends on private `@activeviam` packages, you must login to ActiveViam's Artifactory registry:
+
+```bash
+npm login --scope=@activeviam --registry=https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/ --auth-type=legacy
+npm install
+npm run build
+```
