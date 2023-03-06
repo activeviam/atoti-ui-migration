@@ -150,7 +150,7 @@ To run the CLI with your custom code, you must install and build the package you
 Since it depends on private `@activeviam` packages, you must login to ActiveViam's Artifactory registry:
 
 ```bash
-npm login --scope=@activeviam --registry=https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/ --authType=legacy
+npm login --scope=@activeviam --registry=https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/ --auth-type=legacy
 npm install
 npm run build
 ```
