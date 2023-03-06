@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@5.1.0
 
 commands:
   login:
@@ -10,14 +10,14 @@ commands:
       - run:
           name: Log into artifactory & Link @activeviam packages to the internal registry
           command: |
-            npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email clients.rnd@activeviam.com
+            npx npm-cli-adduser --auth-type legacy --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email clients.rnd@activeviam.com
             npm config set @activeviam:registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/
 
 jobs:
   build-and-test:
     executor:
       name: node/default
-      tag: "18.12.1"
+      tag: "19.3.0"
     resource_class: xlarge
     steps:
       - checkout
