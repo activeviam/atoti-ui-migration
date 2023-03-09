@@ -147,10 +147,25 @@ This paragraph will help you if you maintain an ActiveUI extension, decided to c
 If you need to add/change migration logic, you can clone the repository and adapt the code as you please.
 
 To run the CLI with your custom code, you must install and build the package yourself first.
-Since it depends on private `@activeviam` packages, you must login to ActiveViam's Artifactory registry:
+Since it depends on private `@activeviam` packages, you must login to ActiveViam's Artifactory registry.
+To do so, run the following command where `{username}` and `{password}` must be replaced with your ActiveViam credentials:
 
 ```bash
-npm login --scope=@activeviam --registry=https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/ --auth-type=legacy
-npm install
-npm run build
+curl -u '{username}:{password}' https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/auth/activeviam >> ~/.npmrc
+```
+
+With Windows cmd:
+
+```cmd
+curl -u "{username}:{password}" https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/auth/activeviam >> %USERPROFILE%\.npmrc
+```
+
+After running this command, your .npmrc file should include the following lines:
+
+```
+@activeviam:registry=https://activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/
+//activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/:_password={base64_encoded_password}
+//activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/:username={username}
+//activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/:email={email}
+//activeviam.jfrog.io/artifactory/api/npm/activeui-npm-release/:always-auth=true
 ```
