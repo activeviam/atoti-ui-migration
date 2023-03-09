@@ -7,11 +7,15 @@ commands:
   login:
     description: "Log in to Artifactory, allowing to install private @activeviam dependencies."
     steps:
+      # Authenticate on the our private NPM registry, to be able to fetch dependencies such as @activeviam/activeui-sdk from it.
+      # See https://www.jfrog.com/confluence/display/JFROG/npm+Registry#npmRegistry-ConfiguringthenpmClientforaScopeRegistry
+      # The credentials are interpolated "manually" since CircleCI does not support environment variables interpolation in the configuration (see https://circleci.com/docs/env-vars/#parameters-and-bash-environment).
       - run:
-          name: Log into artifactory & Link @activeviam packages to the internal registry
-          command: |
-            npx npm-cli-adduser --registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/ --scope @activeviam --username $CROWD_USERNAME --password $CROWD_PASSWORD --email clients.rnd@activeviam.com
-            npm config set @activeviam:registry https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/
+          name: Authenticate on Artifactory
+          command: >-
+            echo $CROWD_USERNAME:$CROWD_PASSWORD | xargs -I {}
+            curl -u '{}' https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/auth/activeviam
+            > ~/.npmrc
 
 jobs:
   build-and-test:
