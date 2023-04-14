@@ -116,7 +116,7 @@ In particular:
   If you want to follow this UX and remove these widgets programmatically, you can run the migration CLI with the extra option:
 
 ```
-npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
+npx -- activeui-migration -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1 --remove-widgets "filters" "context-values"
 ```
 
 ### Test the migrated content
