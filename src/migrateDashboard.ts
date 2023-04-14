@@ -1,15 +1,10 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
-import { produce } from "immer";
 
 import {
   DashboardState,
   DashboardPageState,
   DataModel,
-  removeWidget,
-  deserializeDashboardState,
-  getLayoutPath,
-  serializeDashboardState,
   Layout,
   AWidgetState,
 } from "@activeviam/activeui-sdk";
@@ -185,30 +180,8 @@ export function migrateDashboard(
     queryContext: _migrateContextValues(body.contextValues),
   };
 
-  const deserializedDashboard = deserializeDashboardState(dashboard);
-
-  const dashboardWithWidgetsRemoved = produce(
-    deserializedDashboard,
-    (draft) => {
-      Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
-        keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
-          const layoutPath = getLayoutPath(
-            draft.pages[pageKey].layout,
-            leafKey,
-          );
-          draft.pages[pageKey] = removeWidget({
-            dashboardState: draft,
-            layoutPath,
-            leafKey,
-            pageKey,
-          }).pages[pageKey];
-        });
-      });
-    },
-  );
-
   return [
-    serializeDashboardState(dashboardWithWidgetsRemoved),
+    dashboard,
     Object.keys(errorReport.pages).length > 0 ? errorReport : undefined,
   ];
 }
