@@ -136,7 +136,7 @@ Finally open your dashboards, widgets, filters, ... Make sure they work as expec
 If you are migrating a project with custom Atoti UI extensions, then you must also update the code of these extensions.
 Learn how in our dedicated documentation pages:
 
-- Migrating from [ActiveUI 4 to 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-4-to-5).
+- Migrating from [ActiveUI 4 to Atoti UI 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-4-to-5).
 - Migrating from [Atoti UI 5.0 to 5.1](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-activeui-5.0-to-5.1).
 
 ## Customizing the migration
