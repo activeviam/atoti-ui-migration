@@ -17,13 +17,13 @@ cd migration
 `atoti-ui-migration` requires two JSON files:
 
 - _content.json_: the original content to migrate
-- _servers.json_: the Atoti Server's information
+- _servers.json_: the Atoti servers' information
 
 Let's create these files.
 
 ### Download the original content
 
-The content to migrate can be downloaded as a JSON file from [Atoti Admin UI](https://activeviam.com/activepivot/6.0.0/docs/content_server/cs_overview/#admin-ui). If you are used to accessing Atoti UI at `https://my-server.com/ui/index.html`, then you should be able to access the Atoti Admin UI at `https://my-server.com/admin/ui/index.html`.
+The content to migrate can be downloaded as a JSON file from [Atoti Admin UI](https://activeviam.com/activepivot/6.0.0/docs/content_server/cs_overview/#admin-ui). If you are used to accessing Atoti UI at `https://my-server.com/ui/index.html`, then you should be able to access Atoti Admin UI at `https://my-server.com/admin/ui/index.html`.
 
 :warning: Make sure to connect as a user with access to all the content that must be migrated. We recommend connecting as a user with the role `ROLE_CS_ROOT`.
 
@@ -52,15 +52,15 @@ Copy and paste the snippet below into this file. It is not a valid JSON object. 
 }
 ```
 
-:bulb: If you use Atoti UI to connect to several Atoti Servers, then add an entry for each of them.
+:bulb: If you use Atoti UI to connect to several Atoti servers, then add an entry for each of them.
 
-Replace `"https://my-server.com"` by the URL of your Atoti Server.
+Replace `"https://my-server.com"` by the URL of your Atoti server.
 
 Choose a key to identify this server and replace `"my-server"` by it. See [the Atoti UI tutorial](https://activeviam.com/activeui/documentation/5.1.0/docs/tutorial/runningAQuery#serverkey) for more details about server keys.
 
 Download the data model from your Atoti Server. The URL of the relevant REST service ends with _"discovery"_. You can find the documentation for this REST service [here](https://artifacts.activeviam.com/documentation/rest/6.0.0/activepivot.html#cube_discovery_get).
 
-For instance, considering the Atoti Server you used while going through the tutorial:
+For instance, considering the Atoti server you used while going through the tutorial:
 
 - it is deployed at https://activeui-tutorial-server.activeviam.com:9090/pivot
 - its `discovery` service is accessible at https://activeui-tutorial-server.activeviam.com:9090/pivot/rest/v5/cube/discovery
