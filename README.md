@@ -14,7 +14,7 @@ mkdir migration
 cd migration
 ```
 
-`atoti-ui-migration` requires two JSON files:
+To run the CLI you will need two JSON files:
 
 - _content.json_: the original content to migrate
 - _servers.json_: the Atoti servers' information
