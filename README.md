@@ -58,7 +58,7 @@ Replace `"https://my-server.com"` by the URL of your Atoti server.
 
 Choose a key to identify this server and replace `"my-server"` by it. See [the Atoti UI tutorial](https://activeviam.com/activeui/documentation/5.1.0/docs/tutorial/runningAQuery#serverkey) for more details about server keys.
 
-Download the data model from your Atoti Server. The URL of the relevant REST service ends with _"discovery"_. You can find the documentation for this REST service [here](https://artifacts.activeviam.com/documentation/rest/6.0.0/activepivot.html#cube_discovery_get).
+Download the data model from your Atoti server. The URL of the relevant REST service ends with _"discovery"_. You can find the documentation for this REST service [here](https://artifacts.activeviam.com/documentation/rest/6.0.0/activepivot.html#cube_discovery_get).
 
 For instance, considering the Atoti server you used while going through the tutorial:
 
