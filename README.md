@@ -109,7 +109,7 @@ npx -- activeui-migration migrate --help
 
 In particular:
 
-- The `--debug` and `--stack` respectively allow for an error report generation and the stack of those errors. This is useful to understand and address any error that may occur during the migration.
+- The `--debug` and `--stack` respectively allow for an error report generation and the stack of those errors. This is useful to understand and address any errors that may occur during the migration.
 - The `--remove-widgets` option to remove all widgets with the given keys during the migration.
   For example, suppose you have 200 Atoti UI 4 bookmarks in which you use Page Filters and/or Page Context Values.
   These plugins are no longer supported in Atoti UI 5 as it was deemed a better user experience to remove them altogether.
