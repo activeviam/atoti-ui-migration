@@ -11,10 +11,10 @@ To perform a new release, perform the following steps:
 
 ## Versioning
 
-`activeui-migration` major and minor version numbers should be aligned on `activeui-sdk`, but the patch versions are independent.
+`atoti-ui-migration` major and minor version numbers should be aligned on `activeui-sdk`, but the patch versions are independent.
 Examples:
 
-1. `activeui-migration` and `activeui-sdk` are currently both on 5.0.7, but an internal bugfix is needed on `activeui-migration` => `activeui-migration` 5.0.8 can be released while staying on `activeui-sdk` 5.0.7.
+1. `atoti-ui-migration` and `activeui-sdk` are currently both on 5.0.7, but an internal bugfix is needed on `atoti-ui-migration` => `atoti-ui-migration` 5.0.8 can be released while staying on `activeui-sdk` 5.0.7.
 2. Same as 1. but vice-versa.
 3. `activeui-sdk` 5.1.0 is about to be released. It comes with breaking changes (follows romantic versioning).
-To migrate from `activeui-sdk` 5.0.x to `activeui-sdk` 5.1.0, `activeui-migration` 5.1.0 should be released. 
+To migrate from `activeui-sdk` 5.0.x to `activeui-sdk` 5.1.0, `atoti-ui-migration` 5.1.0 should be released. 
