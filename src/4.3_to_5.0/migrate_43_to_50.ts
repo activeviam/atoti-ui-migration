@@ -197,12 +197,12 @@ const accumulateStructure = ({
 };
 
 /**
- * Migrates `contentServer` from a version usable by ActiveUI 4.3 to one usable by ActiveUI 5.0.
+ * Migrates `contentServer` from a version usable by Atoti UI 4.3 to one usable by Atoti UI 5.0.
  * Also keeps track of the number of migration successes and failures in `counters` and a detailed `errorReport`.
  *
  * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated:
- * - for a matching saved ActiveUI 4.3 widget, no ActiveUI 5.0 file is created.
- * - for a saved ActiveUI 4.3 dashboard including a matching widget, the widget is removed from the output ActiveUI 5.0 dashboard, and the layout is adapted so that siblings take the remaining space.
+ * - for a matching saved Atoti UI 4.3 widget, no Atoti UI 5.0 file is created.
+ * - for a saved Atoti UI 4.3 dashboard including a matching widget, the widget is removed from the output Atoti UI 5.0 dashboard, and the layout is adapted so that siblings take the remaining space.
  *
  * Mutates `contentServer`, `errorReport` and `counters`.
  */

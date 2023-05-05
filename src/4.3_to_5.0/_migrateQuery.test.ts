@@ -63,7 +63,7 @@ describe("_migrateQuery", () => {
     );
   });
 
-  it("removes the useless (and dangerous) parts of the queries created when users collapse and re-expand a member in ActiveUI 4", () => {
+  it("removes the useless (and dangerous) parts of the queries created when users collapse and re-expand a member in Atoti UI 4", () => {
     const legacyQuery = {
       mdx: `SELECT
         NON EMPTY Hierarchize(

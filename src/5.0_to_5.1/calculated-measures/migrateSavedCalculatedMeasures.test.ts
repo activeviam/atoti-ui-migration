@@ -48,7 +48,7 @@ migrateSavedCalculatedMeasures({
 });
 
 describe("migrateSavedCalculatedMeasures", () => {
-  it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {
+  it("migrates the serialized definitions of all calculated measures created with Atoti UI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {
     // `uiCalculatedMeasuresFolder` contains 5 calculated measures.
     // "Exp gamma sum" is not used in any saved widgets or dashboards, it is not migrated.
     expect(counters.calculated_measures.success).toEqual(4);

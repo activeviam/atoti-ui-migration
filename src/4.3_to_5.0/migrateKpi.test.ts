@@ -5,7 +5,7 @@ import { legacyKpi } from "./__test_resources__/legacyKpi";
 import { servers } from "./__test_resources__/servers";
 
 describe("migrateKpi", () => {
-  it("returns the ActiveUI5 KPI widget state corresponding to the given ActiveUI4 KPI widget state", () => {
+  it("returns the Atoti UI 5 KPI widget state corresponding to the given Atoti UI 4 KPI widget state", () => {
     expect(migrateKpi(legacyKpi, servers)).toMatchInlineSnapshot(`
       {
         "filters": [],

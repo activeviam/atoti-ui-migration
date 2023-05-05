@@ -15,7 +15,7 @@ export const getCalculatedMeasures = async (
 
   if (calculatedMeasuresFolder?.children) {
     await Promise.all(
-      // Legacy calculated measures are grouped by cube in `/pivot/entitlements/cm`. But they are flattened in ActiveUI 5.
+      // Legacy calculated measures are grouped by cube in `/pivot/entitlements/cm`. But they are flattened in Atoti UI 5.
       _flatMap(calculatedMeasuresFolder.children, async ({ children }) => {
         if (children) {
           const measures = await Promise.all(

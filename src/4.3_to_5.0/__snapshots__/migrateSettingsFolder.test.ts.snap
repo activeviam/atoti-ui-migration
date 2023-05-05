@@ -28,7 +28,7 @@ exports[`migrateSettingsFolder returns an empty 'organization_settings' file and
 }
 `;
 
-exports[`migrateSettingsFolder returns the folders corresponding to the converted ActiveUI 4 settings folder, ready to be used by ActiveUI 5 1`] = `
+exports[`migrateSettingsFolder returns the folders corresponding to the converted Atoti UI 4 settings folder, ready to be used by Atoti UI 5 1`] = `
 {
   "organization_settings": {
     "entry": {

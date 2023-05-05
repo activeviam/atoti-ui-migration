@@ -61,7 +61,7 @@ const contentServerWithEmptyPivotCalculatedMeasuresFolder = {
 };
 
 /**
- * Transforms the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot.
+ * Transforms the serialized definitions of all calculated measures created with Atoti UI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot.
  * Mutates `contentServer`.
  */
 export function migrateSavedCalculatedMeasures({

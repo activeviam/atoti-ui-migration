@@ -136,7 +136,7 @@ describe("_doesCrossjoinYieldAllCombinationsOfMembers", () => {
     ).toBe(true);
   });
 
-  it("returns true when `crossjoin` represents all combinations of members from several levels, even if polluted by a useless dangling member compound identifier, yielded by a user collapsing then re-expanding it in ActiveUI 4", () => {
+  it("returns true when `crossjoin` represents all combinations of members from several levels, even if polluted by a useless dangling member compound identifier, yielded by a user collapsing then re-expanding it in Atoti UI 4", () => {
     expect(
       _doesCrossjoinYieldAllCombinationsOfMembers(
         parse<MdxFunction & { name: "Crossjoin" }>(`

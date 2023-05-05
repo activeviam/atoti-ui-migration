@@ -33,7 +33,7 @@ jobs:
 
 workflows:
   # Used to protect the main branch: it should block merging into main when failing.
-  # See https://github.com/activeviam/activeui-migration/settings/branch_protection_rules/15886613
+  # See https://github.com/activeviam/atoti-ui-migration/settings/branch_protection_rules/15886613
   check-pull-request:
     jobs:
       - build-and-test:

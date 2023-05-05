@@ -16,7 +16,7 @@ const emptySettingsFolders = _pick(
 );
 
 /**
- * Returns the converted settings map, ready to be used by ActiveUI 5.
+ * Returns the converted settings map, ready to be used by Atoti UI 5.
  */
 function migrateSettingsMap(legacySettingsMap: {
   [settingKey: string]: any;
@@ -57,7 +57,7 @@ function getLegacySettingsMap(legacySettingsSubfolder: ContentRecord): {
 }
 
 /**
- * Returns the folders corresponding to the converted ActiveUI 4 settings folder, ready to be used by ActiveUI 5.
+ * Returns the folders corresponding to the converted Atoti UI 4 settings folder, ready to be used by Atoti UI 5.
  */
 export function migrateSettingsFolder(legacySettingsFolder?: ContentRecord): {
   organization_settings: ContentRecord;

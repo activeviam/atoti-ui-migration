@@ -11,7 +11,7 @@ import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 
 /**
- * Returns the converted drillthrough widget state, ready to be used by ActiveUI 5.
+ * Returns the converted drillthrough widget state, ready to be used by Atoti UI 5.
  */
 export function migrateDrillthrough(
   // Legacy widget states are not typed.

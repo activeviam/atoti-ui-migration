@@ -45,7 +45,7 @@ const _getMode = ({
 };
 
 /**
- * Returns the converted quick filter widget state, ready to be used by ActiveUI 5.
+ * Returns the converted quick filter widget state, ready to be used by Atoti UI 5.
  */
 export function migrateQuickFilter(
   // Legacy widget states are not typed.

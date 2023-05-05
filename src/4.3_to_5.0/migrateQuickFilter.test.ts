@@ -4,7 +4,7 @@ import { servers } from "./__test_resources__/servers";
 import { produce } from "immer";
 
 describe("migrateQuickFilter", () => {
-  it("returns the ActiveUI5 quick filter widget state corresponding to the given ActiveUI4 quick filter widget state in checkbox mode", () => {
+  it("returns the Atoti UI 5 quick filter widget state corresponding to the given Atoti UI 4 quick filter widget state in checkbox mode", () => {
     const legacyQuickFilterInCheckboxMode = produce(
       legacyQuickFilter,
       (draft) => {
@@ -29,7 +29,7 @@ describe("migrateQuickFilter", () => {
     `);
   });
 
-  it("returns the ActiveUI5 quick filter widget state corresponding to the given ActiveUI4 quick filter widget state in radio mode", () => {
+  it("returns the Atoti UI 5 quick filter widget state corresponding to the given Atoti UI 4 quick filter widget state in radio mode", () => {
     const legacyQuickFilterInRadioMode = produce(legacyQuickFilter, (draft) => {
       draft.value.body.configuration.displayedAsSelect = false;
       draft.value.body.configuration.multipleSelection = false;
@@ -51,7 +51,7 @@ describe("migrateQuickFilter", () => {
     `);
   });
 
-  it("returns the ActiveUI5 quick filter widget state corresponding to the given ActiveUI4 quick filter in multi-select mode", () => {
+  it("returns the Atoti UI 5 quick filter widget state corresponding to the given Atoti UI 4 quick filter in multi-select mode", () => {
     const legacyQuickFilterInMultiSelectMode = produce(
       legacyQuickFilter,
       (draft) => {
@@ -76,7 +76,7 @@ describe("migrateQuickFilter", () => {
     `);
   });
 
-  it("returns the ActiveUI5 quick filter widget state corresponding to the given ActiveUI4 quick filter in single-select mode", () => {
+  it("returns the Atoti UI 5 quick filter widget state corresponding to the given Atoti UI 4 quick filter in single-select mode", () => {
     const legacyQuickFilterInSingleSelectMode = produce(
       legacyQuickFilter,
       (draft) => {

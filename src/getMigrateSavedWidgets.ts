@@ -15,7 +15,7 @@ import { produce } from "immer";
 import { _addCorruptFileErrorToReport } from "./_addCorruptFileErrorToReport";
 
 /**
- * Returns a function which can be called to migrate ActiveUI 5+ widgets.
+ * Returns a function which can be called to migrate Atoti UI 5+ widgets.
  * The content of each widget is transformed using the `callback` argument.
  *
  * Some pieces of logic are encapsulated in order to make it easier for the caller:

@@ -11,7 +11,7 @@ import { legacyScatterPlot } from "./__test_resources__/legacyScatterPlot";
 import { servers } from "./__test_resources__/servers";
 
 describe("migrateChart", () => {
-  it("returns the ActiveUI5 chart widget state corresponding to the given ActiveUI4 chart widget state", () => {
+  it("returns the Atoti UI5 chart widget state corresponding to the given Atoti UI4 chart widget state", () => {
     expect(migrateChart(legacyChart, servers)).toMatchInlineSnapshot(`
       {
         "filters": [],
@@ -284,12 +284,12 @@ describe("migrateChart", () => {
     `);
   });
 
-  it("replaces undefined attributes in the ActiveUI 4 mapping by empty arrays of fields", () => {
-    // ActiveUI 5 needs every single attribute to be present in the widget's mapping, even if it does not contain any field.
+  it("replaces undefined attributes in the Atoti UI 4 mapping by empty arrays of fields", () => {
+    // Atoti UI 5 needs every single attribute to be present in the widget's mapping, even if it does not contain any field.
     const partialLegacyChartState = _cloneDeep(legacyChart);
 
     // In this test, the following attributes are omitted instead of having an empty array of fields.
-    // This type of partial mapping works in ActiveUI 4, but not 5.
+    // This type of partial mapping works in Atoti UI 4, but not 5.
     ["splitBy", "horizontalSubplots", "verticalSubplots"].forEach(
       (attributeName) => {
         delete partialLegacyChartState.value.body.configuration.mapping[
@@ -327,8 +327,8 @@ describe("migrateChart", () => {
     // Some widgets do not support it.
     // For instance, the scatter plot does not: each measure on it is dedicated to a specific attribute (x, y or size).
     //
-    // ActiveUI 4 charts did not have this capability: "all measures" could never be moved.
-    // For this ActiveUI 5 feature to work, charts supporting measures redirection in ActiveUI 5 should see the "ALL_MEASURES" tile added to their mapping during the migration.
+    // Atoti UI 4 charts did not have this capability: "all measures" could never be moved.
+    // For this Atoti UI 5 feature to work, charts supporting measures redirection in Atoti UI 5 should see the "ALL_MEASURES" tile added to their mapping during the migration.
 
     const migratedChartState = migrateChart(legacyChart, servers);
 

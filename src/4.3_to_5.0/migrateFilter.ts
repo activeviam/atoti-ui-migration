@@ -11,7 +11,7 @@ interface LegacyFilter {
 }
 
 /**
- * Returns the converted filter, ready to be used in ActiveUI 5.
+ * Returns the converted filter, ready to be used in Atoti UI 5.
  */
 export function migrateFilter(legacyFilter: LegacyFilter): {
   content: { mdx: MdxString };

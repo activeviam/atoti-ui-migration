@@ -10,10 +10,10 @@ import { migrateCalculatedMeasuresInMdx } from "./migrateCalculatedMeasuresInMdx
 import _uniq from "lodash/uniq";
 
 /**
- * In ActiveUI 5.0, saved calculated measures live under /ui/calculated_measures, and ActivePivot is not aware of them.
+ * In Atoti UI 5.0, saved calculated measures live under /ui/calculated_measures, and ActivePivot is not aware of them.
  * In particular, they don't appear in the data model, and they must be added as query-scoped measures to each individual widget referring to them.
  *
- * In ActiveUI 5.1, saved calculated measures are grouped by cube and live under /pivot/entitlements/cm.
+ * In Atoti UI 5.1, saved calculated measures are grouped by cube and live under /pivot/entitlements/cm.
  * ActivePivot proxies them and makes them accessible in the data model.
  * So they can be referred to just like any other measure in an MDX query, without the need to add a query-scoped calculated measure definition.
  *
@@ -40,7 +40,7 @@ export function migrateCalculatedMeasuresInWidget(
     return;
   }
 
-  const { migratedMdx, namesOfMigratedCalulatedMeasures, cubeName } =
+  const { migratedMdx, namesOfMigratedCalculatedMeasures, cubeName } =
     migrateCalculatedMeasuresInMdx({
       mdx,
       serverKey: widgetState.serverKey,
@@ -48,7 +48,7 @@ export function migrateCalculatedMeasuresInWidget(
       namesOfCalculatedMeasuresToMigrate,
     });
 
-  namesOfMigratedCalulatedMeasures.forEach((calculatedMeasureName) => {
+  namesOfMigratedCalculatedMeasures.forEach((calculatedMeasureName) => {
     measureToCubeMapping[calculatedMeasureName] = measureToCubeMapping[
       calculatedMeasureName
     ]
