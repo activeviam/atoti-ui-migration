@@ -65,7 +65,7 @@ describe("migrate_43_to_50", () => {
     ) as OutcomeCounters;
   });
 
-  it("returns a valid ActiveUI5 /ui folder on a small input", async () => {
+  it("returns a valid Atoti UI 5 /ui folder on a small input", async () => {
     const contentServer = getRootContentRecord(smallLegacyUIFolder);
     await migrate_43_to_50(contentServer, {
       errorReport,
@@ -79,7 +79,7 @@ describe("migrate_43_to_50", () => {
     expect(counters).toMatchSnapshot();
   });
 
-  it("returns a valid ActiveUI5 /ui folder on a real life input", async () => {
+  it("returns a valid Atoti UI 5 /ui folder on a real life input", async () => {
     const contentServer = getRootContentRecord(legacyUIFolder);
     await migrate_43_to_50(contentServer, {
       errorReport,
@@ -93,7 +93,7 @@ describe("migrate_43_to_50", () => {
     expect(counters).toMatchSnapshot();
   });
 
-  it("returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
+  it("returns a valid Atoti UI 5 /ui folder that includes calculated measures when the input includes a pivotFolder", async () => {
     const contentServer = getRootContentRecord(
       legacyUIFolder,
       smallLegacyPivotFolder,
@@ -123,8 +123,8 @@ describe("migrate_43_to_50", () => {
       doesReportIncludeStacks: false,
     });
 
-    // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
-    // It is removed from the ActiveUI 5 UI folder.
+    // In the Atoti UI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
+    // It is removed from the Atoti UI 5 UI folder.
     const savedContentInLegacyUIFolder: ContentRecord =
       legacyUIFolder.children!.bookmarks;
     const migratedUIFolder = contentServer.children?.ui;
@@ -132,8 +132,8 @@ describe("migrate_43_to_50", () => {
     expect(hasRecord(savedContentInLegacyUIFolder, "0xb")).toBe(true);
     expect(hasRecord(savedWidgets, "0xb")).toBe(false);
 
-    // In the ActiveUI 4 UI folder, the file with id `eef` represents a saved dashboard which includes a Page Filters widget.
-    // This widget is removed from the migrated dashboard in the ActiveUI 5 folder.
+    // In the Atoti UI 4 UI folder, the file with id `eef` represents a saved dashboard which includes a Page Filters widget.
+    // This widget is removed from the migrated dashboard in the Atoti UI 5 folder.
     const legacyDashboard: LegacyDashboardState = JSON.parse(
       legacyUIFolder.children!.bookmarks.children!.content.children!.eef.entry
         .content,

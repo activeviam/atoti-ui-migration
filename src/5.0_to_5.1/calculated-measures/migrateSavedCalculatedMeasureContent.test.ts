@@ -9,7 +9,7 @@ const expGammaSumContent = JSON.parse(
 );
 
 describe("migrateSavedCalculatedMeasureContent", () => {
-  it("transforms the content of a calculated measure created with ActiveUI 5.0 which contains a `FORMAT_STRING` property and an `additionalProperty`, into one that is natively supported by ActivePivot", () => {
+  it("transforms the content of a calculated measure created with Atoti UI 5.0 which contains a `FORMAT_STRING` property and an `additionalProperty`, into one that is natively supported by ActivePivot", () => {
     const migratedContent = migrateSavedCalculatedMeasureContent(
       distinctCountCityContent,
       "Distinct count city",
@@ -28,7 +28,7 @@ describe("migrateSavedCalculatedMeasureContent", () => {
     });
   });
 
-  it("transforms the content of a calculated measure created with ActiveUI 5.0 which doesn't contain a `FORMAT_STRING` property or any `additionalProperties`, into one that is natively supported by ActivePivot", () => {
+  it("transforms the content of a calculated measure created with Atoti UI 5.0 which doesn't contain a `FORMAT_STRING` property or any `additionalProperties`, into one that is natively supported by ActivePivot", () => {
     const migratedContent = migrateSavedCalculatedMeasureContent(
       expGammaSumContent,
       "Exp gamma sum",

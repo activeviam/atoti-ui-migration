@@ -47,7 +47,7 @@ const summaryMessages: {
         "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
     removed:
-      "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
+      "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of Atoti UI.",
   },
   filters: {
     success: "were successfully migrated.",
@@ -60,7 +60,7 @@ const summaryMessages: {
         "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
     },
     removed:
-      "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
+      "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of Atoti UI.",
   },
   widgets: {
     success: "were successfully migrated.",
@@ -78,7 +78,7 @@ const summaryMessages: {
   },
   folders: {
     removed:
-      "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
+      "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of Atoti UI.",
   },
   calculated_measures: {
     success: "were successfully migrated.",
@@ -100,7 +100,7 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
+    "Migrates a JSON export of a Content Server saved with Atoti UI version `--from-version` to be usable in Atoti UI version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
@@ -112,7 +112,7 @@ yargs
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
+        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the Atoti UI version to migrate to.",
       });
       args.option("servers-path", {
         alias: "s",

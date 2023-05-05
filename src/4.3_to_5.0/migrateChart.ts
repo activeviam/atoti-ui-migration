@@ -65,8 +65,8 @@ const chartPlugins: { [widgetKey: string]: WidgetPlugin<any, any> } = _keyBy(
 );
 
 /**
- * Returns the key of the ActiveUI 5 widget corresponding to the ActiveUI 4 chart identified by `legacyChartType`.
- * Returns undefined if the migration script is not able to determine which ActiveUI 5 widget the legacy chart should be migrated to.
+ * Returns the key of the Atoti UI 5 widget corresponding to the Atoti UI 4 chart identified by `legacyChartType`.
+ * Returns undefined if the migration script is not able to determine which Atoti UI 5 widget the legacy chart should be migrated to.
  */
 function _getMigratedWidgetKey(legacyChartType: string): string | undefined {
   if (legacyChartType.startsWith("plotly-")) {
@@ -93,8 +93,8 @@ function _getMigratedWidgetKey(legacyChartType: string): string | undefined {
 }
 
 /**
- * Returns the mapping of the ActiveUI 5 widget, corresponding to `legacyMapping`.
- * Returns undefined if the migration script is not able to determine which ActiveUI 5 widget the legacy chart should be migrated to.
+ * Returns the mapping of the Atoti UI 5 widget, corresponding to `legacyMapping`.
+ * Returns undefined if the migration script is not able to determine which Atoti UI 5 widget the legacy chart should be migrated to.
  * Does not cater for the potentially missing ALL_MEASURES tile.
  */
 function _getMigratedChartMapping(
@@ -225,7 +225,7 @@ function _addAllMeasuresToMapping(
 }
 
 /**
- * Returns the converted chart widget state, ready to be used by ActiveUI 5.
+ * Returns the converted chart widget state, ready to be used by Atoti UI 5.
  */
 export function migrateChart(
   // Legacy widget states are not typed.

@@ -1,5 +1,5 @@
 /**
- * Transforms the content of a calculated measure created with ActiveUI 5.0, into one that is natively supported by ActivePivot.
+ * Transforms the content of a calculated measure created with Atoti UI 5.0, into one that is natively supported by ActivePivot.
  */
 export const migrateSavedCalculatedMeasureContent = (
   legacyCalculatedMeasureContent: { expression: string; properties: string[] },

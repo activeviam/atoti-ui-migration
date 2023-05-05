@@ -11,7 +11,7 @@ export interface LegacyCalculatedMeasure {
 }
 
 /**
- * Returns the converted content record tree for the calculted measures, ready to be used in ActiveUI 5.
+ * Returns the converted content record tree for the calculated measures, ready to be used in Atoti UI 5.
  */
 export async function migrateCalculatedMeasures(
   legacyPivotFolder: ContentRecord,

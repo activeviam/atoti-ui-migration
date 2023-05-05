@@ -4,7 +4,7 @@ import { LegacyWidgetState } from "./migration.types";
 import { servers } from "./__test_resources__/servers";
 
 describe("migrateWidget", () => {
-  it("converts a widget saved with ActiveUI 4 into one usable with ActiveUI 5", () => {
+  it("converts a widget saved with Atoti UI 4 into one usable with Atoti UI 5", () => {
     const legacyWidgetState: LegacyWidgetState = {
       name: "Untitled chart",
       type: "container",
@@ -60,7 +60,7 @@ describe("migrateWidget", () => {
     `);
   });
 
-  it("warns if the widget has no core equivalent in ActiveUI 5", () => {
+  it("warns if the widget has no core equivalent in Atoti UI 5", () => {
     const legacyWidgetState: LegacyWidgetState = {
       name: "Untitled page context values",
       type: "container",

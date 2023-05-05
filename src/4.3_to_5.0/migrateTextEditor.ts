@@ -2,7 +2,7 @@ import type { TextEditorWidgetState } from "@activeviam/activeui-sdk-5.0";
 import type { LegacyWidgetState } from "./migration.types";
 
 /**
- * Returns the converted Text Editor widget state, ready to be used by ActiveUI 5.
+ * Returns the converted Text Editor widget state, ready to be used by Atoti UI 5.
  */
 export function migrateTextEditor(
   legacyTextEditorState: LegacyWidgetState,

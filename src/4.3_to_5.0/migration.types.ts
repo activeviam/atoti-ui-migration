@@ -19,7 +19,7 @@ export interface LegacyWidgetState {
 }
 
 /**
- * Legacy dashboard page, supported for compatibility with ActiveUI 4.
+ * Legacy dashboard page, supported for compatibility with Atoti UI 4.
  * The legacy part is that the content is an array and not a map (whereas we need to access the widgets it contains all the time).
  */
 export interface LegacyDashboardPage {
@@ -31,7 +31,7 @@ export interface LegacyDashboardPage {
 }
 
 /**
- * ActiveUI 4 dashboard page layout.
+ * Atoti UI 4 dashboard page layout.
  * The legacy part is that the tree is binary, leading to an unexpected resizing behaviour.
  */
 export interface LegacyLayout {
@@ -43,7 +43,7 @@ export interface LegacyLayout {
 }
 
 /**
- * ActiveUI 4 dashboard state.
+ * Atoti UI 4 dashboard state.
  */
 export interface LegacyDashboardState {
   name: string;

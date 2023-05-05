@@ -16,7 +16,7 @@ interface LegacyColumn {
 }
 
 /**
- * Returns the converted table column widths, ready to be used in the widget state of a {@link TableWidgetPlugin} in ActiveUI 5.
+ * Returns the converted table column widths, ready to be used in the widget state of a {@link TableWidgetPlugin} in Atoti UI 5.
  */
 export function _migrateTableColumnWidths({
   legacyColumns,
@@ -39,7 +39,7 @@ export function _migrateTableColumnWidths({
       columnKey = "[Measures].[Measures]";
     } else if (key === "c-treeCells-member" && mapping?.rows?.[0]) {
       // Special handling for the tree table column corresponding to all fields mapped on rows.
-      // In ActiveUI 5, its column key is the unique id of the first field.
+      // In Atoti UI 5, its column key is the unique id of the first field.
       switch (mapping.rows[0].type) {
         case "allMeasures": {
           columnKey = "[Measures].[Measures]";
@@ -82,14 +82,14 @@ export function _migrateTableColumnWidths({
           )
         ) {
           // The column key is a tuple.
-          // In ActiveUI 5, it is stripped from its wrapping parentheses.
+          // In Atoti UI 5, it is stripped from its wrapping parentheses.
           columnKey = key.slice(1, key.length - 1);
         }
       } catch {
         // The column key is not an MDX expression.
         // This means that the column does not hold data coming from the widget's MDX query.
-        // E.g., the ActiveUI 4 line numbers column.
-        // These columns have no equivalent in ActiveUI 5, so they are ignored.
+        // E.g., the Atoti UI 4 line numbers column.
+        // These columns have no equivalent in Atoti UI 5, so they are ignored.
       }
     }
 

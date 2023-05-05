@@ -7,7 +7,7 @@ import { PartialMigrationError } from "../../PartialMigrationError";
 export class UnsupportedLegacyQueryUpdateModeError extends PartialMigrationError {
   constructor(migratedWidgetState: AWidgetState<"serialized">) {
     super(
-      "The 'refresh-periodically' mode for query updates is not supported in ActiveUI 5, falling back to 'once'.",
+      "The 'refresh-periodically' mode for query updates is not supported in Atoti UI 5, falling back to 'once'.",
       migratedWidgetState,
     );
   }

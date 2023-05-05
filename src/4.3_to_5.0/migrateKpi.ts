@@ -21,7 +21,7 @@ import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 
 /**
- * Returns the converted KPI (= Featured values) widget state, ready to be used by ActiveUI 5.
+ * Returns the converted KPI (= Featured values) widget state, ready to be used by Atoti UI 5.
  */
 export function migrateKpi(
   // Legacy widget states are not typed.

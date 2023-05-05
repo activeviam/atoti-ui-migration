@@ -18,7 +18,7 @@ import { _getMetaData } from "./_getMetaData";
 import { _serializeError } from "./_serializeError";
 
 /**
- * Returns a function which can be called to migrate ActiveUI 5+ dashboards.
+ * Returns a function which can be called to migrate Atoti UI 5+ dashboards.
  * The content of each dashboard is transformed using the `callback` argument.
  *
  * Some pieces of logic are encapsulated in order to make it easier for the caller:

@@ -19,7 +19,7 @@ import { _migrateQuery } from "./_migrateQuery";
 import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
 
 /**
- * Returns the converted table widget state, ready to be used by ActiveUI 5.
+ * Returns the converted table widget state, ready to be used by Atoti UI 5.
  */
 export function migrateTable(
   // Legacy widget states are not typed.

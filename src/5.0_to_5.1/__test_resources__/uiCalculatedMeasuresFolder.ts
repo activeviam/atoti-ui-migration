@@ -8,7 +8,7 @@
 // 585 - "Log pv.SUM"
 
 /**
- * A `ui/calculated_measures` folder on the content server created in ActiveUI 5.0.
+ * A `ui/calculated_measures` folder on the content server created in Atoti UI 5.0.
  */
 export const uiCalculatedMeasuresFolder = {
   entry: {

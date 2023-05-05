@@ -7,7 +7,7 @@ const dataModels = { sandbox: sandboxDataModel };
 const euro = "[Currency].[Currency].[ALL].[AllMember].[EUR]";
 
 describe("migrateSavedFilter", () => {
-  it("migrates a 5.0 saved filter into one usable by ActiveUI 5.1", () => {
+  it("migrates a 5.0 saved filter into one usable by Atoti UI 5.1", () => {
     expect(
       migrateSavedFilter(
         { mdx: parse(euro) },

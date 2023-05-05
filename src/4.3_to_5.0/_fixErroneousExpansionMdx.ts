@@ -17,7 +17,7 @@ import {
 
 /**
  * Returns an Mdx which yields the same results as the input `mdx`.
- * But the returned mdx does not have the typical useless (and dangerous) parts of queries created by collapsing then re-expanding a member in ActiveUI 4.
+ * But the returned mdx does not have the typical useless (and dangerous) parts of queries created by collapsing then re-expanding a member in Atoti UI 4.
  * See https://support.activeviam.com/jira/browse/UI-6692
  */
 export function _fixErroneousExpansionMdx(

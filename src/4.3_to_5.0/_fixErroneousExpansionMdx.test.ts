@@ -7,7 +7,7 @@ import { dataModelsForTests } from "@activeviam/data-model-5.0";
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 
 describe("_fixErroneousExpansionMdx", () => {
-  it("removes the problematic part of the Mdx of a widget where a user collapsed and then re-expanded a member in ActiveUI 4", () => {
+  it("removes the problematic part of the Mdx of a widget where a user collapsed and then re-expanded a member in Atoti UI 4", () => {
     const mdx = parse<MdxSelect>(`SELECT
       NON EMPTY Hierarchize(
         Union(
@@ -60,7 +60,7 @@ describe("_fixErroneousExpansionMdx", () => {
     `);
   });
 
-  it("removes the problematic part of the Mdx of a widget where a user collapsed and then re-expanded a member in ActiveUI 4 - even if one of the involved hierarchies is slicing", () => {
+  it("removes the problematic part of the Mdx of a widget where a user collapsed and then re-expanded a member in Atoti UI 4 - even if one of the involved hierarchies is slicing", () => {
     const mdx = parse<MdxSelect>(`SELECT
       NON EMPTY Hierarchize(
         Union(
@@ -109,7 +109,7 @@ describe("_fixErroneousExpansionMdx", () => {
     `);
   });
 
-  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 2 different members in ActiveUI 4 (collapsing all of them, then re-expanding all of them)", () => {
+  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 2 different members in Atoti UI 4 (collapsing all of them, then re-expanding all of them)", () => {
     const mdx = parse<MdxSelect>(`SELECT
       NON EMPTY Hierarchize(
         Union(
@@ -181,7 +181,7 @@ describe("_fixErroneousExpansionMdx", () => {
     `);
   });
 
-  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 2 different members in ActiveUI 4 (collapsing and re-expanding each one before moving to the next)", () => {
+  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 2 different members in Atoti UI 4 (collapsing and re-expanding each one before moving to the next)", () => {
     const mdx = parse<MdxSelect>(`SELECT
       NON EMPTY Hierarchize(
         Union(
@@ -253,7 +253,7 @@ describe("_fixErroneousExpansionMdx", () => {
     `);
   });
 
-  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 3 different members in ActiveUI 4 (collapsing and re-expanding each one before moving to the next)", () => {
+  it("removes the problematic parts of the Mdx of a widget where a user collapsed and then re-expanded 3 different members in Atoti UI 4 (collapsing and re-expanding each one before moving to the next)", () => {
     const mdx = parse<MdxSelect>(`SELECT
     NON EMPTY Hierarchize(
       Union(

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 1`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder on a real life input 1`] = `
 {
   "children": {
     "calculated_measures": {
@@ -2072,7 +2072,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
 }
 `;
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 2`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder on a real life input 2`] = `
 {
   "dashboards": {
     "eef": {
@@ -2109,7 +2109,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
 }
 `;
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life input 3`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder on a real life input 3`] = `
 {
   "dashboards": {
     "failed": 0,
@@ -2138,7 +2138,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
 }
 `;
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 1`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder on a small input 1`] = `
 {
   "children": {
     "calculated_measures": {
@@ -2490,7 +2490,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
 }
 `;
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 2`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder on a small input 2`] = `
 {
   "dashboards": {
     "failed": 0,
@@ -2519,7 +2519,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
 }
 `;
 
-exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
+exports[`migrate_43_to_50 returns a valid Atoti UI 5 /ui folder that includes calculated measures when the input includes a pivotFolder 1`] = `
 {
   "children": {
     "content": {

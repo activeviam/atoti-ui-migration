@@ -2,7 +2,7 @@ import { legacySettingsFolder } from "./legacySettingsFolder";
 import { migrateSettingsFolder } from "./migrateSettingsFolder";
 
 describe("migrateSettingsFolder", () => {
-  it("returns the folders corresponding to the converted ActiveUI 4 settings folder, ready to be used by ActiveUI 5", () => {
+  it("returns the folders corresponding to the converted Atoti UI 4 settings folder, ready to be used by Atoti UI 5", () => {
     expect(migrateSettingsFolder(legacySettingsFolder)).toMatchSnapshot();
   });
 

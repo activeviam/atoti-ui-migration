@@ -29,13 +29,13 @@ import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
 import { _addWidgetErrorToReport } from "../_addWidgetErrorToReport";
 
 /**
- * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
+ * Returns the converted dashboard state, ready to be used in Atoti UI 5, and an optional error report if any occurred on any of the dashboard's widgets.
  * Specifically:
  *    Flattens value and value.body.
  *    Transforms pages contents from arrays to map, to make access to pages and pages state faster.
  *    Transform the pages layouts from a binary tree into a tree of minimal depth, making widgets resizing more natural.
  *
- * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated: they are removed from the output ActiveUI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
+ * Widgets with keys in `keysOfWidgetPluginsToRemove` are not migrated: they are removed from the output Atoti UI 5 dashboard, and the layout is adapted so that siblings take the remaining space.
  *
  * The error report omits `folderId` and `folderName`: these are populated by the caller.
  */
@@ -115,8 +115,8 @@ export function migrateDashboard(
     const legacyLayout = legacyPage.layout;
     let pageLayout: Layout;
 
-    // In ActiveUI 4, the root of a dashboard can be a leaf.
-    // This does not happen in ActiveUI 5.
+    // In Atoti UI 4, the root of a dashboard can be a leaf.
+    // This does not happen in Atoti UI 5.
     if (isLegacyLayoutLeaf(legacyLayout)) {
       pageLayout = {
         children: [
