@@ -1,7 +1,4 @@
 import yargs from "yargs";
-import _capitalize from "lodash/capitalize";
-import _fromPairs from "lodash/fromPairs";
-import _mapValues from "lodash/mapValues";
 import { BehaviorOnError, MigrationFunction } from "../migration.types";
 import { gte, coerce } from "semver";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
