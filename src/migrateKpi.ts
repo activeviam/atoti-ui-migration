@@ -1,3 +1,4 @@
+import _set from "lodash/set";
 import type {
   AWidgetState,
   DataModel,
@@ -24,6 +25,7 @@ import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegac
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
+import { produce } from "immer";
 
 const moveExpressionToWithClause = (
   draft: any,
