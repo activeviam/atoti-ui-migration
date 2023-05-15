@@ -108,6 +108,7 @@ yargs
       stack,
       onError,
     }) => {
+      const doesReportIncludeStacks = stack;
       migrateContentServer({
         inputPath,
         outputPath,
@@ -116,7 +117,7 @@ yargs
         toVersion,
         removeWidgets,
         debug,
-        stack,
+        doesReportIncludeStacks,
         onError,
       });
     },

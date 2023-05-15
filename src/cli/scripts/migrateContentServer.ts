@@ -94,7 +94,7 @@ export async function migrateContentServer({
   toVersion,
   removeWidgets: keysOfWidgetPluginsToRemove,
   debug,
-  stack,
+  doesReportIncludeStacks,
   onError: behaviorOnError,
 }: {
   inputPath: string;
@@ -104,7 +104,7 @@ export async function migrateContentServer({
   toVersion: string;
   removeWidgets: string[];
   debug: boolean;
-  stack: boolean;
+  doesReportIncludeStacks: boolean;
   onError: BehaviorOnError;
 }): Promise<any> {
   const contentServer: ContentRecord = await fs.readJSON(inputPath);
@@ -145,8 +145,6 @@ export async function migrateContentServer({
     // In this case, the keys used correspond to the attributes of OutcomeCounters.
   ) as OutcomeCounters;
   const errorReport = {};
-
-  const doesReportIncludeStacks = stack;
 
   // Handle the special case of 4.3 to 5.0 separately, as:
   // - the corresponding migration function has a different signature than all others
