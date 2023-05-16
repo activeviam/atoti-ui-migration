@@ -17,19 +17,26 @@ export const migrateWidget: MigrateWidgetCallback<
   AWidgetState50,
   AWidgetState51,
   {
+    supportCalculatedMeasuresMigration: boolean;
     namesOfCalculatedMeasuresToMigrate: string[];
     measureToCubeMapping: { [measureName: string]: string[] };
   }
 > = (
   widgetState,
-  { dataModels, namesOfCalculatedMeasuresToMigrate, measureToCubeMapping },
-) => {
-  migrateCalculatedMeasuresInWidget(widgetState, {
+  {
     dataModels,
+    supportCalculatedMeasuresMigration,
     namesOfCalculatedMeasuresToMigrate,
     measureToCubeMapping,
-  });
-
+  },
+) => {
+  if (supportCalculatedMeasuresMigration) {
+    migrateCalculatedMeasuresInWidget(widgetState, {
+      dataModels,
+      namesOfCalculatedMeasuresToMigrate,
+      measureToCubeMapping,
+    });
+  }
   const cubeName =
     isWidgetWithQueryState(widgetState) && widgetState.query.mdx
       ? getCubeName(widgetState.query.mdx)
@@ -42,7 +49,6 @@ export const migrateWidget: MigrateWidgetCallback<
     cubeName,
     serverKey,
   });
-
   migrateContextValues(widgetState.queryContext);
 
   if (widgetState.widgetKey === "plotly-clustered-column-and-line-chart") {

@@ -3,6 +3,7 @@ import { BehaviorOnError, MigrationFunction } from "../migration.types";
 import { gte, coerce } from "semver";
 import { migrate_50_to_51 } from "../5.0_to_5.1";
 import { migrateContentServer } from "./scripts/migrateContentServer";
+import { migrateNotebook } from "./scripts/migrateNotebook";
 
 const migrationSteps: {
   from: string;
@@ -11,6 +12,7 @@ const migrationSteps: {
 }[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
 const fromVersions = migrationSteps.map(({ from }) => from);
 const toVersions = migrationSteps.map(({ to }) => to);
+const supportedFileTypes = ["JSON", "IPYNB"];
 
 yargs
   .command<{
@@ -25,19 +27,19 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
+    "Migrates a JSON export of a Content Server or an Atoti jupyter notebook, respectively saved with ActiveUI or Atoti version `--from-version` to be usable in ActiveUI version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the Content Server to migrate.",
+        desc: "The path to the file to migrate. This file can be a JSON export of a Content Server, or an Atoti jupyter notebook.",
       });
       args.option("output-path", {
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
+        desc: "The path to the migrated file using the AtotiUI or Atoti version to migrate to.",
       });
       args.option("servers-path", {
         alias: "s",
@@ -109,17 +111,40 @@ yargs
       onError,
     }) => {
       const doesReportIncludeStacks = stack;
-      migrateContentServer({
-        inputPath,
-        outputPath,
-        serversPath,
-        fromVersion,
-        toVersion,
-        removeWidgets,
-        debug,
-        doesReportIncludeStacks,
-        onError,
-      });
+
+      const fileType = inputPath.split(".").pop()?.toUpperCase();
+
+      if (!fileType || !supportedFileTypes.includes(fileType)) {
+        throw new Error(`File of type ${fileType} are not supported.`);
+      }
+      console.log(fileType);
+
+      if (fileType === "JSON") {
+        migrateContentServer({
+          inputPath,
+          outputPath,
+          serversPath,
+          fromVersion,
+          toVersion,
+          removeWidgets,
+          debug,
+          doesReportIncludeStacks,
+          onError,
+        });
+      } else {
+        migrateNotebook({
+          inputPath,
+          outputPath,
+          serversPath,
+          fromVersion,
+          toVersion,
+          // contentServer,
+          // dataModels,
+          // errorReport,
+          // counters,
+          doesReportIncludeStacks,
+        });
+      }
     },
   )
   .check(({ fromVersion, toVersion }) => {

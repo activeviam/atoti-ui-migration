@@ -167,6 +167,8 @@ export async function migrateContentServer({
     getIndexedDataModel(dataModel),
   );
 
+  console.log("--------- START OF CONTENT MIGRATION ---------");
+
   migrationSteps
     .slice(fromVersionIndex, toVersionIndex + 1)
     .forEach(({ migrate, from, to }) => {
@@ -262,7 +264,7 @@ This will output a file named \`report.json\` containing the error messages.`);
         `See report.json for more information about the errors that occurred.`,
       );
     }
-    if (!stack) {
+    if (!doesReportIncludeStacks) {
       console.log(
         "To see the stack traces of the errors in this file, you can also use the `--stack` option.",
       );
