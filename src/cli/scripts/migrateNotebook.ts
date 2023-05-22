@@ -7,13 +7,6 @@ import { getIndexedDataModel } from "@activeviam/data-model-5.1";
 import { parse } from "@activeviam/activeui-sdk-5.1";
 import { stringify } from "@activeviam/mdx-5.0";
 
-// const migrationSteps: {
-//   from: string;
-//   to: string;
-// }[] = [{ from: "0.7", to: "0.8" }];
-// const fromVersions = migrationSteps.map(({ from }) => from);
-// const toVersions = migrationSteps.map(({ to }) => to);
-
 /**
  * Migrates a Jupter Notebook from atoti 0.7 to 0.8.
  */
@@ -23,14 +16,12 @@ export const migrateNotebook = async ({
   serversPath,
   fromVersion,
   toVersion,
-  doesReportIncludeStacks,
 }: {
   inputPath: string;
   outputPath: string;
   serversPath: string;
   fromVersion: string;
   toVersion: string;
-  doesReportIncludeStacks: any;
 }): Promise<void> => {
   const notebook = await fs.readJSON(inputPath);
   const servers: {
@@ -40,28 +31,10 @@ export const migrateNotebook = async ({
     getIndexedDataModel(dataModel),
   );
 
-  // ME: really need a content server to get the potential calculated measure ?
-  //   const namesOfCalculatedMeasuresToMigrate =
-  //     getNamesOfCalculatedMeasuresToMigrate(contentServer);
-  //   // Accumulate the cubes to which the saved calculated measures belong.
-  //   const measureToCubeMapping: { [measureName: string]: string[] } = {};
-
-  //   const counters = _fromPairs(
-  //     ["dashboards", "widgets", "filters", "folders", "calculated_measures"].map(
-  //       (type) => [
-  //         type,
-  //         {
-  //           success: 0,
-  //           partial: 0,
-  //           failed: 0,
-  //           removed: 0,
-  //         },
-  //       ],
-  //     ),
-  //     // _fromPairs returns a Dictionary.
-  //     // In this case, the keys used correspond to the attributes of OutcomeCounters.
-  //   ) as OutcomeCounters;
-  //   const errorReport = {};
+  const counters: {
+    cellId: string;
+    outcome: "success" | "failure";
+  }[] = [];
 
   console.log("--------- START OF NOTEBOOK MIGRATION ---------");
 
@@ -77,18 +50,34 @@ export const migrateNotebook = async ({
         );
       }
 
-      migrateWidget(widgetState, {
-        dataModels,
-        supportCalculatedMeasuresMigration: false,
-        namesOfCalculatedMeasuresToMigrate: [],
-        measureToCubeMapping: {},
-      });
+      try {
+        migrateWidget(widgetState, {
+          dataModels,
+          supportCalculatedMeasuresMigration: false,
+          namesOfCalculatedMeasuresToMigrate: [],
+          measureToCubeMapping: {},
+        });
+        counters.push({ cellId: cell.id, outcome: "success" });
+      } catch {
+        counters.push({ cellId: cell.id, outcome: "failure" });
+      }
 
       widgetState.query.mdx = stringify(widgetState.query.mdx);
     }
   }
 
   await fs.writeJSON(outputPath, notebook, { spaces: 2 });
+  console.log(
+    `- ${
+      counters.filter((cell) => cell.outcome === "success").length
+    } widgets have been correctly migrated -`,
+  );
+  const numberOfFailures = counters.filter(
+    (cell) => cell.outcome === "failure",
+  ).length;
+  if (numberOfFailures > 0) {
+    console.log(`- ${numberOfFailures} widgets have failed to migrate -`);
+  }
 
   console.log("--------- END OF NOTEBOOK MIGRATION ---------");
 };

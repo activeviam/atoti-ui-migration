@@ -1,18 +1,25 @@
 import yargs from "yargs";
-import { BehaviorOnError, MigrationFunction } from "../migration.types";
+import { BehaviorOnError } from "../migration.types";
 import { gte, coerce } from "semver";
-import { migrate_50_to_51 } from "../5.0_to_5.1";
 import { migrateContentServer } from "./scripts/migrateContentServer";
 import { migrateNotebook } from "./scripts/migrateNotebook";
+import { getFileType } from "./scripts/getFileType";
 
-const migrationSteps: {
+const AUIMigrationSteps: {
   from: string;
   to: string;
-  migrate: MigrationFunction;
-}[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
-const fromVersions = migrationSteps.map(({ from }) => from);
-const toVersions = migrationSteps.map(({ to }) => to);
-const supportedFileTypes = ["JSON", "IPYNB"];
+}[] = [{ from: "5.0", to: "5.1" }];
+
+const AtotiMigrationSteps: {
+  from: string;
+  to: string;
+}[] = [{ from: "0.7", to: "0.8" }];
+const fromVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
+  ({ from }) => from,
+);
+const toVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
+  ({ to }) => to,
+);
 
 yargs
   .command<{
@@ -112,14 +119,18 @@ yargs
     }) => {
       const doesReportIncludeStacks = stack;
 
-      const fileType = inputPath.split(".").pop()?.toUpperCase();
-
-      if (!fileType || !supportedFileTypes.includes(fileType)) {
-        throw new Error(`File of type ${fileType} are not supported.`);
-      }
-      console.log(fileType);
+      const fileType = getFileType(inputPath);
 
       if (fileType === "JSON") {
+        // Ensure that Atoti versions are not used as versions to migrate content server
+        if (
+          AtotiMigrationSteps.map(({ from }) => from).includes(fromVersion) ||
+          AtotiMigrationSteps.map(({ to }) => to).includes(toVersion)
+        ) {
+          throw new Error(
+            `Atoti versions are not supported for the content miration. Use the corresponding Atoti UI version.`,
+          );
+        }
         migrateContentServer({
           inputPath,
           outputPath,
@@ -138,11 +149,6 @@ yargs
           serversPath,
           fromVersion,
           toVersion,
-          // contentServer,
-          // dataModels,
-          // errorReport,
-          // counters,
-          doesReportIncludeStacks,
         });
       }
     },
