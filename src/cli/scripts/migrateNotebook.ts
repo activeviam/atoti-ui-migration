@@ -1,32 +1,28 @@
 import { migrateWidget } from "../../5.0_to_5.1/migrateWidget";
 import fs from "fs-extra";
-import { DataModel } from "@activeviam/data-model-5.1";
-import _fromPairs from "lodash/fromPairs";
+import { DataModel, getIndexedDataModel } from "@activeviam/data-model-5.1";
 import _mapValues from "lodash/mapValues";
-import { getIndexedDataModel } from "@activeviam/data-model-5.1";
 import { parse } from "@activeviam/activeui-sdk-5.1";
 import { stringify } from "@activeviam/mdx-5.0";
 
 /**
- * Migrates a Jupter Notebook from atoti 0.7 to 0.8.
+ * Migrates a Jupter Notebook from Atoti 0.7 to 0.8.
  */
 export const migrateNotebook = async ({
   inputPath,
   outputPath,
   serversPath,
-  fromVersion,
-  toVersion,
 }: {
   inputPath: string;
   outputPath: string;
   serversPath: string;
-  fromVersion: string;
-  toVersion: string;
 }): Promise<void> => {
   const notebook = await fs.readJSON(inputPath);
+
   const servers: {
     [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
   } = await fs.readJSON(serversPath);
+
   const dataModels = _mapValues(servers, ({ dataModel }) =>
     getIndexedDataModel(dataModel),
   );

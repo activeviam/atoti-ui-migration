@@ -20,6 +20,7 @@ const fromVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
 const toVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
   ({ to }) => to,
 );
+const notebookMigrationSteps = [...AUIMigrationSteps, ...AtotiMigrationSteps];
 
 yargs
   .command<{
@@ -143,12 +144,20 @@ yargs
           onError,
         });
       } else {
+        // Ensure that Atoti versions are not mixed up with AUI versions.
+        if (
+          notebookMigrationSteps.filter(
+            (migrationStep) =>
+              migrationStep.from === fromVersion &&
+              migrationStep.to === toVersion,
+          ).length !== 1
+        ) {
+          throw new Error(`Don't mix up Atoti and AUI versions.`);
+        }
         migrateNotebook({
           inputPath,
           outputPath,
           serversPath,
-          fromVersion,
-          toVersion,
         });
       }
     },
