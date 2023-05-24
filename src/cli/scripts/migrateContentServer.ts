@@ -16,6 +16,8 @@ import { getMigrateSavedFilters } from "../../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../../4.3_to_5.0";
 import { migrate_50_to_51 } from "../../5.0_to_5.1";
 import { getContent } from "../../getContent";
+import { ValidFromVersion } from "./validateFromVersion";
+import { ValidToVersion } from "./validateToVersion";
 
 const migrationSteps: {
   from: string;
@@ -100,13 +102,13 @@ export async function migrateContentServer({
   inputPath: string;
   outputPath: string;
   serversPath: string;
-  fromVersion: string;
-  toVersion: string;
+  fromVersion: ValidFromVersion;
+  toVersion: ValidToVersion;
   removeWidgets: string[];
   debug: boolean;
   doesReportIncludeStacks: boolean;
   onError: BehaviorOnError;
-}): Promise<any> {
+}): Promise<void> {
   const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
   const originalDashboardsContent = getContent(
@@ -278,7 +280,4 @@ This will output a file named \`report.json\` containing the error messages.`);
       spaces: 2,
     });
   }
-  // FIXME Rely on yargs instead of having to call process.exit manually.
-  // See https://support.activeviam.com/jira/browse/UI-7198
-  process.exit(0);
 }

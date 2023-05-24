@@ -2,20 +2,33 @@ import { migrateWidget } from "../../5.0_to_5.1/migrateWidget";
 import fs from "fs-extra";
 import { DataModel, getIndexedDataModel } from "@activeviam/data-model-5.1";
 import _mapValues from "lodash/mapValues";
-import { parse } from "@activeviam/activeui-sdk-5.1";
-import { stringify } from "@activeviam/mdx-5.0";
+import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
+import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
+import { MigrateWidgetCallback } from "../../migration.types";
+import { ValidFromVersion } from "./validateFromVersion";
+import { ValidToVersion } from "./validateToVersion";
+
+const migrationSteps: {
+  from: string;
+  to: string;
+  migrate: MigrateWidgetCallback<any, any, any>;
+}[] = [{ from: "5.0", to: "5.1", migrate: migrateWidget }];
 
 /**
- * Migrates a Jupter Notebook from Atoti 0.7 to 0.8.
+ * Migrates the AUI widgets from 5.0 to 5.1 of an Atoti Jupter Notebook.
  */
 export const migrateNotebook = async ({
   inputPath,
   outputPath,
   serversPath,
+  fromVersion,
+  toVersion,
 }: {
   inputPath: string;
   outputPath: string;
   serversPath: string;
+  fromVersion: ValidFromVersion;
+  toVersion: ValidToVersion;
 }): Promise<void> => {
   const notebook = await fs.readJSON(inputPath);
 
@@ -27,52 +40,46 @@ export const migrateNotebook = async ({
     getIndexedDataModel(dataModel),
   );
 
-  const counters: {
-    cellId: string;
-    outcome: "success" | "failure";
-  }[] = [];
+  let numberOfFailures = 0;
+
+  const migrateWidgetFunctions = migrationSteps
+    .filter(
+      (migrationStep) =>
+        migrationStep.from === fromVersion || migrationStep.to === toVersion,
+    )
+    .map((migrationStep) => migrationStep.migrate);
 
   console.log("--------- START OF NOTEBOOK MIGRATION ---------");
 
   for (const cell of notebook.cells) {
     if ("atoti" in cell.metadata) {
       const widgetState = cell.metadata.atoti.widget;
-
-      // The widgetState MDXs (query MDX and the filters MDX) need to be converted to AST before migrating the widget.
-      widgetState.query.mdx = parse(widgetState.query.mdx);
-      if (Object.keys(widgetState).includes("filters")) {
-        widgetState.filters = widgetState.filters.map((filter: string) =>
-          parse(filter),
-        );
-      }
+      const deserializedWidgetState = deserializeWidgetState(widgetState);
 
       try {
-        migrateWidget(widgetState, {
-          dataModels,
-          supportCalculatedMeasuresMigration: false,
-          namesOfCalculatedMeasuresToMigrate: [],
-          measureToCubeMapping: {},
+        migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
+          migrateWidgetFunction(deserializedWidgetState, {
+            dataModels,
+            supportCalculatedMeasuresMigration: false,
+            namesOfCalculatedMeasuresToMigrate: [],
+            measureToCubeMapping: {},
+          });
         });
-        counters.push({ cellId: cell.id, outcome: "success" });
       } catch {
-        counters.push({ cellId: cell.id, outcome: "failure" });
+        numberOfFailures += 1;
       }
 
-      widgetState.query.mdx = stringify(widgetState.query.mdx);
+      cell.metadata.atoti.widget = serializeWidgetState(
+        // @ts-expect-error TypeScript does not expect that the deserializedWidgetState is formatted as a 5.1 widgetState where its filters are of type filters and not mdx.
+        deserializedWidgetState,
+      );
     }
   }
 
   await fs.writeJSON(outputPath, notebook, { spaces: 2 });
-  console.log(
-    `- ${
-      counters.filter((cell) => cell.outcome === "success").length
-    } widgets have been correctly migrated -`,
-  );
-  const numberOfFailures = counters.filter(
-    (cell) => cell.outcome === "failure",
-  ).length;
+
   if (numberOfFailures > 0) {
-    console.log(`- ${numberOfFailures} widgets have failed to migrate -`);
+    console.log(`- ${numberOfFailures} widget(s) have failed to migrate -`);
   }
 
   console.log("--------- END OF NOTEBOOK MIGRATION ---------");

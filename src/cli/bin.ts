@@ -1,26 +1,21 @@
-import yargs from "yargs";
+import yargs, { version } from "yargs";
 import { BehaviorOnError } from "../migration.types";
 import { gte, coerce } from "semver";
 import { migrateContentServer } from "./scripts/migrateContentServer";
 import { migrateNotebook } from "./scripts/migrateNotebook";
-import { getFileType } from "./scripts/getFileType";
+import { validateFromVersion } from "./scripts/validateFromVersion";
 
-const AUIMigrationSteps: {
-  from: string;
-  to: string;
-}[] = [{ from: "5.0", to: "5.1" }];
+const supportedFileExtension = ["JSON", "IPYNB"];
 
-const AtotiMigrationSteps: {
-  from: string;
-  to: string;
-}[] = [{ from: "0.7", to: "0.8" }];
-const fromVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
-  ({ from }) => from,
-);
-const toVersions = [...AUIMigrationSteps, ...AtotiMigrationSteps].map(
-  ({ to }) => to,
-);
-const notebookMigrationSteps = [...AUIMigrationSteps, ...AtotiMigrationSteps];
+export function getFileExtension(path: string): string {
+  const fileExtension = path.split(".").pop()?.toUpperCase();
+
+  if (!fileExtension || !supportedFileExtension.includes(fileExtension)) {
+    throw new Error(`File of type ${fileExtension} are not supported.`);
+  }
+
+  return fileExtension;
+}
 
 yargs
   .command<{
@@ -59,14 +54,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: ["4.3", ...fromVersions],
+        choices: ["4.3", "5.0"],
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: ["5.0", ...toVersions],
+        choices: ["5.0", "5.1"],
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
@@ -120,18 +115,11 @@ yargs
     }) => {
       const doesReportIncludeStacks = stack;
 
-      const fileType = getFileType(inputPath);
+      const fileExtension = getFileExtension(inputPath);
+      validateFromVersion(fromVersion);
 
-      if (fileType === "JSON") {
+      if (fileExtension === "JSON") {
         // Ensure that Atoti versions are not used as versions to migrate content server
-        if (
-          AtotiMigrationSteps.map(({ from }) => from).includes(fromVersion) ||
-          AtotiMigrationSteps.map(({ to }) => to).includes(toVersion)
-        ) {
-          throw new Error(
-            `Atoti versions are not supported for the content miration. Use the corresponding Atoti UI version.`,
-          );
-        }
         migrateContentServer({
           inputPath,
           outputPath,
@@ -144,20 +132,12 @@ yargs
           onError,
         });
       } else {
-        // Ensure that Atoti versions are not mixed up with AUI versions.
-        if (
-          notebookMigrationSteps.filter(
-            (migrationStep) =>
-              migrationStep.from === fromVersion &&
-              migrationStep.to === toVersion,
-          ).length !== 1
-        ) {
-          throw new Error(`Don't mix up Atoti and AUI versions.`);
-        }
         migrateNotebook({
           inputPath,
           outputPath,
           serversPath,
+          fromVersion,
+          toVersion,
         });
       }
     },
