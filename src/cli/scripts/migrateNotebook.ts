@@ -5,8 +5,7 @@ import _mapValues from "lodash/mapValues";
 import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
 import { MigrateWidgetCallback } from "../../migration.types";
-import { ValidFromVersion } from "./validateVersions";
-import { ValidToVersion } from "./validateVersions";
+import { ValidFromVersion, ValidToVersion } from "./validateVersions";
 
 const migrationSteps: {
   from: string;
@@ -70,7 +69,7 @@ export const migrateNotebook = async ({
       }
 
       cell.metadata.atoti.widget = serializeWidgetState(
-        // @ts-expect-error TypeScript does not expect that the deserializedWidgetState to be formatted as a 5.1 widgetState where its filters are of type filters and not mdx.
+        // @ts-expect-error The deserializedWidgetState has been migrated to AWidgetState5.1 where its filters are of type Filter and not MdxExpression.
         deserializedWidgetState,
       );
     }
