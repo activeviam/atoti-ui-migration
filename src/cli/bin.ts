@@ -54,14 +54,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: ["4.3", "5.0"],
+        choices: ["4.3", "5.0", "0.7"],
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: ["5.0", "5.1"],
+        choices: ["5.0", "5.1", "0.8"],
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
@@ -118,7 +118,9 @@ yargs
       const fileExtension = getFileExtension(inputPath);
       const { fromVersion: validFromVersion, toVersion: validToVersion } =
         validateVersion({
+          // @ts-expect-error TO FIX yargs already forces version to be among choices
           fromVersion,
+          // @ts-expect-error TO FIX yargs already forces version to be among choices
           toVersion,
         });
 
