@@ -5,14 +5,14 @@ import _mapValues from "lodash/mapValues";
 import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
 import { MigrateWidgetCallback } from "../../migration.types";
-import { ValidFromVersion } from "./validateFromVersion";
-import { ValidToVersion } from "./validateToVersion";
+import { ValidFromVersion } from "./validateVersions";
+import { ValidToVersion } from "./validateVersions";
 
 const migrationSteps: {
   from: string;
   to: string;
-  migrate: MigrateWidgetCallback<any, any, any>;
-}[] = [{ from: "5.0", to: "5.1", migrate: migrateWidget }];
+  migrateWidget: MigrateWidgetCallback<any, any, any>;
+}[] = [{ from: "5.0", to: "5.1", migrateWidget: migrateWidget }];
 
 /**
  * Migrates the AUI widgets from 5.0 to 5.1 of an Atoti Jupter Notebook.
@@ -47,7 +47,7 @@ export const migrateNotebook = async ({
       (migrationStep) =>
         migrationStep.from === fromVersion || migrationStep.to === toVersion,
     )
-    .map((migrationStep) => migrationStep.migrate);
+    .map((migrationStep) => migrationStep.migrateWidget);
 
   console.log("--------- START OF NOTEBOOK MIGRATION ---------");
 
@@ -70,7 +70,7 @@ export const migrateNotebook = async ({
       }
 
       cell.metadata.atoti.widget = serializeWidgetState(
-        // @ts-expect-error TypeScript does not expect that the deserializedWidgetState is formatted as a 5.1 widgetState where its filters are of type filters and not mdx.
+        // @ts-expect-error TypeScript does not expect that the deserializedWidgetState to be formatted as a 5.1 widgetState where its filters are of type filters and not mdx.
         deserializedWidgetState,
       );
     }

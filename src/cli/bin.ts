@@ -1,9 +1,9 @@
-import yargs, { version } from "yargs";
+import yargs from "yargs";
 import { BehaviorOnError } from "../migration.types";
 import { gte, coerce } from "semver";
 import { migrateContentServer } from "./scripts/migrateContentServer";
 import { migrateNotebook } from "./scripts/migrateNotebook";
-import { validateFromVersion } from "./scripts/validateFromVersion";
+import { validateVersion } from "./scripts/validateVersions";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
 
@@ -116,7 +116,11 @@ yargs
       const doesReportIncludeStacks = stack;
 
       const fileExtension = getFileExtension(inputPath);
-      validateFromVersion(fromVersion);
+      const { fromVersion: validFromVersion, toVersion: validToVersion } =
+        validateVersion({
+          fromVersion,
+          toVersion,
+        });
 
       if (fileExtension === "JSON") {
         // Ensure that Atoti versions are not used as versions to migrate content server
@@ -124,8 +128,8 @@ yargs
           inputPath,
           outputPath,
           serversPath,
-          fromVersion,
-          toVersion,
+          fromVersion: validFromVersion,
+          toVersion: validToVersion,
           removeWidgets,
           debug,
           doesReportIncludeStacks,
@@ -136,8 +140,8 @@ yargs
           inputPath,
           outputPath,
           serversPath,
-          fromVersion,
-          toVersion,
+          fromVersion: validFromVersion,
+          toVersion: validToVersion,
         });
       }
     },

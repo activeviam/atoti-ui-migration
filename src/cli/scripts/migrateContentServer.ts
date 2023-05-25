@@ -16,8 +16,7 @@ import { getMigrateSavedFilters } from "../../getMigrateSavedFilters";
 import { migrate_43_to_50 } from "../../4.3_to_5.0";
 import { migrate_50_to_51 } from "../../5.0_to_5.1";
 import { getContent } from "../../getContent";
-import { ValidFromVersion } from "./validateFromVersion";
-import { ValidToVersion } from "./validateToVersion";
+import { ValidFromVersion, ValidToVersion } from "./validateVersions";
 
 const migrationSteps: {
   from: string;
