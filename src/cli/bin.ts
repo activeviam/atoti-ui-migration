@@ -1,9 +1,14 @@
 import yargs from "yargs";
 import { BehaviorOnError } from "../migration.types";
-import { gte, coerce } from "semver";
 import { migrateContentServer } from "./scripts/migrateContentServer";
 import { migrateNotebook } from "./scripts/migrateNotebook";
-import { validateVersion } from "./scripts/validateVersions";
+import {
+  convertFromVersion,
+  convertToVersion,
+  convertVersion,
+  possibleFromVersions,
+  possibleToVersions,
+} from "./scripts/convertAtotiToAUIVersions";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
 
@@ -54,14 +59,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: ["4.3", "5.0", "0.7"],
+        choices: possibleFromVersions,
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: ["5.0", "5.1", "0.8"],
+        choices: possibleToVersions,
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
@@ -117,12 +122,11 @@ yargs
 
       const fileExtension = getFileExtension(inputPath);
       const { fromVersion: validFromVersion, toVersion: validToVersion } =
-        validateVersion({
-          // @ts-expect-error TO FIX yargs already forces version to be among choices
+        convertVersion({
           fromVersion,
-          // @ts-expect-error TO FIX yargs already forces version to be among choices
           toVersion,
         });
+      console.log(validFromVersion, validToVersion);
 
       if (fileExtension === "JSON") {
         // Ensure that Atoti versions are not used as versions to migrate content server
@@ -149,9 +153,7 @@ yargs
     },
   )
   .check(({ fromVersion, toVersion }) => {
-    // The formats of `fromVersion` and `toVersion` are already validated, with yargs' `choices` option.
-    // They must be of the form "X.Y", hence `coerce` won't return null.
-    if (gte(coerce(fromVersion)!, coerce(toVersion)!)) {
+    if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
       throw new Error("--to-version must be greater than --from-version");
     }
     return true;

@@ -5,7 +5,7 @@ import _mapValues from "lodash/mapValues";
 import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
 import { MigrateWidgetCallback } from "../../migration.types";
-import { ValidFromVersion, ValidToVersion } from "./validateVersions";
+import { ValidFromVersion, ValidToVersion } from "./convertAtotiToAUIVersions";
 
 const migrationSteps: {
   from: string;
