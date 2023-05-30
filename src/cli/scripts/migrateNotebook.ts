@@ -57,16 +57,10 @@ export const migrateNotebook = async ({
 
       migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
         try {
-          migrateWidgetFunction(
-            deserializedWidgetState,
-            {
-              dataModels,
-            },
-            {
-              namesOfCalculatedMeasuresToMigrate: [],
-              measureToCubeMapping: {},
-            },
-          );
+          migrateWidgetFunction(deserializedWidgetState, {
+            dataModels,
+            options: {},
+          });
         } catch {
           numberOfFailures += 1;
         }

@@ -5,7 +5,7 @@ import { migrateNotebook } from "./scripts/migrateNotebook";
 import {
   convertFromVersion,
   convertToVersion,
-  convertVersion,
+  convertVersions,
   possibleFromVersions,
   possibleToVersions,
 } from "./scripts/convertAtotiToAUIVersions";
@@ -123,7 +123,7 @@ yargs
 
       const fileExtension = getFileExtension(inputPath);
       const { fromVersion: validFromVersion, toVersion: validToVersion } =
-        convertVersion({
+        convertVersions({
           fromVersion,
           toVersion,
         });

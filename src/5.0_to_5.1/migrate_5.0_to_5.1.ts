@@ -55,10 +55,8 @@ export const migrate_50_to_51: MigrationFunction = (
     deserializeWidgetState,
     (widgetState) =>
       migrateWidget(widgetState, {
-        supportCalculatedMeasuresMigration: true,
         dataModels,
-        namesOfCalculatedMeasuresToMigrate,
-        measureToCubeMapping,
+        options: { namesOfCalculatedMeasuresToMigrate, measureToCubeMapping },
       }),
     serializeWidgetState,
   );

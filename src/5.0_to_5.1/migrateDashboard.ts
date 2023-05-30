@@ -40,10 +40,8 @@ export const migrateDashboard: MigrateDashboardCallback<
     dashboardState,
     (widgetState) =>
       migrateWidget(widgetState, {
-        supportCalculatedMeasuresMigration: true,
         dataModels,
-        namesOfCalculatedMeasuresToMigrate,
-        measureToCubeMapping,
+        options: { namesOfCalculatedMeasuresToMigrate, measureToCubeMapping },
       }),
     {
       dataModels,
