@@ -126,7 +126,6 @@ yargs
           fromVersion,
           toVersion,
         });
-      console.log(validFromVersion, validToVersion);
 
       if (fileExtension === "JSON") {
         // Ensure that Atoti versions are not used as versions to migrate content server

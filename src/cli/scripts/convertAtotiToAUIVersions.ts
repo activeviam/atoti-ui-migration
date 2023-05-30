@@ -14,7 +14,6 @@ export const possibleFromVersions = [
   ...validFromVersions,
   ...atotiValidFromVersions,
 ];
-console.log(possibleFromVersions);
 export const possibleToVersions = [...validToVersions, ...atotiValidToVersions];
 
 export type ValidFromVersion = typeof validFromVersions[number];
