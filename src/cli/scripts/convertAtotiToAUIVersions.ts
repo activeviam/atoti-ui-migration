@@ -37,7 +37,7 @@ export function convertToVersion(
   return version as ValidToVersion;
 }
 
-export function convertVersion(versions: {
+export function convertVersions(versions: {
   fromVersion: typeof possibleFromVersions[number];
   toVersion: typeof possibleToVersions[number];
 }): { fromVersion: ValidFromVersion; toVersion: ValidToVersion } {

@@ -124,7 +124,8 @@ export type MigrateWidgetCallback<
   widgetState: FromWidgetState,
   args: {
     dataModels: { [serverKey: string]: DataModel };
-  } & Options,
+  },
+  options: Options,
 ) => void | ToWidgetState;
 
 /**

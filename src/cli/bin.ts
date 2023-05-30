@@ -16,9 +16,10 @@ export function getFileExtension(path: string): string {
   const fileExtension = path.split(".").pop()?.toUpperCase();
 
   if (!fileExtension || !supportedFileExtension.includes(fileExtension)) {
-    throw new Error(`File of type ${fileExtension} are not supported.`);
+    throw new Error(
+      `The extension "${fileExtension}" is not supported. Supported extensions for the input file are "JSON" and "IPYNB"`,
+    );
   }
-
   return fileExtension;
 }
 
@@ -35,7 +36,7 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON export of a Content Server or an Atoti jupyter notebook, respectively saved with ActiveUI or Atoti version `--from-version` to be usable in ActiveUI version `--to-version`.",
+    "Migrates a JSON export of a Content Server or an Atoti jupyter notebook, saved with ActiveUI or Atoti version `--from-version` to be usable in version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
@@ -47,7 +48,7 @@ yargs
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file using the AtotiUI or Atoti version to migrate to.",
+        desc: "The path to the migrated file, ready to be imported into the Atoti Admin UI and used in your upgraded Atoti UI, if it is a Content Server export. Or ready to be used with your upgraded Atoti JupyterLab extension, if it is a notebook.",
       });
       args.option("servers-path", {
         alias: "s",

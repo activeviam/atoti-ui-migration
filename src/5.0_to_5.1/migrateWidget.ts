@@ -9,6 +9,30 @@ import { migrateCalculatedMeasuresInWidget } from "./calculated-measures/migrate
 import { migrateContextValues } from "./migrateContextValues";
 import { migrateFilters } from "./migrateFilters";
 
+type OptionsForCalculatedMeasuresRemoval = {
+  namesOfCalculatedMeasuresToMigrate: string[];
+  measureToCubeMapping: { [measureName: string]: string[] };
+};
+
+/**
+ * If calculated measures don't need to be migrated,
+ * then the caller does not need to pass options for calculated measures removal.
+ */
+type Options = OptionsForCalculatedMeasuresRemoval | {};
+
+/**
+ * Returns whether `options` allows to remove saved calculated measures from the migrated `widgetState`.
+ * This is done when migrating a Content Server, but not a notebook.
+ */
+function shouldMigrateCalculatedMeasures(
+  options: Options,
+): options is OptionsForCalculatedMeasuresRemoval {
+  return (
+    "namesOfCalculatedMeasuresToMigrate" in options &&
+    "measureToCubeMapping" in options
+  );
+}
+
 /**
  * Mutates a 5.0 `widgetState` into one usable in 5.1.
  * Also mutates `measureToCubeMapping`.
@@ -16,25 +40,14 @@ import { migrateFilters } from "./migrateFilters";
 export const migrateWidget: MigrateWidgetCallback<
   AWidgetState50,
   AWidgetState51,
-  {
-    supportCalculatedMeasuresMigration: boolean;
-    namesOfCalculatedMeasuresToMigrate: string[];
-    measureToCubeMapping: { [measureName: string]: string[] };
-  }
-> = (
-  widgetState,
-  {
-    dataModels,
-    supportCalculatedMeasuresMigration,
-    namesOfCalculatedMeasuresToMigrate,
-    measureToCubeMapping,
-  },
-) => {
-  if (supportCalculatedMeasuresMigration) {
+  Options
+> = (widgetState, { dataModels }, options) => {
+  if (shouldMigrateCalculatedMeasures(options)) {
     migrateCalculatedMeasuresInWidget(widgetState, {
       dataModels,
-      namesOfCalculatedMeasuresToMigrate,
-      measureToCubeMapping,
+      namesOfCalculatedMeasuresToMigrate:
+        options.namesOfCalculatedMeasuresToMigrate,
+      measureToCubeMapping: options.measureToCubeMapping,
     });
   }
   const cubeName =

@@ -55,18 +55,22 @@ export const migrateNotebook = async ({
       const widgetState = cell.metadata.atoti.widget;
       const deserializedWidgetState = deserializeWidgetState(widgetState);
 
-      try {
-        migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
-          migrateWidgetFunction(deserializedWidgetState, {
-            dataModels,
-            supportCalculatedMeasuresMigration: false,
-            namesOfCalculatedMeasuresToMigrate: [],
-            measureToCubeMapping: {},
-          });
-        });
-      } catch {
-        numberOfFailures += 1;
-      }
+      migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
+        try {
+          migrateWidgetFunction(
+            deserializedWidgetState,
+            {
+              dataModels,
+            },
+            {
+              namesOfCalculatedMeasuresToMigrate: [],
+              measureToCubeMapping: {},
+            },
+          );
+        } catch {
+          numberOfFailures += 1;
+        }
+      });
 
       cell.metadata.atoti.widget = serializeWidgetState(
         // @ts-expect-error The deserializedWidgetState has been migrated to AWidgetState5.1 where its filters are of type Filter and not MdxExpression.
@@ -78,7 +82,7 @@ export const migrateNotebook = async ({
   await fs.writeJSON(outputPath, notebook, { spaces: 2 });
 
   if (numberOfFailures > 0) {
-    console.log(`- ${numberOfFailures} widget(s) have failed to migrate -`);
+    console.log(`- Could not migrate ${numberOfFailures} widget(s)`);
   }
 
   console.log("--------- END OF NOTEBOOK MIGRATION ---------");
