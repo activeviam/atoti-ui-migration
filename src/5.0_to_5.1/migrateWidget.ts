@@ -14,11 +14,14 @@ type OptionsForCalculatedMeasuresRemoval = {
   measureToCubeMapping: { [measureName: string]: string[] };
 };
 
+const emptyObject = {} as const;
+type EmptyObject = typeof emptyObject;
+
 /**
  * If calculated measures don't need to be migrated,
  * then the caller does not need to pass options for calculated measures removal.
  */
-type Options = OptionsForCalculatedMeasuresRemoval | {};
+type Options = OptionsForCalculatedMeasuresRemoval | EmptyObject;
 
 /**
  * Returns whether `options` allows to remove saved calculated measures from the migrated `widgetState`.
