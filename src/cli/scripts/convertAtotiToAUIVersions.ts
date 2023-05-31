@@ -4,43 +4,46 @@ const versionMapping: { [atotiVersion: string]: string } = {
   "0.8": "5.1",
 };
 
-const atotiValidFromVersions = ["0.7"];
-const atotiValidToVersions = ["0.8"];
+const atotiPythonValidFromVersions = ["0.7"];
+const atotiPythonValidToVersions = ["0.8"];
 
-const validFromVersions = ["4.3", "5.0"] as const;
-const validToVersions = ["5.0", "5.1"] as const;
+const atotiUIValidFromVersions = ["4.3", "5.0"] as const;
+const atotiUIValidToVersions = ["5.0", "5.1"] as const;
 
-export const possibleFromVersions = [
-  ...validFromVersions,
-  ...atotiValidFromVersions,
+export const validFromVersions = [
+  ...atotiUIValidFromVersions,
+  ...atotiPythonValidFromVersions,
 ];
-export const possibleToVersions = [...validToVersions, ...atotiValidToVersions];
+export const validToVersions = [
+  ...atotiUIValidToVersions,
+  ...atotiPythonValidToVersions,
+];
 
-export type ValidFromVersion = typeof validFromVersions[number];
-export type ValidToVersion = typeof validToVersions[number];
+export type AtotiUIFromVersion = typeof atotiUIValidFromVersions[number];
+export type AtotiUIToVersion = typeof atotiUIValidToVersions[number];
 
 export function convertFromVersion(
-  version: typeof possibleFromVersions[number],
-): ValidFromVersion {
-  if (atotiValidFromVersions.includes(version)) {
-    return versionMapping[version] as ValidFromVersion;
+  version: typeof validFromVersions[number],
+): AtotiUIFromVersion {
+  if (atotiPythonValidFromVersions.includes(version)) {
+    return versionMapping[version] as AtotiUIFromVersion;
   }
-  return version as ValidFromVersion;
+  return version as AtotiUIFromVersion;
 }
 
 export function convertToVersion(
-  version: typeof possibleToVersions[number],
-): ValidToVersion {
-  if (atotiValidToVersions.includes(version)) {
-    return versionMapping[version] as ValidToVersion;
+  version: typeof validToVersions[number],
+): AtotiUIToVersion {
+  if (atotiPythonValidToVersions.includes(version)) {
+    return versionMapping[version] as AtotiUIToVersion;
   }
-  return version as ValidToVersion;
+  return version as AtotiUIToVersion;
 }
 
 export function convertVersions(versions: {
-  fromVersion: typeof possibleFromVersions[number];
-  toVersion: typeof possibleToVersions[number];
-}): { fromVersion: ValidFromVersion; toVersion: ValidToVersion } {
+  fromVersion: typeof validFromVersions[number];
+  toVersion: typeof validToVersions[number];
+}): { fromVersion: AtotiUIFromVersion; toVersion: AtotiUIToVersion } {
   const fromVersion = convertFromVersion(versions.fromVersion);
   const toVersion = convertToVersion(versions.toVersion);
   return { fromVersion, toVersion };

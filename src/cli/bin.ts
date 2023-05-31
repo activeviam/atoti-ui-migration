@@ -6,8 +6,8 @@ import {
   convertFromVersion,
   convertToVersion,
   convertVersions,
-  possibleFromVersions,
-  possibleToVersions,
+  validFromVersions,
+  validToVersions,
 } from "./scripts/convertAtotiToAUIVersions";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
@@ -60,14 +60,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: possibleFromVersions,
+        choices: validFromVersions,
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: possibleToVersions,
+        choices: validToVersions,
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
