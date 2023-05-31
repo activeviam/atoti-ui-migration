@@ -6,6 +6,7 @@ import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
 import { MigrateWidgetCallback } from "../../migration.types";
 import { ValidFromVersion, ValidToVersion } from "./convertAtotiToAUIVersions";
+import { produce } from "immer";
 
 const migrationSteps: {
   from: string;
@@ -55,21 +56,21 @@ export const migrateNotebook = async ({
       const widgetState = cell.metadata.atoti.widget;
       const deserializedWidgetState = deserializeWidgetState(widgetState);
 
-      migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
-        try {
-          migrateWidgetFunction(deserializedWidgetState, {
-            dataModels,
-            options: {},
-          });
-        } catch {
-          numberOfFailures += 1;
-        }
+      const updatedWidgetState = produce(deserializedWidgetState, (draft) => {
+        migrateWidgetFunctions.forEach((migrateWidgetFunction) => {
+          try {
+            migrateWidgetFunction(draft, {
+              dataModels,
+              options: {},
+            });
+          } catch {
+            numberOfFailures += 1;
+          }
+        });
       });
 
-      cell.metadata.atoti.widget = serializeWidgetState(
-        // @ts-expect-error The deserializedWidgetState has been migrated to AWidgetState5.1 where its filters are of type Filter and not MdxExpression.
-        deserializedWidgetState,
-      );
+      // @ts-expect-error The deserializedWidgetState has been migrated to AWidgetState5.1 where its filters are of type Filter and not MdxExpression.
+      cell.metadata.atoti.widget = serializeWidgetState(updatedWidgetState);
     }
   }
 
