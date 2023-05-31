@@ -1,10 +1,13 @@
 # Atoti UI Migration
 
-A command line interface to migrate content that was saved in older versions of Atoti UI to be compatible with newer versions.
+A command line interface to migrate:
+
+- an Atoti UI application content that was saved in older versions of Atoti UI to be compatible with newer versions.
+- an Atoti jupyter notebook that was saved in older versions of Atoti.
 
 You need [NodeJS](https://nodejs.org/en/download/) to run it.
 
-## Usage
+## General usage
 
 Create a folder in your workspace. Here, we call it _"migration"_.
 Navigate to it.
@@ -14,12 +17,14 @@ mkdir migration
 cd migration
 ```
 
-The migration CLI requires two JSON files:
+The migration CLI requires two files:
 
-- _content.json_: the original content to migrate
-- _servers.json_: the Atoti servers' information
+- the file to migrate: it can be the server content stored in a JSON file, _content.json_ or an Atoti jupyter notebook, _notebook.ipynb_.
+- a JSON file with the Atoti servers' information: _servers.json_
 
 Let's create these files.
+
+## Migrate a server content
 
 ### Download the original content
 
@@ -130,6 +135,25 @@ Use Atoti Admin UI again, this time to import the migrated content.
 Then follow the steps to [run Atoti UI](https://activeviam.com/activeui/documentation/5.1.0/docs/getting-started#run-activeui).
 
 Finally open your dashboards, widgets, filters, ... Make sure they work as expected.
+
+## Migrate an Atoti jupyter notebook
+
+To migrate a jupyter notebook, two files are necessary:
+
+- _notebook.ipynb_, the notebook to migrate. It is really important that the notebook has the `.ipynb` extension.
+- _servers.json_, the JSON file containing the server information.
+
+To get the servers information, follow the [download the servers information section](#download-the-servers-information) instructions.
+
+Now that your migration folder contains all the required file, you can run the following CLI:
+
+```
+npx -- activeui-migration migrate -i notebook.ipynb -o migrated-notebook.ipynb -s servers.json --from-version 0.7 --to-version 0.8
+```
+
+This command generates a file named `migrated-notebook.json` in the same folder. It contains the migrated notebook with all its migrated widgets, ready to be used with the Atoti version you migrated to. You can see the [run the CLI section](#run-the-cli) to get more details about the command line and its options.
+
+:warning: Calculated measures are not handled by the migration. In that case, you should update manually the widgets containing the calculated measures.
 
 ## Next steps
 
