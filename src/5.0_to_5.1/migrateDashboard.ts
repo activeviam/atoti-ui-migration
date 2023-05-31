@@ -41,7 +41,8 @@ export const migrateDashboard: MigrateDashboardCallback<
     (widgetState) =>
       migrateWidget(widgetState, {
         dataModels,
-        options: { namesOfCalculatedMeasuresToMigrate, measureToCubeMapping },
+        namesOfCalculatedMeasuresToMigrate,
+        measureToCubeMapping,
       }),
     {
       dataModels,

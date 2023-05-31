@@ -44,7 +44,7 @@ export const migrateWidget: MigrateWidgetCallback<
   AWidgetState50,
   AWidgetState51,
   Options
-> = (widgetState, { dataModels, options }) => {
+> = (widgetState, { dataModels, ...options }) => {
   if (options && shouldMigrateCalculatedMeasures(options)) {
     migrateCalculatedMeasuresInWidget(widgetState, {
       dataModels,
