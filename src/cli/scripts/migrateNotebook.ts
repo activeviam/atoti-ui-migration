@@ -18,7 +18,7 @@ const migrationSteps: {
 }[] = [{ from: "5.0", to: "5.1", migrateWidget: migrateWidget }];
 
 /**
- * Migrates the AUI widgets from 5.0 to 5.1 of an Atoti Jupter Notebook.
+ * Migrates the Atoti UI widgets from 5.0 to 5.1 of an Atoti Jupter Notebook.
  */
 export const migrateNotebook = async ({
   inputPath,
