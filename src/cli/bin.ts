@@ -42,7 +42,7 @@ yargs
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the file to migrate. This file can be a JSON export of a Content Server, or an Atoti jupyter notebook.",
+        desc: "The path to the file to migrate. This file can be a JSON export of a Content Server, or an Atoti Jupyter notebook.",
       });
       args.option("output-path", {
         alias: "o",
