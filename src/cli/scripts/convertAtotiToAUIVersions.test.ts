@@ -1,7 +1,7 @@
 import { convertVersions } from "./convertAtotiToAUIVersions";
 
 describe("validateVersions", () => {
-  it("returns correct AtotiUI versions", () => {
+  it("returns correct Atoti UI versions", () => {
     const versions = convertVersions({ fromVersion: "4.3", toVersion: "5.1" });
     expect(versions).toEqual({ fromVersion: "4.3", toVersion: "5.1" });
   });
