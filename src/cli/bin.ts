@@ -36,7 +36,7 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON export of a Content Server or an Atoti jupyter notebook, saved with ActiveUI or Atoti version `--from-version` to be usable in version `--to-version`.",
+    "Migrates a JSON export of a Content Server or an Atoti Jupyter notebook, saved with ActiveUI or Atoti version `--from-version` to be usable in version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
