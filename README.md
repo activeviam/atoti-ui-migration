@@ -2,8 +2,8 @@
 
 A command line interface to migrate:
 
-- an Atoti UI application content that was saved in older versions of Atoti UI to be compatible with newer versions.
-- an Atoti jupyter notebook that was saved in older versions of Atoti.
+- content saved in an old version of Atoti UI, making it compatible with newer versions.
+- Atoti Jupyter notebooks saved in an old version of Atoti, making them compatible with newer versions.
 
 You need [NodeJS](https://nodejs.org/en/download/) to run it.
 
@@ -19,7 +19,7 @@ cd migration
 
 The migration CLI requires two files:
 
-- the file to migrate: it can be the server content stored in a JSON file, _content.json_ or an Atoti jupyter notebook, _notebook.ipynb_.
+- the file to migrate: it can be the server content stored in a JSON file, _content.json_ or an Atoti Jupyter notebook, _notebook.ipynb_.
 - a JSON file with the Atoti servers' information: _servers.json_
 
 Let's create these files.
@@ -138,14 +138,14 @@ Finally open your dashboards, widgets, filters, ... Make sure they work as expec
 
 ## Migrate an Atoti jupyter notebook
 
-To migrate a jupyter notebook, two files are necessary:
+To migrate a Jupyter notebook, two files are necessary:
 
-- _notebook.ipynb_, the notebook to migrate. It is really important that the notebook has the `.ipynb` extension.
+- _notebook.ipynb_, the notebook to migrate. This file must have the `.ipynb` extension.
 - _servers.json_, the JSON file containing the server information.
 
 To get the servers information, follow the [download the servers information section](#download-the-servers-information) instructions.
 
-Now that your migration folder contains all the required file, you can run the following CLI:
+Now that your migration folder contains all the required files, you can run the following command:
 
 ```
 npx -- activeui-migration migrate -i notebook.ipynb -o migrated-notebook.ipynb -s servers.json --from-version 0.7 --to-version 0.8
@@ -153,7 +153,7 @@ npx -- activeui-migration migrate -i notebook.ipynb -o migrated-notebook.ipynb -
 
 This command generates a file named `migrated-notebook.json` in the same folder. It contains the migrated notebook with all its migrated widgets, ready to be used with the Atoti version you migrated to. You can see the [run the CLI section](#run-the-cli) to get more details about the command line and its options.
 
-:warning: Calculated measures are not handled by the migration. In that case, you should update manually the widgets containing the calculated measures.
+:warning: Saved calculated measures are not removed from the queries of the widgets in your notebook. If you migrate your Content Server on top of your notebook, then you have to remove these saved calculated measures from the queries in your notebook manually (if any).
 
 ## Next steps
 
