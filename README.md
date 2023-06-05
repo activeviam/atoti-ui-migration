@@ -136,7 +136,7 @@ Then follow the steps to [run Atoti UI](https://activeviam.com/activeui/document
 
 Finally open your dashboards, widgets, filters, ... Make sure they work as expected.
 
-## Migrate an Atoti jupyter notebook
+## Migrate an Atoti Jupyter notebook
 
 To migrate a Jupyter notebook, two files are necessary:
 
