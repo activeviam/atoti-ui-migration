@@ -24,7 +24,7 @@ The migration CLI requires two files:
 
 Let's create these files.
 
-## Migrate a server content
+## Migrate a content server 
 
 ### Download the original content
 
