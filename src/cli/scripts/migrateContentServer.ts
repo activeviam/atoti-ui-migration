@@ -171,8 +171,6 @@ export async function migrateContentServer({
     getIndexedDataModel(dataModel),
   );
 
-  console.log("--------- START OF CONTENT MIGRATION ---------");
-
   migrationSteps
     .slice(fromVersionIndex, toVersionIndex + 1)
     .forEach(({ migrate, from, to }) => {

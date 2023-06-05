@@ -44,6 +44,7 @@ export const migrateNotebook = async ({
   );
 
   let numberOfFailures = 0;
+  let numberOfMigratedWidgets = 0;
 
   const migrateWidgetFunctions = migrationSteps
     .filter(
@@ -51,8 +52,6 @@ export const migrateNotebook = async ({
         migrationStep.from === fromVersion || migrationStep.to === toVersion,
     )
     .map((migrationStep) => migrationStep.migrateWidget);
-
-  console.log("--------- START OF NOTEBOOK MIGRATION ---------");
 
   for (const cell of notebook.cells) {
     if ("atoti" in cell.metadata) {
@@ -66,6 +65,7 @@ export const migrateNotebook = async ({
               dataModels,
               options: {},
             });
+            numberOfMigratedWidgets += 1;
           } catch {
             numberOfFailures += 1;
           }
@@ -79,9 +79,8 @@ export const migrateNotebook = async ({
 
   await fs.writeJSON(outputPath, notebook, { spaces: 2 });
 
+  console.log(`- Succesfully migrated ${numberOfMigratedWidgets} widget(s).`);
   if (numberOfFailures > 0) {
-    console.log(`- Could not migrate ${numberOfFailures} widget(s)`);
+    console.log(`- Failed to migrate ${numberOfFailures} widget(s)`);
   }
-
-  console.log("--------- END OF NOTEBOOK MIGRATION ---------");
 };
