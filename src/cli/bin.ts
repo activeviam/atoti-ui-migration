@@ -1,91 +1,27 @@
 import yargs from "yargs";
-import _capitalize from "lodash/capitalize";
-import _fromPairs from "lodash/fromPairs";
-import _mapValues from "lodash/mapValues";
-import fs from "fs-extra";
-import path from "path";
-import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
-import { getIndexedDataModel } from "@activeviam/data-model-5.1";
+import { BehaviorOnError } from "../migration.types";
+import { migrateContentServer } from "./scripts/migrateContentServer";
+import { migrateNotebook } from "./scripts/migrateNotebook";
 import {
-  BehaviorOnError,
-  MigrationFunction,
-  OutcomeCounters,
-} from "../migration.types";
-import { gte, coerce } from "semver";
-import { getMigrateDashboards } from "../getMigrateDashboards";
-import { getMigrateSavedWidgets } from "../getMigrateSavedWidgets";
-import { getMigrateSavedFilters } from "../getMigrateSavedFilters";
-import { migrate_43_to_50 } from "../4.3_to_5.0";
-import { migrate_50_to_51 } from "../5.0_to_5.1";
-import { getContent } from "../getContent";
+  convertFromVersion,
+  convertToVersion,
+  convertVersions,
+  validFromVersions,
+  validToVersions,
+} from "./scripts/convertAtotiToAUIVersions";
 
-const migrationSteps: {
-  from: string;
-  to: string;
-  migrate: MigrationFunction;
-}[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
-const fromVersions = migrationSteps.map(({ from }) => from);
-const toVersions = migrationSteps.map(({ to }) => to);
+const supportedFileExtension = ["JSON", "IPYNB"];
 
-const summaryMessages: {
-  [folderName: string]: {
-    [outcome: string]:
-      | string
-      | { [behaviorOnError in BehaviorOnError]: string };
-  };
-} = {
-  dashboards: {
-    success: "were successfully migrated.",
-    partial:
-      "were partially migrated, but errors occurred in some of the widgets they contain. These widgets were copied as is into the migrated dashboards.",
-    failed: {
-      "keep-original":
-        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
-      "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
-      "keep-going":
-        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
-    },
-    removed:
-      "were cleaned up because they could not be found in the ui/dashboards/structure folder. They were already not visible in your version of ActiveUI.",
-  },
-  filters: {
-    success: "were successfully migrated.",
-    failed: {
-      "keep-original":
-        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
-      "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
-      "keep-going":
-        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
-    },
-    removed:
-      "were cleaned up because they could not be found in the ui/filters/structure folder. They were already not visible in your version of ActiveUI.",
-  },
-  widgets: {
-    success: "were successfully migrated.",
-    partial: "were migrated with warnings.",
-    removed:
-      "were cleaned up because they could not be found in the ui/widgets/structure folder or because their keys were passed in the --remove-widgets option.",
-    failed: {
-      "keep-original":
-        "could not be migrated because errors occurred during their migration. Their original versions were copied as is into the migrated folder.",
-      "keep-last-successful-version":
-        "could not be migrated because errors occurred during their migration. The version obtained after the last successful migration step was copied as is into the migrated folder.",
-      "keep-going":
-        "had errors occurring during their migration. They were tentatively migrated to the desired version, but very likely have issues and won't work well in the UI.",
-    },
-  },
-  folders: {
-    removed:
-      "were cleaned up because they could not be found in their structure folder. They were already not visible in your version of ActiveUI.",
-  },
-  calculated_measures: {
-    success: "were successfully migrated.",
-    failed:
-      "could not be migrated because errors occurred during their migration.",
-  },
-};
+export function getFileExtension(path: string): string {
+  const fileExtension = path.split(".").pop()?.toUpperCase();
+
+  if (!fileExtension || !supportedFileExtension.includes(fileExtension)) {
+    throw new Error(
+      `The extension "${fileExtension}" is not supported. Supported extensions for the input file are "JSON" and "IPYNB"`,
+    );
+  }
+  return fileExtension;
+}
 
 yargs
   .command<{
@@ -100,19 +36,19 @@ yargs
     onError: BehaviorOnError;
   }>(
     "$0",
-    "Migrates a JSON export of a Content Server saved with ActiveUI version `--from-version` to be usable in ActiveUI version `--to-version`.",
+    "Migrates a JSON export of a Content Server or an Atoti Jupyter notebook, saved with ActiveUI or Atoti version `--from-version` to be usable in version `--to-version`.",
     (args) => {
       args.option("input-path", {
         alias: "i",
         type: "string",
         demandOption: true,
-        desc: "The path to the JSON export of the Content Server to migrate.",
+        desc: "The path to the file to migrate. This file can be a JSON export of a Content Server, or an Atoti Jupyter notebook.",
       });
       args.option("output-path", {
         alias: "o",
         type: "string",
         demandOption: true,
-        desc: "The path to the migrated file, ready to be imported into the Content Server and used in the ActiveUI version to migrate to.",
+        desc: "The path to the migrated file, ready to be imported into the Atoti Admin UI and used in your upgraded Atoti UI, if it is a Content Server export. Or ready to be used with your upgraded Atoti JupyterLab extension, if it is a notebook.",
       });
       args.option("servers-path", {
         alias: "s",
@@ -124,14 +60,14 @@ yargs
         alias: "f",
         type: "string",
         demandOption: true,
-        choices: ["4.3", ...fromVersions],
+        choices: validFromVersions,
         desc: "The version to migrate from.",
       });
       args.option("to-version", {
         alias: "t",
         type: "string",
         demandOption: true,
-        choices: ["5.0", ...toVersions],
+        choices: validToVersions,
         desc: "The version to migrate to.",
       });
       args.option("remove-widgets", {
@@ -172,201 +108,52 @@ yargs
       });
       args.implies("stack", "debug");
     },
-    async ({
+    ({
       inputPath,
       outputPath,
       serversPath,
       fromVersion,
       toVersion,
-      removeWidgets: keysOfWidgetPluginsToRemove,
+      removeWidgets,
       debug,
       stack,
-      onError: behaviorOnError,
+      onError,
     }) => {
-      const contentServer: ContentRecord = await fs.readJSON(inputPath);
-
-      const originalDashboardsContent = getContent(
-        contentServer,
-        "dashboard",
-        fromVersion,
-      );
-      const originalWidgetsContent = getContent(
-        contentServer,
-        "widget",
-        fromVersion,
-      );
-      const originalFiltersContent = getContent(
-        contentServer,
-        "filter",
-        fromVersion,
-      );
-
-      const servers: {
-        [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
-      } = await fs.readJSON(serversPath);
-
-      const counters = _fromPairs(
-        [
-          "dashboards",
-          "widgets",
-          "filters",
-          "folders",
-          "calculated_measures",
-        ].map((type) => [
-          type,
-          {
-            success: 0,
-            partial: 0,
-            failed: 0,
-            removed: 0,
-          },
-        ]),
-        // _fromPairs returns a Dictionary.
-        // In this case, the keys used correspond to the attributes of OutcomeCounters.
-      ) as OutcomeCounters;
-      const errorReport = {};
-
       const doesReportIncludeStacks = stack;
 
-      // Handle the special case of 4.3 to 5.0 separately, as:
-      // - the corresponding migration function has a different signature than all others
-      // - in particular, it is the only migration step with async logic
-      if (fromVersion === "4.3") {
-        await migrate_43_to_50(contentServer, {
-          errorReport,
-          counters,
-          servers,
-          keysOfWidgetPluginsToRemove,
+      const fileExtension = getFileExtension(inputPath);
+      const { fromVersion: validFromVersion, toVersion: validToVersion } =
+        convertVersions({
+          fromVersion,
+          toVersion,
+        });
+
+      if (fileExtension === "JSON") {
+        // Ensure that Atoti versions are not used as versions to migrate content server
+        migrateContentServer({
+          inputPath,
+          outputPath,
+          serversPath,
+          fromVersion: validFromVersion,
+          toVersion: validToVersion,
+          removeWidgets,
+          debug,
           doesReportIncludeStacks,
+          onError,
+        });
+      } else {
+        migrateNotebook({
+          inputPath,
+          outputPath,
+          serversPath,
+          fromVersion: validFromVersion,
+          toVersion: validToVersion,
         });
       }
-
-      const fromVersionIndex =
-        fromVersion === "4.3" ? 0 : fromVersions.indexOf(fromVersion);
-      const toVersionIndex = toVersions.indexOf(toVersion);
-
-      const dataModels = _mapValues(servers, ({ dataModel }) =>
-        getIndexedDataModel(dataModel),
-      );
-
-      migrationSteps
-        .slice(fromVersionIndex, toVersionIndex + 1)
-        .forEach(({ migrate, from, to }) => {
-          const step = `${from} to ${to}`;
-          const migrateDashboards = getMigrateDashboards(contentServer, {
-            originalContent: originalDashboardsContent,
-            dataModels,
-            keysOfWidgetPluginsToRemove,
-            errorReport,
-            counters,
-            doesReportIncludeStacks,
-            behaviorOnError,
-            step,
-          });
-
-          const migrateSavedWidgets = getMigrateSavedWidgets(contentServer, {
-            originalContent: originalWidgetsContent,
-            dataModels,
-            keysOfWidgetPluginsToRemove,
-            errorReport,
-            counters,
-            doesReportIncludeStacks,
-            behaviorOnError,
-            step,
-          });
-
-          const migrateSavedFilters = getMigrateSavedFilters(contentServer, {
-            originalContent: originalFiltersContent,
-            dataModels,
-            errorReport,
-            counters,
-            doesReportIncludeStacks,
-            behaviorOnError,
-            step,
-          });
-
-          migrate(contentServer, {
-            migrateDashboards,
-            migrateSavedWidgets,
-            migrateSavedFilters,
-            dataModels,
-            keysOfWidgetPluginsToRemove,
-            errorReport,
-            counters,
-            doesReportIncludeStacks,
-          });
-        });
-
-      const { dir } = path.parse(outputPath);
-
-      await fs.writeJSON(outputPath, contentServer, { spaces: 2 });
-
-      console.log("--------- END OF CONTENT MIGRATION ---------");
-
-      Object.entries(counters)
-        .filter(([, countersForFolder]) =>
-          Object.values(countersForFolder).some((value) => value > 0),
-        )
-        .forEach(([folderName, countersForFolder]) => {
-          console.log(`\n# ${_capitalize(folderName)}`);
-          Object.entries(countersForFolder).forEach(([outcome, counter]) => {
-            if (counter > 0) {
-              console.log(
-                `- ${counter} ${
-                  outcome === "failed" && folderName !== "calculated_measures"
-                    ? // Apart from calculated measures, all the content types with a failed outcome have a message per behavior on error.
-                      (
-                        summaryMessages[folderName][outcome] as {
-                          [behaviorOnError: string]: string;
-                        }
-                      )[behaviorOnError]
-                    : summaryMessages[folderName][outcome]
-                }`,
-              );
-            }
-          });
-        });
-
-      console.log("\n");
-
-      if (
-        counters.dashboards.failed +
-          counters.dashboards.partial +
-          counters.filters.failed +
-          counters.widgets.failed >
-        0
-      ) {
-        if (!debug) {
-          console.log(`For more information about the errors that occurred, rerun the command with the \`--debug\` option. 
-This will output a file named \`report.json\` containing the error messages.`);
-        } else {
-          console.log(
-            `See report.json for more information about the errors that occurred.`,
-          );
-        }
-        if (!stack) {
-          console.log(
-            "To see the stack traces of the errors in this file, you can also use the `--stack` option.",
-          );
-        }
-      }
-
-      console.log("--------------------------------------------");
-
-      if (errorReport && debug) {
-        await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
-          spaces: 2,
-        });
-      }
-      // FIXME Rely on yargs instead of having to call process.exit manually.
-      // See https://support.activeviam.com/jira/browse/UI-7198
-      process.exit(0);
     },
   )
   .check(({ fromVersion, toVersion }) => {
-    // The formats of `fromVersion` and `toVersion` are already validated, with yargs' `choices` option.
-    // They must be of the form "X.Y", hence `coerce` won't return null.
-    if (gte(coerce(fromVersion)!, coerce(toVersion)!)) {
+    if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
       throw new Error("--to-version must be greater than --from-version");
     }
     return true;
