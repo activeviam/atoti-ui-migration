@@ -21,6 +21,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "node bin.js",
     "build": "webpack",
     "lint": "activeui-sdk-scripts lint",
     "test": "activeui-sdk-scripts test",

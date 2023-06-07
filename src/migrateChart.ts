@@ -239,7 +239,12 @@ export function migrateChart(
     mapping: legacyMapping,
     ...configuration
   } = legacyChartState?.value?.body?.configuration;
-  const legacyChartType = type || "plotly-line-chart";
+  // APACS-4272: Support SurfaceChart type for SCB MarketRisk
+  const SURFACE_CHART_KEY = "plotly-surface-chart";
+  const isSurfaceChart = type === "SurfaceChart";
+  const legacyChartType = isSurfaceChart
+    ? SURFACE_CHART_KEY
+    : type || "plotly-line-chart";
 
   const migratedWidgetKey = _getMigratedWidgetKey(legacyChartType);
 
@@ -278,7 +283,10 @@ export function migrateChart(
 
   const filters = extractedFilters.map((filter) => stringify(filter));
 
-  const widgetPlugin = chartPlugins[migratedWidgetKey];
+  // APACS-4272: Support SurfaceChart type for SCB MarketRisk
+  const widgetPlugin = isSurfaceChart
+    ? ({} as WidgetPlugin)
+    : chartPlugins[migratedWidgetKey];
 
   const mappingDisregardingAllMeasures = _getMigratedChartMapping(
     legacyMapping,
