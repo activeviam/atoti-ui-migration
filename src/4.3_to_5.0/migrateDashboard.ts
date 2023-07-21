@@ -134,7 +134,7 @@ export function migrateDashboard(
     }
 
     const page: DashboardPageState<"serialized"> = {
-      ..._omit(legacyPage, ["content"]),
+      ..._omit(legacyPage, ["content", "contextValues"]),
       content,
       layout: pageLayout,
       filters: Object.values(legacyPage.filters || {}).flat(),

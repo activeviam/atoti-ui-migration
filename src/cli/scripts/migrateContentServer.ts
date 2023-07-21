@@ -276,7 +276,7 @@ This will output a file named \`report.json\` containing the error messages.`);
   console.log("--------------------------------------------");
 
   if (errorReport && debug) {
-    await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
+    await fs.writeJSON(path.join(dir, "report.json"), errorReport, {
       spaces: 2,
     });
   }
