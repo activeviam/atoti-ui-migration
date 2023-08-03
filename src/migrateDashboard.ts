@@ -22,6 +22,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { _serializeError } from "./_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
+import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
 
 /**
  * Adds `error` to `errorReport`, where `error` was thrown during the migration of a widget within the dashboard.
@@ -125,13 +126,21 @@ export function migrateDashboard(
               widgetKey: widgetPluginKey,
             };
           }
-          addWidgetErrorToReport(errorReport, error, {
-            doesReportIncludeStacks,
-            leafKey,
-            pageKey,
-            pageName: legacyPage.name,
-            widgetName: widget.bookmark.name,
-          });
+          // TODO remove, for testing only
+          if (
+            !(
+              error instanceof UnsupportedWidgetKeyError ||
+              error instanceof PartialMigrationError
+            )
+          ) {
+            addWidgetErrorToReport(errorReport, error, {
+              doesReportIncludeStacks,
+              leafKey,
+              pageKey,
+              pageName: legacyPage.name,
+              widgetName: widget.bookmark.name,
+            });
+          }
         }
 
         if (migratedWidget) {

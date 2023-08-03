@@ -24,6 +24,7 @@ import { _serializeError } from "./_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
 import cliProgress from "cli-progress";
+import { UnsupportedWidgetKeyError } from "./errors/UnsupportedWidgetKeyError";
 
 const _getFolder = (
   record: ContentRecord | undefined,
@@ -460,14 +461,21 @@ export async function migrateUIFolder(
                 widgetKey: legacyWidgetPluginKey,
               };
             }
-            addErrorToReport({
-              contentType: "widgets",
-              fileErrorReport: {
-                error: _serializeError(error, { doesReportIncludeStacks }),
-              },
-              fileId,
-              name: bookmark.name,
-            });
+            if (
+              !(
+                error instanceof UnsupportedWidgetKeyError ||
+                error instanceof PartialMigrationError
+              )
+            ) {
+              addErrorToReport({
+                contentType: "widgets",
+                fileErrorReport: {
+                  error: _serializeError(error, { doesReportIncludeStacks }),
+                },
+                fileId,
+                name: bookmark.name,
+              });
+            }
           }
 
           if (migratedWidget) {
