@@ -10,7 +10,6 @@ dist/
 *.tsbuildinfo
 
 # artifacts
-*.tgz
 *.zip
 
 # misc
