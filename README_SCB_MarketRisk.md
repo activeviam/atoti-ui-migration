@@ -1,25 +1,14 @@
 # SCB MarketRisk Content Migration
 
 ## Installation without Artifactory
-First, run `npm install` in a PC which has access to Artifactory. It will populate `node_modules` folder with dependent packages.
-Look into the `node_modules\@activeviam` which we need to prepare for offline installation.
+The project comes with all the Atoti UI SDK packages in the vendor folder.
 
-Run below script to generate tarball files for each of the package under `@activeviam` scope into the folder `vendor`.
+To update to a new version of the dependencies,
+- use [perso-tht-atoti-ui-npm-bundler](https://github.com/activeviam/perso-tht-atoti-ui-npm-bundler) to download all the dependencies of the desired version, 
+- copy the vendor folder (containing the dependencies tarballs) and 
+- use the `output.json` to update `package.json` for `@activeviam` dependencies with tarball files.
 
-```bash
-PROJECT_DIR=$(pwd)
-for f in node_modules/@activeviam/*; do
-    if [ -d "$f" ]; then
-        cd $f
-        #echo "$PWD"
-        npm pack --pack-destination $PROJECT_DIR/vendor/
-        cd $PROJECT_DIR
-    fi
-done
-```
-
-Update `package.json` for `@activeviam` dependencies with tarball files.
-Finally, It will be ready to `npm install` without artifactory access.
+Run `npm install` without artifactory access.
 
 ## Build the script
 Run `npm run build` to build the script. If you encounter openssl error as below, 
