@@ -22,7 +22,7 @@ set the node options:
 ## Run the script
 Run the script with the input files. The migrated content will be available in the output file.
 ```bash
-npm start --debug --input-path content_of_ui.json --servers-path servers.json --output-path migrated.json
+npm start -- --debug --input-path content_of_ui.json --servers-path servers.json --output-path migrated.json
 ```
 
  By enabling debug flag, it will generate `report.json` file which includes the error messages for the items failed to migrate.  
