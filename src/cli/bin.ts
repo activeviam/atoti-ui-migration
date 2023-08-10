@@ -3,6 +3,7 @@ import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
 import path from "path";
+import { getColumnWidthFromArgs } from "../getColumnWidthFromArgs";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -45,6 +46,7 @@ yargs
     pivotInputPath?: string;
     debug: boolean;
     stack: boolean;
+    columnWidth?: string;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
@@ -78,6 +80,13 @@ yargs
         demandOption: false,
         desc: "The path to the JSON export of the /pivot folder on the content server.",
       });
+      args.option("column-width", {
+        type: "string",
+        alias: "cw",
+        demandOption: false,
+        desc: `The width to which the first column of the tree table will be set too. 
+        Example: --column-width 200,50 will result in 200px + (50 * maxLevelDepth).`,
+      });
       args.option("debug", {
         type: "boolean",
         demandOption: false,
@@ -97,6 +106,7 @@ yargs
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
+      columnWidth,
       debug,
       stack,
     }) => {
@@ -105,6 +115,10 @@ yargs
         ? await fs.readJSON(pivotInputPath)
         : undefined;
       const servers = await fs.readJSON(serversPath);
+
+      if (columnWidth) {
+        console.log(getColumnWidthFromArgs(columnWidth));
+      }
 
       const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
         legacyUIFolder,
