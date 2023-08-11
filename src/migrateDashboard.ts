@@ -23,6 +23,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { _serializeError } from "./_serializeError";
 import { PartialMigrationError } from "./errors/PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "./errors/WidgetFlaggedForRemovalError";
+import { isDisconnectedWidget } from "./isDisconnectedWidget";
 
 /**
  * Adds `error` to `errorReport`, where `error` was thrown during the migration of a widget within the dashboard.
@@ -81,7 +82,7 @@ export function migrateDashboard(
   },
 ): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
-  const keysOfDisconnectedWidgets: { [pageKey: string]: string[] } = {};
+  const keysOfDisconnectedWidgets: { [pageKey: string]: Set<string> } = {};
   const body = legacyDashboardState.value.body;
   const errorReport: DashboardErrorReport = {
     name: legacyDashboardState.name,
@@ -94,20 +95,11 @@ export function migrateDashboard(
   body.pages.forEach((legacyPage: LegacyDashboardPage, index: number) => {
     const pageKey = `p-${index}`;
     const content: DashboardPageState<"serialized">["content"] = {};
-    keysOfDisconnectedWidgets[pageKey] = [];
+    keysOfDisconnectedWidgets[pageKey] = new Set();
+
     legacyPage.content.forEach((widget) => {
       const leafKey = widget.key;
       const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
-
-      if (
-        widget.bookmark.value.body?.configuration?.tabular?.isConnected ===
-        false
-      ) {
-        keysOfDisconnectedWidgets[pageKey] = [
-          ...(keysOfDisconnectedWidgets[pageKey] ?? []),
-          leafKey,
-        ];
-      }
 
       if (keysOfWidgetPluginsToRemove?.includes(widgetPluginKey)) {
         keysOfLeavesToRemove[pageKey] = [
@@ -129,6 +121,9 @@ export function migrateDashboard(
         let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
+          if (isDisconnectedWidget(widget.bookmark)) {
+            keysOfDisconnectedWidgets[pageKey].add(leafKey);
+          }
         } catch (error) {
           if (error instanceof PartialMigrationError) {
             migratedWidget = error.migratedWidgetState;
@@ -202,16 +197,13 @@ export function migrateDashboard(
 
     Object.entries(pages).forEach(([pageKey, page]) => {
       page.filters = [...(dashboardFilters ?? []), ...(page.filters ?? [])];
-      if (!_isEmpty(keysOfDisconnectedWidgets[pageKey])) {
+      if (keysOfDisconnectedWidgets[pageKey].size > 0) {
         const pageFilters = page.filters;
         delete page.filters;
 
         Object.entries(page.content).forEach(([leafKey, widget]) => {
-          if (!keysOfDisconnectedWidgets[pageKey].includes(leafKey)) {
-            widget.filters = [
-              ...(pageFilters ?? []),
-              ...(widget.filters ?? []),
-            ];
+          if (!keysOfDisconnectedWidgets[pageKey].has(leafKey)) {
+            widget.filters = [...pageFilters, ...(widget.filters ?? [])];
           }
         });
       }
