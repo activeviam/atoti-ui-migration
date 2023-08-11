@@ -1,0 +1,137 @@
+{
+  "pages": {
+    "p-0": {
+      "layout": {
+        "children": [
+          {
+            "children": [{ "leafKey": "0" }, { "leafKey": "2" }],
+            "direction": "column"
+          },
+          { "leafKey": "1" }
+        ],
+        "direction": "row"
+      },
+      "name": "Page 1",
+      "content": {
+        "0": {
+          "query": {
+            "mdx": "SELECT NON EMPTY Crossjoin([Currency].[Currency].[Currency].Members, Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember]))) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "updateMode": "once"
+          },
+          "filters": ["[Currency].[Currency].[ALL].[AllMember].[EUR]"],
+          "queryContext": [],
+          "mapping": {
+            "rows": [
+              "[Currency].[Currency].[Currency]",
+              "[Geography].[City].[City]"
+            ],
+            "columns": ["ALL_MEASURES"],
+            "measures": []
+          },
+          "name": "disconnected widget",
+          "serverKey": "Ranch 6.0",
+          "widgetKey": "tree-table",
+          "columnWidths": {}
+        },
+        "1": {
+          "query": {
+            "mdx": "SELECT NON EMPTY Crossjoin(Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])), Hierarchize(DrilldownLevel([Geography].[City].[ALL].[AllMember]))) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "updateMode": "once"
+          },
+          "filters": [
+            "{[Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD]}",
+            "{[Geography].[City].[ALL].[AllMember].[London], [Geography].[City].[ALL].[AllMember].[New York], [Geography].[City].[ALL].[AllMember].[Paris]}"
+          ],
+          "queryContext": [],
+          "mapping": {
+            "rows": [
+              "[Currency].[Currency].[Currency]",
+              "[Geography].[City].[City]"
+            ],
+            "columns": ["ALL_MEASURES"],
+            "measures": []
+          },
+          "name": "Untitled Pivot Table",
+          "serverKey": "Ranch 6.0",
+          "widgetKey": "tree-table",
+          "columnWidths": {}
+        },
+        "2": {
+          "query": {
+            "mdx": "SELECT NON EMPTY Crossjoin([Currency].[Currency].[Currency].Members, [Geography].[City].[City].Members) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "updateMode": "once"
+          },
+          "filters": [
+            "{[Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD]}",
+            "{[Geography].[City].[ALL].[AllMember].[London], [Geography].[City].[ALL].[AllMember].[New York], [Geography].[City].[ALL].[AllMember].[Paris]}",
+            "[Currency].[Currency].[ALL].[AllMember].[GBP]"
+          ],
+          "queryContext": [],
+          "mapping": {
+            "rows": [
+              "[Currency].[Currency].[Currency]",
+              "[Geography].[City].[City]"
+            ],
+            "columns": ["ALL_MEASURES"],
+            "measures": []
+          },
+          "name": "Untitled Tabular View",
+          "serverKey": "Ranch 6.0",
+          "widgetKey": "table",
+          "columnWidths": {}
+        }
+      },
+      "queryContext": []
+    },
+    "p-1": {
+      "layout": {
+        "children": [{ "leafKey": "1" }, { "leafKey": "2" }],
+        "direction": "row"
+      },
+      "name": "Page 2",
+      "filters": [
+        "{[Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[USD]}",
+        "[Geography].[City].[ALL].[AllMember].[New York]"
+      ],
+      "content": {
+        "1": {
+          "query": {
+            "mdx": "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "updateMode": "once"
+          },
+          "filters": [],
+          "queryContext": [],
+          "mapping": {
+            "rows": ["[Currency].[Currency].[Currency]"],
+            "columns": ["ALL_MEASURES"],
+            "measures": []
+          },
+          "name": "Untitled Tabular View",
+          "serverKey": "Ranch 6.0",
+          "widgetKey": "table",
+          "columnWidths": {}
+        },
+        "2": {
+          "query": {
+            "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "updateMode": "once"
+          },
+          "filters": [],
+          "queryContext": [],
+          "mapping": {
+            "rows": ["[Currency].[Currency].[Currency]"],
+            "columns": ["ALL_MEASURES"],
+            "measures": []
+          },
+          "name": "Untitled Pivot Table",
+          "serverKey": "Ranch 6.0",
+          "widgetKey": "tree-table",
+          "columnWidths": {}
+        }
+      },
+      "queryContext": []
+    }
+  },
+  "pagesOrder": ["p-0", "p-1"],
+  "queryContext": []
+}

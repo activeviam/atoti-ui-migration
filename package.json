@@ -31,10 +31,10 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk": "file:vendor\\activeviam-activeui-sdk-5.0.27-20230803200406-61fc83c.tgz",
-    "@activeviam/content-server-initialization": "file:vendor\\activeviam-content-server-initialization-5.0.27-20230803200406-61fc83c.tgz",
-    "@activeviam/data-model": "file:vendor\\activeviam-data-model-5.0.27-20230803200406-61fc83c.tgz",
-    "@activeviam/mdx": "file:vendor\\activeviam-mdx-5.0.27-20230803200406-61fc83c.tgz",
+    "@activeviam/activeui-sdk": "5.0.27-20230811125028-dfec9c3",
+    "@activeviam/content-server-initialization": "5.0.27-20230811125028-dfec9c3",
+    "@activeviam/data-model": "5.0.27-20230811125028-dfec9c3",
+    "@activeviam/mdx": "5.0.27-20230811125028-dfec9c3",
     "cli-progress": "^3.11.2",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",
@@ -43,7 +43,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@activeviam/activeui-sdk-scripts": "file:vendor\\activeviam-activeui-sdk-scripts-5.0.27-20230803200406-61fc83c.tgz",
+    "@activeviam/activeui-sdk-scripts": "5.0.27-20230811125028-dfec9c3",
     "@ant-design/icons": "^4.4.0",
     "@types/cli-progress": "^3.11.0",
     "@types/jest": "^26.0.14",

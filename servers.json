@@ -1,0 +1,1864 @@
+{
+  "sandboxActivePivot": {
+    "url": "http://localhost:8080//pivot",
+    "dataModel": {
+      "catalogs": [
+        {
+          "name": "Catalog",
+          "cubes": [
+            {
+              "name": "EquityDerivativesCube",
+              "caption": "EquityDerivativesCube",
+              "measures": [
+                {
+                  "name": "theta.SUM__#__equity-derivatives",
+                  "caption": "theta.SUM__#__equity-derivatives",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ProductBaseMtm.SUM__#__equity-derivatives",
+                  "caption": "ProductBaseMtm.SUM__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "rho.SUM__#__equity-derivatives",
+                  "caption": "rho.SUM__#__equity-derivatives",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pv.SUM",
+                  "caption": "pv.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnlVega.SUM",
+                  "caption": "pnlVega.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "gamma.SUM__#__equity-derivatives",
+                  "caption": "gamma.SUM__#__equity-derivatives",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "delta.SUM__#__equity-derivatives",
+                  "caption": "delta.SUM__#__equity-derivatives",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnlDelta.SUM",
+                  "caption": "pnlDelta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.SUM__#__1__#__equity-derivatives",
+                  "caption": "pnl.SUM__#__1__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "pnl.SUM",
+                  "caption": "pnl.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "vega.SUM__#__equity-derivatives",
+                  "caption": "vega.SUM__#__equity-derivatives",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "update.TIMESTAMP",
+                  "caption": "Timestamp",
+                  "formatString": "HH:mm:ss",
+                  "type": "Object",
+                  "visible": true
+                },
+                {
+                  "name": "ProductBaseMtm.SUM.drillUp([Hierarchy[hierarchy=Currency]; 1])__#__equity-derivatives",
+                  "caption": "ProductBaseMtm.SUM.drillUp([Hierarchy[hierarchy=Currency]; 1])__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "MULTIPLY(pnl.SUM;Rate_fromStore_Forex)__#__equity-derivatives",
+                  "caption": "MULTIPLY(pnl.SUM;Rate_fromStore_Forex)__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "Latitude",
+                  "caption": "Latitude",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "Geography",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.FOREX",
+                  "caption": "pnl.FOREX",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Longitude",
+                  "caption": "Longitude",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "Geography",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "PnL Limit Status",
+                  "caption": "PnL Limit Status",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "PnL Limit",
+                  "caption": "PnL Limit",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "pv.UnderlyingsRatio",
+                  "caption": "pv.UnderlyingsRatio",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.MINIMUM_DEPTH",
+                  "caption": "pnl.MINIMUM_DEPTH",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "λ()__#__equity-derivatives",
+                  "caption": "λ()__#__equity-derivatives",
+                  "type": "Object",
+                  "visible": false
+                },
+                {
+                  "name": "λ()__#__1__#__equity-derivatives",
+                  "caption": "λ()__#__1__#__equity-derivatives",
+                  "type": "Object",
+                  "visible": false
+                },
+                {
+                  "name": "Rate_fromStore_Forex__#__equity-derivatives",
+                  "caption": "Rate_fromStore_Forex__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "contributors.COUNT",
+                  "caption": "contributors.COUNT",
+                  "type": "long",
+                  "visible": true
+                },
+                {
+                  "name": "test",
+                  "caption": "test",
+                  "formatString": "#,###.##",
+                  "expression": "Count(Descendants([Booking].[Desk].CurrentMember, [Booking].[Desk].[LegalEntity]), EXCLUDEEMPTY)",
+                  "visible": true
+                },
+                {
+                  "name": "Currency contribution",
+                  "caption": "Currency contribution",
+                  "formatString": "##.##",
+                  "expression": "Divide(100 * [Measures].[Data contribution Value], [Measures].[Data contribution Goal])",
+                  "visible": true
+                },
+                {
+                  "name": "Smoothed PnL Expiry",
+                  "caption": "Smoothed PnL Expiry",
+                  "expression": "IIF(IsEmpty([Measures].[Smoothed PnL Start]),NULL,DateAdd('s', 15, [Measures].[Smoothed PnL Start]))",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (MDX) Goal",
+                  "caption": "PnL Monitoring (MDX) Goal",
+                  "formatString": "#",
+                  "expression": "0",
+                  "visible": false
+                },
+                {
+                  "name": "Pnl Sensitivity Status",
+                  "caption": "Pnl Sensitivity Status",
+                  "expression": "Case\tWhen [Measures].[Pnl Sensitivity Value] > [Measures].[Pnl Sensitivity Goal]\t\tThen 1\tWhen [Measures].[Pnl Sensitivity Value] > 0.90 * [Measures].[Pnl Sensitivity Goal]\t\tThen 0\tElse -1\tEnd",
+                  "visible": false
+                },
+                {
+                  "name": "Data contribution Status",
+                  "caption": "Data contribution Status",
+                  "expression": "Case\tWhen IsEmpty([Measures].[Data contribution Value]) OR IsEmpty([Measures].[Data contribution Goal])\t\tThen NULL\tWhen [Measures].[Data contribution Value] >= [Measures].[Data contribution Goal] * (1 + lookup(\"warning_threshold\", 0.05))\t\tThen -1\tWhen [Measures].[Data contribution Value] > [Measures].[Data contribution Goal]\t\tThen 0\tElse 1\tEnd",
+                  "visible": false
+                },
+                {
+                  "name": "Smoothed PnL Start",
+                  "caption": "Smoothed PnL Start",
+                  "expression": "CASE\n  WHEN CoalesceEmpty([Measures].[PnL Limit Status], 1) > -0.5 THEN NULL\n  WHEN [Measures].[Smoothed PnL Status] > -0.5 THEN\n    CDate(\n      TopCount(PastPeriods([Epoch].[Epoch].CurrentMember, 15, 's'), 1, CLng(\n        IIF(\n          CoalesceEmpty([Measures].[PnL Limit Status], 1) <= -0.5 \n          AND CoalesceEmpty(([Epoch].[Epoch].CurrentMember.NextMember, [Measures].[PnL Limit Status]), 1) > -0.5,\n          [Epoch].[Epoch].CurrentMember.MemberValue,\n          NULL\n        )\n      )).Item(0).MemberValue\n    )\n  WHEN [Epoch].[Epoch].CurrentMember.level.ordinal = 0 THEN\n    IIF(\n      NOT [Epoch].[Epoch].CurrentMember.FirstChild IS [Epoch].[Epoch].CurrentMember.LastChild\n      AND CoalesceEmpty(([Epoch].[Epoch].CurrentMember.FirstChild.NextMember, [Measures].[Smoothed PnL Status]), 1) > -0.5,\n      IIF(\n        CoalesceEmpty(([Epoch].[Epoch].CurrentMember.FirstChild.NextMember, [Measures].[PnL Limit Status]), 1) <= -0.5,\n        ([Epoch].[Epoch].CurrentMember.FirstChild.NextMember, [Measures].[Smoothed PnL Start]),\n        CDATE([Epoch].[Epoch].CurrentMember.FirstChild.MemberValue)\n      ),\n      NULL\n    )\n  ELSE\n    IIF(\n      NOT [Epoch].[Epoch].CurrentMember IS [Epoch].[Epoch].CurrentMember.Parent.LastChild\n      AND CoalesceEmpty(([Epoch].[Epoch].CurrentMember.NextMember, [Measures].[Smoothed PnL Status]), 1) > -0.5,\n      IIF(\n        CoalesceEmpty(([Epoch].[Epoch].CurrentMember.NextMember, [Measures].[PnL Limit Status]), 1) <= -0.5,\n        ([Epoch].[Epoch].CurrentMember.NextMember, [Measures].[Smoothed PnL Start]),\n        CDATE([Epoch].[Epoch].CurrentMember.MemberValue)),\n      NULL\n    )\nEND",
+                  "visible": false
+                },
+                {
+                  "name": "Tunnel Count Monitoring Status",
+                  "caption": "Tunnel Count Monitoring Status",
+                  "expression": "Case\tWhen IsEmpty(lookup(\"lower_goal\")) OR IsEmpty(lookup(\"upper_goal\"))\tThen NULL\tWhen [Measures].[contributors.COUNT] < lookup(\"lower_goal\") - 0.1 * ABS(lookup(\"lower_goal\"))\tThen -1\tWhen [Measures].[contributors.COUNT] < lookup(\"lower_goal\")\tThen 0\tWhen [Measures].[contributors.COUNT] < lookup(\"upper_goal\")\tThen 1\tWhen [Measures].[contributors.COUNT] < lookup(\"upper_goal\") + 0.04 * ABS(lookup(\"upper_goal\"))\tThen 0\tElse -1\tEnd",
+                  "visible": false
+                },
+                {
+                  "name": "Pnl Sensitivity Goal",
+                  "caption": "Pnl Sensitivity Goal",
+                  "expression": "LookUp(\"pnl_sensitivity\", 1)",
+                  "visible": false
+                },
+                {
+                  "name": "Pnl Sensitivity Value",
+                  "caption": "Pnl Sensitivity Value",
+                  "expression": "Abs(Divide(\t\t[Measures].[pnlDelta.SUM] + [Measures].[pnlVega.SUM],\t\t[Measures].[pnl.SUM],\t\tNULL\t))",
+                  "visible": false
+                },
+                {
+                  "name": "Data contribution Value",
+                  "caption": "Data contribution Value",
+                  "formatString": "#.###",
+                  "expression": "IIF(\t\tNOT IsEmpty([Underlyings].[Underlyings].CurrentMember.Parent),\t\t[Measures].[contributors.COUNT] / ([Measures].[contributors.COUNT], [Underlyings].[Underlyings].CurrentMember.Parent),\t\tNULL\t)",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (LookUp) Goal",
+                  "caption": "PnL Monitoring (LookUp) Goal",
+                  "formatString": "#,###",
+                  "expression": "lookup(\"pnl_sum_goal\")",
+                  "visible": false
+                },
+                {
+                  "name": "Smoothed PnL Status",
+                  "caption": "Smoothed PnL Status",
+                  "expression": "MAX(PastPeriods([Epoch].[Epoch].CurrentMember, 15, 's'), [Measures].[PnL Limit Status])",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (MDX) Trend",
+                  "caption": "PnL Monitoring (MDX) Trend",
+                  "expression": "\tCase\t\tWhen [Epoch].[Epoch].CurrentMember.level.ordinal = 0\t\t\tThen Case\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.firstChild.nextMember) > 0\t\t\t\tThen 1\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.firstChild.nextMember) = 0\t\t\t\tThen 0\t\t\tElse -1\t\t\tEnd\t\tElse\t\t\tCase\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.nextMember) > 0\t\t\t\tThen 1\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.nextMember) = 0\t\t\t\tThen 0\t\t\tElse -1\t\t\tEnd\t\tEnd",
+                  "visible": false
+                },
+                {
+                  "name": "Smoothed PnL Instant Status",
+                  "caption": "Smoothed PnL Instant Status",
+                  "expression": "[Measures].[PnL Limit Status]",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (MDX) Status",
+                  "caption": "PnL Monitoring (MDX) Status",
+                  "expression": "IIF(KpiValue(\"PnL Monitoring\") >= KpiGoal(\"PnL Monitoring\"), 1, -1)",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (LookUp) Status",
+                  "caption": "PnL Monitoring (LookUp) Status",
+                  "expression": "Case When IsEmpty([Measures].[PnL Monitoring (LookUp) Goal]) Then NULL // No goal => no status \n When [Measures].[pnl.SUM] > [Measures].[PnL Monitoring (LookUp) Goal] Then 1 Else -1 End",
+                  "visible": false
+                },
+                {
+                  "name": "Data contribution Goal",
+                  "caption": "Data contribution Goal",
+                  "formatString": "#.###",
+                  "expression": "Divide(1, [Underlyings].[Underlyings].CurrentMember.Siblings.Count, NULL)",
+                  "visible": false
+                }
+              ],
+              "dimensions": [
+                {
+                  "name": "Underlyings",
+                  "caption": "Underlyings",
+                  "description": "Dimension of underlyings",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Products",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Underlyings",
+                      "caption": "Underlyings",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "UnderlierType",
+                          "caption": "UnderlierType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "UnderlierCode",
+                          "caption": "UnderlierCode",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Products",
+                      "caption": "Products",
+                      "description": "Hierarchy of products",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "ProductType",
+                          "caption": "ProductType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "ProductName",
+                          "caption": "ProductName",
+                          "description": "Level of product names",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "HostName",
+                  "caption": "HostName",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HostName",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "HostName",
+                      "caption": "HostName",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "HostName",
+                          "caption": "HostName",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Currency",
+                  "caption": "Currency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Currency",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Currency",
+                      "caption": "Currency",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Currency",
+                          "caption": "Currency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "CounterParty",
+                  "caption": "CounterParty",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "CounterParty",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "CounterParty",
+                      "caption": "CounterParty",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "CounterPartyGroup",
+                          "caption": "CounterPartyGroup",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "CounterParty",
+                          "caption": "CounterParty",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Geography",
+                  "caption": "Geography",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "City",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "City",
+                      "caption": "City",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "City",
+                          "caption": "City",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Trades",
+                  "caption": "Trades",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Trades",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Trades",
+                      "caption": "Trades",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TradeId",
+                          "caption": "TradeId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Booking",
+                  "caption": "Booking",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Desk",
+                  "visible": true,
+                  "measureGroups": ["PnL"],
+                  "hierarchies": [
+                    {
+                      "name": "Desk",
+                      "caption": "Desk",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "LegalEntity",
+                          "caption": "LegalEntity",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BusinessUnit",
+                          "caption": "BusinessUnit",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Desk",
+                          "caption": "Desk",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BookId",
+                          "caption": "BookId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Status",
+                      "caption": "Status",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "IsSimulated",
+                          "caption": "IsSimulated",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Status",
+                          "caption": "Status",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Time",
+                  "caption": "Time",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HistoricalDates",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "HistoricalDates",
+                      "caption": "HistoricalDates",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "AsOfDate",
+                          "caption": "AsOfDate",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucket",
+                      "caption": "TimeBucket",
+                      "folder": "Bucketing",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Value Date",
+                          "caption": "Value Date",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucketDynamic",
+                      "caption": "TimeBucketDynamic",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TimeBucketDynamic",
+                          "caption": "TimeBucketDynamic",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "TargetCurrency",
+                  "caption": "TargetCurrency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "TargetCurrency",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "TargetCurrency",
+                      "caption": "TargetCurrency",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "TargetCurrency",
+                          "caption": "TargetCurrency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Epoch",
+                  "caption": "What-If",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Epoch",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Epoch",
+                      "caption": "What-If",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "Branch",
+                          "caption": "What-If",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Epoch",
+                          "caption": "Epoch",
+                          "type": "TIME"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "kpis": [
+                {
+                  "name": "PnL Monitoring",
+                  "caption": "PnL Monitoring",
+                  "description": "Pnl Monitoring using existing measures",
+                  "value": "[Measures].[pnl.SUM]",
+                  "goal": "[Measures].[PnL Limit]",
+                  "status": "[Measures].[PnL Limit Status]",
+                  "statusPresenter": "Shapes"
+                },
+                {
+                  "name": "PnL Monitoring (MDX)",
+                  "caption": "PnL Monitoring (MDX)",
+                  "value": "[Measures].[pnl.SUM]",
+                  "goal": "[Measures].[PnL Monitoring (MDX) Goal]",
+                  "status": "[Measures].[PnL Monitoring (MDX) Status]",
+                  "trend": "[Measures].[PnL Monitoring (MDX) Trend]",
+                  "statusPresenter": "Shapes"
+                },
+                {
+                  "name": "Smoothed PnL",
+                  "caption": "Smoothed PnL",
+                  "description": "PnL monitoring with a smoothing period of 15s",
+                  "value": "[Measures].[pnl.SUM]",
+                  "goal": "[Measures].[PnL Limit]",
+                  "status": "[Measures].[Smoothed PnL Status]",
+                  "statusPresenter": "Shapes",
+                  "start": "[Measures].[Smoothed PnL Start]",
+                  "expiry": "[Measures].[Smoothed PnL Expiry]"
+                },
+                {
+                  "name": "PnL Monitoring (LookUp)",
+                  "caption": "PnL Monitoring (LookUp)",
+                  "value": "[Measures].[pnl.SUM]",
+                  "goal": "[Measures].[PnL Monitoring (LookUp) Goal]",
+                  "status": "[Measures].[PnL Monitoring (LookUp) Status]",
+                  "statusPresenter": "Shapes"
+                },
+                {
+                  "name": "Tunnel Count Monitoring",
+                  "caption": "Tunnel Count Monitoring",
+                  "value": "[Measures].[contributors.COUNT]",
+                  "status": "[Measures].[Tunnel Count Monitoring Status]",
+                  "statusPresenter": "Shapes"
+                },
+                {
+                  "name": "Pnl Sensitivity",
+                  "caption": "Pnl Sensitivity",
+                  "value": "[Measures].[Pnl Sensitivity Value]",
+                  "goal": "[Measures].[Pnl Sensitivity Goal]",
+                  "status": "[Measures].[Pnl Sensitivity Status]",
+                  "statusPresenter": "Shapes"
+                },
+                {
+                  "name": "Data contribution",
+                  "caption": "Data contribution",
+                  "value": "[Measures].[Data contribution Value]",
+                  "goal": "[Measures].[Data contribution Goal]",
+                  "status": "[Measures].[Data contribution Status]",
+                  "statusPresenter": "Shapes"
+                }
+              ],
+              "sets": [
+                {
+                  "name": "Top2Underlyings",
+                  "caption": "Top two of underlyings",
+                  "description": "The two elements of underlyings which have the highest value",
+                  "expression": "TopCount([Underlyings].[ALL].[AllMember].Children, 2, [Measures].[contributors.COUNT])"
+                }
+              ],
+              "defaultMembers": [
+                {
+                  "dimension": "Measures",
+                  "hierarchy": "Measures",
+                  "path": ["contributors.COUNT"],
+                  "captionPath": ["contributors.COUNT"]
+                },
+                {
+                  "dimension": "Time",
+                  "hierarchy": "HistoricalDates",
+                  "path": ["2023-07-28"],
+                  "captionPath": ["2023-07-28"]
+                },
+                {
+                  "dimension": "TargetCurrency",
+                  "hierarchy": "TargetCurrency",
+                  "path": ["ZAR"],
+                  "captionPath": ["ZAR"]
+                },
+                {
+                  "dimension": "Epoch",
+                  "hierarchy": "Epoch",
+                  "path": ["master"],
+                  "captionPath": ["master"]
+                }
+              ],
+              "contextValues": [
+                {
+                  "name": "queriesTimeLimit",
+                  "value": "30"
+                },
+                {
+                  "name": "mdx.member.[Measures][test].expression",
+                  "value": "Count(Descendants([Booking].[Desk].CurrentMember, [Booking].[Desk].[LegalEntity]), EXCLUDEEMPTY)"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "mdx.kpi.Pnl Sensitivity.name",
+                  "value": "Pnl Sensitivity"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.aggressiveFormulaEvaluation",
+                  "value": "true"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.value",
+                  "value": "[Measures].[pnl.SUM]"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[HistoricalDates].[AsOfDate]",
+                  "value": "DATE[yyyy-MM-dd]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).caption",
+                  "value": "PnL Monitoring (MDX)"
+                },
+                {
+                  "name": "mdx.kpi.Pnl Sensitivity.goal",
+                  "value": "LookUp(\"pnl_sensitivity\", 1)"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.description",
+                  "value": "PnL monitoring with a smoothing period of 15s"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.goal_format",
+                  "value": "'#.###'"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.value_format",
+                  "value": "'#.###'"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[vega.SUM__#__equity-derivatives]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.kpi.Pnl Sensitivity.value",
+                  "value": "Abs(Divide(\t\t[Measures].[pnlDelta.SUM] + [Measures].[pnlVega.SUM],\t\t[Measures].[pnl.SUM],\t\tNULL\t))"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.value",
+                  "value": "IIF(\t\tNOT IsEmpty([Underlyings].[Underlyings].CurrentMember.Parent),\t\t[Measures].[contributors.COUNT] / ([Measures].[contributors.COUNT], [Underlyings].[Underlyings].CurrentMember.Parent),\t\tNULL\t)"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[update.TIMESTAMP]",
+                  "value": "DATE[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[theta.SUM__#__equity-derivatives]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[rho.SUM__#__equity-derivatives]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).goal",
+                  "value": "0"
+                },
+                {
+                  "name": "user-authentication",
+                  "value": "admin"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "mdx.kpi.Pnl Sensitivity.status",
+                  "value": "Case\tWhen [Measures].[Pnl Sensitivity Value] > [Measures].[Pnl Sensitivity Goal]\t\tThen 1\tWhen [Measures].[Pnl Sensitivity Value] > 0.90 * [Measures].[Pnl Sensitivity Goal]\t\tThen 0\tElse -1\tEnd"
+                },
+                {
+                  "name": "mdx.kpi.Tunnel Count Monitoring.value",
+                  "value": "[Measures].[contributors.COUNT]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[gamma.SUM__#__equity-derivatives]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.MINIMUM_DEPTH]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.member.[Measures][test].name",
+                  "value": "[Measures].[test]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[delta.SUM__#__equity-derivatives]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.name",
+                  "value": "PnL Monitoring"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.value",
+                  "value": "[Measures].[pnl.SUM]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).goal_format",
+                  "value": "'#,###'"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.goal",
+                  "value": "[Measures].[PnL Limit]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).value",
+                  "value": "[Measures].[pnl.SUM]"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumns",
+                  "value": "DoubleAdder,BookIdColumn,CityNameColumn"
+                },
+                {
+                  "name": "mdx.kpi.Tunnel Count Monitoring.status",
+                  "value": "Case\tWhen IsEmpty(lookup(\"lower_goal\")) OR IsEmpty(lookup(\"upper_goal\"))\tThen NULL\tWhen [Measures].[contributors.COUNT] < lookup(\"lower_goal\") - 0.1 * ABS(lookup(\"lower_goal\"))\tThen -1\tWhen [Measures].[contributors.COUNT] < lookup(\"lower_goal\")\tThen 0\tWhen [Measures].[contributors.COUNT] < lookup(\"upper_goal\")\tThen 1\tWhen [Measures].[contributors.COUNT] < lookup(\"upper_goal\") + 0.04 * ABS(lookup(\"upper_goal\"))\tThen 0\tElse -1\tEnd"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).goal_format",
+                  "value": "'#'"
+                },
+                {
+                  "name": "mdx.set.[Top2Underlyings].SET_CAPTION",
+                  "value": "Top two of underlyings"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.name",
+                  "value": "Data contribution"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.status",
+                  "value": "[Measures].[PnL Limit Status]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).value",
+                  "value": "[Measures].[pnl.SUM]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).name",
+                  "value": "PnL Monitoring (LookUp)"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.goal",
+                  "value": "Divide(1, [Underlyings].[Underlyings].CurrentMember.Siblings.Count, NULL)"
+                },
+                {
+                  "name": "mdx.member.[Measures][Currency contribution].expression",
+                  "value": "Divide(100 * [Measures].[Data contribution Value], [Measures].[Data contribution Goal])"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).goal",
+                  "value": "lookup(\"pnl_sum_goal\")"
+                },
+                {
+                  "name": "mdx.member.[Currency][Currency][ALL][AllMember][EUR + USD].expression",
+                  "value": "[Currency].[Currency].[ALL].[AllMember].[USD] + [Currency].[Currency].[ALL].[AllMember].[EUR]"
+                },
+                {
+                  "name": "mdx.member.[Measures][Currency contribution].FORMAT_STRING",
+                  "value": "'##.##'"
+                },
+                {
+                  "name": "mdx.set.[Top2Underlyings].DESCRIPTION",
+                  "value": "The two elements of underlyings which have the highest value"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Latitude]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Epoch].[Epoch].[Epoch]",
+                  "value": "EPOCH[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).status",
+                  "value": "IIF(KpiValue(\"PnL Monitoring\") >= KpiGoal(\"PnL Monitoring\"), 1, -1)"
+                },
+                {
+                  "name": "mdx.kpi.Tunnel Count Monitoring.status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.status",
+                  "value": "Case\tWhen IsEmpty([Measures].[Data contribution Value]) OR IsEmpty([Measures].[Data contribution Goal])\t\tThen NULL\tWhen [Measures].[Data contribution Value] >= [Measures].[Data contribution Goal] * (1 + lookup(\"warning_threshold\", 0.05))\t\tThen -1\tWhen [Measures].[Data contribution Value] > [Measures].[Data contribution Goal]\t\tThen 0\tElse 1\tEnd"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).trend",
+                  "value": "\tCase\t\tWhen [Epoch].[Epoch].CurrentMember.level.ordinal = 0\t\t\tThen Case\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.firstChild.nextMember) > 0\t\t\t\tThen 1\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.firstChild.nextMember) = 0\t\t\t\tThen 0\t\t\tElse -1\t\t\tEnd\t\tElse\t\t\tCase\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.nextMember) > 0\t\t\t\tThen 1\t\t\tWhen KpiValue(\"PnL Monitoring (MDX)\") - (KpiValue(\"PnL Monitoring (MDX)\"), [Epoch].[Epoch].CurrentMember.nextMember) = 0\t\t\t\tThen 0\t\t\tElse -1\t\t\tEnd\t\tEnd"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.goal",
+                  "value": "[Measures].[PnL Limit]"
+                },
+                {
+                  "name": "drillthrough.hiddencolumns",
+                  "value": "BookId,City"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "queriesResultLimit.intermediateSize",
+                  "value": "5000000"
+                },
+                {
+                  "name": "mdx.member.[Measures][Currency contribution].name",
+                  "value": "[Measures].[Currency contribution]"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.name",
+                  "value": "Smoothed PnL"
+                },
+                {
+                  "name": "mdx.set.[Top2Underlyings].name",
+                  "value": "[Top2Underlyings]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).name",
+                  "value": "PnL Monitoring (MDX)"
+                },
+                {
+                  "name": "mdx.defaultmembers.[TargetCurrency].[TargetCurrency]",
+                  "value": "ZAR"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).caption",
+                  "value": "PnL Monitoring (LookUp)"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlDelta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (MDX).status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "queriesResultLimit.transientSize",
+                  "value": "5000000"
+                },
+                {
+                  "name": "drillthrough.maxrows",
+                  "value": "10000"
+                },
+                {
+                  "name": "mdx.kpi.Tunnel Count Monitoring.name",
+                  "value": "Tunnel Count Monitoring"
+                },
+                {
+                  "name": "mdx.member.[Currency][Currency][ALL][AllMember][EUR + USD].name",
+                  "value": "[Currency].[Currency].[ALL].[AllMember].[EUR + USD]"
+                },
+                {
+                  "name": "mdx.kpi.Smoothed PnL.during",
+                  "value": "15s"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).status",
+                  "value": "Case When IsEmpty([Measures].[PnL Monitoring (LookUp) Goal]) Then NULL // No goal => no status \n When [Measures].[pnl.SUM] > [Measures].[PnL Monitoring (LookUp) Goal] Then 1 Else -1 End"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumnsets",
+                  "value": "PnlCurrencyColumnSet"
+                },
+                {
+                  "name": "mdx.member.[Measures][test].FORMAT_STRING",
+                  "value": "\"#,###.##\""
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.description",
+                  "value": "Pnl Monitoring using existing measures"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring.status",
+                  "value": "[Measures].[PnL Limit Status]"
+                },
+                {
+                  "name": "mdx.measureAliases.update.TIMESTAMP",
+                  "value": "Timestamp"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Longitude]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pv.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.set.[Top2Underlyings].expression",
+                  "value": "TopCount([Underlyings].[ALL].[AllMember].Children, 2, [Measures].[contributors.COUNT])"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.FOREX]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.cubeFormatter",
+                  "value": "en-US"
+                },
+                {
+                  "name": "mdx.kpi.Pnl Sensitivity.status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "mdx.kpi.Data contribution.status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[TimeBucket].[Value Date]",
+                  "value": "DATE[dd-MM-yyyy]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlVega.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                }
+              ],
+              "measureGroups": []
+            },
+            {
+              "name": "EquityDerivativesCubeDist",
+              "caption": "EquityDerivativesCubeDist",
+              "measures": [
+                {
+                  "name": "contributors.COUNT",
+                  "caption": "Distributed_Count",
+                  "formatString": "#,###",
+                  "folder": "Native_measures",
+                  "type": "long",
+                  "visible": true
+                },
+                {
+                  "name": "update.TIMESTAMP",
+                  "caption": "Distributed_Timestamp",
+                  "formatString": "HH:mm:ss",
+                  "folder": "Native_measures",
+                  "type": "Object",
+                  "visible": true
+                },
+                {
+                  "name": "pv.SUM",
+                  "caption": "pv.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnlVega.SUM",
+                  "caption": "pnlVega.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnlDelta.SUM",
+                  "caption": "pnlDelta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnl.SUM",
+                  "caption": "pnl.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pv.UnderlyingsRatio",
+                  "caption": "pv.UnderlyingsRatio",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnl.MINIMUM_DEPTH",
+                  "caption": "pnl.MINIMUM_DEPTH",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "PnL Monitoring (LookUp) Goal",
+                  "caption": "PnL Monitoring (LookUp) Goal",
+                  "formatString": "#,###",
+                  "expression": "lookup(\"pnl_sum_goal\")",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Monitoring (LookUp) Status",
+                  "caption": "PnL Monitoring (LookUp) Status",
+                  "expression": "Case When IsEmpty([Measures].[PnL Monitoring (LookUp) Goal]) Then NULL // No goal => no status \n When [Measures].[pnl.SUM] > [Measures].[PnL Monitoring (LookUp) Goal] Then 1 Else -1 End",
+                  "visible": false
+                }
+              ],
+              "dimensions": [
+                {
+                  "name": "Underlyings",
+                  "caption": "Underlyings",
+                  "description": "Dimension of underlyings",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Products",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Underlyings",
+                      "caption": "Underlyings",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "UnderlierType",
+                          "caption": "UnderlierType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "UnderlierCode",
+                          "caption": "UnderlierCode",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Products",
+                      "caption": "Products",
+                      "description": "Hierarchy of products",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "ProductType",
+                          "caption": "ProductType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "ProductName",
+                          "caption": "ProductName",
+                          "description": "Level of product names",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "HostName",
+                  "caption": "HostName",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HostName",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "HostName",
+                      "caption": "HostName",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "HostName",
+                          "caption": "HostName",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Currency",
+                  "caption": "Currency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Currency",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Currency",
+                      "caption": "Currency",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Currency",
+                          "caption": "Currency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "CounterParty",
+                  "caption": "CounterParty",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "CounterParty",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "CounterParty",
+                      "caption": "CounterParty",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "CounterPartyGroup",
+                          "caption": "CounterPartyGroup",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "CounterParty",
+                          "caption": "CounterParty",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Geography",
+                  "caption": "Geography",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "City",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "City",
+                      "caption": "City",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "City",
+                          "caption": "City",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Booking",
+                  "caption": "Booking",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Desk",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Desk",
+                      "caption": "Desk",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "LegalEntity",
+                          "caption": "LegalEntity",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BusinessUnit",
+                          "caption": "BusinessUnit",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Desk",
+                          "caption": "Desk",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BookId",
+                          "caption": "BookId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Status",
+                      "caption": "Status",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "IsSimulated",
+                          "caption": "IsSimulated",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Status",
+                          "caption": "Status",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Time",
+                  "caption": "Time",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HistoricalDates",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "HistoricalDates",
+                      "caption": "HistoricalDates",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "AsOfDate",
+                          "caption": "AsOfDate",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucket",
+                      "caption": "TimeBucket",
+                      "folder": "Bucketing",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Value Date",
+                          "caption": "Value Date",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucketDynamic",
+                      "caption": "TimeBucketDynamic",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TimeBucketDynamic",
+                          "caption": "TimeBucketDynamic",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "TargetCurrency",
+                  "caption": "TargetCurrency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "TargetCurrency",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "TargetCurrency",
+                      "caption": "TargetCurrency",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "TargetCurrency",
+                          "caption": "TargetCurrency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "kpis": [
+                {
+                  "name": "PnL Monitoring (LookUp)",
+                  "caption": "PnL Monitoring (LookUp)",
+                  "value": "[Measures].[pnl.SUM]",
+                  "goal": "[Measures].[PnL Monitoring (LookUp) Goal]",
+                  "status": "[Measures].[PnL Monitoring (LookUp) Status]",
+                  "statusPresenter": "Shapes"
+                }
+              ],
+              "sets": [],
+              "defaultMembers": [
+                {
+                  "dimension": "Measures",
+                  "hierarchy": "Measures",
+                  "path": ["contributors.COUNT"],
+                  "captionPath": ["Distributed_Count"]
+                },
+                {
+                  "dimension": "Time",
+                  "hierarchy": "HistoricalDates",
+                  "path": ["2023-07-28"],
+                  "captionPath": ["2023-07-28"]
+                },
+                {
+                  "dimension": "TargetCurrency",
+                  "hierarchy": "TargetCurrency",
+                  "path": ["ZAR"],
+                  "captionPath": ["ZAR"]
+                }
+              ],
+              "contextValues": [
+                {
+                  "name": "queriesTimeLimit",
+                  "value": "30"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.aggressiveFormulaEvaluation",
+                  "value": "true"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[HistoricalDates].[AsOfDate]",
+                  "value": "DATE[yyyy-MM-dd]"
+                },
+                {
+                  "name": "subcube",
+                  "value": "rO0ABXNyAD5jb20ucXVhcnRldGZzLmJpei5waXZvdC5jb250ZXh0LnN1YmN1YmUuaW1wbC5TdWJDdWJlUHJvcGVydGllc6EZPtgenyqJAgAEWgANYWNjZXNzR3JhbnRlZEwAD2dyYW50ZWRNZWFzdXJlc3QAD0xqYXZhL3V0aWwvU2V0O0wADmdyYW50ZWRNZW1iZXJzdAAPTGphdmEvdXRpbC9NYXA7TAAMc3ViQ3ViZVRyZWVzcQB+AAJ4cgAyY29tLnF1YXJ0ZXRmcy5iaXoucGl2b3QuY29udGV4dC5pbXBsLkFDb250ZXh0VmFsdWWPkuKT2joKDQIAAHhwAXNyABFqYXZhLnV0aWwuSGFzaFNldLpEhZWWuLc0AwAAeHB3DAAAABA/QAAAAAAACHQABnB2LlNVTXQAC3BubFZlZ2EuU1VNdAASY29udHJpYnV0b3JzLkNPVU5UdAATcHYuVW5kZXJseWluZ3NSYXRpb3QADHBubERlbHRhLlNVTXQAB3BubC5TVU10ABFwbmwuTUlOSU1VTV9ERVBUSHQAEHVwZGF0ZS5USU1FU1RBTVB4c3IAEWphdmEudXRpbC5IYXNoTWFwBQfawcMWYNEDAAJGAApsb2FkRmFjdG9ySQAJdGhyZXNob2xkeHA/QAAAAAAAAHcIAAAAEAAAAAB4c3EAfgAPP0AAAAAAAAB3CAAAABAAAAAAeA=="
+                },
+                {
+                  "name": "drillthrough.hiddencolumns",
+                  "value": "BookId,City"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).status_graphic",
+                  "value": "Shapes"
+                },
+                {
+                  "name": "queriesResultLimit.intermediateSize",
+                  "value": "10000000"
+                },
+                {
+                  "name": "mdx.defaultmembers.[TargetCurrency].[TargetCurrency]",
+                  "value": "ZAR"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).caption",
+                  "value": "PnL Monitoring (LookUp)"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[update.TIMESTAMP]",
+                  "value": "DATE[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlDelta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "queriesResultLimit.transientSize",
+                  "value": "10000000"
+                },
+                {
+                  "name": "user-authentication",
+                  "value": "admin"
+                },
+                {
+                  "name": "drillthrough.maxrows",
+                  "value": "10000"
+                },
+                {
+                  "name": "mdx.measureAliases.contributors.COUNT",
+                  "value": "Distributed_Count"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.MINIMUM_DEPTH]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).status",
+                  "value": "Case When IsEmpty([Measures].[PnL Monitoring (LookUp) Goal]) Then NULL // No goal => no status \n When [Measures].[pnl.SUM] > [Measures].[PnL Monitoring (LookUp) Goal] Then 1 Else -1 End"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[contributors.COUNT]",
+                  "value": "INT[#,###]"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumnsets",
+                  "value": ""
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).goal_format",
+                  "value": "'#,###'"
+                },
+                {
+                  "name": "mdx.measureAliases.update.TIMESTAMP",
+                  "value": "Distributed_Timestamp"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumns",
+                  "value": ""
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pv.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.cubeFormatter",
+                  "value": "en-US"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).value",
+                  "value": "[Measures].[pnl.SUM]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).name",
+                  "value": "PnL Monitoring (LookUp)"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[TimeBucket].[Value Date]",
+                  "value": "DATE[dd-MM-yyyy]"
+                },
+                {
+                  "name": "mdx.kpi.PnL Monitoring (LookUp).goal",
+                  "value": "lookup(\"pnl_sum_goal\")"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlVega.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                }
+              ],
+              "measureGroups": [
+                {
+                  "name": "equity-derivatives",
+                  "caption": "equity-derivatives",
+                  "description": "EquityDerivativesCubeDist Cube - equity-derivatives MeasureGroup"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "contextValues": [
+        {
+          "name": "queriesTimeLimit",
+          "type": "INTEGER",
+          "description": "The amount of time (in seconds) after which a running query is cancelled and its resources reclaimed."
+        },
+        {
+          "name": "mdx.memberNamePathStyle",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.formatters.$member_name$",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.defaultmembers.$hierarchy_name$",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.measureAliases",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.resultlimit",
+          "type": "INTEGER",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.casesensitive",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.aggressiveFormulaEvaluation",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.axispositionlimit",
+          "type": "INTEGER",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.unknowncolumnbehavior",
+          "type": "ENUM(SILENT,WARN,THROW)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "monitoring.executionTimingPrint",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "drillthrough.hiddencolumns",
+          "type": "ALL",
+          "category": "drillthrough"
+        },
+        {
+          "name": "queriesResultLimit.intermediateSize",
+          "type": "INTEGER",
+          "category": "queriesResultLimit"
+        },
+        {
+          "name": "mdx.hiddengrandtotals",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "monitoring.queryPlanSummary",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "monitoring.executionPlanPrint",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "mdx.disableepochdimension",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "monitoring.queryPlanCycleDetection",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "queriesResultLimit.transientSize",
+          "type": "LONG",
+          "category": "queriesResultLimit"
+        },
+        {
+          "name": "drillthrough.maxrows",
+          "type": "INTEGER",
+          "category": "drillthrough"
+        },
+        {
+          "name": "drillthrough.behavior",
+          "type": "ENUM(SILENT,WARN,THROW)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "monitoring.queryPlanExport",
+          "type": "BOOL",
+          "category": "monitoring"
+        },
+        {
+          "name": "drillthrough.calculatedcolumnsets",
+          "type": "ENUM(VectorDrillthroughColumnSet,PnlCurrencyColumnSet)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "epoch.strict",
+          "type": "BOOL",
+          "category": "epoch"
+        },
+        {
+          "name": "mdx.lightcrossjoin",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.calculatedcolumns",
+          "type": "ENUM(CaptionDrillthroughColumn,DoubleAdder,CityNameColumn,MemberValueDrillthroughColumn,VectorDrillthroughColumn,PnlCurrencyColumn,BookIdColumn,NameDrillthroughColumn)",
+          "category": "drillthrough"
+        },
+        {
+          "name": "mdx.cubeFormatter",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "drillthrough.ignorequeriedmeasure",
+          "type": "BOOL",
+          "category": "drillthrough"
+        },
+        {
+          "name": "aggressiveLookup",
+          "type": "BOOL"
+        },
+        {
+          "name": "mdx.hiddensubtotals",
+          "type": "ALL",
+          "category": "mdx"
+        },
+        {
+          "name": "mdx.disablemdxcompilation",
+          "type": "BOOL",
+          "category": "mdx"
+        },
+        {
+          "name": "epoch.id",
+          "type": "LONG",
+          "category": "epoch"
+        },
+        {
+          "name": "mdx.ignoreinvalidmembers",
+          "type": "BOOL",
+          "category": "mdx"
+        }
+      ]
+    }
+  }
+}
