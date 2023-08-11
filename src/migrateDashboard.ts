@@ -195,11 +195,11 @@ export function migrateDashboard(
   // If the dashboard contains a disconnected widget, then move the dashboard filters down to every page.
   // If a given page contains a disconnected widget, then move the page filters down to every connected widget.
   if (!_isEmpty(keysOfDisconnectedWidgets)) {
-    const dashboardFilters = dashboard.filters;
+    const dashboardFilters = dashboard.filters ?? [];
     delete dashboard.filters;
 
     Object.entries(pages).forEach(([pageKey, page]) => {
-      page.filters = [...(dashboardFilters ?? []), ...(page.filters ?? [])];
+      page.filters = [...dashboardFilters, ...(page.filters ?? [])];
       if (keysOfDisconnectedWidgets[pageKey].size > 0) {
         const pageFilters = page.filters;
         delete page.filters;
