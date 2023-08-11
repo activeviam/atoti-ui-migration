@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "start": "node bin.js",
-    "build": "webpack",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack",
     "lint": "activeui-sdk-scripts lint",
     "test": "activeui-sdk-scripts test",
     "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js"

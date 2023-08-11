@@ -80,6 +80,7 @@ export function migrateDashboard(
   },
 ): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
+  const disconnectedWidgetKeys: string[] = [];
   const body = legacyDashboardState.value.body;
   const errorReport: DashboardErrorReport = {
     name: legacyDashboardState.name,
@@ -95,6 +96,14 @@ export function migrateDashboard(
     legacyPage.content.forEach((widget) => {
       const leafKey = widget.key;
       const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
+
+      if (
+        widget.bookmark.value.body?.configuration?.tabular?.isConnected ===
+        false
+      ) {
+        disconnectedWidgetKeys.push(leafKey);
+      }
+
       if (keysOfWidgetPluginsToRemove?.includes(widgetPluginKey)) {
         keysOfLeavesToRemove[pageKey] = [
           ...(keysOfLeavesToRemove[pageKey] ?? []),
@@ -179,6 +188,22 @@ export function migrateDashboard(
     filters: Object.values(body.filters || {}).flat(),
     queryContext: _migrateContextValues(body.contextValues),
   };
+
+  if (disconnectedWidgetKeys.length > 0) {
+    Object.values(pages).forEach((page) => {
+      Object.entries(page.content).forEach(([leafKey, migratedWidget]) => {
+        if (!disconnectedWidgetKeys.includes(leafKey)) {
+          migratedWidget.filters = migratedWidget.filters ?? [];
+          migratedWidget.filters.push(
+            ...(dashboard.filters ?? []),
+            ...(page.filters ?? []),
+          );
+        }
+      });
+      delete page.filters;
+    });
+    delete dashboard.filters;
+  }
 
   return [
     dashboard,
