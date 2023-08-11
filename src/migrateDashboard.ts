@@ -95,7 +95,7 @@ export function migrateDashboard(
   body.pages.forEach((legacyPage: LegacyDashboardPage, index: number) => {
     const pageKey = `p-${index}`;
     const content: DashboardPageState<"serialized">["content"] = {};
-    keysOfDisconnectedWidgets[pageKey] = new Set();
+    const keysOfPageDisconnectedWidgets = new Set<string>();
 
     legacyPage.content.forEach((widget) => {
       const leafKey = widget.key;
@@ -122,7 +122,7 @@ export function migrateDashboard(
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
           if (isDisconnectedWidget(widget.bookmark)) {
-            keysOfDisconnectedWidgets[pageKey].add(leafKey);
+            keysOfPageDisconnectedWidgets.add(leafKey);
           }
         } catch (error) {
           if (error instanceof PartialMigrationError) {
@@ -178,6 +178,9 @@ export function migrateDashboard(
       queryContext: _migrateContextValues(legacyPage.contextValues),
     };
 
+    if (keysOfPageDisconnectedWidgets.size > 0) {
+      keysOfDisconnectedWidgets[pageKey] = keysOfPageDisconnectedWidgets;
+    }
     pages[pageKey] = page;
   });
 
