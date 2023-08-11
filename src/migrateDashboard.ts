@@ -191,10 +191,10 @@ export function migrateDashboard(
 
   if (disconnectedWidgetKeys.length > 0) {
     Object.values(pages).forEach((page) => {
-      Object.entries(page.content).forEach(([leafKey, migratedWidget]) => {
+      Object.entries(page.content).forEach(([leafKey, widget]) => {
         if (!disconnectedWidgetKeys.includes(leafKey)) {
-          migratedWidget.filters = migratedWidget.filters ?? [];
-          migratedWidget.filters.push(
+          widget.filters = widget.filters ?? [];
+          widget.filters.push(
             ...(dashboard.filters ?? []),
             ...(page.filters ?? []),
           );
