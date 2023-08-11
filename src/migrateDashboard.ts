@@ -200,7 +200,10 @@ export function migrateDashboard(
 
     Object.entries(pages).forEach(([pageKey, page]) => {
       page.filters = [...dashboardFilters, ...(page.filters ?? [])];
-      if (keysOfDisconnectedWidgets[pageKey].size > 0) {
+      if (
+        keysOfDisconnectedWidgets[pageKey] &&
+        keysOfDisconnectedWidgets[pageKey].size > 0
+      ) {
         const pageFilters = page.filters;
         delete page.filters;
 
