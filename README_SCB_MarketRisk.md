@@ -2,7 +2,7 @@
 
 ## Offline installation
 
-In order to allow users without access to Activeviam's private npm registry, this branch an be used offline. See https://classic.yarnpkg.com/en/docs/yarnrc#toc-yarn-offline-mirror
+In order to allow users without access to Activeviam's private npm registry, this branch can be used offline. See https://classic.yarnpkg.com/en/docs/yarnrc#toc-yarn-offline-mirror
 
 To update to a new version of the dependencies,
 
