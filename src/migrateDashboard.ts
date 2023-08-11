@@ -1,5 +1,6 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
+import _isEmpty from "lodash/isEmpty";
 
 import {
   DashboardState,
@@ -80,7 +81,7 @@ export function migrateDashboard(
   },
 ): [DashboardState<"serialized">, DashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
-  const disconnectedWidgetKeys: string[] = [];
+  const keysOfDisconnectedWidgets: { [pageKey: string]: string[] } = {};
   const body = legacyDashboardState.value.body;
   const errorReport: DashboardErrorReport = {
     name: legacyDashboardState.name,
@@ -93,6 +94,7 @@ export function migrateDashboard(
   body.pages.forEach((legacyPage: LegacyDashboardPage, index: number) => {
     const pageKey = `p-${index}`;
     const content: DashboardPageState<"serialized">["content"] = {};
+    keysOfDisconnectedWidgets[pageKey] = [];
     legacyPage.content.forEach((widget) => {
       const leafKey = widget.key;
       const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
@@ -101,7 +103,10 @@ export function migrateDashboard(
         widget.bookmark.value.body?.configuration?.tabular?.isConnected ===
         false
       ) {
-        disconnectedWidgetKeys.push(leafKey);
+        keysOfDisconnectedWidgets[pageKey] = [
+          ...(keysOfDisconnectedWidgets[pageKey] ?? []),
+          leafKey,
+        ];
       }
 
       if (keysOfWidgetPluginsToRemove?.includes(widgetPluginKey)) {
@@ -189,18 +194,23 @@ export function migrateDashboard(
     queryContext: _migrateContextValues(body.contextValues),
   };
 
-  if (disconnectedWidgetKeys.length > 0) {
-    Object.values(pages).forEach((page) => {
-      Object.entries(page.content).forEach(([leafKey, widget]) => {
-        if (!disconnectedWidgetKeys.includes(leafKey)) {
-          widget.filters = widget.filters ?? [];
-          widget.filters.push(
-            ...(dashboard.filters ?? []),
-            ...(page.filters ?? []),
-          );
-        }
-      });
-      delete page.filters;
+  if (!_isEmpty(keysOfDisconnectedWidgets)) {
+    Object.entries(pages).forEach(([pageKey, page]) => {
+      if (!_isEmpty(keysOfDisconnectedWidgets[pageKey])) {
+        Object.entries(page.content).forEach(([leafKey, widget]) => {
+          if (!keysOfDisconnectedWidgets[pageKey].includes(leafKey)) {
+            widget.filters = [
+              ...(dashboard.filters ?? []),
+              ...(page.filters ?? []),
+              ...(widget.filters ?? []),
+            ];
+          }
+        });
+        delete page.filters;
+      } else {
+        page.filters = page.filters ?? [];
+        page.filters.push(...(dashboard.filters ?? []));
+      }
     });
     delete dashboard.filters;
   }
