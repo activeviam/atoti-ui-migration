@@ -214,7 +214,6 @@ export function migrateDashboard(
             ];
           }
         });
-        delete page.filters;
       }
     });
   }
