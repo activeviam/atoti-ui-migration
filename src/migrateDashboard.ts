@@ -194,25 +194,29 @@ export function migrateDashboard(
     queryContext: _migrateContextValues(body.contextValues),
   };
 
+  // If the dashboard contains a disconnected widget, then move the dashboard filters down to every page.
+  // If a given page contains a disconnected widget, then move the page filters down to every connected widget.
   if (!_isEmpty(keysOfDisconnectedWidgets)) {
+    const dashboardFilters = dashboard.filters;
+    delete dashboard.filters;
+
     Object.entries(pages).forEach(([pageKey, page]) => {
+      page.filters = [...(dashboardFilters ?? []), ...(page.filters ?? [])];
       if (!_isEmpty(keysOfDisconnectedWidgets[pageKey])) {
+        const pageFilters = page.filters;
+        delete page.filters;
+
         Object.entries(page.content).forEach(([leafKey, widget]) => {
           if (!keysOfDisconnectedWidgets[pageKey].includes(leafKey)) {
             widget.filters = [
-              ...(dashboard.filters ?? []),
-              ...(page.filters ?? []),
+              ...(pageFilters ?? []),
               ...(widget.filters ?? []),
             ];
           }
         });
         delete page.filters;
-      } else {
-        page.filters = page.filters ?? [];
-        page.filters.push(...(dashboard.filters ?? []));
       }
     });
-    delete dashboard.filters;
   }
 
   return [
