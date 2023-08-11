@@ -21,11 +21,11 @@
     "dist"
   ],
   "scripts": {
-    "start": "node bin.js",
     "build": "webpack",
+    "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js",
     "lint": "activeui-sdk-scripts lint",
-    "test": "activeui-sdk-scripts test",
-    "ci:test": "cross-env CI=true yarn test --config jest-ci.config.js"
+    "start": "node bin.js",
+    "test": "activeui-sdk-scripts test"
   },
   "prettier": {
     "trailingComma": "all"
