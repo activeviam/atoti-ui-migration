@@ -3,7 +3,7 @@ import _capitalize from "lodash/capitalize";
 import fs from "fs-extra";
 import { migrateUIFolder } from "../migrateUIFolder";
 import path from "path";
-import { getColumnWidthFromArgs } from "../getColumnWidthFromArgs";
+import { getTreeColumnWidthFromArgs } from "../getTreeColumnWidthFromArgs";
 
 const summaryMessages: { [folderName: string]: { [outcome: string]: string } } =
   {
@@ -46,7 +46,7 @@ yargs
     pivotInputPath?: string;
     debug: boolean;
     stack: boolean;
-    columnWidth?: string;
+    treeColumnWidth?: string;
   }>(
     "$0",
     "Migrates a JSON /ui folder from ActiveUI 4 to ActiveUI 5. The resulting JSON file is ready to be imported under /ui on a Content Server, to be used by ActiveUI 5.",
@@ -80,9 +80,9 @@ yargs
         demandOption: false,
         desc: "The path to the JSON export of the /pivot folder on the content server.",
       });
-      args.option("column-width", {
+      args.option("tree-column-width", {
         type: "string",
-        alias: "cw",
+        alias: "tcw",
         demandOption: false,
         desc: `The width to which the first column of the tree table will be set too. 
         Example: --column-width 200,50 will result in 200px + (50 * maxLevelDepth).`,
@@ -106,7 +106,7 @@ yargs
       serversPath,
       removeWidgets: keysOfWidgetPluginsToRemove,
       pivotInputPath,
-      columnWidth,
+      treeColumnWidth,
       debug,
       stack,
     }) => {
@@ -123,8 +123,8 @@ yargs
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks: stack,
-          treeTableColumnWidth: columnWidth
-            ? getColumnWidthFromArgs(columnWidth)
+          treeTableColumnWidth: treeColumnWidth
+            ? getTreeColumnWidthFromArgs(treeColumnWidth)
             : undefined,
         },
       );

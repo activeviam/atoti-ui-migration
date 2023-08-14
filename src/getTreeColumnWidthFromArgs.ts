@@ -1,8 +1,10 @@
 /**
- * Extracts the tuple value from the column-width argument value.
- * The tuple is in the shape of [baseColumnWidth, levelColumnMultiplier]
+ * Extracts the tuple value from the tree-column-width argument value.
+ * The tuple is in the shape of [baseColumnWidth, levelDepthMultiplier]
  */
-export function getColumnWidthFromArgs(argString: string): [number, number] {
+export function getTreeColumnWidthFromArgs(
+  argString: string,
+): [number, number] {
   const values = argString
     .split(",")
     .map((stringValue) => parseInt(stringValue));
