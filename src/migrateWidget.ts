@@ -19,6 +19,7 @@ import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrati
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  treeTableColumnWidth?: [number, number],
 ): AWidgetState<"serialized"> {
   const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
   switch (widgetPluginKey) {
@@ -26,7 +27,7 @@ export function migrateWidget(
       return migrateChart(legacyWidgetState, servers);
     case "tabular-view":
     case "pivot-table":
-      return migrateTable(legacyWidgetState, servers);
+      return migrateTable(legacyWidgetState, servers, treeTableColumnWidth);
     case "featured-values":
       return migrateKpi(legacyWidgetState, servers);
     case "quick-filter":

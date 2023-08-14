@@ -116,10 +116,6 @@ yargs
         : undefined;
       const servers = await fs.readJSON(serversPath);
 
-      if (columnWidth) {
-        console.log(getColumnWidthFromArgs(columnWidth));
-      }
-
       const [migratedUIFolder, counters, errorReport] = await migrateUIFolder(
         legacyUIFolder,
         {
@@ -127,6 +123,9 @@ yargs
           servers,
           keysOfWidgetPluginsToRemove,
           doesReportIncludeStacks: stack,
+          treeTableColumnWidth: columnWidth
+            ? getColumnWidthFromArgs(columnWidth)
+            : undefined,
         },
       );
 

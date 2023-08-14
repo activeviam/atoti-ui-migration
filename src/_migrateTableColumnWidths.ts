@@ -22,10 +22,14 @@ export function _migrateTableColumnWidths({
   legacyColumns,
   mapping,
   cube,
+  maxLevelDepth = 1,
+  treeTableColumnWidth,
 }: {
   legacyColumns: LegacyColumn[];
   mapping: DataVisualizationWidgetMapping;
   cube: Cube;
+  maxLevelDepth?: number;
+  treeTableColumnWidth?: [number, number];
 }): { [columnKey: string]: number } {
   const columnWidths: { [columnKey: string]: number } = {};
   legacyColumns.forEach(({ key, width }) => {
@@ -94,7 +98,11 @@ export function _migrateTableColumnWidths({
     }
 
     if (columnKey) {
-      columnWidths[columnKey] = width;
+      const [baseWidth, levelMultiplier] = treeTableColumnWidth || [];
+      columnWidths[columnKey] =
+        baseWidth && levelMultiplier
+          ? baseWidth + levelMultiplier * maxLevelDepth
+          : width;
     }
   });
 
