@@ -28,7 +28,7 @@ Let's create these files.
 
 ### Download the original content
 
-The content to migrate can be downloaded as a JSON file from [Atoti Admin UI](https://activeviam.com/activepivot/6.0.0/docs/content_server/cs_overview/#admin-ui). If you are used to accessing Atoti UI at `https://my-server.com/ui/index.html`, then you should be able to access Atoti Admin UI at `https://my-server.com/admin/ui/index.html`.
+The content to migrate can be downloaded as a JSON file from [Atoti Admin UI](https://docs.activeviam.com/products/atoti/server/6.0.0/docs/content_server/cs_overview/#admin-ui). If you are used to accessing Atoti UI at `https://my-server.com/ui/index.html`, then you should be able to access Atoti Admin UI at `https://my-server.com/admin/ui/index.html`.
 
 :warning: Make sure to connect as a user with access to all the content that must be migrated. We recommend connecting as a user with the role `ROLE_CS_ROOT`.
 
@@ -40,7 +40,7 @@ Right-click at the root of the file tree, and click **Export**. This will downlo
 If you don't see these actions in the context menu, it means that you are using an older Atoti Admin UI version and will have to upgrade.
 If you are embedding Atoti Admin UI in your server like it is done on the Atoti Server sandbox, you can do so by simply bumping the dependency version in the `pom.xml`.
 
-:bulb: You can also import/export programatically. See the [dedicated documentation](https://activeviam.com/activepivot/6.0.0/docs/content_server/cs_overview/#import-and-export) for more details.
+:bulb: You can also import/export programatically. See the [dedicated documentation](https://docs.activeviam.com/products/atoti/server/6.0.0/docs/content_server/cs_overview/#import-and-export) for more details.
 
 ### Download the servers information
 
@@ -61,7 +61,7 @@ Copy and paste the snippet below into this file. It is not a valid JSON object. 
 
 Replace `"https://my-server.com"` by the URL of your Atoti server.
 
-Choose a key to identify this server and replace `"my-server"` by it. See [the Atoti UI tutorial](https://activeviam.com/activeui/documentation/5.1.0/docs/tutorial/runningAQuery#serverkey) for more details about server keys.
+Choose a key to identify this server and replace `"my-server"` by it. See [the Atoti UI tutorial](https://docs.activeviam.com/products/atoti/ui/5.1/docs/tutorial/running-a-query/#serverkey) for more details about server keys.
 
 Download the data model from your Atoti server. The URL of the relevant REST service ends with _"discovery"_. You can find the documentation for this REST service [here](https://artifacts.activeviam.com/documentation/rest/6.0.0/activepivot.html#cube_discovery_get).
 
@@ -132,7 +132,7 @@ Use Atoti Admin UI again, this time to import the migrated content.
 
 ![](/documentation/upload-content.gif)
 
-Then follow the steps to [run Atoti UI](https://activeviam.com/activeui/documentation/5.1.0/docs/getting-started#run-activeui).
+Then follow the steps to [run Atoti UI](https://docs.activeviam.com/products/atoti/ui/5.1/docs/getting-started/#run-activeui).
 
 Finally open your dashboards, widgets, filters, ... Make sure they work as expected.
 
@@ -160,8 +160,8 @@ This command generates a file named `migrated-notebook.json` in the same folder.
 If you are migrating a project with custom Atoti UI extensions, then you must also update the code of these extensions.
 Learn how in our dedicated documentation pages:
 
-- Migrating from [Atoti UI 4 to 5](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-atoti-ui-4-to-5).
-- Migrating from [Atoti UI 5.0 to 5.1](https://activeviam.com/activeui/documentation/5.1.0/docs/migrate-from-atoti-ui-5.0-to-5.1).
+- Migrating from [Atoti UI 4 to 5](https://docs.activeviam.com/products/atoti/ui/5.1/docs/migrate-from-atoti-ui-4-to-5/).
+- Migrating from [Atoti UI 5.0 to 5.1]https://docs.activeviam.com/products/atoti/ui/5.1/docs/migrate-from-atoti-ui-5.0-to-5.1).
 
 ## Customizing the migration
 
