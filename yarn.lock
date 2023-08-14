@@ -30,10 +30,9 @@
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/activeui-sdk-scripts@5.0.27-20230811125028-dfec9c3":
-  version "5.0.27-20230811125028-dfec9c3"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.27-20230811125028-dfec9c3.tgz"
-  integrity sha512-SKgmuCF/FvOoxGOh4385UFZ7PM4Ku8QRkez8+StxGdjrJFnCiwEbtkdrfkyqlB+woTLuqKF0kln+bF+pbsd17w==
+"@activeviam/activeui-sdk-scripts@file:vendor/activeviam-activeui-sdk-scripts-5.0.27-20230803200406-61fc83c.tgz":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "file:vendor/activeviam-activeui-sdk-scripts-5.0.27-20230803200406-61fc83c.tgz#9cd2590e18216f6f130aa7b20ac7a678121dabe0"
   dependencies:
     "@activeviam/content-server-initialization" "5.0.27-20230811125028-dfec9c3"
     "@babel/cli" "^7.11.6"
@@ -94,10 +93,9 @@
     webpack-manifest-plugin "^3.1.0"
     yargs "^15.3.1"
 
-"@activeviam/activeui-sdk@5.0.27-20230811125028-dfec9c3":
-  version "5.0.27-20230811125028-dfec9c3"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk/-/@activeviam/activeui-sdk-5.0.27-20230811125028-dfec9c3.tgz"
-  integrity sha512-nATxOpMZ3wGvKw29OfSPwZCqsHSoHm1B8DoISU54meDy3Pl2mMCOQI//UZ06lg6Sz2zh9lUYjeAm8u/NMIVP8Q==
+"@activeviam/activeui-sdk@file:vendor/activeviam-activeui-sdk-5.0.27-20230803200406-61fc83c.tgz":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "file:vendor/activeviam-activeui-sdk-5.0.27-20230803200406-61fc83c.tgz#9341a37752b0bcca1687ab20755e3ec4d0eaafcf"
   dependencies:
     "@activeviam/action" "5.0.27-20230811125028-dfec9c3"
     "@activeviam/activepivot-client" "5.0.27-20230811125028-dfec9c3"
@@ -392,10 +390,9 @@
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-"@activeviam/content-server-initialization@5.0.27-20230811125028-dfec9c3":
-  version "5.0.27-20230811125028-dfec9c3"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-server-initialization/-/@activeviam/content-server-initialization-5.0.27-20230811125028-dfec9c3.tgz"
-  integrity sha512-cZOEly4bDvRSlT8iERa+KzaonBz6NyC0Xn3OUOzsg0c1/3kDCwPKW2VGDgxC25rFDenC8Yh9dOH2hoC4wh7a3w==
+"@activeviam/content-server-initialization@5.0.27-20230803200406-61fc83c", "@activeviam/content-server-initialization@file:vendor/activeviam-content-server-initialization-5.0.27-20230803200406-61fc83c.tgz":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "file:vendor/activeviam-content-server-initialization-5.0.27-20230803200406-61fc83c.tgz#80aa703ba6ae46a5aeba12b5826fa7e90a0326f7"
   dependencies:
     isomorphic-unfetch "^3.1.0"
     lodash "^4.17.15"
@@ -492,10 +489,18 @@
     lodash "^4.17.15"
     ts-essentials "^6.0.5"
 
-"@activeviam/data-visualization@5.0.27-20230811125028-dfec9c3":
-  version "5.0.27-20230811125028-dfec9c3"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-visualization/-/@activeviam/data-visualization-5.0.27-20230811125028-dfec9c3.tgz"
-  integrity sha512-EUF6No+JZEkL5NQrCJuxYDuMQVzZfJDKFn/9ZjINZkkKFvrq4obGgzEe/o/imRsdGgEPfOUxaimM8M+Zf4E/6Q==
+"@activeviam/data-model@file:vendor/activeviam-data-model-5.0.27-20230803200406-61fc83c.tgz":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "file:vendor/activeviam-data-model-5.0.27-20230803200406-61fc83c.tgz#9a8c374a359e4416229f1bc6f42b5c45d7ae1a00"
+  dependencies:
+    "@types/lodash" "^4.14.168"
+    lodash "^4.17.15"
+    ts-essentials "^6.0.5"
+
+"@activeviam/data-visualization@5.0.27-20230803200406-61fc83c":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-visualization/-/@activeviam/data-visualization-5.0.27-20230803200406-61fc83c.tgz#2a7d0e2ba963f881f71d0ceb5efb3d1215912c3c"
+  integrity sha512-G4IYQGsYUFXg2U2zc66mT/Jy66y2OQNeasnV6LF/Aa5iFF5/cohgI29Hd4D1xRHC/EST6MsPUvq8BRfWhAjAiw==
   dependencies:
     "@activeviam/action" "5.0.27-20230811125028-dfec9c3"
     "@activeviam/calculated-measures" "5.0.27-20230811125028-dfec9c3"
@@ -681,10 +686,22 @@
     lodash "^4.17.15"
     utility-types "^3.10.0"
 
-"@activeviam/members-tree@5.0.27-20230811125028-dfec9c3":
-  version "5.0.27-20230811125028-dfec9c3"
-  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/members-tree/-/@activeviam/members-tree-5.0.27-20230811125028-dfec9c3.tgz"
-  integrity sha512-1WOHUH/FIHZE2cwROEtgAnnQBONR1ZXyzmcd73J82jSpdfzAmdvITNHj11nF80LPFuu55/9qkT175j/DS24ecw==
+"@activeviam/mdx@file:vendor/activeviam-mdx-5.0.27-20230803200406-61fc83c.tgz":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "file:vendor/activeviam-mdx-5.0.27-20230803200406-61fc83c.tgz#967e2c454794f395bc87161365ab44b71746a4f8"
+  dependencies:
+    "@activeviam/data-model" "5.0.27-20230803200406-61fc83c"
+    "@activeviam/mdx-lexer" "5.0.27-20230803200406-61fc83c"
+    "@activeviam/mdx-parser" "5.0.27-20230803200406-61fc83c"
+    "@types/lodash" "^4.14.168"
+    immer "^9.0.14"
+    lodash "^4.17.15"
+    utility-types "^3.10.0"
+
+"@activeviam/members-tree@5.0.27-20230803200406-61fc83c":
+  version "5.0.27-20230803200406-61fc83c"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/members-tree/-/@activeviam/members-tree-5.0.27-20230803200406-61fc83c.tgz#8e147c2f9b8c8bbec4bbe16e39598e992f454503"
+  integrity sha512-iGiZSI9XZnzW/daahYv4cN5a+x1yYv6jzfj3sVqoF5SJ6KVYZcet+qoKnxKzHe1RLwh2AkCxf2iwkwrwbFvKaw==
   dependencies:
     "@activeviam/client-react" "5.0.27-20230811125028-dfec9c3"
     "@activeviam/data-model" "5.0.27-20230811125028-dfec9c3"
