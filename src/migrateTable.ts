@@ -18,6 +18,8 @@ import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
+import { getLevelIndex } from "@activeviam/data-model";
+import _max from "lodash/max";
 
 /**
  * Returns the converted table widget state, ready to be used by ActiveUI 5.
@@ -71,12 +73,18 @@ export function migrateTable(
   const columnsAxis = query.mdx?.axes[0];
   const columnLevels = columnsAxis ? getLevels(columnsAxis, { cube }) : [];
 
+  const maxLevelDepth = _max(
+    columnLevels.map(({ dimensionName, hierarchyName, levelName }) =>
+      getLevelIndex({ cube, dimensionName, hierarchyName, levelName }),
+    ),
+  );
+
   const columnWidths = legacyColumns
     ? _migrateTableColumnWidths({
         legacyColumns,
         mapping,
         cube,
-        maxLevelDepth: columnLevels.length,
+        maxLevelDepth,
         treeTableColumnWidth,
       })
     : {};
