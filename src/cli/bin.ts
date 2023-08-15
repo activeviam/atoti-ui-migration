@@ -84,8 +84,8 @@ yargs
         type: "string",
         alias: "tcw",
         demandOption: false,
-        desc: `The width to which the first column of the tree table will be set too. 
-        Example: --column-width 200,50 will result in 200px + (50 * maxLevelDepth).`,
+        desc: `The width to which the first column of the tree table will be set to. 
+        Example: --tree-column-width 200,50 will result in 200px + (50 * maxLevelDepth).`,
       });
       args.option("debug", {
         type: "boolean",
