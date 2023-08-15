@@ -89,7 +89,13 @@ export function migrateTable(
         treeTableColumnWidth,
       })
     : treeTableColumnWidth && maxLevelDepth
-    ? getTreeColumnWidth({ maxLevelDepth, mapping, treeTableColumnWidth })
+    ? getTreeColumnWidth({
+        maxLevelDepth,
+        mapping,
+        treeTableColumnWidth,
+        columnLevels,
+        cube,
+      })
     : {};
 
   const migratedWidgetState: TableWidgetState = {

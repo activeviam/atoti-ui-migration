@@ -1,4 +1,10 @@
-import { DataVisualizationWidgetMapping } from "@activeviam/activeui-sdk";
+import {
+  Cube,
+  DataVisualizationWidgetMapping,
+  LevelCoordinates,
+  getHierarchy,
+  getLevel,
+} from "@activeviam/activeui-sdk";
 import { quote } from "@activeviam/mdx";
 
 /**
@@ -8,16 +14,48 @@ export function getTreeColumnWidth({
   maxLevelDepth,
   mapping,
   treeTableColumnWidth,
+  columnLevels,
+  cube,
 }: {
   mapping: DataVisualizationWidgetMapping;
   maxLevelDepth: number;
   treeTableColumnWidth: [number, number];
+  columnLevels: LevelCoordinates[];
+  cube: Cube;
 }): { [columnKey: string]: number } {
   let columnKey: string;
 
   switch (mapping.rows[0].type) {
     case "hierarchy": {
-      const { dimensionName, hierarchyName, levelName } = mapping.rows[0];
+      const hierarchy = columnLevels[0]
+        ? getHierarchy(
+            {
+              dimensionName: columnLevels[0].dimensionName,
+              hierarchyName: columnLevels[0].hierarchyName,
+            },
+            cube,
+          )
+        : undefined;
+
+      const firstLevelName = hierarchy && hierarchy.levels[1];
+      const firstLevel =
+        firstLevelName && columnLevels[0]
+          ? getLevel(
+              {
+                dimensionName: columnLevels[0].dimensionName,
+                hierarchyName: columnLevels[0].hierarchyName,
+                levelName: firstLevelName.name,
+              },
+              cube,
+            )
+          : undefined;
+
+      const { dimensionName, hierarchyName } = mapping.rows[0];
+
+      const levelName = firstLevel
+        ? firstLevel.name
+        : mapping.rows[0].levelName;
+
       columnKey = quote(dimensionName, hierarchyName, levelName);
       break;
     }
