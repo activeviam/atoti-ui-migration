@@ -1,14 +1,18 @@
 import type {
   Cube,
   DataVisualizationWidgetMapping,
+  LevelCoordinates,
 } from "@activeviam/activeui-sdk";
 import {
+  getHierarchy,
+  getLevel,
   isMdxCompoundIdentifier,
   isMdxFunction,
   parse,
   quote,
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
+import { getTreeColumnWidth } from "./getTreeColumnWidth";
 
 interface LegacyColumn {
   key: string;
@@ -22,16 +26,32 @@ export function _migrateTableColumnWidths({
   legacyColumns,
   mapping,
   cube,
+  columnLevels = [],
   maxLevelDepth = 1,
   treeTableColumnWidth,
 }: {
   legacyColumns: LegacyColumn[];
   mapping: DataVisualizationWidgetMapping;
   cube: Cube;
+  columnLevels?: LevelCoordinates[];
   maxLevelDepth?: number;
   treeTableColumnWidth?: [number, number];
 }): { [columnKey: string]: number } {
   const columnWidths: { [columnKey: string]: number } = {};
+
+  if (
+    (legacyColumns === undefined || legacyColumns.length === 0) &&
+    treeTableColumnWidth
+  ) {
+    return getTreeColumnWidth({
+      maxLevelDepth,
+      mapping,
+      treeTableColumnWidth,
+      cube,
+      columnLevels,
+    });
+  }
+
   legacyColumns.forEach(({ key, width }) => {
     if (!width) {
       return;
@@ -50,7 +70,35 @@ export function _migrateTableColumnWidths({
           break;
         }
         case "hierarchy": {
-          const { dimensionName, hierarchyName, levelName } = mapping.rows[0];
+          const hierarchy = columnLevels[0]
+            ? getHierarchy(
+                {
+                  dimensionName: columnLevels[0].dimensionName,
+                  hierarchyName: columnLevels[0].hierarchyName,
+                },
+                cube,
+              )
+            : undefined;
+
+          const firstLevelName = hierarchy && hierarchy.levels[1];
+          const firstLevel =
+            firstLevelName && columnLevels[0]
+              ? getLevel(
+                  {
+                    dimensionName: columnLevels[0].dimensionName,
+                    hierarchyName: columnLevels[0].hierarchyName,
+                    levelName: firstLevelName.name,
+                  },
+                  cube,
+                )
+              : undefined;
+
+          const { dimensionName, hierarchyName } = mapping.rows[0];
+
+          const levelName = firstLevel
+            ? firstLevel.name
+            : mapping.rows[0].levelName;
+
           columnKey = quote(dimensionName, hierarchyName, levelName);
           break;
         }
