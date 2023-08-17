@@ -166,6 +166,7 @@ export type MigrationFunction<
     errorReport,
     counters,
     doesReportIncludeStacks,
+    contentServerVersion,
   }: {
     migrateDashboards: (
       deserialize: (state: FromSerializedDashboardState) => FromDashboardState,
@@ -189,6 +190,7 @@ export type MigrationFunction<
     errorReport: ErrorReport;
     counters: OutcomeCounters;
     doesReportIncludeStacks: boolean;
+    contentServerVersion?: string;
   },
 ) => void;
 

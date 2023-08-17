@@ -130,8 +130,14 @@ export async function migrateContentServer({
   );
 
   const servers: {
-    [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
-  } = await fs.readJSON(serversPath);
+    [serverKey: string]: {
+      dataModel: DataModel<"raw">;
+      url: string;
+    };
+  } & { contentServerVersion?: string } = await fs.readJSON(serversPath);
+
+  const contentServerVersion = servers.contentServerVersion;
+  delete servers.contentServerVersion;
 
   const counters = _fromPairs(
     ["dashboards", "widgets", "filters", "folders", "calculated_measures"].map(
@@ -216,6 +222,7 @@ export async function migrateContentServer({
         errorReport,
         counters,
         doesReportIncludeStacks,
+        contentServerVersion,
       });
     });
 
