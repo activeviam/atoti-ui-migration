@@ -86,6 +86,18 @@ Copy the `catalogs` and `contextValues` and paste them into `dataModel` in the `
 
 As an example, this would be the [servers.json](/documentation/servers-example.json) file if we were migrating the Atoti UI tutorial server. You can refer to it in order to make sure that your own `servers.json` has the correct structure, but do not use this example file to run your migration: it would not work.
 
+:warning: If the content you're migrating will be hosted on a content server using a version of Atoti Server lower than 5.11 (e.g 5.10.x), then calculated measures must be set in XML as opposed to JSON for more recent versions. In that case, you need to set the optional `"contentServerVersion"` attribute at the root of your `servers.json` file to that version:
+
+```json
+{
+  "contentServerVersion": "5.10.12",
+  "my-server": {
+    "url": "https://my-server.com",
+    "dataModel": {}
+  }
+}
+```
+
 ### Run the CLI
 
 At this stage, your `migration` folder looks like this:

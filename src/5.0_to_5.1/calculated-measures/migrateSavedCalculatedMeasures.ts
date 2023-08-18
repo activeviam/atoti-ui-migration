@@ -71,6 +71,7 @@ export function migrateSavedCalculatedMeasures({
   counters,
   doesReportIncludeStacks,
   step,
+  contentServerVersion,
 }: {
   contentServer: ContentRecord;
   measureToCubeMapping: { [measureName: string]: string[] };
@@ -78,6 +79,7 @@ export function migrateSavedCalculatedMeasures({
   counters: OutcomeCounters;
   doesReportIncludeStacks: boolean;
   step: string;
+  contentServerVersion?: string;
 }): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui?.children?.calculated_measures;
@@ -126,8 +128,9 @@ export function migrateSavedCalculatedMeasures({
       const migratedContent = migrateSavedCalculatedMeasureContent(
         JSON.parse(record.entry.content),
         measureName,
+        contentServerVersion,
       );
-      record.entry.content = JSON.stringify(migratedContent);
+      record.entry.content = migratedContent;
 
       cubeNames.forEach((cubeName) => {
         // If `cubeName` property does not already exist, create it.
