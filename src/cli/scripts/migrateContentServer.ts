@@ -137,6 +137,9 @@ export async function migrateContentServer({
   } & { contentServerVersion?: string } = await fs.readJSON(serversPath);
 
   const contentServerVersion = servers.contentServerVersion;
+  // Later, `servers` is expected to have a structure like `{ [serverKey: string]: { ... } }`.
+  // Several functions depending on this structure are applied to it: `_mapKeys`, `_findKey`, etc.
+  // Deleting the "contentServerVersion" attribute from it enables those functions still being applied to `servers` without breaking.
   delete servers.contentServerVersion;
 
   const counters = _fromPairs(
