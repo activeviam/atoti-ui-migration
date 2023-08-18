@@ -12,19 +12,26 @@ export const migrateSavedCalculatedMeasureContent = (
   calculatedMeasureName: string,
   contentServerVersion?: string,
 ): string => {
+  const propertiesEntries = legacyCalculatedMeasureContent.properties.map(
+    (property) => property.split(" = "),
+  );
+  const properties = Object.fromEntries(propertiesEntries);
+
   if (contentServerVersion && lt(contentServerVersion, "5.11.0")) {
     const migratedSavedCalculatedMeasureContentXML =
       getMigratedSavedCalculatedMeasureContentXML(
-        legacyCalculatedMeasureContent,
         calculatedMeasureName,
+        legacyCalculatedMeasureContent.expression,
+        properties,
       );
     return migratedSavedCalculatedMeasureContentXML.end({ prettyPrint: true });
   }
 
   const migratedSavedCalculatedMeasureContentJSON =
     getMigratedSavedCalculatedMeasureContentJSON(
-      legacyCalculatedMeasureContent,
       calculatedMeasureName,
+      legacyCalculatedMeasureContent.expression,
+      properties,
     );
 
   return JSON.stringify(migratedSavedCalculatedMeasureContentJSON);

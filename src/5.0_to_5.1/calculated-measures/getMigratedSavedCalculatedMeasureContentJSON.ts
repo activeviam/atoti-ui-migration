@@ -2,8 +2,9 @@
  * Returns the content of a calculated measure created with ActiveUI 5.0 transformed into a JSON object that is natively supported by ActivePivot.
  */
 export const getMigratedSavedCalculatedMeasureContentJSON = (
-  legacyCalculatedMeasureContent: { expression: string; properties: string[] },
-  calculatedMeasureName: string,
+  name: string,
+  expression: string,
+  properties: { [key: string]: string },
 ): {
   className: string;
   additionalProperties: { [propertyName: string]: string };
@@ -11,23 +12,8 @@ export const getMigratedSavedCalculatedMeasureContentJSON = (
   expression: string;
   formatStringExpression?: string;
 } => {
-  const { expression, properties } = legacyCalculatedMeasureContent;
-
-  const formatStringProperty = properties.find((property) =>
-    property.startsWith("FORMAT_STRING"),
-  );
-  // The `FORMAT_STRING` property is a string with the following syntax: "FORMAT_STRING = \\"#,###.##\\"".
-  // Splitting it by " = " returns an array with the property name at index [0] and the value at index [1].
-  const formatStringExpression = formatStringProperty
-    ? formatStringProperty.split(" = ")[1]
-    : undefined;
-
-  const additionalProperties = properties
-    .filter((propertyString) => propertyString !== formatStringProperty)
-    .reduce((acc, propertyString) => {
-      const [propertyName, propertyExpression] = propertyString.split(" = ");
-      return { ...acc, [propertyName]: propertyExpression };
-    }, {});
+  const { FORMAT_STRING: formatStringExpression, ...additionalProperties } =
+    properties;
 
   return {
     // The className comes from Active Pivot.
@@ -35,7 +21,7 @@ export const getMigratedSavedCalculatedMeasureContentJSON = (
     className:
       "com.quartetfs.biz.pivot.definitions.impl.CalculatedMemberDescription",
     additionalProperties,
-    uniqueName: `[Measures].[${calculatedMeasureName}]`,
+    uniqueName: `[Measures].[${name}]`,
     expression,
     formatStringExpression,
   };
