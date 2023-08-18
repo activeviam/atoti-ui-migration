@@ -190,13 +190,13 @@ export type MigrationFunction<
     errorReport: ErrorReport;
     counters: OutcomeCounters;
     doesReportIncludeStacks: boolean;
-  /**
-   * The version of the Content Server on which the migrated content will be hosted.
-   * For example: 5.9.
-   * For version 5.10 and below, calculated measures are saved in XML.
-   * For versions above, they are saved in JSON.
-   * If omitted by the user, the script defaults to saving in JSON.
-   */
+    /**
+     * The version of the Content Server on which the migrated content will be hosted.
+     * For example: 5.9.
+     * For version 5.10 and below, calculated measures are saved in XML.
+     * For versions above, they are saved in JSON.
+     * If omitted by the user, the script defaults to saving in JSON.
+     */
     contentServerVersion?: string;
   },
 ) => void;
