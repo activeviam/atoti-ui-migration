@@ -8,30 +8,24 @@ import {
 import { quote } from "@activeviam/mdx";
 
 /**
- * Returns the column width for the tree table calculated by the baseWidth + (maxLevelDepth * levelMultiplier)
+ * Returns the column key to be used for mapping column widths to their respective columns.
  */
-export function getTreeColumnWidth({
-  maxLevelDepth,
+export function getTreeColumnKey({
   mapping,
-  treeTableColumnWidth,
-  columnLevels,
+  rowLevels,
   cube,
 }: {
   mapping: DataVisualizationWidgetMapping;
-  maxLevelDepth: number;
-  treeTableColumnWidth: [number, number];
-  columnLevels: LevelCoordinates[];
+  rowLevels: LevelCoordinates[];
   cube: Cube;
-}): { [columnKey: string]: number } {
-  let columnKey: string;
-
+}): string {
   switch (mapping.rows[0].type) {
     case "hierarchy": {
-      const hierarchy = columnLevels[0]
+      const hierarchy = rowLevels[0]
         ? getHierarchy(
             {
-              dimensionName: columnLevels[0].dimensionName,
-              hierarchyName: columnLevels[0].hierarchyName,
+              dimensionName: rowLevels[0].dimensionName,
+              hierarchyName: rowLevels[0].hierarchyName,
             },
             cube,
           )
@@ -39,11 +33,11 @@ export function getTreeColumnWidth({
 
       const firstLevelName = hierarchy && hierarchy.levels[1];
       const firstLevel =
-        firstLevelName && columnLevels[0]
+        firstLevelName && rowLevels[0]
           ? getLevel(
               {
-                dimensionName: columnLevels[0].dimensionName,
-                hierarchyName: columnLevels[0].hierarchyName,
+                dimensionName: rowLevels[0].dimensionName,
+                hierarchyName: rowLevels[0].hierarchyName,
                 levelName: firstLevelName.name,
               },
               cube,
@@ -56,24 +50,18 @@ export function getTreeColumnWidth({
         ? firstLevel.name
         : mapping.rows[0].levelName;
 
-      columnKey = quote(dimensionName, hierarchyName, levelName);
-      break;
+      return quote(dimensionName, hierarchyName, levelName);
     }
     case "compositeHierarchy": {
       const { dimensionName, hierarchyName, levelName } =
         mapping.rows[0].hierarchies[0];
-      columnKey = quote(dimensionName, hierarchyName, levelName);
-      break;
+      return quote(dimensionName, hierarchyName, levelName);
     }
     case "allMeasures": {
-      columnKey = "[Measures].[Measures]";
-      break;
+      return "[Measures].[Measures]";
     }
     default: {
       throw new Error("A measure cannot be mapped on an ordinal field.");
     }
   }
-
-  const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
-  return { [columnKey]: baseWidth + maxLevelDepth * maxLevelMultiplier };
 }
