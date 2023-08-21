@@ -3,12 +3,9 @@ import type {
   DataVisualizationWidgetMapping,
 } from "@activeviam/activeui-sdk";
 import {
-  getHierarchy,
-  getLevel,
   isMdxCompoundIdentifier,
   isMdxFunction,
   parse,
-  quote,
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
 import { getTreeColumnKey } from "./getTreeColumnKey";
@@ -23,31 +20,16 @@ interface LegacyColumn {
 }
 
 /**
- * Returns the converted table column widths, ready to be used in the widget state of a {@link TableWidgetPlugin} in ActiveUI 5.
+ * Returns the sum of the deepest level per hierarchy found on the rows axis.
+ *
  */
-export function _migrateTableColumnWidths({
-  legacyColumns = [],
-  mapping,
+function getTotalRowLevelDepth({
   cube,
-  treeTableColumnWidth,
+  mapping,
 }: {
-  legacyColumns: LegacyColumn[];
-  mapping: DataVisualizationWidgetMapping;
   cube: Cube;
-  treeTableColumnWidth?: [number, number];
-}): { [columnKey: string]: number } {
-  const columnWidths: { [columnKey: string]: number } = {};
-
-  /**
-   * Returns the max level depths per hierarchy
-   *
-   * Ex:
-   *
-   * {
-   *  BookId: 4
-   *  Currency: 2
-   * }
-   */
+  mapping: DataVisualizationWidgetMapping;
+}) {
   const maxLevelDepthPerHierarchy = mapping.rows.reduce(
     (levelDepthPerHierarchy: { [hierarchyName: string]: number }, row) => {
       switch (row.type) {
@@ -119,7 +101,25 @@ export function _migrateTableColumnWidths({
     {},
   );
 
-  const maxLevelDepth = _sum(Object.values(maxLevelDepthPerHierarchy));
+  return _sum(Object.values(maxLevelDepthPerHierarchy));
+}
+
+/**
+ * Returns the converted table column widths, ready to be used in the widget state of a {@link TableWidgetPlugin} in ActiveUI 5.
+ */
+export function _migrateTableColumnWidths({
+  legacyColumns = [],
+  mapping,
+  cube,
+  treeTableColumnWidth,
+}: {
+  legacyColumns: LegacyColumn[];
+  mapping: DataVisualizationWidgetMapping;
+  cube: Cube;
+  treeTableColumnWidth?: [number, number];
+}): { [columnKey: string]: number } {
+  const columnWidths: { [columnKey: string]: number } = {};
+  const rowLevelDepth = getTotalRowLevelDepth({ cube, mapping });
 
   if (
     (legacyColumns === undefined || legacyColumns.length === 0) &&
@@ -131,7 +131,7 @@ export function _migrateTableColumnWidths({
     });
 
     const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
-    columnWidths[columnKey] = baseWidth + maxLevelDepth * maxLevelMultiplier;
+    columnWidths[columnKey] = baseWidth + rowLevelDepth * maxLevelMultiplier;
 
     return columnWidths;
   }
@@ -148,54 +148,7 @@ export function _migrateTableColumnWidths({
     } else if (key === "c-treeCells-member" && mapping?.rows?.[0]) {
       // Special handling for the tree table column corresponding to all fields mapped on rows.
       // In ActiveUI 5, its column key is the unique id of the first field.
-      switch (mapping.rows[0].type) {
-        case "allMeasures": {
-          columnKey = "[Measures].[Measures]";
-          break;
-        }
-        case "hierarchy": {
-          const hierarchy = mapping.rows[0]
-            ? getHierarchy(
-                {
-                  dimensionName: mapping.rows[0].dimensionName,
-                  hierarchyName: mapping.rows[0].hierarchyName,
-                },
-                cube,
-              )
-            : undefined;
-
-          const firstLevelName = hierarchy && hierarchy.levels[1];
-          const firstLevel =
-            firstLevelName && mapping.rows[0]
-              ? getLevel(
-                  {
-                    dimensionName: mapping.rows[0].dimensionName,
-                    hierarchyName: mapping.rows[0].hierarchyName,
-                    levelName: firstLevelName.name,
-                  },
-                  cube,
-                )
-              : undefined;
-
-          const { dimensionName, hierarchyName } = mapping.rows[0];
-
-          const levelName = firstLevel
-            ? firstLevel.name
-            : mapping.rows[0].levelName;
-
-          columnKey = quote(dimensionName, hierarchyName, levelName);
-          break;
-        }
-        case "compositeHierarchy": {
-          const { dimensionName, hierarchyName, levelName } =
-            mapping.rows[0].hierarchies[0];
-          columnKey = quote(dimensionName, hierarchyName, levelName);
-          break;
-        }
-        default: {
-          throw new Error("A measure cannot be mapped on an ordinal field.");
-        }
-      }
+      columnKey = getTreeColumnKey({ mapping, cube });
     } else {
       try {
         // Most column keys are either a level unique name, a member or a tuple.
@@ -233,7 +186,7 @@ export function _migrateTableColumnWidths({
       const [baseWidth, levelMultiplier] = treeTableColumnWidth || [];
       columnWidths[columnKey] =
         baseWidth && levelMultiplier
-          ? baseWidth + levelMultiplier * maxLevelDepth
+          ? baseWidth + levelMultiplier * rowLevelDepth
           : width;
     }
   });

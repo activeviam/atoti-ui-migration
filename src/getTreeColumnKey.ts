@@ -28,7 +28,8 @@ export function getTreeColumnKey({
           )
         : undefined;
 
-      const firstLevelName = hierarchy && hierarchy.levels[1];
+      const firstLevelName =
+        hierarchy && hierarchy.levels[hierarchy.slicing ? 0 : 1];
       const firstLevel =
         firstLevelName && mapping.rows[0]
           ? getLevel(
