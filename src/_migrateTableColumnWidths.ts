@@ -1,7 +1,6 @@
 import type {
   Cube,
   DataVisualizationWidgetMapping,
-  LevelCoordinates,
 } from "@activeviam/activeui-sdk";
 import {
   getHierarchy,
@@ -30,13 +29,11 @@ export function _migrateTableColumnWidths({
   legacyColumns = [],
   mapping,
   cube,
-  rowLevels = [],
   treeTableColumnWidth,
 }: {
   legacyColumns: LegacyColumn[];
   mapping: DataVisualizationWidgetMapping;
   cube: Cube;
-  rowLevels?: LevelCoordinates[];
   treeTableColumnWidth?: [number, number];
 }): { [columnKey: string]: number } {
   const columnWidths: { [columnKey: string]: number } = {};
@@ -131,7 +128,6 @@ export function _migrateTableColumnWidths({
     const columnKey = getTreeColumnKey({
       mapping,
       cube,
-      rowLevels,
     });
 
     const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
@@ -158,11 +154,11 @@ export function _migrateTableColumnWidths({
           break;
         }
         case "hierarchy": {
-          const hierarchy = rowLevels[0]
+          const hierarchy = mapping.rows[0]
             ? getHierarchy(
                 {
-                  dimensionName: rowLevels[0].dimensionName,
-                  hierarchyName: rowLevels[0].hierarchyName,
+                  dimensionName: mapping.rows[0].dimensionName,
+                  hierarchyName: mapping.rows[0].hierarchyName,
                 },
                 cube,
               )
@@ -170,11 +166,11 @@ export function _migrateTableColumnWidths({
 
           const firstLevelName = hierarchy && hierarchy.levels[1];
           const firstLevel =
-            firstLevelName && rowLevels[0]
+            firstLevelName && mapping.rows[0]
               ? getLevel(
                   {
-                    dimensionName: rowLevels[0].dimensionName,
-                    hierarchyName: rowLevels[0].hierarchyName,
+                    dimensionName: mapping.rows[0].dimensionName,
+                    hierarchyName: mapping.rows[0].hierarchyName,
                     levelName: firstLevelName.name,
                   },
                   cube,

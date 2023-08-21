@@ -1,5 +1,5 @@
 /**
- * Extracts the tuple value from the tree-column-width argument value.
+ * Extracts the tuple from the tree-column-width argument value.
  * The tuple is in the shape of [baseColumnWidth, levelDepthMultiplier]
  */
 export function getTreeColumnWidthFromArgs(

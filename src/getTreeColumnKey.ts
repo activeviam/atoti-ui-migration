@@ -1,7 +1,6 @@
 import {
   Cube,
   DataVisualizationWidgetMapping,
-  LevelCoordinates,
   getHierarchy,
   getLevel,
 } from "@activeviam/activeui-sdk";
@@ -12,20 +11,18 @@ import { quote } from "@activeviam/mdx";
  */
 export function getTreeColumnKey({
   mapping,
-  rowLevels,
   cube,
 }: {
   mapping: DataVisualizationWidgetMapping;
-  rowLevels: LevelCoordinates[];
   cube: Cube;
 }): string {
   switch (mapping.rows[0].type) {
     case "hierarchy": {
-      const hierarchy = rowLevels[0]
+      const hierarchy = mapping.rows[0]
         ? getHierarchy(
             {
-              dimensionName: rowLevels[0].dimensionName,
-              hierarchyName: rowLevels[0].hierarchyName,
+              dimensionName: mapping.rows[0].dimensionName,
+              hierarchyName: mapping.rows[0].hierarchyName,
             },
             cube,
           )
@@ -33,11 +30,11 @@ export function getTreeColumnKey({
 
       const firstLevelName = hierarchy && hierarchy.levels[1];
       const firstLevel =
-        firstLevelName && rowLevels[0]
+        firstLevelName && mapping.rows[0]
           ? getLevel(
               {
-                dimensionName: rowLevels[0].dimensionName,
-                hierarchyName: rowLevels[0].hierarchyName,
+                dimensionName: mapping.rows[0].dimensionName,
+                hierarchyName: mapping.rows[0].hierarchyName,
                 levelName: firstLevelName.name,
               },
               cube,

@@ -11,7 +11,6 @@ import {
   pluginWidgetPivotTable,
   pluginWidgetTable,
   pluginWidgetTreeTable,
-  getLevels,
 } from "@activeviam/activeui-sdk";
 import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
@@ -68,9 +67,6 @@ export function migrateTable(
   const legacyColumns =
     legacyTableState.value?.body?.configuration?.tabular?.columns;
 
-  const rowsAxis = query.mdx?.axes.find((axis) => axis.name === "ROWS");
-  const rowLevels = rowsAxis ? getLevels(rowsAxis, { cube }) : [];
-
   const columnWidths =
     legacyColumns || (widgetPlugin.key === "tree-table" && treeTableColumnWidth)
       ? _migrateTableColumnWidths({
@@ -78,7 +74,6 @@ export function migrateTable(
           mapping,
           cube,
           treeTableColumnWidth,
-          rowLevels,
         })
       : {};
 
