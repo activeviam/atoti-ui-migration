@@ -15,7 +15,7 @@ export function getTreeColumnWidthFromArgs(
     );
   }
 
-  const [baseWidth, levelColumnMultiplier] = values;
+  const [baseWidth, levelDepthMultiplier] = values;
 
-  return [baseWidth, levelColumnMultiplier];
+  return [baseWidth, levelDepthMultiplier];
 }

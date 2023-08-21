@@ -12,7 +12,11 @@ import {
   quote,
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
-import { getTreeColumnWidth } from "./getTreeColumnWidth";
+import { getTreeColumnKey } from "./getTreeColumnKey";
+import { getLevelIndex } from "@activeviam/data-model";
+import _max from "lodash/max";
+import _groupBy from "lodash/groupBy";
+import _sum from "lodash/sum";
 
 interface LegacyColumn {
   key: string;
@@ -23,33 +27,117 @@ interface LegacyColumn {
  * Returns the converted table column widths, ready to be used in the widget state of a {@link TableWidgetPlugin} in ActiveUI 5.
  */
 export function _migrateTableColumnWidths({
-  legacyColumns,
+  legacyColumns = [],
   mapping,
   cube,
-  columnLevels = [],
-  maxLevelDepth = 1,
+  rowLevels = [],
   treeTableColumnWidth,
 }: {
   legacyColumns: LegacyColumn[];
   mapping: DataVisualizationWidgetMapping;
   cube: Cube;
-  columnLevels?: LevelCoordinates[];
-  maxLevelDepth?: number;
+  rowLevels?: LevelCoordinates[];
   treeTableColumnWidth?: [number, number];
 }): { [columnKey: string]: number } {
   const columnWidths: { [columnKey: string]: number } = {};
+
+  /**
+   * Returns the max level depths per hierarchy
+   *
+   * Ex:
+   *
+   * {
+   *  BookId: 4
+   *  Currency: 2
+   * }
+   */
+  const maxLevelDepthPerHierarchy = mapping.rows.reduce(
+    (levelDepthPerHierarchy: { [hierarchyName: string]: number }, row) => {
+      switch (row.type) {
+        case "hierarchy": {
+          const { dimensionName, hierarchyName } = row;
+          const levelName = row.expandedDownTo
+            ? row.expandedDownTo
+            : row.levelName;
+
+          const currentDeepestLevelForHierarchy =
+            levelDepthPerHierarchy[hierarchyName];
+
+          const maxLevelDepthForCurrentRow = getLevelIndex({
+            cube,
+            dimensionName,
+            hierarchyName,
+            levelName,
+          });
+
+          if (currentDeepestLevelForHierarchy === undefined) {
+            levelDepthPerHierarchy[hierarchyName] = maxLevelDepthForCurrentRow;
+          } else {
+            levelDepthPerHierarchy[hierarchyName] =
+              _max([
+                currentDeepestLevelForHierarchy,
+                maxLevelDepthForCurrentRow,
+              ]) || currentDeepestLevelForHierarchy;
+          }
+          break;
+        }
+
+        case "compositeHierarchy": {
+          const groupedHierarchies = _groupBy(row.hierarchies, "hierarchyName");
+          Object.entries(groupedHierarchies).forEach(([hierarchyName, row]) => {
+            const currentDeepestLevelForHierarchy =
+              levelDepthPerHierarchy[hierarchyName];
+            const maxLevelDepthForHierarchy = _max(
+              row.map((level) => {
+                const { dimensionName } = level;
+                const levelName = level.expandedDownTo
+                  ? level.expandedDownTo
+                  : level.levelName;
+
+                return getLevelIndex({
+                  cube,
+                  dimensionName,
+                  hierarchyName,
+                  levelName,
+                });
+              }),
+            );
+
+            if (currentDeepestLevelForHierarchy === undefined) {
+              levelDepthPerHierarchy[hierarchyName] =
+                maxLevelDepthForHierarchy || 1;
+            } else {
+              levelDepthPerHierarchy[hierarchyName] =
+                _max([
+                  currentDeepestLevelForHierarchy,
+                  maxLevelDepthForHierarchy,
+                ]) || currentDeepestLevelForHierarchy;
+            }
+          });
+        }
+      }
+
+      return levelDepthPerHierarchy;
+    },
+    {},
+  );
+
+  const maxLevelDepth = _sum(Object.values(maxLevelDepthPerHierarchy));
 
   if (
     (legacyColumns === undefined || legacyColumns.length === 0) &&
     treeTableColumnWidth
   ) {
-    return getTreeColumnWidth({
-      maxLevelDepth,
+    const columnKey = getTreeColumnKey({
       mapping,
-      treeTableColumnWidth,
       cube,
-      columnLevels,
+      rowLevels,
     });
+
+    const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
+    columnWidths[columnKey] = baseWidth + maxLevelDepth * maxLevelMultiplier;
+
+    return columnWidths;
   }
 
   legacyColumns.forEach(({ key, width }) => {
@@ -70,11 +158,11 @@ export function _migrateTableColumnWidths({
           break;
         }
         case "hierarchy": {
-          const hierarchy = columnLevels[0]
+          const hierarchy = rowLevels[0]
             ? getHierarchy(
                 {
-                  dimensionName: columnLevels[0].dimensionName,
-                  hierarchyName: columnLevels[0].hierarchyName,
+                  dimensionName: rowLevels[0].dimensionName,
+                  hierarchyName: rowLevels[0].hierarchyName,
                 },
                 cube,
               )
@@ -82,11 +170,11 @@ export function _migrateTableColumnWidths({
 
           const firstLevelName = hierarchy && hierarchy.levels[1];
           const firstLevel =
-            firstLevelName && columnLevels[0]
+            firstLevelName && rowLevels[0]
               ? getLevel(
                   {
-                    dimensionName: columnLevels[0].dimensionName,
-                    hierarchyName: columnLevels[0].hierarchyName,
+                    dimensionName: rowLevels[0].dimensionName,
+                    hierarchyName: rowLevels[0].hierarchyName,
                     levelName: firstLevelName.name,
                   },
                   cube,
