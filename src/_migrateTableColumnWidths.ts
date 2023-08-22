@@ -9,99 +9,11 @@ import {
 } from "@activeviam/activeui-sdk";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
 import { getTreeColumnKey } from "./getTreeColumnKey";
-import { getLevelIndex } from "@activeviam/data-model";
-import _max from "lodash/max";
-import _groupBy from "lodash/groupBy";
-import _sum from "lodash/sum";
+import { _getLevelDepthOnRows } from "./_getLevelDepthOnRows";
 
 interface LegacyColumn {
   key: string;
   width?: number;
-}
-
-/**
- * Returns the sum of the deepest level per hierarchy found on the rows axis.
- *
- */
-function getTotalRowLevelDepth({
-  cube,
-  mapping,
-}: {
-  cube: Cube;
-  mapping: DataVisualizationWidgetMapping;
-}) {
-  const maxLevelDepthPerHierarchy = mapping.rows.reduce(
-    (levelDepthPerHierarchy: { [hierarchyName: string]: number }, row) => {
-      switch (row.type) {
-        case "hierarchy": {
-          const { dimensionName, hierarchyName } = row;
-          const levelName = row.expandedDownTo
-            ? row.expandedDownTo
-            : row.levelName;
-
-          const currentDeepestLevelForHierarchy =
-            levelDepthPerHierarchy[hierarchyName];
-
-          const maxLevelDepthForCurrentRow = getLevelIndex({
-            cube,
-            dimensionName,
-            hierarchyName,
-            levelName,
-          });
-
-          if (currentDeepestLevelForHierarchy === undefined) {
-            levelDepthPerHierarchy[hierarchyName] = maxLevelDepthForCurrentRow;
-          } else {
-            levelDepthPerHierarchy[hierarchyName] =
-              _max([
-                currentDeepestLevelForHierarchy,
-                maxLevelDepthForCurrentRow,
-              ]) || currentDeepestLevelForHierarchy;
-          }
-          break;
-        }
-
-        case "compositeHierarchy": {
-          const groupedHierarchies = _groupBy(row.hierarchies, "hierarchyName");
-          Object.entries(groupedHierarchies).forEach(([hierarchyName, row]) => {
-            const currentDeepestLevelForHierarchy =
-              levelDepthPerHierarchy[hierarchyName];
-            const maxLevelDepthForHierarchy = _max(
-              row.map((level) => {
-                const { dimensionName } = level;
-                const levelName = level.expandedDownTo
-                  ? level.expandedDownTo
-                  : level.levelName;
-
-                return getLevelIndex({
-                  cube,
-                  dimensionName,
-                  hierarchyName,
-                  levelName,
-                });
-              }),
-            );
-
-            if (currentDeepestLevelForHierarchy === undefined) {
-              levelDepthPerHierarchy[hierarchyName] =
-                maxLevelDepthForHierarchy || 1;
-            } else {
-              levelDepthPerHierarchy[hierarchyName] =
-                _max([
-                  currentDeepestLevelForHierarchy,
-                  maxLevelDepthForHierarchy,
-                ]) || currentDeepestLevelForHierarchy;
-            }
-          });
-        }
-      }
-
-      return levelDepthPerHierarchy;
-    },
-    {},
-  );
-
-  return _sum(Object.values(maxLevelDepthPerHierarchy));
 }
 
 /**
@@ -119,7 +31,7 @@ export function _migrateTableColumnWidths({
   treeTableColumnWidth?: [number, number];
 }): { [columnKey: string]: number } {
   const columnWidths: { [columnKey: string]: number } = {};
-  const rowLevelDepth = getTotalRowLevelDepth({ cube, mapping });
+  const levelDepthOnRows = _getLevelDepthOnRows({ cube, mapping });
 
   if (
     (legacyColumns === undefined || legacyColumns.length === 0) &&
@@ -131,7 +43,7 @@ export function _migrateTableColumnWidths({
     });
 
     const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
-    columnWidths[columnKey] = baseWidth + rowLevelDepth * maxLevelMultiplier;
+    columnWidths[columnKey] = baseWidth + levelDepthOnRows * maxLevelMultiplier;
 
     return columnWidths;
   }
@@ -186,7 +98,7 @@ export function _migrateTableColumnWidths({
       const [baseWidth, levelMultiplier] = treeTableColumnWidth || [];
       columnWidths[columnKey] =
         baseWidth && levelMultiplier
-          ? baseWidth + levelMultiplier * rowLevelDepth
+          ? baseWidth + levelMultiplier * levelDepthOnRows
           : width;
     }
   });
