@@ -24,7 +24,7 @@ describe("_getLevelDepthOnRows", () => {
     };
 
     // Desk is the 3rd level on the [Booking].[Desk] hierarchy (which is non slicing).
-    // AsOfDate is the 1rst one on the [Time].[HistoricalDates] hierarchy (which is slicing).
+// AsOfDate is the 1st level on the [Time].[HistoricalDates] hierarchy (which is slicing).
     expect(_getLevelDepthOnRows({ cube, mapping })).toBe(4);
   });
 
