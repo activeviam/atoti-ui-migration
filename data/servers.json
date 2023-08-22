@@ -1,0 +1,1235 @@
+{
+  "my-server": {
+    "url": "http://localhost:9090",
+    "dataModel": {
+      "catalogs": [
+        {
+          "name": "Catalog",
+          "cubes": [
+            {
+              "name": "EquityDerivativesCube",
+              "caption": "EquityDerivativesCube",
+              "measures": [
+                {
+                  "name": "rho.SUM",
+                  "caption": "rho.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "gamma.SUM",
+                  "caption": "gamma.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.SUM__#__1__#__equity-derivatives",
+                  "caption": "pnl.SUM__#__1__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "delta.SUM",
+                  "caption": "delta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.SUM",
+                  "caption": "pnl.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pv.SUM",
+                  "caption": "pv.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "theta.SUM",
+                  "caption": "theta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "vega.SUM",
+                  "caption": "vega.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pnlDelta.SUM",
+                  "caption": "pnlDelta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ProductBaseMtm.SUM__#__0__#__equity-derivatives",
+                  "caption": "ProductBaseMtm.SUM__#__0__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "pnlVega.SUM",
+                  "caption": "pnlVega.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "update.TIMESTAMP",
+                  "caption": "Timestamp",
+                  "formatString": "HH:mm:ss",
+                  "type": "Object",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.MINIMUM_DEPTH",
+                  "caption": "pnl.MINIMUM_DEPTH",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "PnL Limit",
+                  "caption": "PnL Limit",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "pnl.FOREX",
+                  "caption": "pnl.FOREX",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "pv.UnderlyingsRatio",
+                  "caption": "pv.UnderlyingsRatio",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Longitude",
+                  "caption": "Longitude",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "Geography",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "ProductBaseMtm.SUM.drillUp([Hierarchy[hierarchy=Currency]; 1])__#__0__#__equity-derivatives",
+                  "caption": "ProductBaseMtm.SUM.drillUp([Hierarchy[hierarchy=Currency]; 1])__#__0__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "λ()__#__0__#__equity-derivatives",
+                  "caption": "λ()__#__0__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "PnL Limit Status",
+                  "caption": "PnL Limit Status",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "Latitude",
+                  "caption": "Latitude",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "Geography",
+                  "type": "double",
+                  "visible": true
+                },
+                {
+                  "name": "MULTIPLY(pnl.SUM;Rate_fromStore_Forex)__#__0__#__equity-derivatives",
+                  "caption": "MULTIPLY(pnl.SUM;Rate_fromStore_Forex)__#__0__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "λ()__#__1__#__equity-derivatives",
+                  "caption": "λ()__#__1__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "Rate_fromStore_Forex__#__0__#__equity-derivatives",
+                  "caption": "Rate_fromStore_Forex__#__0__#__equity-derivatives",
+                  "type": "double",
+                  "visible": false
+                },
+                {
+                  "name": "contributors.COUNT",
+                  "caption": "contributors.COUNT",
+                  "type": "long",
+                  "visible": true
+                }
+              ],
+              "dimensions": [
+                {
+                  "name": "Underlyings",
+                  "caption": "Underlyings",
+                  "description": "Dimension of underlyings",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Products",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Underlyings",
+                      "caption": "Underlyings",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "UnderlierType",
+                          "caption": "UnderlierType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "UnderlierCode",
+                          "caption": "UnderlierCode",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Products",
+                      "caption": "Products",
+                      "description": "Hierarchy of products",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "ProductType",
+                          "caption": "ProductType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "ProductName",
+                          "caption": "ProductName",
+                          "description": "Level of product names",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "HostName",
+                  "caption": "HostName",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HostName",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "HostName",
+                      "caption": "HostName",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "HostName",
+                          "caption": "HostName",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Currency",
+                  "caption": "Currency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Currency",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Currency",
+                      "caption": "Currency",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Currency",
+                          "caption": "Currency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "CounterParty",
+                  "caption": "CounterParty",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "CounterParty",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "CounterParty",
+                      "caption": "CounterParty",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "CounterPartyGroup",
+                          "caption": "CounterPartyGroup",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "CounterParty",
+                          "caption": "CounterParty",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Geography",
+                  "caption": "Geography",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "City",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "City",
+                      "caption": "City",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "City",
+                          "caption": "City",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Trades",
+                  "caption": "Trades",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Trades",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Trades",
+                      "caption": "Trades",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TradeId",
+                          "caption": "TradeId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Booking",
+                  "caption": "Booking",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Desk",
+                  "visible": true,
+                  "measureGroups": ["PnL"],
+                  "hierarchies": [
+                    {
+                      "name": "Desk",
+                      "caption": "Desk",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "LegalEntity",
+                          "caption": "LegalEntity",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BusinessUnit",
+                          "caption": "BusinessUnit",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Desk",
+                          "caption": "Desk",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BookId",
+                          "caption": "BookId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Status",
+                      "caption": "Status",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "IsSimulated",
+                          "caption": "IsSimulated",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Status",
+                          "caption": "Status",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Time",
+                  "caption": "Time",
+                  "type": "TIME",
+                  "defaultHierarchy": "HistoricalDates",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "HistoricalDates",
+                      "caption": "HistoricalDates",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "AsOfDate",
+                          "caption": "AsOfDate",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucket",
+                      "caption": "TimeBucket",
+                      "folder": "Bucketing",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Value Date",
+                          "caption": "Value Date",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucketDynamic",
+                      "caption": "TimeBucketDynamic",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TimeBucketDynamic",
+                          "caption": "TimeBucketDynamic",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "TargetCurrency",
+                  "caption": "TargetCurrency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "TargetCurrency",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "TargetCurrency",
+                      "caption": "TargetCurrency",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "TargetCurrency",
+                          "caption": "TargetCurrency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Epoch",
+                  "caption": "What-If",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Epoch",
+                  "visible": true,
+                  "hierarchies": [
+                    {
+                      "name": "Epoch",
+                      "caption": "What-If",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "Branch",
+                          "caption": "What-If",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Epoch",
+                          "caption": "Epoch",
+                          "type": "TIME"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "kpis": [],
+              "sets": [],
+              "defaultMembers": [
+                {
+                  "dimension": "Measures",
+                  "hierarchy": "Measures",
+                  "path": ["contributors.COUNT"],
+                  "captionPath": ["contributors.COUNT"]
+                },
+                {
+                  "dimension": "Time",
+                  "hierarchy": "HistoricalDates",
+                  "path": ["2023-08-17"],
+                  "captionPath": ["2023-08-17"]
+                },
+                {
+                  "dimension": "TargetCurrency",
+                  "hierarchy": "TargetCurrency",
+                  "path": ["ZAR"],
+                  "captionPath": ["ZAR"]
+                },
+                {
+                  "dimension": "Epoch",
+                  "hierarchy": "Epoch",
+                  "path": ["master"],
+                  "captionPath": ["master"]
+                }
+              ],
+              "contextValues": [
+                {
+                  "name": "queriesTimeLimit",
+                  "value": "30"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Latitude]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Epoch].[Epoch].[Epoch]",
+                  "value": "EPOCH[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[HistoricalDates].[AsOfDate]",
+                  "value": "DATE[yyyy-MM-dd]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[rho.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[delta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "drillthrough.hiddencolumns",
+                  "value": "BookId,City"
+                },
+                {
+                  "name": "mdx.defaultmembers.[TargetCurrency].[TargetCurrency]",
+                  "value": "ZAR"
+                },
+                {
+                  "name": "queriesResultLimit.transientLimit",
+                  "value": "5000000"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[update.TIMESTAMP]",
+                  "value": "DATE[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlDelta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "drillthrough.maxrows",
+                  "value": "10000"
+                },
+                {
+                  "name": "user-authentication",
+                  "value": "admin"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[gamma.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.MINIMUM_DEPTH]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumnsets",
+                  "value": "PnlCurrencyColumnSet"
+                },
+                {
+                  "name": "queriesResultLimit.intermediateLimit",
+                  "value": "5000000"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[theta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.measureAliases.update.TIMESTAMP",
+                  "value": "Timestamp"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumns",
+                  "value": "DoubleAdder,BookIdColumn,CityNameColumn"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[Longitude]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[vega.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pv.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.FOREX]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.cubeFormatter",
+                  "value": "en-US"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[TimeBucket].[Value Date]",
+                  "value": "DATE[dd-MM-yyyy]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlVega.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                }
+              ],
+              "measureGroups": []
+            },
+            {
+              "name": "EquityDerivativesCubeDist",
+              "caption": "EquityDerivativesCubeDist",
+              "measures": [
+                {
+                  "name": "contributors.COUNT",
+                  "caption": "Distributed_Count",
+                  "formatString": "#,###",
+                  "folder": "Native_measures",
+                  "type": "long",
+                  "visible": true
+                },
+                {
+                  "name": "update.TIMESTAMP",
+                  "caption": "Distributed_Timestamp",
+                  "formatString": "HH:mm:ss",
+                  "folder": "Native_measures",
+                  "type": "Object",
+                  "visible": true
+                },
+                {
+                  "name": "pnl.SUM",
+                  "caption": "pnl.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pv.SUM",
+                  "caption": "pv.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnlDelta.SUM",
+                  "caption": "pnlDelta.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnlVega.SUM",
+                  "caption": "pnlVega.SUM",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pnl.MINIMUM_DEPTH",
+                  "caption": "pnl.MINIMUM_DEPTH",
+                  "formatString": "#,###.00;-#,###.00",
+                  "folder": "PnL",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                },
+                {
+                  "name": "pv.UnderlyingsRatio",
+                  "caption": "pv.UnderlyingsRatio",
+                  "type": "double",
+                  "visible": true,
+                  "measureGroup": "equity-derivatives"
+                }
+              ],
+              "dimensions": [
+                {
+                  "name": "Underlyings",
+                  "caption": "Underlyings",
+                  "description": "Dimension of underlyings",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Products",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Underlyings",
+                      "caption": "Underlyings",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "UnderlierType",
+                          "caption": "UnderlierType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "UnderlierCode",
+                          "caption": "UnderlierCode",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Products",
+                      "caption": "Products",
+                      "description": "Hierarchy of products",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "ProductType",
+                          "caption": "ProductType",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "ProductName",
+                          "caption": "ProductName",
+                          "description": "Level of product names",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "HostName",
+                  "caption": "HostName",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "HostName",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "HostName",
+                      "caption": "HostName",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "HostName",
+                          "caption": "HostName",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Currency",
+                  "caption": "Currency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Currency",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Currency",
+                      "caption": "Currency",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Currency",
+                          "caption": "Currency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "CounterParty",
+                  "caption": "CounterParty",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "CounterParty",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "CounterParty",
+                      "caption": "CounterParty",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "CounterPartyGroup",
+                          "caption": "CounterPartyGroup",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "CounterParty",
+                          "caption": "CounterParty",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Geography",
+                  "caption": "Geography",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "City",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "City",
+                      "caption": "City",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "City",
+                          "caption": "City",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Booking",
+                  "caption": "Booking",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "Desk",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "Desk",
+                      "caption": "Desk",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "LegalEntity",
+                          "caption": "LegalEntity",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BusinessUnit",
+                          "caption": "BusinessUnit",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Desk",
+                          "caption": "Desk",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "BookId",
+                          "caption": "BookId",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Status",
+                      "caption": "Status",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "IsSimulated",
+                          "caption": "IsSimulated",
+                          "type": "REGULAR"
+                        },
+                        {
+                          "name": "Status",
+                          "caption": "Status",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Time",
+                  "caption": "Time",
+                  "type": "TIME",
+                  "defaultHierarchy": "HistoricalDates",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "HistoricalDates",
+                      "caption": "HistoricalDates",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "AsOfDate",
+                          "caption": "AsOfDate",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucket",
+                      "caption": "TimeBucket",
+                      "folder": "Bucketing",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "Value Date",
+                          "caption": "Value Date",
+                          "type": "TIME"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TimeBucketDynamic",
+                      "caption": "TimeBucketDynamic",
+                      "slicing": false,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "ALL",
+                          "caption": "ALL",
+                          "type": "ALL"
+                        },
+                        {
+                          "name": "TimeBucketDynamic",
+                          "caption": "TimeBucketDynamic",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "TargetCurrency",
+                  "caption": "TargetCurrency",
+                  "type": "REGULAR",
+                  "defaultHierarchy": "TargetCurrency",
+                  "visible": true,
+                  "measureGroups": ["equity-derivatives"],
+                  "hierarchies": [
+                    {
+                      "name": "TargetCurrency",
+                      "caption": "TargetCurrency",
+                      "slicing": true,
+                      "visible": true,
+                      "levels": [
+                        {
+                          "name": "TargetCurrency",
+                          "caption": "TargetCurrency",
+                          "type": "REGULAR"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "kpis": [],
+              "sets": [],
+              "defaultMembers": [
+                {
+                  "dimension": "Measures",
+                  "hierarchy": "Measures",
+                  "path": ["contributors.COUNT"],
+                  "captionPath": ["Distributed_Count"]
+                },
+                {
+                  "dimension": "Time",
+                  "hierarchy": "HistoricalDates",
+                  "path": ["2023-08-17"],
+                  "captionPath": ["2023-08-17"]
+                },
+                {
+                  "dimension": "TargetCurrency",
+                  "hierarchy": "TargetCurrency",
+                  "path": ["ZAR"],
+                  "captionPath": ["ZAR"]
+                }
+              ],
+              "contextValues": [
+                {
+                  "name": "drillthrough.maxrows",
+                  "value": "10000"
+                },
+                {
+                  "name": "user-authentication",
+                  "value": "admin"
+                },
+                {
+                  "name": "queriesTimeLimit",
+                  "value": "30"
+                },
+                {
+                  "name": "mdx.measureAliases.contributors.COUNT",
+                  "value": "Distributed_Count"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.MINIMUM_DEPTH]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[contributors.COUNT]",
+                  "value": "INT[#,###]"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumnsets",
+                  "value": ""
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnl.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[HistoricalDates].[AsOfDate]",
+                  "value": "DATE[yyyy-MM-dd]"
+                },
+                {
+                  "name": "queriesResultLimit.intermediateLimit",
+                  "value": "10000000"
+                },
+                {
+                  "name": "subcube",
+                  "value": "rO0ABXNyAD5jb20ucXVhcnRldGZzLmJpei5waXZvdC5jb250ZXh0LnN1YmN1YmUuaW1wbC5TdWJDdWJlUHJvcGVydGllc6EZPtgenyqJAgAEWgANYWNjZXNzR3JhbnRlZEwAD2dyYW50ZWRNZWFzdXJlc3QAD0xqYXZhL3V0aWwvU2V0O0wADmdyYW50ZWRNZW1iZXJzdAAPTGphdmEvdXRpbC9NYXA7TAAMc3ViQ3ViZVRyZWVzcQB+AAJ4cgAyY29tLnF1YXJ0ZXRmcy5iaXoucGl2b3QuY29udGV4dC5pbXBsLkFDb250ZXh0VmFsdWWPkuKT2joKDQIAAHhwAXNyABFqYXZhLnV0aWwuSGFzaFNldLpEhZWWuLc0AwAAeHB3DAAAABA/QAAAAAAACHQABnB2LlNVTXQAC3BubFZlZ2EuU1VNdAASY29udHJpYnV0b3JzLkNPVU5UdAATcHYuVW5kZXJseWluZ3NSYXRpb3QADHBubERlbHRhLlNVTXQAB3BubC5TVU10ABFwbmwuTUlOSU1VTV9ERVBUSHQAEHVwZGF0ZS5USU1FU1RBTVB4c3IAEWphdmEudXRpbC5IYXNoTWFwBQfawcMWYNEDAAJGAApsb2FkRmFjdG9ySQAJdGhyZXNob2xkeHA/QAAAAAAAAHcIAAAAEAAAAAB4c3EAfgAPP0AAAAAAAAB3CAAAABAAAAAAeA=="
+                },
+                {
+                  "name": "mdx.measureAliases.update.TIMESTAMP",
+                  "value": "Distributed_Timestamp"
+                },
+                {
+                  "name": "drillthrough.calculatedcolumns",
+                  "value": ""
+                },
+                {
+                  "name": "drillthrough.hiddencolumns",
+                  "value": "BookId,City"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pv.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.cubeFormatter",
+                  "value": "en-US"
+                },
+                {
+                  "name": "mdx.defaultmembers.[TargetCurrency].[TargetCurrency]",
+                  "value": "ZAR"
+                },
+                {
+                  "name": "queriesResultLimit.transientLimit",
+                  "value": "10000000"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[update.TIMESTAMP]",
+                  "value": "DATE[HH:mm:ss]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlDelta.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                },
+                {
+                  "name": "mdx.formatters.[Time].[TimeBucket].[Value Date]",
+                  "value": "DATE[dd-MM-yyyy]"
+                },
+                {
+                  "name": "mdx.formatters.[Measures].[pnlVega.SUM]",
+                  "value": "DOUBLE[#,###.00;-#,###.00]"
+                }
+              ],
+              "measureGroups": [
+                {
+                  "name": "equity-derivatives",
+                  "caption": "equity-derivatives",
+                  "description": "EquityDerivativesCubeDist Cube - equity-derivatives MeasureGroup"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "contextValues": []
+    }
+  }
+}
