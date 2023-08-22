@@ -59,7 +59,7 @@ export function getTreeColumnKey({
       return "[Measures].[Measures]";
     }
     default: {
-      throw new Error("A measure cannot be mapped on an ordinal field.");
+      throw new Error(`Cannot get the key of the tree column, because the type of the first item on rows is "${mapping.rows[0].type}". Expected "hierarchy", "compositeHierarchy" or "allMeasures"`);
     }
   }
 }
