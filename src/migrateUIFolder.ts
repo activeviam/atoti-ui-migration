@@ -211,11 +211,13 @@ export async function migrateUIFolder(
     keysOfWidgetPluginsToRemove,
     legacyPivotFolder,
     doesReportIncludeStacks,
+    treeTableColumnWidth,
   }: {
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
     legacyPivotFolder?: ContentRecord;
+    treeTableColumnWidth?: [number, number];
   },
 ): Promise<[ContentRecord, OutcomeCounters, ErrorReport?]> {
   const migratedUIFolder: ContentRecord = _cloneDeep(emptyUIFolder);
@@ -379,6 +381,7 @@ export async function migrateUIFolder(
                 servers,
                 keysOfWidgetPluginsToRemove,
                 doesReportIncludeStacks,
+                treeTableColumnWidth,
               });
             migratedDashboard = successfullyMigratedDashboard;
             if (dashboardErrorReport) {

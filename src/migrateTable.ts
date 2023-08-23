@@ -26,6 +26,7 @@ export function migrateTable(
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyTableState: any,
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  treeTableColumnWidth?: [number, number],
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyTableState);
   const legacyMdx = legacyQuery.mdx
@@ -65,13 +66,16 @@ export function migrateTable(
 
   const legacyColumns =
     legacyTableState.value?.body?.configuration?.tabular?.columns;
-  const columnWidths = legacyColumns
-    ? _migrateTableColumnWidths({
-        legacyColumns,
-        mapping,
-        cube,
-      })
-    : {};
+
+  const columnWidths =
+    legacyColumns || (widgetPlugin.key === "tree-table" && treeTableColumnWidth)
+      ? _migrateTableColumnWidths({
+          legacyColumns,
+          mapping,
+          cube,
+          treeTableColumnWidth,
+        })
+      : {};
 
   const migratedWidgetState: TableWidgetState = {
     query,

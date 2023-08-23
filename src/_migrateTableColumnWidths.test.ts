@@ -226,4 +226,52 @@ describe("_migrateTableColumnWidths", () => {
       "[Geography].[City].[ALL].[AllMember].[Berlin],[Measures].[contributors.COUNT]": 220,
     });
   });
+
+  it("keeps the preset column width if it exists in the legacyColumns", () => {
+    expect(
+      _migrateTableColumnWidths({
+        cube,
+        mapping,
+        legacyColumns: [{ key: "c-treeCells-member", width: 270 }],
+        treeTableColumnWidth: [200, 50],
+      }),
+    ).toEqual({
+      "[Geography].[City].[City]": 270,
+    });
+  });
+
+  it("sets the column width when `treeTableColumnWidth` is given and no legacy columns exist", () => {
+    expect(
+      _migrateTableColumnWidths({
+        cube,
+        mapping,
+        legacyColumns: [],
+        treeTableColumnWidth: [200, 50],
+      }),
+    ).toEqual({ "[Geography].[City].[City]": 300 });
+  });
+
+  it("sets the column width when `treeTableColumnWidth` is given and the mapping includes hierarchy that has been expanded to a deeper level", () => {
+    const mappingWithLevelExpansion: DataVisualizationWidgetMapping = {
+      rows: [
+        {
+          type: "hierarchy",
+          dimensionName: "Booking",
+          hierarchyName: "Desk",
+          levelName: "BookId",
+        },
+      ],
+      columns: [],
+      measures: [],
+    };
+
+    expect(
+      _migrateTableColumnWidths({
+        cube,
+        mapping: mappingWithLevelExpansion,
+        legacyColumns: [],
+        treeTableColumnWidth: [200, 50],
+      }),
+    ).toEqual({ "[Booking].[Desk].[LegalEntity]": 400 });
+  });
 });
