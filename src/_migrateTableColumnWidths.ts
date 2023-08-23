@@ -95,11 +95,7 @@ export function _migrateTableColumnWidths({
     }
 
     if (columnKey) {
-      const [baseWidth, levelMultiplier] = treeTableColumnWidth || [];
-      columnWidths[columnKey] =
-        baseWidth && levelMultiplier
-          ? baseWidth + levelMultiplier * levelDepthOnRows
-          : width;
+      columnWidths[columnKey] = width;
     }
   });
 

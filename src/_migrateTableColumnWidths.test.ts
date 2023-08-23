@@ -227,7 +227,7 @@ describe("_migrateTableColumnWidths", () => {
     });
   });
 
-  it("sets the column width when `treeTableColumnWidth` is given and legacy columns exist", () => {
+  it("keeps the preset column width if it exists in the legacyColumns", () => {
     expect(
       _migrateTableColumnWidths({
         cube,
@@ -236,7 +236,7 @@ describe("_migrateTableColumnWidths", () => {
         treeTableColumnWidth: [200, 50],
       }),
     ).toEqual({
-      "[Geography].[City].[City]": 300,
+      "[Geography].[City].[City]": 270,
     });
   });
 
