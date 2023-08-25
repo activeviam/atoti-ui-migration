@@ -132,7 +132,7 @@ Use Atoti Admin UI again, this time to import the migrated content.
 
 ![](/documentation/upload-content.gif)
 
-Then follow the steps to [run Atoti UI](https://docs.activeviam.com/products/atoti/ui/5.1/docs/getting-started/#run-activeui).
+Then follow the steps to [run Atoti UI](https://docs.activeviam.com/products/atoti/ui/5.1/docs/getting-started/#run-atoti-ui).
 
 Finally open your dashboards, widgets, filters, ... Make sure they work as expected.
 
