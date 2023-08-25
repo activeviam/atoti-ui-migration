@@ -161,7 +161,7 @@ If you are migrating a project with custom Atoti UI extensions, then you must al
 Learn how in our dedicated documentation pages:
 
 - Migrating from [Atoti UI 4 to 5](https://docs.activeviam.com/products/atoti/ui/5.1/docs/migrate-from-atoti-ui-4-to-5/).
-- Migrating from [Atoti UI 5.0 to 5.1]https://docs.activeviam.com/products/atoti/ui/5.1/docs/migrate-from-atoti-ui-5.0-to-5.1).
+- Migrating from [Atoti UI 5.0 to 5.1](https://docs.activeviam.com/products/atoti/ui/5.1/docs/migrate-from-atoti-ui-5.0-to-5.1).
 
 ## Customizing the migration
 
