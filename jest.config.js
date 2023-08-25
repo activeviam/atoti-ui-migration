@@ -19,6 +19,9 @@ const config = {
       "|",
     )}).+\\.(${extensions.join("|")})$`,
   ],
+  moduleNameMapper: {
+    "^(.*)/dist/__test_resources__$": "$1/__test_resources__",
+  },
 };
 
 const ciConfig = {
