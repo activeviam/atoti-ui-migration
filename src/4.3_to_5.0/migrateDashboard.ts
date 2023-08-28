@@ -1,6 +1,7 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
 import { produce } from "immer";
+import _isEmpty from "lodash/isEmpty";
 
 import {
   DashboardState,
@@ -27,6 +28,7 @@ import { _getLegacyWidgetPluginKey } from "./_getLegacyWidgetPluginKey";
 import { PartialMigrationError } from "../PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
 import { _addWidgetErrorToReport } from "../_addWidgetErrorToReport";
+import { isDisconnectedWidget } from "./isDisconnectedWidget";
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
@@ -52,6 +54,7 @@ export function migrateDashboard(
   },
 ): [DashboardState<"serialized">, PartialDashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
+  const keysOfDisconnectedWidgets: { [pageKey: string]: Set<string> } = {};
   const body = legacyDashboardState.value.body;
   const errorReport: PartialDashboardErrorReport = {
     name: legacyDashboardState.name,
@@ -64,6 +67,8 @@ export function migrateDashboard(
   body.pages.forEach((legacyPage: LegacyDashboardPage, index: number) => {
     const pageKey = `p-${index}`;
     const content: DashboardPageState<"serialized">["content"] = {};
+    const keysOfPageDisconnectedWidgets = new Set<string>();
+
     legacyPage.content.forEach((widget) => {
       const leafKey = widget.key;
       const widgetPluginKey = _getLegacyWidgetPluginKey(widget.bookmark);
@@ -87,6 +92,9 @@ export function migrateDashboard(
         let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
         try {
           migratedWidget = migrateWidget(widget.bookmark, servers);
+          if (isDisconnectedWidget(widget.bookmark)) {
+            keysOfPageDisconnectedWidgets.add(leafKey);
+          }
         } catch (error) {
           if (error instanceof PartialMigrationError) {
             migratedWidget = error.migratedWidgetState;
@@ -141,6 +149,9 @@ export function migrateDashboard(
       queryContext: _migrateContextValues(legacyPage.contextValues),
     };
 
+    if (keysOfPageDisconnectedWidgets.size > 0) {
+      keysOfDisconnectedWidgets[pageKey] = keysOfPageDisconnectedWidgets;
+    }
     pages[pageKey] = page;
   });
 
@@ -151,6 +162,30 @@ export function migrateDashboard(
     filters: Object.values(body.filters || {}).flat(),
     queryContext: _migrateContextValues(body.contextValues),
   };
+
+  // If the dashboard contains a disconnected widget, then move the dashboard filters down to every page.
+  // If a given page contains a disconnected widget, then move the page filters down to every connected widget.
+  if (!_isEmpty(keysOfDisconnectedWidgets)) {
+    const dashboardFilters = dashboard.filters ?? [];
+    delete dashboard.filters;
+
+    Object.entries(pages).forEach(([pageKey, page]) => {
+      page.filters = [...dashboardFilters, ...(page.filters ?? [])];
+      if (
+        keysOfDisconnectedWidgets[pageKey] &&
+        keysOfDisconnectedWidgets[pageKey].size > 0
+      ) {
+        const pageFilters = page.filters;
+        delete page.filters;
+
+        Object.entries(page.content).forEach(([leafKey, widget]) => {
+          if (!keysOfDisconnectedWidgets[pageKey].has(leafKey)) {
+            widget.filters = [...pageFilters, ...(widget.filters ?? [])];
+          }
+        });
+      }
+    });
+  }
 
   const deserializedDashboard = deserializeDashboardState(dashboard);
 
