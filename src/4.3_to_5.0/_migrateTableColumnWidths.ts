@@ -8,8 +8,8 @@ import {
   parse,
 } from "@activeviam/activeui-sdk-5.0";
 import { getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
-import { getTreeColumnKey } from "../getTreeColumnKey";
-import { _getLevelDepthOnRows } from "../_getLevelDepthOnRows";
+import { getTreeColumnKey } from "./getTreeColumnKey";
+import { _getLevelDepthOnRows } from "./_getLevelDepthOnRows";
 
 interface LegacyColumn {
   key: string;
