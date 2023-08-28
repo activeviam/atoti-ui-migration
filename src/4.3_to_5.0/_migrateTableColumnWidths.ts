@@ -6,10 +6,10 @@ import {
   isMdxCompoundIdentifier,
   isMdxFunction,
   parse,
-} from "@activeviam/activeui-sdk";
-import { getSpecificCompoundIdentifier } from "@activeviam/mdx";
-import { getTreeColumnKey } from "./getTreeColumnKey";
-import { _getLevelDepthOnRows } from "./_getLevelDepthOnRows";
+} from "@activeviam/activeui-sdk-5.0";
+import { getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
+import { getTreeColumnKey } from "../getTreeColumnKey";
+import { _getLevelDepthOnRows } from "../_getLevelDepthOnRows";
 
 interface LegacyColumn {
   key: string;

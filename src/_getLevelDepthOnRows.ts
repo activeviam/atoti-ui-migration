@@ -3,13 +3,13 @@ import {
   DataVisualizationWidgetMapping,
   HierarchyInMapping,
   quote,
-} from "@activeviam/activeui-sdk";
+} from "@activeviam/activeui-sdk-5.0";
 import {
   Cube,
   LevelCoordinates,
   getHierarchy,
   getLevelIndex,
-} from "@activeviam/data-model";
+} from "@activeviam/data-model-5.0";
 
 /**
  * Returns the depth of the level corresponding to the given `levelCoordinates`.

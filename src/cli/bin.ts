@@ -150,6 +150,9 @@ yargs
           debug,
           doesReportIncludeStacks,
           onError,
+          treeTableColumnWidth: treeColumnWidth
+            ? getTreeColumnWidthFromArgs(treeColumnWidth)
+            : undefined,
         });
       } else {
         migrateNotebook({

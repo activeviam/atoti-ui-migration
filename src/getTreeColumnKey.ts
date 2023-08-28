@@ -3,8 +3,8 @@ import {
   DataVisualizationWidgetMapping,
   getHierarchy,
   getLevel,
-} from "@activeviam/activeui-sdk";
-import { quote } from "@activeviam/mdx";
+} from "@activeviam/activeui-sdk-5.0";
+import { quote } from "@activeviam/mdx-5.0";
 
 /**
  * Returns the column key to be used for mapping column widths to their respective columns.
@@ -59,7 +59,9 @@ export function getTreeColumnKey({
       return "[Measures].[Measures]";
     }
     default: {
-      throw new Error(`Cannot get the key of the tree column, because the type of the first item on rows is "${mapping.rows[0].type}". Expected "hierarchy", "compositeHierarchy" or "allMeasures"`);
+      throw new Error(
+        `Cannot get the key of the tree column, because the type of the first item on rows is "${mapping.rows[0].type}". Expected "hierarchy", "compositeHierarchy" or "allMeasures"`,
+      );
     }
   }
 }

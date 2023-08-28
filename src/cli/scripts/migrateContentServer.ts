@@ -100,6 +100,7 @@ export async function migrateContentServer({
   debug,
   doesReportIncludeStacks,
   onError: behaviorOnError,
+  treeTableColumnWidth,
 }: {
   inputPath: string;
   outputPath: string;
@@ -110,6 +111,7 @@ export async function migrateContentServer({
   debug: boolean;
   doesReportIncludeStacks: boolean;
   onError: BehaviorOnError;
+  treeTableColumnWidth?: [number, number];
 }): Promise<void> {
   const contentServer: ContentRecord = await fs.readJSON(inputPath);
 
@@ -169,6 +171,7 @@ export async function migrateContentServer({
       servers,
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks,
+      treeTableColumnWidth,
     });
   }
 
