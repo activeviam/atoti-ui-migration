@@ -20,6 +20,11 @@ const config = {
     )}).+\\.(${extensions.join("|")})$`,
   ],
   moduleNameMapper: {
+    // Necessary so that Jest can resolve imports of test resources from @activeviam packages such as the following:
+    // `import { sandboxDataModel } from "@activeviam/data-model/dist/__test_resources__"`
+    // TODO: try changing those imports to the following to align on the `exports` field of the @activeviam/packages:
+    // `import { sandboxDataModel } from "@activeviam/data-model/__test_resources__"`
+    // To do so, the webpack config would need to be changed.
     "^(.*)/dist/__test_resources__$": "$1/__test_resources__",
   },
 };
