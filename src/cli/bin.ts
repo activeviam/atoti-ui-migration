@@ -9,6 +9,7 @@ import {
   validFromVersions,
   validToVersions,
 } from "./scripts/convertAtotiToAUIVersions";
+import { getTreeColumnWidthFromArgs } from "../getTreeColumnWidthFromArgs";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
 
@@ -34,6 +35,7 @@ yargs
     debug: boolean;
     stack: boolean;
     onError: BehaviorOnError;
+    treeColumnWidth?: string;
   }>(
     "$0",
     "Migrates a JSON export of a Content Server or an Atoti Jupyter notebook, saved with ActiveUI or Atoti version `--from-version` to be usable in version `--to-version`.",
@@ -75,6 +77,13 @@ yargs
         demandOption: false,
         desc: "A list of keys of widget plugins that should be removed during the migration.",
       });
+      args.option("tree-column-width", {
+        type: "string",
+        alias: "tcw",
+        demandOption: false,
+        desc: `The variables (in px) with which to calculate the first column width of tree tables.
+        Example: --tree-column-width 200,50 will result in 200px + (50 * maxLevelDepth).`,
+      });
       args.option("debug", {
         type: "boolean",
         demandOption: false,
@@ -115,6 +124,7 @@ yargs
       fromVersion,
       toVersion,
       removeWidgets,
+      treeColumnWidth,
       debug,
       stack,
       onError,
@@ -140,6 +150,9 @@ yargs
           debug,
           doesReportIncludeStacks,
           onError,
+          treeTableColumnWidth: treeColumnWidth
+            ? getTreeColumnWidthFromArgs(treeColumnWidth)
+            : undefined,
         });
       } else {
         migrateNotebook({
