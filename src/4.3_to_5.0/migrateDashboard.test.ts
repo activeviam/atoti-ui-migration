@@ -1,9 +1,11 @@
 import _map from "lodash/map";
 import _mapValues from "lodash/mapValues";
+import _intersection from "lodash/intersection";
 import { legacyDashboard } from "./__test_resources__/legacyDashboard";
 import { migrateDashboard } from "./migrateDashboard";
 import { LegacyDashboardState } from "./migration.types";
 import { servers } from "./__test_resources__/servers";
+import { produce } from "immer";
 
 describe("migrateDashboard", () => {
   it("turns the pages content from arrays into maps", () => {
@@ -307,5 +309,60 @@ describe("migrateDashboard", () => {
         "direction": "column",
       }
     `);
+  });
+
+  it("moves the page and dashboard filters to the filters section of all connected widgets if a disconnected widget is present", () => {
+    const legacyDashboardFilters = {
+      EquityDerivativesCube: ["[Currency].[Currency].[ALL].[AllMember].[MAD]"],
+    };
+
+    const legacyPageFilters = {
+      EquityDerivativesCube: ["[Currency].[Currency].[ALL].[AllMember].[EUR]"],
+    };
+
+    const legacyDashboardWithDisconnectedWidget = produce(
+      legacyDashboard,
+      (draft) => {
+        draft.value.body.filters = legacyDashboardFilters;
+        draft.value.body.pages[0].filters = legacyPageFilters;
+        draft.value.body.pages[0].content[0].bookmark.value.body.configuration.tabular.isConnected =
+          false;
+      },
+    );
+
+    const [dashboard] = migrateDashboard(
+      legacyDashboardWithDisconnectedWidget,
+      {
+        servers,
+      },
+    );
+
+    // The dashboard filters are undefined as they were moved down to every connected widget.
+    expect(dashboard.filters).toBeUndefined();
+
+    // The page filters are undefined as they were moved down to every connected widget.
+    const page = dashboard.pages["p-0"];
+    expect(page.filters).toBeUndefined();
+
+    // Every connected widget contains the dashboard filters and its page filters.
+    // The disconnected widgets does not.
+    Object.values(page.content).forEach((widget) => {
+      const dashboardAndPageFilters = [
+        ...Object.values(legacyDashboardFilters).flat(),
+        ...Object.values(legacyPageFilters).flat(),
+      ];
+
+      // The `tree-table` widget is disconnected, thus it does not contain the dashboard and page filters
+      if (widget.widgetKey === "tree-table") {
+        expect(_intersection(widget.filters, dashboardAndPageFilters)).toEqual(
+          [],
+        );
+      } else {
+        // The remaining widgets are connected, thus they contain the dashboard and page filters.
+        expect(_intersection(widget.filters, dashboardAndPageFilters)).toEqual(
+          dashboardAndPageFilters,
+        );
+      }
+    });
   });
 });
