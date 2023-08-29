@@ -12,6 +12,8 @@ import {
   LegacyContextValues,
   _migrateContextValues,
 } from "./_migrateContextValues";
+import { _cleanupDescendants } from "./_cleanupDescendants";
+import { _cleanupDrilldownLevel } from "./_cleanupDrilldownLevel";
 
 export interface LegacyQuery {
   mdx?: string;
@@ -75,7 +77,15 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   }
 
   const parsedMdx = parse<T>(mdx);
-  const fixedMdx = _fixErroneousExpansionMdx(parsedMdx, cube);
+  const mdxWithoutObsoleteDescendants = _cleanupDescendants(parsedMdx, cube);
+  const mdxWithoutObsoleteDrilldownLevel = _cleanupDrilldownLevel(
+    mdxWithoutObsoleteDescendants,
+    cube,
+  );
+  const fixedMdx = _fixErroneousExpansionMdx(
+    mdxWithoutObsoleteDrilldownLevel,
+    cube,
+  );
   const filters = getFilters(fixedMdx, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx,
   );

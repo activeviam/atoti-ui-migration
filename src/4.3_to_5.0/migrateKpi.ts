@@ -1,3 +1,4 @@
+import _set from "lodash/set";
 import type {
   AWidgetState,
   DataModel,
@@ -13,12 +14,97 @@ import {
   pluginWidgetKpi,
   serializeWidgetState,
   deriveMappingFromMdx,
+  isMdxFunction,
+  isMdxCompoundIdentifier,
+  Mdx,
+  Cube,
+  MdxAxis,
 } from "@activeviam/activeui-sdk-5.0";
-import { getSpecificCompoundIdentifier } from "@activeviam/mdx-5.0";
+import {
+  getSpecificCompoundIdentifier,
+  findDescendant,
+} from "@activeviam/mdx-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
+import { produce } from "immer";
+
+const moveExpressionToWithClause = (
+  draft: any,
+  descendant:
+    | {
+        match: Mdx;
+        path: (string | number)[];
+      }
+    | undefined,
+  cube: Cube,
+  type: "current" | "next",
+) => {
+  const pagesAxis = draft.axes.find((axis: MdxAxis) => axis.name === "PAGES");
+  if (!pagesAxis) {
+    return;
+  }
+
+  const match = descendant?.match;
+  if (
+    match &&
+    isMdxFunction(match) &&
+    isMdxCompoundIdentifier(match.arguments[0])
+  ) {
+    const originalCompound = getSpecificCompoundIdentifier(match.arguments[0], {
+      cube,
+    });
+
+    if (originalCompound.type !== "hierarchy") {
+      return;
+    }
+
+    const { dimensionName, hierarchyName } = originalCompound;
+
+    const name = {
+      elementType: "CompoundIdentifier",
+      type: "unknown",
+      identifiers: [dimensionName, hierarchyName, type].map((value) => ({
+        elementType: "Identifier",
+        quoting: "QUOTED",
+        value,
+      })),
+    };
+    draft.withClause.push({
+      elementType: "Formula",
+      expression: match,
+      inlined: false,
+      properties: [],
+      name,
+      type: "MEMBER",
+    });
+
+    _set(pagesAxis, descendant.path, name);
+  }
+};
+
+export function moveCurrentAndNextMembersToWithClause(
+  mdx: MdxSelect,
+  { cube }: { cube: Cube },
+): MdxSelect {
+  return produce(mdx, (draft) => {
+    const pagesAxis = draft.axes.find((axis) => axis.name === "PAGES");
+    if (!pagesAxis) {
+      return;
+    }
+
+    const current = findDescendant(pagesAxis, (node) =>
+      isMdxFunction(node, "currentmember"),
+    );
+    moveExpressionToWithClause(draft, current, cube, "current");
+
+    const next = findDescendant(pagesAxis, (node) =>
+      isMdxFunction(node, "nextmember"),
+    );
+    moveExpressionToWithClause(draft, next, cube, "next");
+  });
+}
 
 /**
  * Returns the converted KPI (= Featured values) widget state, ready to be used by ActiveUI 5.
@@ -30,7 +116,7 @@ export function migrateKpi(
   servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyKpiState);
-  const legacyMdx = legacyQuery.mdx
+  let legacyMdx = legacyQuery.mdx
     ? parse<MdxSelect>(legacyQuery.mdx)
     : undefined;
 
@@ -40,6 +126,9 @@ export function migrateKpi(
     serverUrl: serverUrlInLegacyWidgetState,
     servers,
   });
+  if (legacyMdx) {
+    legacyMdx = moveCurrentAndNextMembersToWithClause(legacyMdx, { cube });
+  }
 
   let legacyMdxWithoutPagesAxis = legacyMdx;
   let comparison: KpiComparison | undefined = undefined;

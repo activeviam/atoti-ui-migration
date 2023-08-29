@@ -1184,6 +1184,33 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
       },
     },
     "user_roles": {
+      "children": {
+        "ROLE_USER": {
+          "children": {
+            "permissions": {
+              "entry": {
+                "content": "{"canShare":true}",
+                "isDirectory": false,
+                "owners": [
+                  "ROLE_CS_ROOT",
+                ],
+                "readers": [
+                  "ROLE_USER",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_CS_ROOT",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
       "entry": {
         "isDirectory": true,
         "owners": [
@@ -2339,6 +2366,33 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
       },
     },
     "user_roles": {
+      "children": {
+        "ROLE_USER": {
+          "children": {
+            "permissions": {
+              "entry": {
+                "content": "{"canShare":true}",
+                "isDirectory": false,
+                "owners": [
+                  "ROLE_CS_ROOT",
+                ],
+                "readers": [
+                  "ROLE_USER",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "isDirectory": true,
+            "owners": [
+              "ROLE_CS_ROOT",
+            ],
+            "readers": [
+              "ROLE_USER",
+            ],
+          },
+        },
+      },
       "entry": {
         "isDirectory": true,
         "owners": [

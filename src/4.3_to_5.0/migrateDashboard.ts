@@ -47,10 +47,12 @@ export function migrateDashboard(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
+    treeTableColumnWidth,
   }: {
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks?: boolean;
+    treeTableColumnWidth?: [number, number];
   },
 ): [DashboardState<"serialized">, PartialDashboardErrorReport?] {
   const pages: { [pageKey: string]: DashboardPageState<"serialized"> } = {};
@@ -91,7 +93,11 @@ export function migrateDashboard(
       } else {
         let migratedWidget: AWidgetState<"serialized"> | undefined = undefined;
         try {
-          migratedWidget = migrateWidget(widget.bookmark, servers);
+          migratedWidget = migrateWidget(
+            widget.bookmark,
+            servers,
+            treeTableColumnWidth,
+          );
           if (isDisconnectedWidget(widget.bookmark)) {
             keysOfPageDisconnectedWidgets.add(leafKey);
           }

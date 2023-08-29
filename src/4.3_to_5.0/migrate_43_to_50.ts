@@ -214,12 +214,14 @@ export async function migrate_43_to_50(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
+    treeTableColumnWidth,
   }: {
     errorReport: ErrorReport;
     counters: OutcomeCounters;
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
+    treeTableColumnWidth?: [number, number];
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
@@ -346,6 +348,7 @@ export async function migrate_43_to_50(
                 servers,
                 keysOfWidgetPluginsToRemove,
                 doesReportIncludeStacks,
+                treeTableColumnWidth,
               });
             migratedDashboard = successfullyMigratedDashboard;
             if (dashboardErrorReport) {
