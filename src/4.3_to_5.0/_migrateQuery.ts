@@ -35,7 +35,7 @@ export interface LegacyQuery {
 
 /**
  * Returns an array whose first item contains the query, filters and context corresponding to the given legacy query.
- * The second item indicates wheter an unsupported update mode was used in the legacy query.
+ * The second item indicates whether an unsupported update mode was used in the legacy query.
  */
 export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   legacyQuery,

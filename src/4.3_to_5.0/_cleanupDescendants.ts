@@ -1,4 +1,4 @@
-import { Mdx, Cube } from "@activeviam/activeui-sdk-5.0";
+import { MdxDrillthrough, MdxSelect, Cube } from "@activeviam/activeui-sdk-5.0";
 import { getHierarchy, getLevelIndex } from "@activeviam/data-model-5.0";
 import {
   MdxFunction,
@@ -67,19 +67,30 @@ const canDescendantsBeReplacedByItsFirstArgument = (
  * Descendants([Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[Currency]) => [Currency].[Currency].[ALL].[AllMember].[EUR]
  *
  */
-export function _cleanupDescendants<T extends Mdx>(mdx: T, cube: Cube): T {
+export function _cleanupDescendants<T extends MdxSelect | MdxDrillthrough>(
+  mdx: T,
+  cube: Cube,
+): T {
   return produce(mdx, (draft) => {
-    let nextNodeToCleanup;
-    while (
-      (nextNodeToCleanup = findDescendant(
-        draft,
-        (node) =>
-          isMdxFunction(node, "descendants") &&
-          canDescendantsBeReplacedByItsFirstArgument(node, cube),
-      ))
-    ) {
-      const { match, path } = nextNodeToCleanup;
-      _set(draft, path, (match as MdxFunction).arguments[0]);
-    }
+    const axes = "select" in draft ? draft.select.axes : draft.axes;
+    axes.forEach((axis, axisIndex) => {
+      let nextNodeToCleanup;
+      while (
+        (nextNodeToCleanup = findDescendant(
+          axis,
+          (node) =>
+            isMdxFunction(node, "descendants") &&
+            canDescendantsBeReplacedByItsFirstArgument(node, cube),
+        ))
+      ) {
+        const { match, path } = nextNodeToCleanup;
+        const pathToNodeToCleanWithinSelect = ["axes", axisIndex, ...path];
+        const pathToNodeToClean =
+          "select" in draft
+            ? ["select", ...pathToNodeToCleanWithinSelect]
+            : pathToNodeToCleanWithinSelect;
+        _set(draft, pathToNodeToClean, (match as MdxFunction).arguments[0]);
+      }
+    });
   });
 }
