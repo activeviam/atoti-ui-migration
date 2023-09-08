@@ -105,7 +105,6 @@ describe("_cleanupDescendants", () => {
     const mdx: MdxSelect = parse(
       `WITH  Member [Measures].[City] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = \"#,###.##\"  SELECT NON EMPTY {[Measures].[City]} ON COLUMNS, NON EMPTY [Geography].[City].[City].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES BACK_COLOR, FONT_FLAGS, FORE_COLOR, FORMATTED_VALUE, VALUE`,
     );
-    console.log(mdx)
     const cleanMdx = _cleanupDescendants(mdx, cube);
     expect(stringify(cleanMdx, { indent: true })).toMatchInlineSnapshot(`
       "WITH
