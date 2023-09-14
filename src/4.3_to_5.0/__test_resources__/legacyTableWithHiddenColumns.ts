@@ -1,8 +1,10 @@
+import { LegacyWidgetState } from "../migration.types";
+
 /**
  * The state of a legacy table with Currency and City on rows and contributors.COUNT on columns.
  * The "City" column is hidden.
  */
-export const legacyTableWithHiddenColumns = {
+export const legacyTableWithHiddenColumns: LegacyWidgetState = {
   type: "container",
   name: "Untitled Tabular View",
   value: {

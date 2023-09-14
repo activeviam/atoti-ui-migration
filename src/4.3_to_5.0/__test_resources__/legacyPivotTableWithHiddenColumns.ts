@@ -1,7 +1,9 @@
+import { LegacyWidgetState } from "../migration.types";
+
 /**
  * The state of a legacy pivot table with dates on columns and one column is hidden.
  */
-export const legacyPivotTableWithHiddenColumns = {
+export const legacyPivotTableWithHiddenColumns: LegacyWidgetState = {
   name: "Untitled Pivot Table",
   type: "container",
   value: {
