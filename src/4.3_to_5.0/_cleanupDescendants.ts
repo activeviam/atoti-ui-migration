@@ -78,25 +78,17 @@ export function _cleanupDescendants<T extends MdxSelect | MdxDrillthrough>(
   cube: Cube,
 ): T {
   return produce(mdx, (draft) => {
-    const axes = "select" in draft ? draft.select.axes : draft.axes;
-    axes.forEach((axis, axisIndex) => {
-      let nextNodeToCleanup;
-      while (
-        (nextNodeToCleanup = findDescendant(
-          axis,
-          (node) =>
-            isMdxFunction(node, "descendants") &&
-            canDescendantsBeReplacedByItsFirstArgument(node, cube),
-        ))
-      ) {
-        const { match, path } = nextNodeToCleanup;
-        const pathToNodeToCleanWithinSelect = ["axes", axisIndex, ...path];
-        const pathToNodeToClean =
-          "select" in draft
-            ? ["select", ...pathToNodeToCleanWithinSelect]
-            : pathToNodeToCleanWithinSelect;
-        _set(draft, pathToNodeToClean, (match as MdxFunction).arguments[0]);
-      }
-    });
+    let nextNodeToCleanup;
+    while (
+      (nextNodeToCleanup = findDescendant(
+        draft,
+        (node) =>
+          isMdxFunction(node, "descendants") &&
+          canDescendantsBeReplacedByItsFirstArgument(node, cube),
+      ))
+    ) {
+      const { match, path } = nextNodeToCleanup;
+      _set(draft, path, (match as MdxFunction).arguments[0]);
+    }
   });
 }
