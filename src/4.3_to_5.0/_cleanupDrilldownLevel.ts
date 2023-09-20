@@ -17,15 +17,25 @@ const canDrilldownLevelBeReplacedByItsFirstArgument = (
   drilldownLevelNode: MdxFunction,
   cube: Cube,
 ) => {
-  const set = drilldownLevelNode.arguments[0];
-  const levelsInSet = getLevels(set, { cube });
+  const [set, ...otherArguments] = drilldownLevelNode.arguments[0];
+  if (otherArguments.length > 0) {
+    // Do not attempt to cleanup the more complex DrilldownLevel expressions.
+    return false;
+  }
+
+  const hierarchyCoordinates = getHierarchies(set, { cube })[0];
+  const hierarchy = getHierarchy(hierarchyCoordinates, cube);
+
+  const levelsInSet = getLevels(set, {
+    cube,
+    onlyMatchCoordinates: [hierarchyCoordinates],
+  });
   const deepestLevelIndexInSet = Math.max(
     ...levelsInSet.map((levelCoordinates) =>
       getLevelIndex({ cube, ...levelCoordinates }),
     ),
   );
-  const hierarchyCoordinates = getHierarchies(set, { cube })[0];
-  const hierarchy = getHierarchy(hierarchyCoordinates, cube);
+
   return deepestLevelIndexInSet === hierarchy.levels.length - 1;
 };
 

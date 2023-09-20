@@ -1,14 +1,11 @@
 import { Mdx, Cube } from "@activeviam/activeui-sdk-5.0";
-import { getHierarchy, getLevelIndex } from "@activeviam/data-model-5.0";
+import { getLevelIndex } from "@activeviam/data-model-5.0";
 import {
   MdxFunction,
   findDescendant,
-  getHierarchies,
   getLevels,
-  isMdxCompoundIdentifier,
   isMdxFunction,
-  isMdxLiteral,
-  stringify,
+  getIndexOfDeepestLevelExpressedInDescendantsNode,
 } from "@activeviam/mdx-5.0";
 import { produce } from "immer";
 import _set from "lodash/set";
@@ -20,44 +17,30 @@ const canDescendantsBeReplacedByItsFirstArgument = (
   descendantsNode: MdxFunction,
   cube: Cube,
 ) => {
-  const [set, downToLevel] = descendantsNode.arguments;
+  const set = descendantsNode.arguments[0];
   const levelsInSet = getLevels(set, { cube });
-  const shallowestLevelIndexInSet = Math.min(
-    ...levelsInSet.map((levelCoordinates) =>
-      getLevelIndex({ cube, ...levelCoordinates }),
-    ),
-  );
-
-  if (!downToLevel) {
-    // Only the set as argument: check whether it holds only leaf members.
-    const hierarchyCoordinates = getHierarchies(set, { cube })[0];
-    const hierarchy = getHierarchy(hierarchyCoordinates, cube);
-    return shallowestLevelIndexInSet === hierarchy.levels.length - 1;
+  if (levelsInSet.length === 0) {
+    return false;
   }
 
-  let downToLevelIndex;
-  if (isMdxLiteral(downToLevel)) {
-    downToLevelIndex = parseInt(downToLevel.value, 10);
-  } else {
-    if (!isMdxCompoundIdentifier(downToLevel)) {
-      throw new Error(
-        `Invalid second argument of Descendants. Expected a level index or a level unique name, but got: ${stringify(
-          downToLevel,
-          { indent: true },
-        )}`,
-      );
-    }
-    const [dimensionName, hierarchyName, levelName] =
-      downToLevel.identifiers.map((identifier) => identifier.value);
-    downToLevelIndex = getLevelIndex({
-      cube,
+  const { dimensionName, hierarchyName } = levelsInSet[0];
+
+  const levelIndexesInSet = levelsInSet.map((levelCoordinates) =>
+    getLevelIndex({ cube, ...levelCoordinates }),
+  );
+  const shallowestLevelIndexInSet = Math.min(...levelIndexesInSet);
+  const deepestLevelIndexInSet = Math.max(...levelIndexesInSet);
+
+  const deepestLevelExpressedInDescendantsNode =
+    getIndexOfDeepestLevelExpressedInDescendantsNode({
+      descendantsNode,
       dimensionName,
       hierarchyName,
-      levelName,
+      indexOfDeepestLevelExpressedInInputSet: deepestLevelIndexInSet,
+      cube,
     });
-  }
 
-  return shallowestLevelIndexInSet >= downToLevelIndex;
+  return shallowestLevelIndexInSet >= deepestLevelExpressedInDescendantsNode;
 };
 
 /**
