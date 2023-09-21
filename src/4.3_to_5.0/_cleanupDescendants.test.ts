@@ -7,7 +7,7 @@ const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 
 describe("_cleanupDescendants", () => {
   it("replaces a Descendants function by its input set if the shallowest level expressed in the set is the same as the target one or above", () => {
-    const mdx: MdxSelect = parse(`                                 
+    const mdx = parse<MdxSelect>(`                                 
     SELECT                                                                                                                                                              
       NON EMPTY Hierarchize(
             Descendants(
@@ -31,7 +31,7 @@ describe("_cleanupDescendants", () => {
   });
 
   it("replaces a useless Descendants function called on a set from a multilevel hierarchy", () => {
-    const mdx: MdxSelect = parse(`                                 
+    const mdx = parse<MdxSelect>(`                                 
     SELECT                                                                                                                                                              
       NON EMPTY Hierarchize(
             Descendants(
@@ -55,7 +55,7 @@ describe("_cleanupDescendants", () => {
   });
 
   it("replaces a useless Descendants function when the second argument is a level index", () => {
-    const mdx: MdxSelect = parse(`                                 
+    const mdx = parse<MdxSelect>(`                                 
     SELECT                                                                                                                                                              
       NON EMPTY Hierarchize(
             Descendants(
@@ -79,7 +79,7 @@ describe("_cleanupDescendants", () => {
   });
 
   it("replaces a useless Descendants function called on a set with members from the leaf level, without a second argument", () => {
-    const mdx: MdxSelect = parse(`                                 
+    const mdx = parse<MdxSelect>(`                                 
     SELECT                                                                                                                                                              
       NON EMPTY Hierarchize(
             Descendants(
@@ -102,13 +102,9 @@ describe("_cleanupDescendants", () => {
   });
 
   it("does not cleanup the descendants of a hierarchy's current member", () => {
-    const mdx: MdxSelect = parse(
-      `WITH  Member [Measures].[City] AS Count(Descendants([Geography].[City].CurrentMember, [Geography].[City].[City]), EXCLUDEEMPTY), FORMAT_STRING = \"#,###.##\"  SELECT NON EMPTY {[Measures].[City]} ON COLUMNS, NON EMPTY [Geography].[City].[City].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES BACK_COLOR, FONT_FLAGS, FORE_COLOR, FORMATTED_VALUE, VALUE`,
-    );
-    const cleanMdx = _cleanupDescendants(mdx, cube);
-    expect(stringify(cleanMdx, { indent: true })).toMatchInlineSnapshot(`
-      "WITH
-       Member [Measures].[City] AS Count(
+    const mdxString = `
+      WITH
+      Member [Measures].[City] AS Count(
         Descendants(
           [Geography].[City].CurrentMember,
           [Geography].[City].[City]
@@ -121,7 +117,10 @@ describe("_cleanupDescendants", () => {
         } ON COLUMNS,
         NON EMPTY [Geography].[City].[City].Members ON ROWS
         FROM [EquityDerivativesCube]
-        CELL PROPERTIES BACK_COLOR, FONT_FLAGS, FORE_COLOR, FORMATTED_VALUE, VALUE"
-    `);
+        CELL PROPERTIES BACK_COLOR, FONT_FLAGS, FORE_COLOR, FORMATTED_VALUE, VALUE
+  `;
+    const mdx = parse<MdxSelect>(mdxString);
+    const cleanMdx = _cleanupDescendants(mdx, cube);
+    expect(cleanMdx).toStrictEqual(mdx);
   });
 });
