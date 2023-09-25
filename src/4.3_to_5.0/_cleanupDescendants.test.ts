@@ -60,7 +60,7 @@ describe("_cleanupDescendants", () => {
       NON EMPTY Hierarchize(
             Descendants(
               {
-                [Booking].[Desk].[ALL].[AllMember].[LegalEntityA]
+                [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
               },
               1
             )
@@ -70,9 +70,9 @@ describe("_cleanupDescendants", () => {
     expect(stringify(cleanMdx, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
         NON EMPTY Hierarchize(
-          {
-            [Booking].[Desk].[ALL].[AllMember].[LegalEntityA]
-          }
+            {
+              [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
+            }
         ) ON ROWS
         FROM [EquityDerivativesCube]"
     `);

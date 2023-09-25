@@ -1,5 +1,9 @@
 import { Mdx, Cube } from "@activeviam/activeui-sdk-5.0";
-import { getHierarchy, getLevelIndex } from "@activeviam/data-model-5.0";
+import {
+  getHierarchy,
+  getLevelIndex,
+  areHierarchiesEqual,
+} from "@activeviam/data-model-5.0";
 import {
   MdxFunction,
   findDescendant,
@@ -17,7 +21,7 @@ const canDrilldownLevelBeReplacedByItsFirstArgument = (
   drilldownLevelNode: MdxFunction,
   cube: Cube,
 ) => {
-  const [set, ...otherArguments] = drilldownLevelNode.arguments[0];
+  const [set, ...otherArguments] = drilldownLevelNode.arguments;
   if (otherArguments.length > 0) {
     // Do not attempt to cleanup the more complex DrilldownLevel expressions.
     return false;
@@ -28,8 +32,9 @@ const canDrilldownLevelBeReplacedByItsFirstArgument = (
 
   const levelsInSet = getLevels(set, {
     cube,
-    onlyMatchCoordinates: [hierarchyCoordinates],
-  });
+  }).filter((levelCorodinates) =>
+    areHierarchiesEqual(levelCorodinates, hierarchyCoordinates),
+  );
   const deepestLevelIndexInSet = Math.max(
     ...levelsInSet.map((levelCoordinates) =>
       getLevelIndex({ cube, ...levelCoordinates }),
