@@ -74,6 +74,7 @@ module.exports = {
       // This is required because of the "@activeviam/activeui-sdk-5.0" dependency.
       antd: false,
       "@ant-design/icons": false,
+      "clipboard-polyfill": false,
     },
   },
   mode: "none",
