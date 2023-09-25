@@ -20,6 +20,7 @@ const canDescendantsBeReplacedByItsFirstArgument = (
   const set = descendantsNode.arguments[0];
   const levelsInSet = getLevels(set, { cube });
   if (levelsInSet.length === 0) {
+    // If no levels are found in the input set, for instance when it consists only in the `CurrentMember` of a hierarchy (which could be on any level), the `Descendants` function should not be removed.
     return false;
   }
 
