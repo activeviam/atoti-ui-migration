@@ -1,4 +1,4 @@
-import { Mdx, Cube } from "@activeviam/activeui-sdk-5.0";
+import { MdxDrillthrough, MdxSelect, Cube } from "@activeviam/activeui-sdk-5.0";
 import { getHierarchy, getLevelIndex } from "@activeviam/data-model-5.0";
 import {
   MdxFunction,
@@ -22,6 +22,12 @@ const canDescendantsBeReplacedByItsFirstArgument = (
 ) => {
   const [set, downToLevel] = descendantsNode.arguments;
   const levelsInSet = getLevels(set, { cube });
+
+  // If no levels are found in the input set, for instance when it consists only in the `CurrentMember` of a hierarchy (which could be on any level), the `Descendants` function should not be removed.
+  if (levelsInSet.length === 0) {
+    return false;
+  }
+
   const shallowestLevelIndexInSet = Math.min(
     ...levelsInSet.map((levelCoordinates) =>
       getLevelIndex({ cube, ...levelCoordinates }),
@@ -67,7 +73,10 @@ const canDescendantsBeReplacedByItsFirstArgument = (
  * Descendants([Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[Currency]) => [Currency].[Currency].[ALL].[AllMember].[EUR]
  *
  */
-export function _cleanupDescendants<T extends Mdx>(mdx: T, cube: Cube): T {
+export function _cleanupDescendants<T extends MdxSelect | MdxDrillthrough>(
+  mdx: T,
+  cube: Cube,
+): T {
   return produce(mdx, (draft) => {
     let nextNodeToCleanup;
     while (
