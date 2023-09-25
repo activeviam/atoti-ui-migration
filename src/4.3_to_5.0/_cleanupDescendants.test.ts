@@ -70,9 +70,9 @@ describe("_cleanupDescendants", () => {
     expect(stringify(cleanMdx, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
         NON EMPTY Hierarchize(
-            {
-              [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
-            }
+          {
+            [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
+          }
         ) ON ROWS
         FROM [EquityDerivativesCube]"
     `);
