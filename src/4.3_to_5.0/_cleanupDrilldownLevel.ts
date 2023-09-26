@@ -15,7 +15,9 @@ import { produce } from "immer";
 import _set from "lodash/set";
 
 /**
- * If the input set holds members of the leaf level, then DrilldownLevel can be replaced by it.
+ * A DrilldownLevel can be replaced by its first argument if both the following conditions are met:
+ * - It has a single argument
+ * - In this set, the deepest level expressed in the first hierarchy (which is the one being implicitly drilled) is a leaf level
  */
 const canDrilldownLevelBeReplacedByItsFirstArgument = (
   drilldownLevelNode: MdxFunction,
@@ -32,8 +34,8 @@ const canDrilldownLevelBeReplacedByItsFirstArgument = (
 
   const levelsInSet = getLevels(set, {
     cube,
-  }).filter((levelCorodinates) =>
-    areHierarchiesEqual(levelCorodinates, hierarchyCoordinates),
+  }).filter((levelCoordinates) =>
+    areHierarchiesEqual(levelCoordinates, hierarchyCoordinates),
   );
   const deepestLevelIndexInSet = Math.max(
     ...levelsInSet.map((levelCoordinates) =>
