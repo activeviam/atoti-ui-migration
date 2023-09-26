@@ -16,7 +16,7 @@ import _set from "lodash/set";
 
 /**
  * A DrilldownLevel can be replaced by its first argument if both the following conditions are met:
- * - It has a single argument
+ * - It has a single argument, which is a set.
  * - In this set, the deepest level expressed in the first hierarchy (which is the one being implicitly drilled) is a leaf level
  */
 const canDrilldownLevelBeReplacedByItsFirstArgument = (
