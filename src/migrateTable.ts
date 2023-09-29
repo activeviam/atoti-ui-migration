@@ -17,7 +17,6 @@ import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { _migrateTableColumnWidths } from "./_migrateTableColumnWidths";
-import { _getHiddenColumnKeys } from "./_getHiddenColumnKeys";
 
 /**
  * Returns the converted table widget state, ready to be used by ActiveUI 5.
@@ -88,12 +87,6 @@ export function migrateTable(
     widgetKey: widgetPlugin.key,
     columnWidths,
   };
-
-  const hiddenColumnKeys = _getHiddenColumnKeys(legacyTableState);
-
-  if (hiddenColumnKeys && hiddenColumnKeys.length > 0) {
-    migratedWidgetState.hiddenColumns = hiddenColumnKeys;
-  }
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
 
