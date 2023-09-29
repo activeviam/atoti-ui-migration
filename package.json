@@ -31,10 +31,10 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "@activeviam/activeui-sdk": "file:vendor\\activeviam-activeui-sdk-5.0.28.tgz",
-    "@activeviam/content-server-initialization": "file:vendor\\activeviam-content-server-initialization-5.0.28.tgz",
-    "@activeviam/data-model": "file:vendor\\activeviam-data-model-5.0.28.tgz",
-    "@activeviam/mdx": "file:vendor\\activeviam-mdx-5.0.28.tgz",
+    "@activeviam/activeui-sdk": "file:vendor\\activeviam-activeui-sdk-5.0.29-20230925104351-05a6f39.tgz",
+    "@activeviam/content-server-initialization": "file:vendor\\activeviam-content-server-initialization-5.0.29-20230925104351-05a6f39.tgz",
+    "@activeviam/data-model": "file:vendor\\activeviam-data-model-5.0.29-20230925104351-05a6f39.tgz",
+    "@activeviam/mdx": "file:vendor\\activeviam-mdx-5.0.29-20230925104351-05a6f39.tgz",
     "cli-progress": "^3.11.2",
     "immer": "^8.0.0",
     "lodash": "^4.17.15",
