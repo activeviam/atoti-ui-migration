@@ -42,10 +42,13 @@ export function _migrateTableColumnWidths({
       cube,
     });
 
-    const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
-    columnWidths[columnKey] = baseWidth + levelDepthOnRows * maxLevelMultiplier;
+    if (columnKey !== undefined) {
+      const [baseWidth, maxLevelMultiplier] = treeTableColumnWidth;
+      columnWidths[columnKey] =
+        baseWidth + levelDepthOnRows * maxLevelMultiplier;
 
-    return columnWidths;
+      return columnWidths;
+    }
   }
 
   legacyColumns.forEach(({ key, width }) => {

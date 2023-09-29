@@ -15,14 +15,21 @@ export function getTreeColumnKey({
 }: {
   mapping: DataVisualizationWidgetMapping;
   cube: Cube;
-}): string {
-  switch (mapping.rows[0].type) {
+}): string | undefined {
+  if (mapping.rows.length === 0) {
+    return undefined;
+  }
+
+  const firstFieldOnRows = mapping.rows[0];
+
+  switch (firstFieldOnRows.type) {
     case "hierarchy": {
+      const { dimensionName, hierarchyName } = firstFieldOnRows;
       const hierarchy = mapping.rows[0]
         ? getHierarchy(
             {
-              dimensionName: mapping.rows[0].dimensionName,
-              hierarchyName: mapping.rows[0].hierarchyName,
+              dimensionName,
+              hierarchyName,
             },
             cube,
           )
@@ -34,25 +41,23 @@ export function getTreeColumnKey({
         firstLevelName && mapping.rows[0]
           ? getLevel(
               {
-                dimensionName: mapping.rows[0].dimensionName,
-                hierarchyName: mapping.rows[0].hierarchyName,
+                dimensionName,
+                hierarchyName,
                 levelName: firstLevelName.name,
               },
               cube,
             )
           : undefined;
 
-      const { dimensionName, hierarchyName } = mapping.rows[0];
-
       const levelName = firstLevel
         ? firstLevel.name
-        : mapping.rows[0].levelName;
+        : firstFieldOnRows.levelName;
 
       return quote(dimensionName, hierarchyName, levelName);
     }
     case "compositeHierarchy": {
       const { dimensionName, hierarchyName, levelName } =
-        mapping.rows[0].hierarchies[0];
+        firstFieldOnRows.hierarchies[0];
       return quote(dimensionName, hierarchyName, levelName);
     }
     case "allMeasures": {
