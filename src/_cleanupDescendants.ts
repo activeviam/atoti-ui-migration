@@ -3,7 +3,9 @@ import { getHierarchy, getLevelIndex } from "@activeviam/data-model";
 import {
   MdxFunction,
   findDescendant,
+  getHierarchies,
   getLevels,
+  isMdxCompoundIdentifier,
   isMdxFunction,
   isMdxLiteral,
   stringify,
@@ -18,31 +20,50 @@ const canDescendantsBeReplacedByItsFirstArgument = (
   descendantsNode: MdxFunction,
   cube: Cube,
 ) => {
-  const set = descendantsNode.arguments[0];
+  const [set, downToLevel] = descendantsNode.arguments;
   const levelsInSet = getLevels(set, { cube });
+
+  // If no levels are found in the input set, for instance when it consists only in the `CurrentMember` of a hierarchy (which could be on any level), the `Descendants` function should not be removed.
   if (levelsInSet.length === 0) {
-    // If no levels are found in the input set, for instance when it consists only in the `CurrentMember` of a hierarchy (which could be on any level), the `Descendants` function should not be removed.
     return false;
   }
 
-  const { dimensionName, hierarchyName } = levelsInSet[0];
-
-  const levelIndexesInSet = levelsInSet.map((levelCoordinates) =>
-    getLevelIndex({ cube, ...levelCoordinates }),
+  const shallowestLevelIndexInSet = Math.min(
+    ...levelsInSet.map((levelCoordinates) =>
+      getLevelIndex({ cube, ...levelCoordinates }),
+    ),
   );
-  const shallowestLevelIndexInSet = Math.min(...levelIndexesInSet);
-  const deepestLevelIndexInSet = Math.max(...levelIndexesInSet);
 
-  const deepestLevelExpressedInDescendantsNode =
-    getIndexOfDeepestLevelExpressedInDescendantsNode({
-      descendantsNode,
+  if (!downToLevel) {
+    // Only the set as argument: check whether it holds only leaf members.
+    const hierarchyCoordinates = getHierarchies(set, { cube })[0];
+    const hierarchy = getHierarchy(hierarchyCoordinates, cube);
+    return shallowestLevelIndexInSet === hierarchy.levels.length - 1;
+  }
+
+  let downToLevelIndex;
+  if (isMdxLiteral(downToLevel)) {
+    downToLevelIndex = parseInt(downToLevel.value, 10);
+  } else {
+    if (!isMdxCompoundIdentifier(downToLevel)) {
+      throw new Error(
+        `Invalid second argument of Descendants. Expected a level index or a level unique name, but got: ${stringify(
+          downToLevel,
+          { indent: true },
+        )}`,
+      );
+    }
+    const [dimensionName, hierarchyName, levelName] =
+      downToLevel.identifiers.map((identifier) => identifier.value);
+    downToLevelIndex = getLevelIndex({
+      cube,
       dimensionName,
       hierarchyName,
-      indexOfDeepestLevelExpressedInInputSet: deepestLevelIndexInSet,
-      cube,
+      levelName,
     });
+  }
 
-  return shallowestLevelIndexInSet >= deepestLevelExpressedInDescendantsNode;
+  return shallowestLevelIndexInSet >= downToLevelIndex;
 };
 
 /**
@@ -52,7 +73,10 @@ const canDescendantsBeReplacedByItsFirstArgument = (
  * Descendants([Currency].[Currency].[ALL].[AllMember].[EUR], [Currency].[Currency].[Currency]) => [Currency].[Currency].[ALL].[AllMember].[EUR]
  *
  */
-export function _cleanupDescendants<T extends Mdx>(mdx: T, cube: Cube): T {
+export function _cleanupDescendants<T extends MdxSelect | MdxDrillthrough>(
+  mdx: T,
+  cube: Cube,
+): T {
   return produce(mdx, (draft) => {
     let nextNodeToCleanup;
     while (

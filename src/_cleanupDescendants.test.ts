@@ -54,13 +54,13 @@ describe("_cleanupDescendants", () => {
     `);
   });
 
-  it("replaces a useless Descendants function when the first argument is a set of members from the leaf level, and the second argument is a distance", () => {
+  it("replaces a useless Descendants function when the second argument is a level index", () => {
     const mdx = parse<MdxSelect>(`                                 
     SELECT                                                                                                                                                              
       NON EMPTY Hierarchize(
             Descendants(
               {
-                [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
+                [Booking].[Desk].[ALL].[AllMember].[LegalEntityA]
               },
               1
             )
@@ -71,27 +71,11 @@ describe("_cleanupDescendants", () => {
       "SELECT
         NON EMPTY Hierarchize(
           {
-            [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA].[DeskA].[0]
+            [Booking].[Desk].[ALL].[AllMember].[LegalEntityA]
           }
         ) ON ROWS
         FROM [EquityDerivativesCube]"
     `);
-  });
-
-  it("does not replace a Descendants function when the first argument is a set of members from a non-leaf level, and the second argument is a distance", () => {
-    const mdx = parse<MdxSelect>(`                                 
-    SELECT                                                                                                                                                              
-      NON EMPTY Hierarchize(
-            Descendants(
-              {
-                [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA]
-              },
-              1
-            )
-          ) ON ROWS
-        FROM [EquityDerivativesCube]`);
-    const cleanMdx = _cleanupDescendants(mdx, cube);
-    expect(cleanMdx).toStrictEqual(mdx);
   });
 
   it("replaces a useless Descendants function called on a set with members from the leaf level, without a second argument", () => {

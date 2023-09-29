@@ -77,21 +77,19 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   }
 
   const parsedMdx = parse<T>(mdx);
-
-  let improvedMdx = parsedMdx;
-  try {
-    improvedMdx = _cleanupDescendants(improvedMdx, cube);
-    improvedMdx = _cleanupDrilldownLevel(improvedMdx, cube);
-    improvedMdx = _fixErroneousExpansionMdx(improvedMdx, cube);
-  } catch (e) {
-    // The MDX may be suboptimal, but it is expected to be valid from the perspective of the MDX specification.
-    // So attempt to improve it, but do not block the migration if the process fails.
-  }
-
-  const filters = getFilters(improvedMdx, { cube }).map(
+  const mdxWithoutObsoleteDescendants = _cleanupDescendants(parsedMdx, cube);
+  const mdxWithoutObsoleteDrilldownLevel = _cleanupDrilldownLevel(
+    mdxWithoutObsoleteDescendants,
+    cube,
+  );
+  const fixedMdx = _fixErroneousExpansionMdx(
+    mdxWithoutObsoleteDrilldownLevel,
+    cube,
+  );
+  const filters = getFilters(fixedMdx, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx,
   );
-  const mdxWithoutFilters = setFilters(improvedMdx, { filters: [], cube });
+  const mdxWithoutFilters = setFilters(fixedMdx, { filters: [], cube });
 
   // TODO UI-5036 Migrate query ranges.
   return [

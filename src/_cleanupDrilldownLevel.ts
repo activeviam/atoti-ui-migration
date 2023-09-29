@@ -1,5 +1,5 @@
 import { Mdx, Cube } from "@activeviam/activeui-sdk";
-import { getHierarchy, getLevelIndex, areHierarchiesEqual } from "@activeviam/data-model";
+import { getHierarchy, getLevelIndex } from "@activeviam/data-model";
 import {
   MdxFunction,
   findDescendant,
@@ -11,34 +11,21 @@ import { produce } from "immer";
 import _set from "lodash/set";
 
 /**
- * A DrilldownLevel can be replaced by its first argument if both the following conditions are met:
- * - It has a single argument, which is a set.
- * - In this set, the deepest level expressed in the first hierarchy (which is the one being implicitly drilled) is a leaf level (and therefore cannot be drilled down)
+ * If the input set holds members of the leaf level, then DrilldownLevel can be replaced by it.
  */
 const canDrilldownLevelBeReplacedByItsFirstArgument = (
   drilldownLevelNode: MdxFunction,
   cube: Cube,
 ) => {
-  const [set, ...otherArguments] = drilldownLevelNode.arguments;
-  if (otherArguments.length > 0) {
-    // Do not attempt to cleanup the more complex DrilldownLevel expressions.
-    return false;
-  }
-
-  const hierarchyCoordinates = getHierarchies(set, { cube })[0];
-  const hierarchy = getHierarchy(hierarchyCoordinates, cube);
-
-  const levelsInSet = getLevels(set, {
-    cube,
-  }).filter((levelCoordinates) =>
-    areHierarchiesEqual(levelCoordinates, hierarchyCoordinates),
-  );
+  const set = drilldownLevelNode.arguments[0];
+  const levelsInSet = getLevels(set, { cube });
   const deepestLevelIndexInSet = Math.max(
     ...levelsInSet.map((levelCoordinates) =>
       getLevelIndex({ cube, ...levelCoordinates }),
     ),
   );
-
+  const hierarchyCoordinates = getHierarchies(set, { cube })[0];
+  const hierarchy = getHierarchy(hierarchyCoordinates, cube);
   return deepestLevelIndexInSet === hierarchy.levels.length - 1;
 };
 

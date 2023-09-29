@@ -20,15 +20,16 @@ import {
  * But the returned mdx does not have the typical useless (and dangerous) parts of queries created by collapsing then re-expanding a member in ActiveUI 4.
  * See https://support.activeviam.com/jira/browse/UI-6692
  */
-export function _fixErroneousExpansionMdx<
-  T extends MdxSelect | MdxDrillthrough,
->(mdx: T, cube: Cube): T {
+export function _fixErroneousExpansionMdx(
+  mdx: MdxSelect | MdxDrillthrough,
+  cube: Cube,
+): MdxSelect | MdxDrillthrough {
   if (isMdxDrillthrough(mdx)) {
     return mdx;
   }
 
-  return produce<T>(mdx, (draft) => {
-    (draft as MdxSelect).axes.forEach((axis) => {
+  return produce<MdxSelect>(mdx, (draft) => {
+    draft.axes.forEach((axis) => {
       const levelsOnAxis = getLevels(axis, { cube });
 
       let erroneousUnionNode:
