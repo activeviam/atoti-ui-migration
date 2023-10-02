@@ -7,6 +7,7 @@ import { legacyTable } from "./__test_resources__/legacyTable";
 import { legacyTabularView } from "./__test_resources__/legacyTabularView";
 import { legacyTreeTable } from "./__test_resources__/legacyTreeTable";
 import { servers } from "./__test_resources__/servers";
+import { legacyTableWithHiddenColumns } from "./__test_resources__/legacyTableWithHiddenColumns";
 
 describe("migrateTable", () => {
   it("migrates a tree table widget", () => {
@@ -233,6 +234,19 @@ describe("migrateTable", () => {
         ) ON ROWS
         FROM [EquityDerivativesCube]
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
+    `);
+  });
+
+  it("migrates a table with hidden columns", () => {
+    const migratedTableState = migrateTable(
+      legacyTableWithHiddenColumns,
+      servers,
+    ) as TableWidgetState<"serialized">;
+
+    expect(migratedTableState.hiddenColumns).toMatchInlineSnapshot(`
+      [
+        "[Geography].[City].[City]",
+      ]
     `);
   });
 });
