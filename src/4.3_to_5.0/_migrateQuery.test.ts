@@ -27,7 +27,7 @@ describe("_migrateQuery", () => {
               "cubeName": "EquityDerivativesCube",
               "elementType": "From",
             },
-            "slicerAxis": undefined,
+            "slicerAxis": null,
             "withClause": [],
           },
           "updateMode": "once",
@@ -56,7 +56,10 @@ describe("_migrateQuery", () => {
       mdx: "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
     };
     const [{ query, filters }] = _migrateQuery({ legacyQuery, cube })!;
-    expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
+
+    // Filters are unchanged in the query.
+    expect(stringify(query.mdx!)).toBe(legacyQuery.mdx);
+
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
       "[Currency].[Currency].[AllMember].[EUR]",

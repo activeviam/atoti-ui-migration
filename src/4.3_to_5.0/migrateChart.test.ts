@@ -14,6 +14,7 @@ describe("migrateChart", () => {
   it("returns the ActiveUI5 chart widget state corresponding to the given ActiveUI4 chart widget state", () => {
     expect(migrateChart(legacyChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -83,6 +84,7 @@ describe("migrateChart", () => {
   it("migrates a legacy line chart to a Plotly line chart", () => {
     expect(migrateChart(legacyLineChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -113,6 +115,7 @@ describe("migrateChart", () => {
   it("migrates a legacy area chart to a Plotly area chart", () => {
     expect(migrateChart(legacyAreaChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -143,6 +146,7 @@ describe("migrateChart", () => {
   it("migrates a legacy column chart to a Plotly column chart", () => {
     expect(migrateChart(legacyColumnChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -172,6 +176,7 @@ describe("migrateChart", () => {
   it("migrates a legacy bar chart to a Plotly bar chart", () => {
     expect(migrateChart(legacyBarChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -201,6 +206,7 @@ describe("migrateChart", () => {
   it("migrates a legacy pie chart to a Plotly pie chart", () => {
     expect(migrateChart(legacyPieChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -227,6 +233,7 @@ describe("migrateChart", () => {
   it("migrates a legacy scatter plot to a Plotly scatter plot", () => {
     expect(migrateChart(legacyScatterPlot, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "color": [
@@ -262,6 +269,7 @@ describe("migrateChart", () => {
   it("migrates an empty chart widget to a plotly-line-chart", () => {
     expect(migrateChart(emptyLegacyChart, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],

@@ -32,6 +32,7 @@ describe("migrateWidget", () => {
 
     expect(migrateWidget(legacyWidgetState, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],

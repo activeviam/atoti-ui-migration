@@ -8,6 +8,7 @@ describe("migrateKpi", () => {
   it("returns the ActiveUI5 KPI widget state corresponding to the given ActiveUI4 KPI widget state", () => {
     expect(migrateKpi(legacyKpi, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "columns": [],
@@ -46,6 +47,7 @@ describe("migrateKpi", () => {
   it("migrates a KPI widget with a comparison", () => {
     expect(migrateKpi(legacyComparisonValues, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "comparison": {
           "comparedMemberNamePath": [
             "AllMember",
@@ -83,6 +85,7 @@ describe("migrateKpi", () => {
   it("migrates an empty KPI widget", () => {
     expect(migrateKpi(emptyLegacyKpi, servers)).toMatchInlineSnapshot(`
       {
+        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "columns": [],
