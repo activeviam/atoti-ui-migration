@@ -194,6 +194,7 @@ export function migrateKpi(
     name: legacyKpiState.name,
     serverKey,
     widgetKey: "kpi",
+    areFiltersDrivenByMdx: true,
   };
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);

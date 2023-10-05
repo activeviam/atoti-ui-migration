@@ -299,6 +299,7 @@ export function migrateChart(
     serverKey,
     name: widgetName,
     widgetKey: migratedWidgetKey,
+    areFiltersDrivenByMdx: true,
   };
 
   if (isUsingUnsupportedUpdateMode) {
