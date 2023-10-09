@@ -6,7 +6,7 @@ import type {
   MdxDrillthrough,
   MdxSelect,
 } from "@activeviam/activeui-sdk-5.0";
-import { getFilters, parse } from "@activeviam/activeui-sdk-5.0";
+import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk-5.0";
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import {
   LegacyContextValues,
@@ -40,9 +40,11 @@ export interface LegacyQuery {
 export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   legacyQuery,
   cube,
+  shouldUpdateFiltersMdx,
 }: {
   legacyQuery: LegacyQuery;
   cube: Cube;
+  shouldUpdateFiltersMdx: boolean;
 }): [
   {
     query: { mdx?: T; updateMode: UpdateMode };
@@ -92,11 +94,17 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
     ({ mdx: filterMdx }) => filterMdx,
   );
 
+  const finalMdx = shouldUpdateFiltersMdx
+    ? // The filters part of the MDX is removed from the query and stored in state.filters.
+      setFilters(improvedMdx, { filters: [], cube })
+    : // The filters part of the MDX remains stored as is, in state.query.
+      improvedMdx;
+
   // TODO UI-5036 Migrate query ranges.
   return [
     {
       // Migrating the query preserves its type.
-      query: { mdx: improvedMdx as T, updateMode: migratedUpdateMode },
+      query: { mdx: finalMdx as T, updateMode: migratedUpdateMode },
       filters,
       queryContext,
     },

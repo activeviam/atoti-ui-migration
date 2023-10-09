@@ -101,6 +101,7 @@ export async function migrateContentServer({
   doesReportIncludeStacks,
   onError: behaviorOnError,
   treeTableColumnWidth,
+  shouldUpdateFiltersMdx,
 }: {
   inputPath: string;
   outputPath: string;
@@ -112,6 +113,7 @@ export async function migrateContentServer({
   doesReportIncludeStacks: boolean;
   onError: BehaviorOnError;
   treeTableColumnWidth?: [number, number];
+  shouldUpdateFiltersMdx: boolean;
 }): Promise<void> {
   const contentServer: ContentRecord = await fs.readJSON(inputPath);
 

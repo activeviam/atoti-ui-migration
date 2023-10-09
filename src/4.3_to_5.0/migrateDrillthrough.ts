@@ -17,7 +17,13 @@ export function migrateDrillthrough(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyDrillthroughState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  {
+    servers,
+    shouldUpdateFiltersMdx,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    shouldUpdateFiltersMdx: boolean;
+  },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyDrillthroughState);
   const legacyMdx = legacyQuery.mdx
@@ -36,6 +42,7 @@ export function migrateDrillthrough(
     _migrateQuery<MdxDrillthrough>({
       legacyQuery,
       cube,
+      shouldUpdateFiltersMdx,
     });
 
   const legacyColumns =
@@ -62,7 +69,9 @@ export function migrateDrillthrough(
     serverKey,
     widgetKey: "drillthrough-table",
     columnWidths,
-    areFiltersDrivenByMdx: true,
+    ...(!shouldUpdateFiltersMdx && {
+      areFiltersDrivenByMdx: true,
+    }),
   };
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);

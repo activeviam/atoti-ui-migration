@@ -113,7 +113,13 @@ export function migrateKpi(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyKpiState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  {
+    servers,
+    shouldUpdateFiltersMdx,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    shouldUpdateFiltersMdx: boolean;
+  },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyKpiState);
   let legacyMdx = legacyQuery.mdx
@@ -177,6 +183,7 @@ export function migrateKpi(
           : undefined,
       },
       cube,
+      shouldUpdateFiltersMdx,
     });
 
   const mapping = deriveMappingFromMdx({
@@ -194,7 +201,9 @@ export function migrateKpi(
     name: legacyKpiState.name,
     serverKey,
     widgetKey: "kpi",
-    areFiltersDrivenByMdx: true,
+    ...(!shouldUpdateFiltersMdx && {
+      areFiltersDrivenByMdx: true,
+    }),
   };
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
