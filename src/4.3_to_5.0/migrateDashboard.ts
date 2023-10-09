@@ -79,6 +79,8 @@ export function migrateDashboard(
           ...(keysOfLeavesToRemove[pageKey] ?? []),
           leafKey,
         ];
+        // Necessary for the `removeWidget` function called below to work correctly.
+        content[leafKey] = {};
         _addWidgetErrorToReport(
           errorReport,
           new WidgetFlaggedForRemovalError(widgetPluginKey),

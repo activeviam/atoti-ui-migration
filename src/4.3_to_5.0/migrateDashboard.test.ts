@@ -311,6 +311,43 @@ describe("migrateDashboard", () => {
     `);
   });
 
+  it("does not throw when all widgets but one are removed from the page", () => {
+    const keysOfWidgetPluginsToRemove = ["filters", "quick-filter", "chart"];
+
+    // Safeguard to make sure that the test makes sense: before checking that the key has been removed in the migrated dashboard, check that it's here in the first place in the legacy dashboard.
+    const widgetPluginKeysInLegacyDashboard: string[] = [];
+    legacyDashboard.value.body.pages.forEach((page) =>
+      page.content.forEach(({ bookmark }) =>
+        widgetPluginKeysInLegacyDashboard.push(bookmark.value.containerKey),
+      ),
+    );
+    expect(widgetPluginKeysInLegacyDashboard).toEqual(
+      expect.arrayContaining(keysOfWidgetPluginsToRemove),
+    );
+
+    const [dashboard] = migrateDashboard(legacyDashboard, {
+      servers,
+      keysOfWidgetPluginsToRemove,
+    });
+
+    const { content, layout } = dashboard.pages["p-0"];
+    const widgetPluginKeys = _map(content, ({ widgetKey }) => widgetKey);
+    expect(widgetPluginKeys).toEqual(
+      expect.not.arrayContaining(keysOfWidgetPluginsToRemove),
+    );
+    expect(layout).toMatchInlineSnapshot(`
+      {
+        "children": [
+          {
+            "leafKey": "1",
+            "size": 1,
+          },
+        ],
+        "direction": "row",
+      }
+    `);
+  });
+
   it("moves the page and dashboard filters to the filters section of all connected widgets if a disconnected widget is present", () => {
     const legacyDashboardFilters = {
       EquityDerivativesCube: ["[Currency].[Currency].[ALL].[AllMember].[MAD]"],
