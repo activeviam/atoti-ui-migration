@@ -19,6 +19,54 @@ describe("migrateTable", () => {
       migrateTable(legacyTreeTable, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
+        "columnWidths": {
+          "[Currency].[Currency].[Currency]": 250,
+        },
+        "filters": [
+          "TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])",
+          "{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]}",
+        ],
+        "mapping": {
+          "columns": [
+            "ALL_MEASURES",
+          ],
+          "measures": [
+            "[Measures].[contributors.COUNT]",
+          ],
+          "rows": [
+            "[Currency].[Currency].[Currency]",
+          ],
+        },
+        "name": "Tree table",
+        "query": {
+          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+          "updateMode": "once",
+        },
+        "queryContext": [
+          {
+            "key": "queriesTimeLimit",
+            "value": 60,
+          },
+          {
+            "key": "mdx.casesensitive",
+            "value": true,
+          },
+          {
+            "key": "mdx.defaultmembers.[Geography].[City]",
+            "value": "[AllMember].[Berlin]",
+          },
+        ],
+        "serverKey": "my-server",
+        "widgetKey": "tree-table",
+      }
+    `);
+  });
+
+  it("removes filters from `query.mdx` and adds `areFiltersDrivenByMdx` to the state if `shouldUpdateMdxFilters` is false", () => {
+    expect(
+      migrateTable(legacyTreeTable, { servers, shouldUpdateFiltersMdx: false }),
+    ).toMatchInlineSnapshot(`
+      {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
@@ -68,7 +116,6 @@ describe("migrateTable", () => {
       migrateTable(emptyLegacyTable, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {},
         "filters": [],
         "mapping": {
@@ -97,7 +144,6 @@ describe("migrateTable", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
@@ -128,7 +174,6 @@ describe("migrateTable", () => {
       migrateTable(legacyPivotTable, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
@@ -158,7 +203,6 @@ describe("migrateTable", () => {
     expect(migrateTable(legacyTable, { servers, shouldUpdateFiltersMdx: true }))
       .toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
         },
