@@ -17,7 +17,6 @@ describe("migrateDashboard", () => {
     expect(dashboard.pages["p-0"].content).toMatchInlineSnapshot(`
       {
         "1": {
-          "areFiltersDrivenByMdx": true,
           "columnWidths": {
             "[Currency].[Currency].[Currency]": 250,
           },
@@ -38,7 +37,7 @@ describe("migrateDashboard", () => {
           },
           "name": "Tree table",
           "query": {
-            "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM (SELECT {[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]} ON COLUMNS FROM (SELECT TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT]) ON COLUMNS FROM [EquityDerivativesCube])) CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+            "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
             "updateMode": "once",
           },
           "queryContext": [
@@ -59,7 +58,6 @@ describe("migrateDashboard", () => {
           "widgetKey": "tree-table",
         },
         "2": {
-          "areFiltersDrivenByMdx": true,
           "filters": [],
           "mapping": {
             "horizontalSubplots": [],

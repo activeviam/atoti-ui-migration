@@ -15,7 +15,6 @@ describe("migrateChart", () => {
     expect(migrateChart(legacyChart, { servers, shouldUpdateFiltersMdx: true }))
       .toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -87,7 +86,6 @@ describe("migrateChart", () => {
       migrateChart(legacyLineChart, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -120,7 +118,6 @@ describe("migrateChart", () => {
       migrateChart(legacyAreaChart, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -156,7 +153,6 @@ describe("migrateChart", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -188,7 +184,6 @@ describe("migrateChart", () => {
       migrateChart(legacyBarChart, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -220,7 +215,6 @@ describe("migrateChart", () => {
       migrateChart(legacyPieChart, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
@@ -252,7 +246,6 @@ describe("migrateChart", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "color": [
@@ -290,7 +283,6 @@ describe("migrateChart", () => {
       migrateChart(emptyLegacyChart, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],

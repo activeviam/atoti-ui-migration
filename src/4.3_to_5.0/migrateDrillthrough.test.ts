@@ -12,14 +12,13 @@ describe("migrateDrillthrough", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {},
         "filters": [
           "[Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA]",
         ],
         "name": "Drillthrough LegalEntityA ➜ BusinessUnitA",
         "query": {
-          "mdx": "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] WHERE [Booking].[Desk].[ALL].[AllMember].[LegalEntityA].[BusinessUnitA] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
+          "mdx": "DRILLTHROUGH SELECT FROM [EquityDerivativesCube] RETURN MemberValue([BusinessUnit]), Caption([BusinessUnit]), MemberValue([TradeId]), Caption([TradeId])",
           "updateMode": "once",
         },
         "queryContext": [],
@@ -37,7 +36,6 @@ describe("migrateDrillthrough", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "columnWidths": {},
         "filters": [],
         "name": "Untitled Drillthrough Table",

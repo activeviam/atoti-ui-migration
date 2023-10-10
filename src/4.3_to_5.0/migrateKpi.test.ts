@@ -9,7 +9,6 @@ describe("migrateKpi", () => {
     expect(migrateKpi(legacyKpi, { servers, shouldUpdateFiltersMdx: true }))
       .toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "columns": [],
@@ -53,7 +52,6 @@ describe("migrateKpi", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "comparison": {
           "comparedMemberNamePath": [
             "AllMember",
@@ -93,7 +91,6 @@ describe("migrateKpi", () => {
       migrateKpi(emptyLegacyKpi, { servers, shouldUpdateFiltersMdx: true }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "columns": [],

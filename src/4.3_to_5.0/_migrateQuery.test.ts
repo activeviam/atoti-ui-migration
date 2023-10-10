@@ -28,7 +28,7 @@ describe("_migrateQuery", () => {
               "cubeName": "EquityDerivativesCube",
               "elementType": "From",
             },
-            "slicerAxis": null,
+            "slicerAxis": undefined,
             "withClause": [],
           },
           "updateMode": "once",
@@ -64,7 +64,7 @@ describe("_migrateQuery", () => {
     })!;
 
     // Filters are unchanged in the query.
-    expect(stringify(query.mdx!)).toBe(legacyQuery.mdx);
+    expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
 
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(

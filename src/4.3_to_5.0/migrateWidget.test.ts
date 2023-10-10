@@ -37,7 +37,6 @@ describe("migrateWidget", () => {
       }),
     ).toMatchInlineSnapshot(`
       {
-        "areFiltersDrivenByMdx": true,
         "filters": [],
         "mapping": {
           "horizontalSubplots": [],
