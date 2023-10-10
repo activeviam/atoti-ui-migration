@@ -87,6 +87,7 @@ export function migrateTable(
     serverKey,
     widgetKey: widgetPlugin.key,
     columnWidths,
+    areFiltersDrivenByMdx: true,
   };
 
   const hiddenColumnKeys = _getHiddenColumnKeys(legacyTableState);

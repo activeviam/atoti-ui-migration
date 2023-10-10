@@ -6,7 +6,7 @@ import type {
   MdxDrillthrough,
   MdxSelect,
 } from "@activeviam/activeui-sdk";
-import { getFilters, parse, setFilters } from "@activeviam/activeui-sdk";
+import { getFilters, parse } from "@activeviam/activeui-sdk";
 import { _fixErroneousExpansionMdx } from "./_fixErroneousExpansionMdx";
 import {
   LegacyContextValues,
@@ -91,13 +91,12 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   const filters = getFilters(improvedMdx, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx,
   );
-  const mdxWithoutFilters = setFilters(improvedMdx, { filters: [], cube });
 
   // TODO UI-5036 Migrate query ranges.
   return [
     {
       // Migrating the query preserves its type.
-      query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
+      query: { mdx: improvedMdx as T, updateMode: migratedUpdateMode },
       filters,
       queryContext,
     },

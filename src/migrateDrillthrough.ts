@@ -62,6 +62,7 @@ export function migrateDrillthrough(
     serverKey,
     widgetKey: "drillthrough-table",
     columnWidths,
+    areFiltersDrivenByMdx: true,
   };
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
