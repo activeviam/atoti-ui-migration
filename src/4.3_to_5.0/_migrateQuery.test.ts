@@ -14,6 +14,7 @@ describe("_migrateQuery", () => {
     const [migratedQuery, isUsingUnsupportedUpdateMode] = _migrateQuery({
       legacyQuery,
       cube,
+      shouldUpdateFiltersMdx: true,
     });
     expect(migratedQuery).toMatchInlineSnapshot(`
       {
@@ -42,6 +43,7 @@ describe("_migrateQuery", () => {
     const [migratedQuery, isUsingUnsupportedUpdateMode] = _migrateQuery({
       legacyQuery: { mdx: "" },
       cube,
+      shouldUpdateFiltersMdx: false,
     });
     expect(migratedQuery).toEqual({
       query: { updateMode: "once" },
@@ -55,8 +57,15 @@ describe("_migrateQuery", () => {
     const legacyQuery = {
       mdx: "SELECT FROM [EquityDerivativesCube] WHERE [Currency].[Currency].[AllMember].[EUR]",
     };
-    const [{ query, filters }] = _migrateQuery({ legacyQuery, cube })!;
+    const [{ query, filters }] = _migrateQuery({
+      legacyQuery,
+      cube,
+      shouldUpdateFiltersMdx: true,
+    })!;
+
+    // Filters are unchanged in the query.
     expect(stringify(query.mdx!)).toBe("SELECT FROM [EquityDerivativesCube]");
+
     expect(filters.length).toBe(1);
     expect(stringify(filters[0])).toBe(
       "[Currency].[Currency].[AllMember].[EUR]",
@@ -99,7 +108,7 @@ describe("_migrateQuery", () => {
       {
         query: { mdx },
       },
-    ] = _migrateQuery({ legacyQuery, cube })!;
+    ] = _migrateQuery({ legacyQuery, cube, shouldUpdateFiltersMdx: true })!;
 
     expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
       "SELECT

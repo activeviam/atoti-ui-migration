@@ -15,7 +15,9 @@ import { legacyTableWithHiddenColumns } from "./__test_resources__/legacyTableWi
 
 describe("migrateTable", () => {
   it("migrates a tree table widget", () => {
-    expect(migrateTable(legacyTreeTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyTreeTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
@@ -60,8 +62,59 @@ describe("migrateTable", () => {
     `);
   });
 
+  it("removes filters from `query.mdx` and adds `areFiltersDrivenByMdx` to the state if `shouldUpdateMdxFilters` is false", () => {
+    expect(
+      migrateTable(legacyTreeTable, { servers, shouldUpdateFiltersMdx: false }),
+    ).toMatchInlineSnapshot(`
+      {
+        "areFiltersDrivenByMdx": true,
+        "columnWidths": {
+          "[Currency].[Currency].[Currency]": 250,
+        },
+        "filters": [
+          "TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT])",
+          "{[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]}",
+        ],
+        "mapping": {
+          "columns": [
+            "ALL_MEASURES",
+          ],
+          "measures": [
+            "[Measures].[contributors.COUNT]",
+          ],
+          "rows": [
+            "[Currency].[Currency].[Currency]",
+          ],
+        },
+        "name": "Tree table",
+        "query": {
+          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM (SELECT {[Currency].[Currency].[ALL].[AllMember].[GBP], [Currency].[Currency].[ALL].[AllMember].[JPY], [Currency].[Currency].[ALL].[AllMember].[USD]} ON COLUMNS FROM (SELECT TopCount(Filter([Geography].[City].Levels(1).Members, NOT IsEmpty([Measures].[contributors.COUNT])), 3, [Measures].[contributors.COUNT]) ON COLUMNS FROM [EquityDerivativesCube])) CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+          "updateMode": "once",
+        },
+        "queryContext": [
+          {
+            "key": "queriesTimeLimit",
+            "value": 60,
+          },
+          {
+            "key": "mdx.casesensitive",
+            "value": true,
+          },
+          {
+            "key": "mdx.defaultmembers.[Geography].[City]",
+            "value": "[AllMember].[Berlin]",
+          },
+        ],
+        "serverKey": "my-server",
+        "widgetKey": "tree-table",
+      }
+    `);
+  });
+
   it("migrates an empty table widget", () => {
-    expect(migrateTable(emptyLegacyTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(emptyLegacyTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "columnWidths": {},
         "filters": [],
@@ -84,7 +137,12 @@ describe("migrateTable", () => {
   });
 
   it("migrates a tabular view widget", () => {
-    expect(migrateTable(legacyTabularView, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyTabularView, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
@@ -112,7 +170,9 @@ describe("migrateTable", () => {
   });
 
   it("migrates a pivot table widget", () => {
-    expect(migrateTable(legacyPivotTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyPivotTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
@@ -140,7 +200,8 @@ describe("migrateTable", () => {
   });
 
   it("migrates a table widget", () => {
-    expect(migrateTable(legacyTable, servers)).toMatchInlineSnapshot(`
+    expect(migrateTable(legacyTable, { servers, shouldUpdateFiltersMdx: true }))
+      .toMatchInlineSnapshot(`
       {
         "columnWidths": {
           "[Currency].[Currency].[Currency]": 250,
@@ -213,10 +274,10 @@ describe("migrateTable", () => {
       FROM [EquityDerivativesCube]
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS`;
 
-    const migratedPivotTableState = migrateTable(
-      legacyPivotTableState,
+    const migratedPivotTableState = migrateTable(legacyPivotTableState, {
       servers,
-    ) as TableWidgetState<"serialized">;
+      shouldUpdateFiltersMdx: true,
+    }) as TableWidgetState<"serialized">;
 
     expect(
       stringify(parse(migratedPivotTableState.query.mdx!), { indent: true }),
@@ -242,10 +303,10 @@ describe("migrateTable", () => {
   });
 
   it("migrates a table with hidden columns", () => {
-    const migratedTableState = migrateTable(
-      legacyTableWithHiddenColumns,
+    const migratedTableState = migrateTable(legacyTableWithHiddenColumns, {
       servers,
-    ) as TableWidgetState<"serialized">;
+      shouldUpdateFiltersMdx: true,
+    }) as TableWidgetState<"serialized">;
 
     expect(migratedTableState.hiddenColumns).toMatchInlineSnapshot(`
       [

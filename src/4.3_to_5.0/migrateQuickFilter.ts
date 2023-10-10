@@ -51,7 +51,11 @@ export function migrateQuickFilter(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyQuickFilterState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  {
+    servers,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+  },
 ): QuickFilterWidgetState<"serialized"> {
   const {
     cube: cubeName,

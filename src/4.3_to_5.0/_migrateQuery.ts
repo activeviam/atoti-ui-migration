@@ -40,9 +40,11 @@ export interface LegacyQuery {
 export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   legacyQuery,
   cube,
+  shouldUpdateFiltersMdx,
 }: {
   legacyQuery: LegacyQuery;
   cube: Cube;
+  shouldUpdateFiltersMdx: boolean;
 }): [
   {
     query: { mdx?: T; updateMode: UpdateMode };
@@ -91,13 +93,18 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
   const filters = getFilters(improvedMdx, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx,
   );
-  const mdxWithoutFilters = setFilters(improvedMdx, { filters: [], cube });
+
+  const finalMdx = shouldUpdateFiltersMdx
+    ? // The filters part of the MDX is removed from the query and stored in state.filters.
+      setFilters(improvedMdx, { filters: [], cube })
+    : // The filters part of the MDX remains stored as is, in state.query.
+      improvedMdx;
 
   // TODO UI-5036 Migrate query ranges.
   return [
     {
       // Migrating the query preserves its type.
-      query: { mdx: mdxWithoutFilters as T, updateMode: migratedUpdateMode },
+      query: { mdx: finalMdx as T, updateMode: migratedUpdateMode },
       filters,
       queryContext,
     },

@@ -26,8 +26,15 @@ export function migrateTable(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyTableState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  treeTableColumnWidth?: [number, number],
+  {
+    servers,
+    treeTableColumnWidth,
+    shouldUpdateFiltersMdx,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    treeTableColumnWidth?: [number, number];
+    shouldUpdateFiltersMdx: boolean;
+  },
 ): AWidgetState<"serialized"> {
   const legacyQuery = _getQueryInLegacyWidgetState(legacyTableState);
   const legacyMdx = legacyQuery.mdx
@@ -45,6 +52,7 @@ export function migrateTable(
     _migrateQuery<MdxSelect>({
       legacyQuery,
       cube,
+      shouldUpdateFiltersMdx,
     });
 
   const legacyColumnsGroups =
@@ -87,6 +95,7 @@ export function migrateTable(
     serverKey,
     widgetKey: widgetPlugin.key,
     columnWidths,
+    ...(!shouldUpdateFiltersMdx && { areFiltersDrivenByMdx: true }),
   };
 
   const hiddenColumnKeys = _getHiddenColumnKeys(legacyTableState);

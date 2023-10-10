@@ -231,7 +231,13 @@ export function migrateChart(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyChartState: any,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
+  {
+    servers,
+    shouldUpdateFiltersMdx,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    shouldUpdateFiltersMdx: boolean;
+  },
 ): PlotlyWidgetState<"serialized"> {
   const widgetName = legacyChartState?.name;
   const {
@@ -267,7 +273,7 @@ export function migrateChart(
   const [
     { query: migratedQuery, filters: extractedFilters, queryContext },
     isUsingUnsupportedUpdateMode,
-  ] = _migrateQuery<MdxSelect>({ legacyQuery, cube });
+  ] = _migrateQuery<MdxSelect>({ legacyQuery, cube, shouldUpdateFiltersMdx });
 
   //  If there is no MDX in the query, the type does not matter: it can be considered a stringified query.
   const query = (
@@ -299,6 +305,9 @@ export function migrateChart(
     serverKey,
     name: widgetName,
     widgetKey: migratedWidgetKey,
+    ...(!shouldUpdateFiltersMdx && {
+      areFiltersDrivenByMdx: true,
+    }),
   };
 
   if (isUsingUnsupportedUpdateMode) {
