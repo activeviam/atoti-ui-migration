@@ -12,7 +12,8 @@ import { servers } from "./__test_resources__/servers";
 
 describe("migrateChart", () => {
   it("returns the ActiveUI5 chart widget state corresponding to the given ActiveUI4 chart widget state", () => {
-    expect(migrateChart(legacyChart, servers)).toMatchInlineSnapshot(`
+    expect(migrateChart(legacyChart, { servers, shouldUpdateFiltersMdx: true }))
+      .toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -82,7 +83,9 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy line chart to a Plotly line chart", () => {
-    expect(migrateChart(legacyLineChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyLineChart, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -113,7 +116,9 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy area chart to a Plotly area chart", () => {
-    expect(migrateChart(legacyAreaChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyAreaChart, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -144,7 +149,12 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy column chart to a Plotly column chart", () => {
-    expect(migrateChart(legacyColumnChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyColumnChart, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -174,7 +184,9 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy bar chart to a Plotly bar chart", () => {
-    expect(migrateChart(legacyBarChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyBarChart, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -204,7 +216,9 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy pie chart to a Plotly pie chart", () => {
-    expect(migrateChart(legacyPieChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyPieChart, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -231,7 +245,12 @@ describe("migrateChart", () => {
   });
 
   it("migrates a legacy scatter plot to a Plotly scatter plot", () => {
-    expect(migrateChart(legacyScatterPlot, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(legacyScatterPlot, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -267,7 +286,9 @@ describe("migrateChart", () => {
   });
 
   it("migrates an empty chart widget to a plotly-line-chart", () => {
-    expect(migrateChart(emptyLegacyChart, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateChart(emptyLegacyChart, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -306,7 +327,10 @@ describe("migrateChart", () => {
       },
     );
 
-    const chartState = migrateChart(partialLegacyChartState, servers);
+    const chartState = migrateChart(partialLegacyChartState, {
+      servers,
+      shouldUpdateFiltersMdx: true,
+    });
 
     // Notice that `splitBy`, `horizontalSubplots` and `verticalSubplots` are present in the migrated chart state,
     // even though they are missing in the input legacy chart state.
@@ -338,7 +362,10 @@ describe("migrateChart", () => {
     // ActiveUI 4 charts did not have this capability: "all measures" could never be moved.
     // For this ActiveUI 5 feature to work, charts supporting measures redirection in ActiveUI 5 should see the "ALL_MEASURES" tile added to their mapping during the migration.
 
-    const migratedChartState = migrateChart(legacyChart, servers);
+    const migratedChartState = migrateChart(legacyChart, {
+      servers,
+      shouldUpdateFiltersMdx: true,
+    });
 
     // Even though the ALL_MEASURES tile is missing in the legacy chart state, the migrated state does contain it.
     expect(migratedChartState.mapping.splitBy).toContain("ALL_MEASURES");

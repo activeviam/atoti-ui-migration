@@ -11,6 +11,7 @@ describe("migrateDashboard", () => {
   it("turns the pages content from arrays into maps", () => {
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
+      shouldUpdateFiltersMdx: true,
     });
 
     expect(dashboard.pages["p-0"].content).toMatchInlineSnapshot(`
@@ -145,6 +146,7 @@ describe("migrateDashboard", () => {
   it("flattens the page layouts", () => {
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
+      shouldUpdateFiltersMdx: true,
     });
     expect(dashboard.pages["p-0"].layout).toMatchInlineSnapshot(`
       {
@@ -181,6 +183,7 @@ describe("migrateDashboard", () => {
     // Due to the flattening, the context values from the first cube that are also defined in the second cube are overriden.
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
+      shouldUpdateFiltersMdx: true,
     });
     expect(dashboard.queryContext).toMatchInlineSnapshot(`
       [
@@ -203,6 +206,7 @@ describe("migrateDashboard", () => {
   it("migrates page context values", () => {
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
+      shouldUpdateFiltersMdx: true,
     });
     expect(_mapValues(dashboard.pages, ({ queryContext }) => queryContext))
       .toMatchInlineSnapshot(`
@@ -242,6 +246,7 @@ describe("migrateDashboard", () => {
     } as unknown as LegacyDashboardState;
     const [emptyDashboard] = migrateDashboard(legacyEmptyDashboard, {
       servers,
+      shouldUpdateFiltersMdx: true,
     });
     expect(emptyDashboard).toMatchInlineSnapshot(`
       {
@@ -285,6 +290,7 @@ describe("migrateDashboard", () => {
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
       keysOfWidgetPluginsToRemove,
+      shouldUpdateFiltersMdx: true,
     });
 
     const { content, layout } = dashboard.pages["p-0"];
@@ -336,6 +342,7 @@ describe("migrateDashboard", () => {
       legacyDashboardWithDisconnectedWidget,
       {
         servers,
+        shouldUpdateFiltersMdx: true,
       },
     );
 

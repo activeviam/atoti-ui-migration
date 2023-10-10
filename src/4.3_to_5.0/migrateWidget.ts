@@ -18,22 +18,41 @@ import { TextEditorWidgetMigrationError } from "./errors/TextEditorWidgetMigrati
  */
 export function migrateWidget(
   legacyWidgetState: LegacyWidgetState,
-  servers: { [serverKey: string]: { dataModel: DataModel; url: string } },
-  treeTableColumnWidth?: [number, number],
+  {
+    servers,
+    shouldUpdateFiltersMdx,
+    treeTableColumnWidth,
+  }: {
+    servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
+    shouldUpdateFiltersMdx: boolean;
+    treeTableColumnWidth?: [number, number];
+  },
 ): AWidgetState<"serialized"> {
   const widgetPluginKey = _getLegacyWidgetPluginKey(legacyWidgetState);
   switch (widgetPluginKey) {
     case "chart":
-      return migrateChart(legacyWidgetState, servers);
+      return migrateChart(legacyWidgetState, {
+        servers,
+        shouldUpdateFiltersMdx,
+      });
     case "tabular-view":
     case "pivot-table":
-      return migrateTable(legacyWidgetState, servers, treeTableColumnWidth);
+      return migrateTable(legacyWidgetState, {
+        servers,
+        shouldUpdateFiltersMdx,
+        treeTableColumnWidth,
+      });
     case "featured-values":
-      return migrateKpi(legacyWidgetState, servers);
+      return migrateKpi(legacyWidgetState, { servers, shouldUpdateFiltersMdx });
     case "quick-filter":
-      return migrateQuickFilter(legacyWidgetState, servers);
+      return migrateQuickFilter(legacyWidgetState, {
+        servers,
+      });
     case "drillthrough":
-      return migrateDrillthrough(legacyWidgetState, servers);
+      return migrateDrillthrough(legacyWidgetState, {
+        servers,
+        shouldUpdateFiltersMdx,
+      });
     case "rich-text-editor":
       throw new TextEditorWidgetMigrationError(
         migrateTextEditor(legacyWidgetState),

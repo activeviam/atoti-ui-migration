@@ -15,7 +15,9 @@ import { legacyTableWithHiddenColumns } from "./__test_resources__/legacyTableWi
 
 describe("migrateTable", () => {
   it("migrates a tree table widget", () => {
-    expect(migrateTable(legacyTreeTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyTreeTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {
@@ -62,7 +64,9 @@ describe("migrateTable", () => {
   });
 
   it("migrates an empty table widget", () => {
-    expect(migrateTable(emptyLegacyTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(emptyLegacyTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {},
@@ -86,7 +90,12 @@ describe("migrateTable", () => {
   });
 
   it("migrates a tabular view widget", () => {
-    expect(migrateTable(legacyTabularView, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyTabularView, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {
@@ -115,7 +124,9 @@ describe("migrateTable", () => {
   });
 
   it("migrates a pivot table widget", () => {
-    expect(migrateTable(legacyPivotTable, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateTable(legacyPivotTable, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {
@@ -144,7 +155,8 @@ describe("migrateTable", () => {
   });
 
   it("migrates a table widget", () => {
-    expect(migrateTable(legacyTable, servers)).toMatchInlineSnapshot(`
+    expect(migrateTable(legacyTable, { servers, shouldUpdateFiltersMdx: true }))
+      .toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {
@@ -218,10 +230,10 @@ describe("migrateTable", () => {
       FROM [EquityDerivativesCube]
       CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS`;
 
-    const migratedPivotTableState = migrateTable(
-      legacyPivotTableState,
+    const migratedPivotTableState = migrateTable(legacyPivotTableState, {
       servers,
-    ) as TableWidgetState<"serialized">;
+      shouldUpdateFiltersMdx: true,
+    }) as TableWidgetState<"serialized">;
 
     expect(
       stringify(parse(migratedPivotTableState.query.mdx!), { indent: true }),
@@ -247,10 +259,10 @@ describe("migrateTable", () => {
   });
 
   it("migrates a table with hidden columns", () => {
-    const migratedTableState = migrateTable(
-      legacyTableWithHiddenColumns,
+    const migratedTableState = migrateTable(legacyTableWithHiddenColumns, {
       servers,
-    ) as TableWidgetState<"serialized">;
+      shouldUpdateFiltersMdx: true,
+    }) as TableWidgetState<"serialized">;
 
     expect(migratedTableState.hiddenColumns).toMatchInlineSnapshot(`
       [

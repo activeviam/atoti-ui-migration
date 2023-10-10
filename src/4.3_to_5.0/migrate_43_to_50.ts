@@ -214,6 +214,7 @@ export async function migrate_43_to_50(
     servers,
     keysOfWidgetPluginsToRemove,
     doesReportIncludeStacks,
+    shouldUpdateFiltersMdx,
     treeTableColumnWidth,
   }: {
     errorReport: ErrorReport;
@@ -221,6 +222,7 @@ export async function migrate_43_to_50(
     servers: { [serverKey: string]: { dataModel: DataModel; url: string } };
     keysOfWidgetPluginsToRemove?: string[];
     doesReportIncludeStacks: boolean;
+    shouldUpdateFiltersMdx: boolean;
     treeTableColumnWidth?: [number, number];
   },
 ): Promise<void> {
@@ -349,6 +351,7 @@ export async function migrate_43_to_50(
                 keysOfWidgetPluginsToRemove,
                 doesReportIncludeStacks,
                 treeTableColumnWidth,
+                shouldUpdateFiltersMdx,
               });
             migratedDashboard = successfullyMigratedDashboard;
             if (dashboardErrorReport) {
@@ -423,7 +426,10 @@ export async function migrate_43_to_50(
 
           let migratedWidget = undefined;
           try {
-            migratedWidget = migrateWidget(bookmark, servers);
+            migratedWidget = migrateWidget(bookmark, {
+              servers,
+              shouldUpdateFiltersMdx,
+            });
             counters.widgets.success++;
           } catch (error) {
             if (error instanceof PartialMigrationError) {

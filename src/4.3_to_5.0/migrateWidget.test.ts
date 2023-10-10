@@ -30,7 +30,12 @@ describe("migrateWidget", () => {
       writable: true,
     };
 
-    expect(migrateWidget(legacyWidgetState, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateWidget(legacyWidgetState, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -73,7 +78,10 @@ describe("migrateWidget", () => {
     };
 
     expect(() =>
-      migrateWidget(legacyWidgetState, servers),
+      migrateWidget(legacyWidgetState, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
     ).toThrowErrorMatchingInlineSnapshot(
       `"Unsupported widgetKey: "context-values""`,
     );

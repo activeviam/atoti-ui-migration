@@ -173,6 +173,7 @@ export async function migrateContentServer({
       servers,
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks,
+      shouldUpdateFiltersMdx,
       treeTableColumnWidth,
     });
   }

@@ -5,8 +5,12 @@ import { servers } from "./__test_resources__/servers";
 
 describe("migrateDrillthrough", () => {
   it("returns the ActiveUI5 drillthrough-table widget state corresponding to the given ActiveUI4 drillthrough widget state", () => {
-    expect(migrateDrillthrough(legacyDrillthrough, servers))
-      .toMatchInlineSnapshot(`
+    expect(
+      migrateDrillthrough(legacyDrillthrough, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {},
@@ -26,8 +30,12 @@ describe("migrateDrillthrough", () => {
   });
 
   it("migrates an empty drillthrough widget", () => {
-    expect(migrateDrillthrough(emptyLegacyDrillthrough, servers))
-      .toMatchInlineSnapshot(`
+    expect(
+      migrateDrillthrough(emptyLegacyDrillthrough, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "columnWidths": {},

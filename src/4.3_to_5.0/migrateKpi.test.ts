@@ -6,7 +6,8 @@ import { servers } from "./__test_resources__/servers";
 
 describe("migrateKpi", () => {
   it("returns the ActiveUI5 KPI widget state corresponding to the given ActiveUI4 KPI widget state", () => {
-    expect(migrateKpi(legacyKpi, servers)).toMatchInlineSnapshot(`
+    expect(migrateKpi(legacyKpi, { servers, shouldUpdateFiltersMdx: true }))
+      .toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],
@@ -45,7 +46,12 @@ describe("migrateKpi", () => {
   });
 
   it("migrates a KPI widget with a comparison", () => {
-    expect(migrateKpi(legacyComparisonValues, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateKpi(legacyComparisonValues, {
+        servers,
+        shouldUpdateFiltersMdx: true,
+      }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "comparison": {
@@ -83,7 +89,9 @@ describe("migrateKpi", () => {
   });
 
   it("migrates an empty KPI widget", () => {
-    expect(migrateKpi(emptyLegacyKpi, servers)).toMatchInlineSnapshot(`
+    expect(
+      migrateKpi(emptyLegacyKpi, { servers, shouldUpdateFiltersMdx: true }),
+    ).toMatchInlineSnapshot(`
       {
         "areFiltersDrivenByMdx": true,
         "filters": [],

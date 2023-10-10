@@ -12,7 +12,7 @@ describe("migrateQuickFilter", () => {
         draft.value.body.configuration.multipleSelection = true;
       },
     );
-    expect(migrateQuickFilter(legacyQuickFilterInCheckboxMode, servers))
+    expect(migrateQuickFilter(legacyQuickFilterInCheckboxMode, { servers }))
       .toMatchInlineSnapshot(`
       {
         "cubeName": "EquityDerivativesCube",
@@ -34,7 +34,7 @@ describe("migrateQuickFilter", () => {
       draft.value.body.configuration.displayedAsSelect = false;
       draft.value.body.configuration.multipleSelection = false;
     });
-    expect(migrateQuickFilter(legacyQuickFilterInRadioMode, servers))
+    expect(migrateQuickFilter(legacyQuickFilterInRadioMode, { servers }))
       .toMatchInlineSnapshot(`
       {
         "cubeName": "EquityDerivativesCube",
@@ -59,7 +59,7 @@ describe("migrateQuickFilter", () => {
         draft.value.body.configuration.multipleSelection = true;
       },
     );
-    expect(migrateQuickFilter(legacyQuickFilterInMultiSelectMode, servers))
+    expect(migrateQuickFilter(legacyQuickFilterInMultiSelectMode, { servers }))
       .toMatchInlineSnapshot(`
       {
         "cubeName": "EquityDerivativesCube",
@@ -84,7 +84,7 @@ describe("migrateQuickFilter", () => {
         draft.value.body.configuration.multipleSelection = false;
       },
     );
-    expect(migrateQuickFilter(legacyQuickFilterInSingleSelectMode, servers))
+    expect(migrateQuickFilter(legacyQuickFilterInSingleSelectMode, { servers }))
       .toMatchInlineSnapshot(`
       {
         "cubeName": "EquityDerivativesCube",
@@ -115,7 +115,7 @@ describe("migrateQuickFilter", () => {
         draft.value.body.configuration.multipleSelection = undefined;
       },
     );
-    expect(migrateQuickFilter(legacyQuickFilterOnSlicingLevel, servers))
+    expect(migrateQuickFilter(legacyQuickFilterOnSlicingLevel, { servers }))
       .toMatchInlineSnapshot(`
       {
         "cubeName": "EquityDerivativesCube",
