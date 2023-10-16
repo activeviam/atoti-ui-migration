@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getCalculatedMeasures parses an XML calculated measure with a namespace 1`] = `
+[
+  {
+    "expression": "[Measures].[deltaMTM]",
+    "formatStringExpression": ""#,###,,"",
+    "owners": [
+      "43890025",
+    ],
+    "readers": [
+      "43890025",
+    ],
+    "uniqueName": "[Measures].[CC Impact MtM]",
+  },
+]
+`;
+
 exports[`getCalculatedMeasures returns the parsed calculated measure objects 1`] = `
 [
   {

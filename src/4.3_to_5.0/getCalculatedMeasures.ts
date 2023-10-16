@@ -2,6 +2,7 @@ import { ContentRecord } from "@activeviam/activeui-sdk-5.0";
 import xml2js from "xml2js";
 import _flatMap from "lodash/flatMap";
 import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";
+import { stripPrefix } from "xml2js/lib/processors";
 
 /**
  * Extracts and parses the XML calculated measure objects from the /pivot/entitlements/cm folder.
@@ -9,7 +10,7 @@ import { LegacyCalculatedMeasure } from "./migrateCalculatedMeasures";
 export const getCalculatedMeasures = async (
   calculatedMeasuresFolder: ContentRecord,
 ): Promise<LegacyCalculatedMeasure[]> => {
-  const parser = new xml2js.Parser();
+  const parser = new xml2js.Parser({ tagNameProcessors: [stripPrefix] });
 
   const calculatedMeasures: LegacyCalculatedMeasure[] = [];
 
