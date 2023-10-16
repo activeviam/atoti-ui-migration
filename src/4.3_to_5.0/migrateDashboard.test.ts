@@ -334,6 +334,7 @@ describe("migrateDashboard", () => {
     const [dashboard] = migrateDashboard(legacyDashboard, {
       servers,
       keysOfWidgetPluginsToRemove,
+      shouldUpdateFiltersMdx: true,
     });
 
     const { content, layout } = dashboard.pages["p-0"];
