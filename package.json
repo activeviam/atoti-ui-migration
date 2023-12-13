@@ -11,9 +11,7 @@
   },
   "license": "Apache-2.0",
   "author": "ActiveViam",
-  "bin": {
-    "migrate": "./bin.js"
-  },
+  "bin": "./bin.js",
   "files": [
     "bin.js",
     "dist"
