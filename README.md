@@ -110,7 +110,7 @@ At this stage, your `migration` folder looks like this:
 Open a terminal in it and run the command below after adapting the `--from-version` and `--to-version` arguments as needed:
 
 ```
-npx -- activeui-migration migrate -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
+npx -- activeui-migration -i content.json -o migrated-content.json -s servers.json --from-version 4.3 --to-version 5.1
 ```
 
 This command generates a file named `migrated-content.json` in the same folder. It contains the migrated content, ready to be used in the target version of Atoti UI.
@@ -121,7 +121,7 @@ The CLI offers several options.
 You can see them all by running:
 
 ```
-npx -- activeui-migration migrate --help
+npx -- activeui-migration --help
 ```
 
 In particular:
@@ -160,7 +160,7 @@ To get the servers information, follow the [download the servers information sec
 Now that your migration folder contains all the required files, you can run the following command:
 
 ```
-npx -- activeui-migration migrate -i notebook.ipynb -o migrated-notebook.ipynb -s servers.json --from-version 0.7 --to-version 0.8
+npx -- activeui-migration -i notebook.ipynb -o migrated-notebook.ipynb -s servers.json --from-version 0.7 --to-version 0.8
 ```
 
 This command generates a file named `migrated-notebook.json` in the same folder. It contains the migrated notebook with all its migrated widgets, ready to be used with the Atoti version you migrated to. You can see the [run the CLI section](#run-the-cli) to get more details about the command line and its options.
