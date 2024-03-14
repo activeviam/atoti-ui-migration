@@ -1,5 +1,6 @@
 import _cloneDeep from "lodash/cloneDeep";
 import _mapValues from "lodash/mapValues";
+import _uniq from "lodash/uniq";
 import _pick from "lodash/pick";
 import type {
   Activity,
@@ -36,6 +37,43 @@ function migrateSettingsMap(legacySettingsMap: {
   const areUserFiltersEnabled = legacySettingsMap["userFilters.enabled"];
   if (areUserFiltersEnabled !== undefined) {
     migratedSettingsMap["userFilters.areEnabled"] = areUserFiltersEnabled;
+  }
+
+  const legacyDrillthroughColumns:
+    | {
+        [serverUrl: string]: {
+          [cubeName: string]: {
+            functionName: "Value" | "Caption" | "MemberValue" | "MemberCaption";
+            columnName: string;
+          }[];
+        };
+      }
+    | undefined =
+    legacySettingsMap["widgets.Tabular.drillthrough.selectedColumns"];
+
+  if (legacyDrillthroughColumns !== undefined) {
+    const migratedDrillthroughColumns: Settings["drillthrough.defaultSelectedColumns"] =
+      {};
+    // The legacy settings are per server and per cube.
+    // The new ones are only per cube: the assumption is that no customer has multiple servers containing a cube with the same name but exposing a different data model.
+    for (const serverUrl in legacyDrillthroughColumns) {
+      for (const cubeName in legacyDrillthroughColumns[serverUrl]) {
+        if (migratedDrillthroughColumns[cubeName] === undefined) {
+          migratedDrillthroughColumns[cubeName] = [];
+        }
+        migratedDrillthroughColumns[cubeName].push(
+          ...legacyDrillthroughColumns[serverUrl][cubeName].map(
+            ({ columnName }) => columnName,
+          ),
+        );
+      }
+    }
+
+    // Remove duplicates.
+    migratedSettingsMap["drillthrough.defaultSelectedColumns"] = _mapValues(
+      migratedDrillthroughColumns,
+      _uniq,
+    );
   }
 
   return migratedSettingsMap;
