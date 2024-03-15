@@ -97,7 +97,7 @@ exports[`migrateSettingsFolder returns the folders corresponding to the converte
           },
           "settings": {
             "entry": {
-              "content": "{"userFilters.areEnabled":false}",
+              "content": "{"userFilters.areEnabled":false,"drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]}}",
               "owners": [
                 "user1",
               ],

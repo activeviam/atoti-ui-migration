@@ -14,6 +14,58 @@ const user1Preferences = {
   deny: [],
   map: {
     "userFilters.enabled": true,
+    "widgets.Tabular.drillthrough.selectedColumns": {
+      "https://activerisk.zone1.scb.net:8081/server": {
+        MarketRiskCube: [
+          {
+            functionName: "MemberValue",
+            columnName: "riskCurrency",
+          },
+          {
+            functionName: "Caption",
+            columnName: "riskCurrency",
+          },
+          {
+            functionName: "MemberValue",
+            columnName: "subTradeId",
+          },
+          {
+            functionName: "Caption",
+            columnName: "subTradeId",
+          },
+        ],
+        SecondCube: [
+          {
+            functionName: "MemberValue",
+            columnName: "delta",
+          },
+          {
+            functionName: "Caption",
+            columnName: "delta",
+          },
+        ],
+      },
+      "https://second-server.com": {
+        MarketRiskCube: [
+          {
+            functionName: "MemberValue",
+            columnName: "subTradeId",
+          },
+          {
+            functionName: "Caption",
+            columnName: "subTradeId",
+          },
+          {
+            functionName: "MemberValue",
+            columnName: "EntityName",
+          },
+          {
+            functionName: "Caption",
+            columnName: "EntityName",
+          },
+        ],
+      },
+    },
   },
 };
 

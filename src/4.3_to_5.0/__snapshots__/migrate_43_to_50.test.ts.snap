@@ -1277,7 +1277,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
             },
             "settings": {
               "entry": {
-                "content": "{"userFilters.areEnabled":false}",
+                "content": "{"userFilters.areEnabled":false,"drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]}}",
                 "owners": [
                   "user1",
                 ],
@@ -2420,7 +2420,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
             },
             "settings": {
               "entry": {
-                "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true}",
+                "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true,"drillthrough.defaultSelectedColumns":{"EquityDerivativesCube":["delta","gamma","pnlVega","Desk","Currency","Date","HostName"],"EquityDerivativesCubeDist":["BumpedMtmDown","ProductQtyMultiplier","vega","rho","productId","pnlVega","pnlDelta","pnl","gamma","delta","TradeId","ProductBaseMtm"]}}",
                 "owners": [
                   "admin",
                 ],
