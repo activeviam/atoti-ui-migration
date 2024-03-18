@@ -97,7 +97,7 @@ Object {
           },
           "settings": Object {
             "entry": Object {
-              "content": "{\\"userFilters.areEnabled\\":false}",
+              "content": "{\\"userFilters.areEnabled\\":false",drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]}}",
               "owners": Array [
                 "user1",
               ],

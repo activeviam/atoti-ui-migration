@@ -1250,7 +1250,7 @@ Object {
             },
             "settings": Object {
               "entry": Object {
-                "content": "{\\"userFilters.areEnabled\\":false}",
+                "content": "{\\"userFilters.areEnabled\\":false,"drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]}}",
                 "owners": Array [
                   "user1",
                 ],
@@ -2364,7 +2364,7 @@ Object {
             },
             "settings": Object {
               "entry": Object {
-                "content": "{\\"theme\\":\\"dark-activeviam\\",\\"search.maxResults\\":10,\\"userFilters.areEnabled\\":true}",
+                "content": "{\\"theme\\":\\"dark-activeviam\\",\\"search.maxResults\\":10,\\"userFilters.areEnabled\\":true,"drillthrough.defaultSelectedColumns":{"EquityDerivativesCube":["delta","gamma","pnlVega","Desk","Currency","Date","HostName"],"EquityDerivativesCubeDist":["BumpedMtmDown","ProductQtyMultiplier","vega","rho","productId","pnlVega","pnlDelta","pnl","gamma","delta","TradeId","ProductBaseMtm"]}}",
                 "owners": Array [
                   "admin",
                 ],
