@@ -39,6 +39,9 @@ describe("migrateKpi", () => {
           },
         ],
         "serverKey": "my-server",
+        "titles": {
+          "[Measures].[contributors.COUNT],[Currency].[Currency].[AllMember].[EUR, USD]": "Hello World",
+        },
         "widgetKey": "kpi",
       }
     `);
@@ -81,6 +84,9 @@ describe("migrateKpi", () => {
         },
         "queryContext": [],
         "serverKey": "my-server",
+        "titles": {
+          "[Measures].[pnl.FOREX],[Currency].[Currency].[AllMember].[GBP]": "Hello World",
+        },
         "widgetKey": "kpi",
       }
     `);

@@ -29,6 +29,7 @@ import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { produce } from "immer";
+import { getMigratedKpiTitles } from "./getMigratedKpiTitles";
 
 const moveExpressionToWithClause = (
   draft: any,
@@ -189,7 +190,13 @@ export function migrateKpi(
   const mapping = deriveMappingFromMdx({
     mdx: query.mdx,
     cube,
-    widgetPlugin: pluginWidgetKpi,
+    widgetPlugin: {
+      ...pluginWidgetKpi,
+      // This makes the "allMeasures" tile part of the generated mapping.
+      // This tile indicates the position of the measures on the queries axes, necessary to migrate KPI titles.
+      // It is then removed from the mapping, as Atoti UI 5.0 does not expect it.
+      doesSupportMeasuresRedirection: true,
+    },
   });
 
   const migratedWidgetState: KpiWidgetState = {
@@ -205,6 +212,29 @@ export function migrateKpi(
       areFiltersDrivenByMdx: true,
     }),
   };
+
+  try {
+    const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
+      cube,
+      mapping,
+    });
+    if (migratedTitles && Object.keys(migratedTitles).length > 0) {
+      migratedWidgetState.titles = migratedTitles;
+    }
+  } catch (error) {
+    // Migrating the KPI titles is a best effort.
+    // The migration script should not fail if this part errors.
+    console.warn(
+      `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}". Underlying error:\n`,
+      error,
+    );
+  }
+
+  Object.keys(mapping).forEach((attributeName) => {
+    mapping[attributeName] = mapping[attributeName].filter(
+      (field) => field.type !== "allMeasures",
+    );
+  });
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
 
