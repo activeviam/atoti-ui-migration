@@ -73,6 +73,7 @@ describe("migrate_43_to_50", () => {
       servers,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
     const migratedUIFolder = contentServer.children?.ui;
     expect(migratedUIFolder).toMatchSnapshot();
@@ -88,6 +89,7 @@ describe("migrate_43_to_50", () => {
       servers,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
     const migratedUIFolder = contentServer.children?.ui;
     expect(migratedUIFolder).toMatchSnapshot();
@@ -106,6 +108,7 @@ describe("migrate_43_to_50", () => {
       servers,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
 
     const migratedUIFolder = contentServer.children?.ui;
@@ -125,6 +128,7 @@ describe("migrate_43_to_50", () => {
       keysOfWidgetPluginsToRemove,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
 
     // In the ActiveUI 4 folder, the file with id `0xb` represents a saved Page Filters widget.
@@ -191,6 +195,7 @@ describe("migrate_43_to_50", () => {
       servers,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
 
     const migratedUIFolder = contentServer.children?.ui;
@@ -257,6 +262,7 @@ describe("migrate_43_to_50", () => {
       servers,
       doesReportIncludeStacks: false,
       shouldUpdateFiltersMdx: true,
+      shouldMigrateCalculatedMeasures: true,
     });
 
     const migratedUIFolder = contentServer.children?.ui;

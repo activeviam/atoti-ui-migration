@@ -216,6 +216,7 @@ export async function migrate_43_to_50(
     doesReportIncludeStacks,
     shouldUpdateFiltersMdx,
     treeTableColumnWidth,
+    shouldMigrateCalculatedMeasures,
   }: {
     errorReport: ErrorReport;
     counters: OutcomeCounters;
@@ -224,6 +225,7 @@ export async function migrate_43_to_50(
     doesReportIncludeStacks: boolean;
     shouldUpdateFiltersMdx: boolean;
     treeTableColumnWidth?: [number, number];
+    shouldMigrateCalculatedMeasures: boolean;
   },
 ): Promise<void> {
   if (contentServer.children?.ui === undefined) {
@@ -492,7 +494,7 @@ export async function migrate_43_to_50(
 
   migratedUIFolder.children = {
     ...migratedUIFolder.children,
-    ...(legacyPivotFolder
+    ...(legacyPivotFolder && shouldMigrateCalculatedMeasures
       ? {
           calculated_measures: await migrateCalculatedMeasures(
             legacyPivotFolder,

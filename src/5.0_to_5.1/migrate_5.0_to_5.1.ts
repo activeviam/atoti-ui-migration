@@ -72,6 +72,7 @@ export const migrate_50_to_51: MigrationFunction = (
     doesReportIncludeStacks,
     step: "5.0 to 5.1",
     contentServerVersion,
+    dataModels
   });
 
   migrateSavedFilters(

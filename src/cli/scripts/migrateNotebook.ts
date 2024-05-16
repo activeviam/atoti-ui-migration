@@ -8,7 +8,7 @@ import { MigrateWidgetCallback } from "../../migration.types";
 import {
   AtotiUIFromVersion,
   AtotiUIToVersion,
-} from "./convertAtotiToAUIVersions";
+} from "../../convertAtotiToAUIVersions";
 import { produce } from "immer";
 
 const migrationSteps: {

@@ -4,6 +4,9 @@ import { uiCalculatedMeasuresFolder } from "../__test_resources__/uiCalculatedMe
 import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import _cloneDeep from "lodash/cloneDeep";
 import _fromPairs from "lodash/fromPairs";
+import { sandboxDataModel } from "@activeviam/data-model-5.1/dist/__test_resources__";
+
+const dataModels = { sandbox: sandboxDataModel };
 
 const contentServerForTests = _cloneDeep(contentServer);
 const errorReport: ErrorReport = {};
@@ -45,15 +48,15 @@ migrateSavedCalculatedMeasures({
   counters,
   doesReportIncludeStacks: false,
   step: "5.0 to 5.1",
+  dataModels,
 });
 
 describe("migrateSavedCalculatedMeasures", () => {
-  it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0 and used in a saved dashboard or saved widget, into ones that are natively supported by ActivePivot", () => {
+  it("migrates the serialized definitions of all calculated measures created with ActiveUI 5.0, into ones that are natively supported by ActivePivot", () => {
     // `uiCalculatedMeasuresFolder` contains 5 calculated measures.
-    // "Exp gamma sum" is not used in any saved widgets or dashboards, it is not migrated.
-    expect(counters.calculated_measures.success).toEqual(4);
-    expect(counters.calculated_measures.failed).toEqual(1);
+    expect(counters.calculated_measures.success).toEqual(5);
 
+    // "Exp gamma sum" is not used in any saved widget or dashboard. By default, it is associated with the first cube in the data model: `EquityDerivativesCube`.
     // "CM in 2 cubes" is used in both `EquityDerivativesCube` and `EquityDerivativesCubeDist`.
     // All others are only used in `EquityDerivativesCube`.
     // "Log pv.SUM" is inside a folder.
@@ -67,6 +70,7 @@ describe("migrateSavedCalculatedMeasures", () => {
       "[Measures].[testo]",
       "[Measures].[new measure*]",
       "[Measures].[Distinct count city]",
+      "[Measures].[Exp gamma sum]",
       "[Measures].[Log pv.SUM]",
       "[Measures].[CM in 2 cubes]",
       "[Measures].[Test calculated measure]",
@@ -126,22 +130,5 @@ describe("migrateSavedCalculatedMeasures", () => {
     expect(
       contentServerForTests.children!.ui.children!.calculated_measures,
     ).toBeUndefined();
-  });
-
-  it("adds a warning to the `errorReport` that a calculated measure has not been migrated if it is not used in any saved widgets or dashboards", () => {
-    expect(errorReport).toStrictEqual({
-      calculated_measures: {
-        "501": {
-          error: {
-            message:
-              'Warning: Calculated measure "Exp gamma sum" was not migrated because it is not currently used in any saved widgets or dashboards.',
-          },
-          folderId: ["a14"],
-          folderName: ["New folder"],
-          name: "Exp gamma sum",
-          step: "5.0 to 5.1",
-        },
-      },
-    });
   });
 });

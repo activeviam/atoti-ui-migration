@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { BehaviorOnError } from "../migration.types";
-import { migrateContentServer } from "./scripts/migrateContentServer";
+import { migrateContentServerJson } from "./scripts/migrateContentServerJson";
 import { migrateNotebook } from "./scripts/migrateNotebook";
 import {
   convertFromVersion,
@@ -8,7 +8,7 @@ import {
   convertVersions,
   validFromVersions,
   validToVersions,
-} from "./scripts/convertAtotiToAUIVersions";
+} from "../convertAtotiToAUIVersions";
 import { getTreeColumnWidthFromArgs } from "../getTreeColumnWidthFromArgs";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
@@ -151,7 +151,7 @@ yargs
 
       if (fileExtension === "JSON") {
         // Ensure that Atoti versions are not used as versions to migrate content server
-        migrateContentServer({
+        migrateContentServerJson({
           inputPath,
           outputPath,
           serversPath,
