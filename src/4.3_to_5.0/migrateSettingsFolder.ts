@@ -2,11 +2,13 @@ import _cloneDeep from "lodash/cloneDeep";
 import _mapValues from "lodash/mapValues";
 import _uniq from "lodash/uniq";
 import _pick from "lodash/pick";
-import type {
+import _reduce from "lodash/reduce";
+import {
   Activity,
   ContentRecord,
   Settings,
   MdxString,
+  unquote,
 } from "@activeviam/activeui-sdk-5.0";
 import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
 
@@ -75,6 +77,44 @@ function migrateSettingsMap(legacySettingsMap: {
       _uniq,
     );
   }
+
+  /* Smart filtering settings start. */
+  const isSmartFilteringDisabled =
+    legacySettingsMap["memberSelection.smartFiltering"] === false;
+  if (isSmartFilteringDisabled) {
+    migratedSettingsMap["smartFiltering.isEnabled"] = false;
+  } else {
+    const nonEmptyEvaluationMeasureUniqueName =
+      legacySettingsMap["memberSelection.smartFiltering.nonEmptyMeasure"];
+    if (nonEmptyEvaluationMeasureUniqueName !== undefined) {
+      const [, nonEmptyEvaluationMeasureName] = unquote(
+        nonEmptyEvaluationMeasureUniqueName,
+      );
+      // @ts-expect-error TypeScript rightfully complains that this setting key does not exist in 5.0
+      // It was added only in 5.1 indeed, but it makes sense to migrate it as an intermediate step.
+      migratedSettingsMap["smartFiltering.nonEmptyEvaluationMeasureName"] =
+        nonEmptyEvaluationMeasureName;
+    }
+
+    const hierarchiesToIgnoreWhenSmartFiltering = _reduce(
+      legacySettingsMap,
+      (hierarchyUniqueNames: string[], settingValue, settingKey) => {
+        const [, hierarchyUniqueName] = settingKey.split(
+          "memberSelection.smartFiltering.ignoreFromContext.",
+        );
+        if (hierarchyUniqueName && settingValue === true) {
+          hierarchyUniqueNames.push(hierarchyUniqueName);
+        }
+        return hierarchyUniqueNames;
+      },
+      [],
+    );
+    if (hierarchiesToIgnoreWhenSmartFiltering.length > 0) {
+      migratedSettingsMap["smartFiltering.ignoredHierarchies"] =
+        hierarchiesToIgnoreWhenSmartFiltering;
+    }
+  }
+  /* Smart filtering settings end. */
 
   return migratedSettingsMap;
 }
