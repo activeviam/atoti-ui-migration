@@ -197,6 +197,7 @@ describe("migrateContentServer", () => {
       }
     `);
   });
+
   it("does not migrate calculated measures when migrating from 4.3 to > 5.0", async () => {
     const contentServer: ContentRecord = {
       children: { ui: smallLegacyUIFolder, pivot: smallLegacyPivotFolder },
