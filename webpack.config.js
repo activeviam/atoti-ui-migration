@@ -7,7 +7,7 @@ const webpack = require("webpack");
 // This allows the functions exported by this package to be run smoothly in a Node.js environment (see https://support.activeviam.com/jira/browse/UI-6165).
 module.exports = {
   entry: {
-    bin: "./src/cli/bin.ts",
+    bin: "./src/bin.ts",
   },
   module: {
     rules: [
@@ -39,8 +39,8 @@ module.exports = {
   output: {
     hashFunction: "xxhash64",
     globalObject: "window",
-    filename: (pathData) => {
-      return pathData.chunk.name === "bin" ? "cli/[name].js" : "[name].js";
+    filename: () => {
+      return "[name].js";
     },
     path: path.resolve(__dirname, "dist"),
   },

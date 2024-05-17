@@ -1,13 +1,12 @@
 import fs from "fs-extra";
 import path from "path";
 import _capitalize from "lodash/capitalize";
-import { ContentRecord, DataModel } from "@activeviam/activeui-sdk-5.1";
-import { BehaviorOnError } from "../../migration.types";
+
 import {
-  AtotiUIFromVersion,
-  AtotiUIToVersion,
-} from "../../convertAtotiToAUIVersions";
-import { migrateContentServer } from "../../migrateContentServer";
+  BehaviorOnError,
+  ErrorReport,
+  OutcomeCounters,
+} from "./migration.types";
 
 const summaryMessages: {
   [folderName: string]: {
@@ -70,58 +69,24 @@ const summaryMessages: {
 };
 
 /**
- * Same as {@link migrateContentServer}, but reading its inputs from JSON files.
+ * Logs the outcome of the migration in the console, which includes the number of successful/failed individual resource migrations.
+ * If `debug` is set to `true`, also logs the detailed `errorReport` in a `report.json` file under `migrationOutputDirectory`.
  */
-export async function migrateContentServerJson({
-  inputPath,
-  outputPath,
-  serversPath,
-  fromVersion,
-  toVersion,
-  removeWidgets: keysOfWidgetPluginsToRemove,
+export async function logMigrationReport({
+  counters,
+  errorReport,
   debug,
   doesReportIncludeStacks,
-  onError: behaviorOnError,
-  treeTableColumnWidth,
-  shouldUpdateFiltersMdx,
+  behaviorOnError,
+  migrationOutputDirectory,
 }: {
-  inputPath: string;
-  outputPath: string;
-  serversPath: string;
-  fromVersion: AtotiUIFromVersion;
-  toVersion: AtotiUIToVersion;
-  removeWidgets: string[];
+  counters: OutcomeCounters;
+  errorReport: ErrorReport;
   debug: boolean;
   doesReportIncludeStacks: boolean;
-  onError: BehaviorOnError;
-  treeTableColumnWidth?: [number, number];
-  shouldUpdateFiltersMdx: boolean;
+  behaviorOnError: BehaviorOnError;
+  migrationOutputDirectory: string;
 }): Promise<void> {
-  const contentServer: ContentRecord = await fs.readJSON(inputPath);
-
-  const servers: {
-    [serverKey: string]: {
-      dataModel: DataModel<"raw">;
-      url: string;
-    };
-  } & { contentServerVersion?: string } = await fs.readJSON(serversPath);
-
-  const { counters, errorReport } = await migrateContentServer({
-    contentServer,
-    servers,
-    fromVersion,
-    toVersion,
-    keysOfWidgetPluginsToRemove,
-    doesReportIncludeStacks,
-    behaviorOnError,
-    treeTableColumnWidth,
-    shouldUpdateFiltersMdx,
-  });
-
-  const { dir } = path.parse(outputPath);
-
-  await fs.writeJSON(outputPath, contentServer, { spaces: 2 });
-
   console.log("--------- END OF CONTENT MIGRATION ---------");
 
   Object.entries(counters)
@@ -159,7 +124,7 @@ export async function migrateContentServerJson({
   ) {
     if (!debug) {
       console.log(`For more information about the errors that occurred, rerun the command with the \`--debug\` option.
-This will output a file named \`report.json\` containing the error messages.`);
+  This will output a file named \`report.json\` containing the error messages.`);
     } else {
       console.log(
         `See report.json for more information about the errors that occurred.`,
@@ -175,8 +140,12 @@ This will output a file named \`report.json\` containing the error messages.`);
   console.log("--------------------------------------------");
 
   if (errorReport && debug) {
-    await fs.writeJSON(path.join(...dir, "report.json"), errorReport, {
-      spaces: 2,
-    });
+    await fs.writeJSON(
+      path.join(...migrationOutputDirectory, "report.json"),
+      errorReport,
+      {
+        spaces: 2,
+      },
+    );
   }
 }

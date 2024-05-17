@@ -1,14 +1,13 @@
-import { migrateWidget } from "../../5.0_to_5.1/migrateWidget";
-import fs from "fs-extra";
+import { migrateWidget } from "./5.0_to_5.1/migrateWidget";
 import { DataModel, getIndexedDataModel } from "@activeviam/data-model-5.1";
 import _mapValues from "lodash/mapValues";
 import { serializeWidgetState } from "@activeviam/activeui-sdk-5.1";
 import { deserializeWidgetState } from "@activeviam/activeui-sdk-5.0";
-import { MigrateWidgetCallback } from "../../migration.types";
+import { MigrateWidgetCallback } from "./migration.types";
 import {
   AtotiUIFromVersion,
   AtotiUIToVersion,
-} from "../../convertAtotiToAUIVersions";
+} from "./convertAtotiToAUIVersions";
 import { produce } from "immer";
 
 const migrationSteps: {
@@ -21,24 +20,18 @@ const migrationSteps: {
  * Migrates the Atoti UI widgets from 5.0 to 5.1 of an Atoti Jupter Notebook.
  */
 export const migrateNotebook = async ({
-  inputPath,
-  outputPath,
-  serversPath,
+  notebook,
+  servers,
   fromVersion,
   toVersion,
 }: {
-  inputPath: string;
-  outputPath: string;
-  serversPath: string;
+  notebook: any;
+  servers: {
+    [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
+  };
   fromVersion: AtotiUIFromVersion;
   toVersion: AtotiUIToVersion;
-}): Promise<void> => {
-  const notebook = await fs.readJSON(inputPath);
-
-  const servers: {
-    [serverKey: string]: { dataModel: DataModel<"raw">; url: string };
-  } = await fs.readJSON(serversPath);
-
+}): Promise<{ numberOfMigratedWidgets: number; numberOfFailures: number }> => {
   const dataModels = _mapValues(servers, ({ dataModel }) =>
     getIndexedDataModel(dataModel),
   );
@@ -77,10 +70,5 @@ export const migrateNotebook = async ({
     }
   }
 
-  await fs.writeJSON(outputPath, notebook, { spaces: 2 });
-
-  console.log(`- Succesfully migrated ${numberOfMigratedWidgets} widget(s).`);
-  if (numberOfFailures > 0) {
-    console.log(`- Failed to migrate ${numberOfFailures} widget(s)`);
-  }
+  return { numberOfMigratedWidgets, numberOfFailures };
 };

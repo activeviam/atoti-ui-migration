@@ -1,15 +1,19 @@
 import yargs from "yargs";
-import { BehaviorOnError } from "../migration.types";
-import { migrateContentServerJson } from "./scripts/migrateContentServerJson";
-import { migrateNotebook } from "./scripts/migrateNotebook";
+import fs from "fs-extra";
+import path from "path";
+import { BehaviorOnError } from "./migration.types";
+import { migrateNotebook } from "./migrateNotebook";
 import {
   convertFromVersion,
   convertToVersion,
   convertVersions,
   validFromVersions,
   validToVersions,
-} from "../convertAtotiToAUIVersions";
-import { getTreeColumnWidthFromArgs } from "../getTreeColumnWidthFromArgs";
+} from "./convertAtotiToAUIVersions";
+import { getTreeColumnWidthFromArgs } from "./getTreeColumnWidthFromArgs";
+import { migrateContentServer } from "./migrateContentServer";
+import { DataModel, ContentRecord } from "@activeviam/activeui-sdk-5.1";
+import { logMigrationReport } from "./logMigrationReport";
 
 const supportedFileExtension = ["JSON", "IPYNB"];
 
@@ -127,7 +131,7 @@ yargs
       });
       args.implies("stack", "debug");
     },
-    ({
+    async ({
       inputPath,
       outputPath,
       serversPath,
@@ -141,6 +145,7 @@ yargs
       onError,
     }) => {
       const doesReportIncludeStacks = stack;
+      const behaviorOnError = onError;
 
       const fileExtension = getFileExtension(inputPath);
       const { fromVersion: validFromVersion, toVersion: validToVersion } =
@@ -149,32 +154,59 @@ yargs
           toVersion,
         });
 
+      const fileToMigrate: ContentRecord = await fs.readJSON(inputPath);
+
+      const servers: {
+        [serverKey: string]: {
+          dataModel: DataModel<"raw">;
+          url: string;
+        };
+      } & { contentServerVersion?: string } = await fs.readJSON(serversPath);
+
       if (fileExtension === "JSON") {
-        // Ensure that Atoti versions are not used as versions to migrate content server
-        migrateContentServerJson({
-          inputPath,
-          outputPath,
-          serversPath,
+        const { counters, errorReport } = await migrateContentServer({
+          contentServer: fileToMigrate,
+          servers,
           fromVersion: validFromVersion,
           toVersion: validToVersion,
-          removeWidgets,
-          debug,
+          keysOfWidgetPluginsToRemove: removeWidgets,
           doesReportIncludeStacks,
-          onError,
+          behaviorOnError: onError,
           treeTableColumnWidth: treeColumnWidth
             ? getTreeColumnWidthFromArgs(treeColumnWidth)
             : undefined,
           shouldUpdateFiltersMdx:
             updateFiltersMdx === undefined ? true : updateFiltersMdx,
         });
+
+        const { dir } = path.parse(outputPath);
+        await Promise.all([
+          fs.writeJSON(outputPath, fileToMigrate, { spaces: 2 }),
+          logMigrationReport({
+            counters,
+            errorReport,
+            debug,
+            doesReportIncludeStacks,
+            migrationOutputDirectory: dir,
+            behaviorOnError,
+          }),
+        ]);
       } else {
-        migrateNotebook({
-          inputPath,
-          outputPath,
-          serversPath,
-          fromVersion: validFromVersion,
-          toVersion: validToVersion,
-        });
+        const { numberOfMigratedWidgets, numberOfFailures } =
+          await migrateNotebook({
+            notebook: fileToMigrate,
+            servers,
+            fromVersion: validFromVersion,
+            toVersion: validToVersion,
+          });
+
+        await fs.writeJSON(outputPath, fileToMigrate, { spaces: 2 });
+        console.log(
+          `- Succesfully migrated ${numberOfMigratedWidgets} widget(s).`,
+        );
+        if (numberOfFailures > 0) {
+          console.log(`- Failed to migrate ${numberOfFailures} widget(s)`);
+        }
       }
     },
   )
