@@ -23,6 +23,8 @@ import {
 import {
   getSpecificCompoundIdentifier,
   findDescendant,
+  getMeasuresPositionOnAxis,
+  getMeasuresAxisName,
 } from "@activeviam/mdx-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
@@ -188,16 +190,12 @@ export function migrateKpi(
       shouldUpdateFiltersMdx,
     });
 
+  const { mdx } = query;
+
   const mapping = deriveMappingFromMdx({
-    mdx: query.mdx,
+    mdx,
     cube,
-    widgetPlugin: {
-      ...pluginWidgetKpi,
-      // This makes the "allMeasures" tile part of the generated mapping.
-      // This tile indicates the position of the measures on the queries axes, necessary to migrate KPI titles.
-      // It is then removed from the mapping, as Atoti UI 5.0 does not expect it.
-      doesSupportMeasuresRedirection: true,
-    },
+    widgetPlugin: pluginWidgetKpi,
   });
 
   const migratedWidgetState: KpiWidgetState = {
@@ -215,12 +213,36 @@ export function migrateKpi(
   };
 
   try {
-    const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
-      cube,
-      mapping,
-    });
-    if (migratedTitles && Object.keys(migratedTitles).length > 0) {
-      migratedWidgetState.titles = migratedTitles;
+    // Migrate manually entered KPI titles.
+    if (mdx && mapping.measures.length > 0) {
+      const measuresAxisName = getMeasuresAxisName(mdx);
+      const measuresAxis = mdx.axes.find(
+        (axis) => axis.name === measuresAxisName,
+      );
+      if (measuresAxis) {
+        const positionOfAllMeasuresWithinAxis =
+          getMeasuresPositionOnAxis(measuresAxis);
+
+        // pluginWidgetKpi has `doesSupportMeasuresRedirection: false`.
+        // For this reason, its "allMeasures" tile is omitted from the mapping generated from `deriveMappingFromMdx`.
+        // But the position of this tile needs to be known here, as the order of the members in the tuple matters for manually entered KPI titles to work in Atoti UI 5.0.
+        const mappingWithAllMeasuresTile = produce(mapping, (draft) => {
+          const attribute = ["ROWS", "1"].includes(measuresAxisName)
+            ? draft.rows
+            : draft.columns;
+          attribute.splice(positionOfAllMeasuresWithinAxis, 0, {
+            type: "allMeasures",
+          });
+        });
+
+        const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
+          cube,
+          mapping: mappingWithAllMeasuresTile,
+        });
+        if (migratedTitles && Object.keys(migratedTitles).length > 0) {
+          migratedWidgetState.titles = migratedTitles;
+        }
+      }
     }
   } catch (error) {
     // Migrating the KPI titles is a best effort.
@@ -230,12 +252,6 @@ export function migrateKpi(
       serializeWidgetState(migratedWidgetState),
     );
   }
-
-  Object.keys(mapping).forEach((attributeName) => {
-    mapping[attributeName] = mapping[attributeName].filter(
-      (field) => field.type !== "allMeasures",
-    );
-  });
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
 
