@@ -48,9 +48,11 @@ function _getLegacyKpiTitles(
           specificCompoundIdentifier.measureName,
         ];
       } else if (specificCompoundIdentifier.type === "member") {
-        tuple[
-          `[${specificCompoundIdentifier.dimensionName}].[${specificCompoundIdentifier.hierarchyName}]`
-        ] = specificCompoundIdentifier.path;
+        const hierarchyUniqueName = quote(
+          specificCompoundIdentifier.dimensionName,
+          specificCompoundIdentifier.hierarchyName,
+        );
+        tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
       }
     }
     legacyTitles.push({ title, tuple });
@@ -84,7 +86,10 @@ export function getMigratedKpiTitles(
           memberUniqueNames.push(`[Measures].[${measureName}]`);
         }
       } else if (field.type === "hierarchy") {
-        const hierarchyUniqueName = `[${field.dimensionName}].[${field.hierarchyName}]`;
+        const hierarchyUniqueName = quote(
+          field.dimensionName,
+          field.hierarchyName,
+        );
         const namePath = tuple[hierarchyUniqueName];
         if (namePath) {
           memberUniqueNames.push(
