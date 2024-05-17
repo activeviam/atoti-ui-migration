@@ -30,6 +30,7 @@ import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { produce } from "immer";
 import { getMigratedKpiTitles } from "./getMigratedKpiTitles";
+import { PartialMigrationError } from "../PartialMigrationError";
 
 const moveExpressionToWithClause = (
   draft: any,
@@ -224,9 +225,9 @@ export function migrateKpi(
   } catch (error) {
     // Migrating the KPI titles is a best effort.
     // The migration script should not fail if this part errors.
-    console.warn(
-      `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}". Underlying error:\n`,
-      error,
+    throw new PartialMigrationError(
+      `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}"`,
+      serializeWidgetState(migratedWidgetState),
     );
   }
 
