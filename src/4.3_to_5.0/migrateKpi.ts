@@ -218,7 +218,9 @@ export function migrateKpi(
         mapping,
         legacyMdx,
       });
-      migratedWidgetState.titles = migratedTitles;
+      if (migratedTitles && Object.keys(migratedTitles).length > 0) {
+        migratedWidgetState.titles = migratedTitles;
+      }
     }
   } catch (error) {
     // Migrating the KPI titles is a best effort.
@@ -226,6 +228,9 @@ export function migrateKpi(
     throw new PartialMigrationError(
       `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}"`,
       serializeWidgetState(migratedWidgetState),
+      {
+        cause: error,
+      },
     );
   }
 
