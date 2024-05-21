@@ -23,8 +23,6 @@ import {
 import {
   getSpecificCompoundIdentifier,
   findDescendant,
-  getMeasuresPositionOnAxis,
-  getMeasuresAxisName,
 } from "@activeviam/mdx-5.0";
 import { UnsupportedLegacyQueryUpdateModeError } from "./errors/UnsupportedLegacyQueryUpdateModeError";
 import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
@@ -213,36 +211,14 @@ export function migrateKpi(
   };
 
   try {
-    // Migrate manually entered KPI titles.
-    if (mdx && mapping.measures.length > 0) {
-      const measuresAxisName = getMeasuresAxisName(mdx);
-      const measuresAxis = mdx.axes.find(
-        (axis) => axis.name === measuresAxisName,
-      );
-      if (measuresAxis) {
-        const positionOfAllMeasuresWithinAxis =
-          getMeasuresPositionOnAxis(measuresAxis);
-
-        // pluginWidgetKpi has `doesSupportMeasuresRedirection: false`.
-        // For this reason, its "allMeasures" tile is omitted from the mapping generated from `deriveMappingFromMdx`.
-        // But the position of this tile needs to be known here, as the order of the members in the tuple matters for manually entered KPI titles to work in Atoti UI 5.0.
-        const mappingWithAllMeasuresTile = produce(mapping, (draft) => {
-          const attribute = ["ROWS", "1"].includes(measuresAxisName)
-            ? draft.rows
-            : draft.columns;
-          attribute.splice(positionOfAllMeasuresWithinAxis, 0, {
-            type: "allMeasures",
-          });
-        });
-
-        const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
-          cube,
-          mapping: mappingWithAllMeasuresTile,
-        });
-        if (migratedTitles && Object.keys(migratedTitles).length > 0) {
-          migratedWidgetState.titles = migratedTitles;
-        }
-      }
+    if (legacyMdx) {
+      // Migrate manually entered KPI titles.
+      const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
+        cube,
+        mapping,
+        legacyMdx,
+      });
+      migratedWidgetState.titles = migratedTitles;
     }
   } catch (error) {
     // Migrating the KPI titles is a best effort.
