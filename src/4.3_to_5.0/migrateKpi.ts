@@ -29,6 +29,8 @@ import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { produce } from "immer";
+import { getMigratedKpiTitles } from "./getMigratedKpiTitles";
+import { PartialMigrationError } from "../PartialMigrationError";
 
 const moveExpressionToWithClause = (
   draft: any,
@@ -186,8 +188,10 @@ export function migrateKpi(
       shouldUpdateFiltersMdx,
     });
 
+  const { mdx } = query;
+
   const mapping = deriveMappingFromMdx({
-    mdx: query.mdx,
+    mdx,
     cube,
     widgetPlugin: pluginWidgetKpi,
   });
@@ -205,6 +209,30 @@ export function migrateKpi(
       areFiltersDrivenByMdx: true,
     }),
   };
+
+  try {
+    if (legacyMdx) {
+      // Migrate manually entered KPI titles.
+      const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
+        cube,
+        mapping,
+        legacyMdx,
+      });
+      if (migratedTitles && Object.keys(migratedTitles).length > 0) {
+        migratedWidgetState.titles = migratedTitles;
+      }
+    }
+  } catch (error) {
+    // Migrating the KPI titles is a best effort.
+    // The migration script should not fail if this part errors.
+    throw new PartialMigrationError(
+      `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}"`,
+      serializeWidgetState(migratedWidgetState),
+      {
+        cause: error,
+      },
+    );
+  }
 
   const serializedWidgetState = serializeWidgetState(migratedWidgetState);
 

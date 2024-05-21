@@ -10,8 +10,9 @@ export class PartialMigrationError extends Error {
   constructor(
     message: string,
     migratedWidgetState: AWidgetState<"serialized">,
+    options?: ErrorOptions,
   ) {
-    super(message);
+    super(message, options);
     this.migratedWidgetState = migratedWidgetState;
   }
 }
