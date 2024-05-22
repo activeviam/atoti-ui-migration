@@ -58,7 +58,7 @@ exports[`migrateSettingsFolder returns the folders corresponding to the converte
           },
           "settings": {
             "entry": {
-              "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true}",
+              "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true,"smartFiltering.nonEmptyEvaluationMeasureName":"pnl.SUM","smartFiltering.ignoredHierarchies":["[Currency].[Currency]","[Geography].[City]"]}",
               "owners": [
                 "admin",
               ],
@@ -97,7 +97,7 @@ exports[`migrateSettingsFolder returns the folders corresponding to the converte
           },
           "settings": {
             "entry": {
-              "content": "{"userFilters.areEnabled":false,"drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]}}",
+              "content": "{"userFilters.areEnabled":false,"drillthrough.defaultSelectedColumns":{"MarketRiskCube":["riskCurrency","subTradeId","EntityName"],"SecondCube":["delta"]},"smartFiltering.isEnabled":false}",
               "owners": [
                 "user1",
               ],

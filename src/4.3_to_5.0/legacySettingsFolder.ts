@@ -66,6 +66,7 @@ const user1Preferences = {
         ],
       },
     },
+    "memberSelection.smartFiltering": false,
   },
 };
 
@@ -120,6 +121,10 @@ const adminPreferences = {
     "servers.alias": {
       "https://activepivot-ranch.activeviam.com:5900": "http://localhost:8080",
     },
+    "memberSelection.smartFiltering.nonEmptyMeasure": "[Measures].[pnl.SUM]",
+    "memberSelection.smartFiltering.ignoreFromContext.[Currency].[Currency]":
+      true,
+    "memberSelection.smartFiltering.ignoreFromContext.[Geography].[City]": true,
   },
 };
 

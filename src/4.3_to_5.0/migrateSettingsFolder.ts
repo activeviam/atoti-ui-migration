@@ -2,13 +2,14 @@ import _cloneDeep from "lodash/cloneDeep";
 import _mapValues from "lodash/mapValues";
 import _uniq from "lodash/uniq";
 import _pick from "lodash/pick";
-import type {
+import {
   Activity,
   ContentRecord,
   Settings,
   MdxString,
 } from "@activeviam/activeui-sdk-5.0";
 import { emptyUIFolder } from "@activeviam/content-server-initialization-5.0";
+import { migrateSmartFilteringSettings } from "../migrateSmartFilteringSettings";
 
 const emptySettingsFolders = _pick(
   emptyUIFolder.children,
@@ -75,6 +76,8 @@ function migrateSettingsMap(legacySettingsMap: {
       _uniq,
     );
   }
+
+  migrateSmartFilteringSettings(migratedSettingsMap, legacySettingsMap);
 
   return migratedSettingsMap;
 }
