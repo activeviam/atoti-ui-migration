@@ -24,8 +24,6 @@ export function migrateSmartFilteringSettings(
       const [, nonEmptyEvaluationMeasureName] = unquote(
         nonEmptyEvaluationMeasureUniqueName,
       );
-      // @ts-expect-error TypeScript rightfully complains that this setting key does not exist in 5.0
-      // It was added only in 5.1 indeed, but it makes sense to migrate it as an intermediate step.
       migratedSettingsMap["smartFiltering.nonEmptyEvaluationMeasureName"] =
         nonEmptyEvaluationMeasureName;
     }
