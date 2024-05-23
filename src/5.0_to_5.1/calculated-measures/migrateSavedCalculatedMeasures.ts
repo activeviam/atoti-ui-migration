@@ -7,6 +7,7 @@ import { ErrorReport, OutcomeCounters } from "../../migration.types";
 import { _getFilesAncestry } from "../../_getFilesAncestry";
 import { _serializeError } from "../../_serializeError";
 import { _getMetaData } from "../../_getMetaData";
+import { DataModel } from "@activeviam/activeui-sdk-5.1";
 
 const contentServerWithEmptyPivotCalculatedMeasuresFolder = {
   entry: {
@@ -72,6 +73,7 @@ export function migrateSavedCalculatedMeasures({
   doesReportIncludeStacks,
   step,
   contentServerVersion,
+  dataModels,
 }: {
   contentServer: ContentRecord;
   measureToCubeMapping: { [measureName: string]: string[] };
@@ -80,6 +82,9 @@ export function migrateSavedCalculatedMeasures({
   doesReportIncludeStacks: boolean;
   step: string;
   contentServerVersion?: string;
+  dataModels: {
+    [serverKey: string]: DataModel;
+  };
 }): void {
   const legacyCalculatedMeasuresFolder =
     contentServer.children?.ui?.children?.calculated_measures;
@@ -88,6 +93,10 @@ export function migrateSavedCalculatedMeasures({
   if (!content?.children || !structure?.children) {
     return;
   }
+
+  const catalogs = Object.values(dataModels)[0].catalogs;
+  const cubes = Object.values(catalogs)[0].cubes;
+  const nameOfFirstCube = Object.keys(cubes)[0];
 
   // Make sure that the folder /pivot/entitlements/cm folder exists.
   _defaultsDeep(
@@ -104,26 +113,12 @@ export function migrateSavedCalculatedMeasures({
     const measureName = _getMetaData(structure, folderId, id).name!;
 
     try {
-      const cubeNames = measureToCubeMapping[measureName];
-      if (!cubeNames) {
-        // The calculated measure is not used in any saved widgets or dashboards.
-        // Do not migrate it.
-        counters.calculated_measures.failed++;
-        _addErrorToReport(errorReport, {
-          contentType: "calculated_measures",
-          folderId,
-          folderName,
-          fileErrorReport: {
-            error: {
-              message: `Warning: Calculated measure "${measureName}" was not migrated because it is not currently used in any saved widgets or dashboards.`,
-            },
-          },
-          fileId: id,
-          name: measureName,
-          step,
-        });
-        return;
-      }
+      const cubeNames = measureToCubeMapping[
+        measureName
+      ] ?? /** The saved calculated measure is not used in any widget.
+       * So it's impossible to infer the cube it is associated with.
+       * Default to the first cube in the data models.
+       */ [nameOfFirstCube];
 
       const migratedContent = migrateSavedCalculatedMeasureContent(
         JSON.parse(record.entry.content),
