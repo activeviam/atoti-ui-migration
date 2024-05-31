@@ -3,7 +3,7 @@ import {
   getLayoutPath,
   removeWidget,
 } from "@activeviam/activeui-sdk-5.0";
-import _cloneDeep from "lodash/cloneDeep";
+import { produce } from "immer";
 
 /**
  * Removes the widgets identified by `keysOfLeavesToRemove` from the given `dashboard`.
@@ -12,23 +12,17 @@ export const removeWidgetsFromDashboard = (
   dashboard: DashboardState<"deserialized">,
   keysOfLeavesToRemove: { [key: string]: string[] },
 ): DashboardState<"deserialized"> => {
-  const dashboardWithWidgetsRemoved = _cloneDeep(dashboard);
-
-  Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
-    keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
-      const layoutPath = getLayoutPath(
-        dashboardWithWidgetsRemoved.pages[pageKey].layout,
-        leafKey,
-      );
-      const updatedPage = removeWidget({
-        dashboardState: dashboardWithWidgetsRemoved,
-        layoutPath,
-        leafKey,
-        pageKey,
+  return produce(dashboard, (draft) => {
+    Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
+      keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
+        const layoutPath = getLayoutPath(draft.pages[pageKey].layout, leafKey);
+        draft.pages[pageKey] = removeWidget({
+          dashboardState: draft,
+          layoutPath,
+          leafKey,
+          pageKey,
+        }).pages[pageKey];
       });
-      dashboardWithWidgetsRemoved.pages[pageKey] = updatedPage.pages[pageKey];
     });
   });
-
-  return dashboardWithWidgetsRemoved;
 };

@@ -1,10 +1,10 @@
 import { DashboardState } from "@activeviam/activeui-sdk-5.0";
 
-export const testDashboard: DashboardState<"serialized"> = {
-  name: "Test dashboard",
+export const testDashboard: DashboardState<"deserialized"> = {
+  name: "Dashboard with multiple widgets",
   pages: {
     "p-0": {
-      name: "test widget",
+      name: "",
       layout: {
         children: [
           {
@@ -14,8 +14,12 @@ export const testDashboard: DashboardState<"serialized"> = {
                 leafKey: "3",
               },
               {
-                size: 0.91,
+                size: 0.455,
                 leafKey: "1",
+              },
+              {
+                size: 0.455,
+                leafKey: "5",
               },
             ],
             direction: "column",
@@ -40,37 +44,104 @@ export const testDashboard: DashboardState<"serialized"> = {
       content: {
         "1": {
           query: {
-            mdx: "SELECT NON EMPTY Crossjoin([As Of Date].[As Of Date].[As Of Date].Members, {[Measures].[HypoPnL]}) ON COLUMNS, NON EMPTY Hierarchize(Crossjoin([Book Structure].[Profit Center].[Profit Center].Members, [Book Structure].[Book].[Book].Members)) ON ROWS FROM [TestCube]",
+            mdx: `SELECT
+              NON EMPTY {
+                [Measures].[contributors.COUNT]
+              } ON COLUMNS
+              FROM [EquityDerivativesCube]`,
             updateMode: "once",
           },
           filters: [],
-          queryContext: [
-            {
-              key: "mdx.hiddengrandtotals",
-              value: 1,
-            },
-          ],
+          queryContext: [],
           mapping: {
-            rows: [
-              "[Book Structure].[Profit Center].[Profit Center]",
-              "[Book Structure].[Book].[Book]",
-            ],
-            columns: ["[As Of Date].[As Of Date].[As Of Date]", "ALL_MEASURES"],
-            measures: ["[Measures].[HypoPnL]"],
+            rows: [],
+            columns: ["ALL_MEASURES"],
+            measures: ["[Measures].[contributors.COUNT]"],
           },
-          name: "Pivot Table",
-          serverKey: "my-server",
+          name: "My first table",
+          serverKey: "ap-murex-cube",
           widgetKey: "table",
           columnWidths: {},
         },
-        "2": {},
+        "2": {
+          query: {
+            mdx: `SELECT
+              NON EMPTY {
+                [Measures].[contributors.COUNT]
+              } ON COLUMNS
+              FROM [EquityDerivativesCube]`,
+            updateMode: "once",
+          },
+          filters: [],
+          queryContext: [],
+          mapping: {
+            rows: [],
+            columns: ["ALL_MEASURES"],
+            measures: ["[Measures].[contributors.COUNT]"],
+          },
+          name: "my table",
+          serverKey: "my server",
+          widgetKey: "table",
+        },
         "3": {
-          name: "Dashboard Filters",
-          widgetKey: "filters",
+          query: {
+            mdx: `SELECT
+              NON EMPTY {
+                [Measures].[contributors.COUNT]
+              } ON COLUMNS
+              FROM [EquityDerivativesCube]`,
+            updateMode: "once",
+          },
+          filters: [],
+          queryContext: [],
+          mapping: {
+            rows: [],
+            columns: ["ALL_MEASURES"],
+            measures: ["[Measures].[contributors.COUNT]"],
+          },
+          name: "my table",
+          serverKey: "my server",
+          widgetKey: "table",
         },
         "4": {
-          name: "Mdx Editor",
-          widgetKey: "mdx-editor",
+          query: {
+            mdx: `SELECT
+              NON EMPTY {
+                [Measures].[contributors.COUNT]
+              } ON COLUMNS
+              FROM [EquityDerivativesCube]`,
+            updateMode: "once",
+          },
+          filters: [],
+          queryContext: [],
+          mapping: {
+            rows: [],
+            columns: ["ALL_MEASURES"],
+            measures: ["[Measures].[contributors.COUNT]"],
+          },
+          name: "my table",
+          serverKey: "my server",
+          widgetKey: "table",
+        },
+        "5": {
+          query: {
+            mdx: `SELECT
+              NON EMPTY {
+                [Measures].[contributors.COUNT]
+              } ON COLUMNS
+              FROM [EquityDerivativesCube]`,
+            updateMode: "once",
+          },
+          filters: [],
+          queryContext: [],
+          mapping: {
+            rows: [],
+            columns: ["ALL_MEASURES"],
+            measures: ["[Measures].[contributors.COUNT]"],
+          },
+          name: "my table",
+          serverKey: "my server",
+          widgetKey: "table",
         },
       },
       filters: [],
