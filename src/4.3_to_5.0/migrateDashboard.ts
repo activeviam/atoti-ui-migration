@@ -1,15 +1,12 @@
 import _omit from "lodash/omit";
 import _range from "lodash/range";
-import { produce } from "immer";
 import _isEmpty from "lodash/isEmpty";
 
 import {
   DashboardState,
   DashboardPageState,
   DataModel,
-  removeWidget,
   deserializeDashboardState,
-  getLayoutPath,
   serializeDashboardState,
   Layout,
   AWidgetState,
@@ -29,6 +26,7 @@ import { PartialMigrationError } from "../PartialMigrationError";
 import { WidgetFlaggedForRemovalError } from "../WidgetFlaggedForRemovalError";
 import { _addWidgetErrorToReport } from "../_addWidgetErrorToReport";
 import { isDisconnectedWidget } from "./isDisconnectedWidget";
+import { removeWidgetsFromDashboard } from "./removeWidgetsFromDashboard";
 
 /**
  * Returns the converted dashboard state, ready to be used in ActiveUI 5, and an optional error report if any occured on any of the dashboard's widgets.
@@ -199,24 +197,9 @@ export function migrateDashboard(
 
   const deserializedDashboard = deserializeDashboardState(dashboard);
 
-  const dashboardWithWidgetsRemoved = produce(
+  const dashboardWithWidgetsRemoved = removeWidgetsFromDashboard(
     deserializedDashboard,
-    (draft) => {
-      Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
-        keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
-          const layoutPath = getLayoutPath(
-            draft.pages[pageKey].layout,
-            leafKey,
-          );
-          draft.pages[pageKey] = removeWidget({
-            dashboardState: draft,
-            layoutPath,
-            leafKey,
-            pageKey,
-          }).pages[pageKey];
-        });
-      });
-    },
+    keysOfLeavesToRemove,
   );
 
   return [
