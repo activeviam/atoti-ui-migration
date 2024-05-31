@@ -12,6 +12,9 @@ describe("removeWidgetsFromDashboard", () => {
       keysOfLeavesToRemove,
     );
 
-    expect(updatedDashboard).toMatchInlineSnapshot();
+    const remainingLeafKeys = Object.keys(
+      updatedDashboard.pages["p-0"].content,
+    );
+    expect(remainingLeafKeys).toStrictEqual(["1", "5"]);
   });
 });

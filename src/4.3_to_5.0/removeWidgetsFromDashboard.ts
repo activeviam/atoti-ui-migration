@@ -1,8 +1,6 @@
-import {
-  DashboardState,
-  getLayoutPath,
-  removeWidget,
-} from "@activeviam/activeui-sdk-5.0";
+import { DashboardState, getLayoutPath } from "@activeviam/activeui-sdk-5.0";
+import { removeWidgetFromPage } from "@activeviam/dashboard-base-5.0";
+
 import { produce } from "immer";
 
 /**
@@ -15,13 +13,9 @@ export const removeWidgetsFromDashboard = (
   return produce(dashboard, (draft) => {
     Object.keys(keysOfLeavesToRemove).forEach((pageKey) => {
       keysOfLeavesToRemove[pageKey].forEach((leafKey) => {
-        const layoutPath = getLayoutPath(draft.pages[pageKey].layout, leafKey);
-        draft.pages[pageKey] = removeWidget({
-          dashboardState: draft,
-          layoutPath,
-          leafKey,
-          pageKey,
-        }).pages[pageKey];
+        const pageState = draft.pages[pageKey];
+        const layoutPath = getLayoutPath(pageState.layout, leafKey);
+        removeWidgetFromPage(pageState, layoutPath, leafKey);
       });
     });
   });
