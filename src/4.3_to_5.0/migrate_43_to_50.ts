@@ -434,19 +434,6 @@ export async function migrate_43_to_50(
             });
             counters.widgets.success++;
           } catch (error) {
-            if (error instanceof PartialMigrationError) {
-              counters.widgets.partial++;
-              migratedWidget = error.migratedWidgetState;
-            } else {
-              counters.widgets.failed++;
-              // The migration failed.
-              // The widget state is copied as-is.
-              migratedWidget = {
-                ...bookmark.value.body,
-                name: bookmark.name,
-                widgetKey: legacyWidgetPluginKey,
-              };
-            }
             _addErrorToReport(errorReport, {
               folderName,
               folderId,
@@ -458,6 +445,25 @@ export async function migrate_43_to_50(
               name: bookmark.name,
               step: "4.3 to 5.0",
             });
+            if (error instanceof PartialMigrationError) {
+              counters.widgets.partial++;
+              migratedWidget = error.migratedWidgetState;
+            } else {
+              counters.widgets.failed++;
+              // The migration failed.
+              // The widget is kept as is.
+              migratedWidget = bookmark;
+              widgets[fileId] = migratedWidget;
+              migratedUIFolder.children!.widgets.children!.content.children![
+                fileId
+              ] = {
+                entry: {
+                  ...entry,
+                  content: JSON.stringify(migratedWidget),
+                },
+              };
+              continue;
+            }
           }
 
           if (migratedWidget) {

@@ -1336,7 +1336,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
               "entry": {
                 "canRead": true,
                 "canWrite": true,
-                "content": "{}",
+                "content": "{"name":"Page filters","type":"container","value":{"style":{},"showTitleBar":true,"body":{},"containerKey":"filters"}}",
                 "isDirectory": false,
                 "lastEditor": "admin",
                 "owners": [
@@ -1608,7 +1608,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
                   "entry": {
                     "canRead": true,
                     "canWrite": true,
-                    "content": "{"name":"Page filters","widgetKey":"filters"}",
+                    "content": "{"name":"Page filters"}",
                     "isDirectory": true,
                     "lastEditor": "admin",
                     "owners": [

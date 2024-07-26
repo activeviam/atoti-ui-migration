@@ -4,6 +4,7 @@ import { smallLegacyPivotFolder } from "./4.3_to_5.0/__test_resources__/smallLeg
 import { smallLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolder";
 import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
+import { smallLegacyUIFolderWithInvalidWidget } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolderWithInvalidWidget";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -230,6 +231,49 @@ describe("migrateContentServer", () => {
     );
     expect(contentServer.children?.ui.children?.calculated_measures).toBe(
       undefined,
+    );
+  });
+
+  it("keeps the original item untouched, as before the whole migration when the item cannot be migrated due to an error and the `behaviorOnError` flag is set to `keep-original`.", async () => {
+    const contentServer: ContentRecord = {
+      children: {
+        ui: smallLegacyUIFolderWithInvalidWidget,
+        pivot: smallLegacyPivotFolder,
+      },
+      entry: {
+        owners: [],
+        readers: [],
+        isDirectory: true,
+        canRead: true,
+        canWrite: false,
+        lastEditor: "Freddie Mercury",
+        timestamp: 0xbeef,
+      },
+    };
+
+    const contentServerBeforeMigration = _cloneDeep(contentServer);
+
+    await migrateContentServer({
+      contentServer,
+      servers,
+      fromVersion: "4.3",
+      toVersion: "5.1",
+      keysOfWidgetPluginsToRemove: [],
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-original",
+    });
+
+    const savedWidgetContentBeforeMigration =
+      contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+        ?.content.children?.["158"].entry.content;
+
+    const savedWidgetContentAfterMigration =
+      contentServer?.children?.ui?.children?.widgets?.children?.content
+        ?.children?.["158"].entry.content;
+
+    expect(savedWidgetContentBeforeMigration).toBe(
+      savedWidgetContentAfterMigration,
     );
   });
 });
