@@ -47,6 +47,19 @@ export const smallLegacyUIFolder = {
                 canWrite: true,
               },
             },
+            kpi: {
+              entry: {
+                content:
+                  '{"description": "A KPI","name":"KPI","type":"container","value": {"style": {},"showTitleBar": true,"body": {"serverUrl": "","mdx": "SELECT NON EMPTY Hierarchize(AddCalculatedMembers(Descendants({[Geography].[City].[ALL].[AllMember]},1,SELF_AND_BEFORE))) ON ROWS,NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM (SELECT[Geography].[City].[ALL].[AllMember].[New York] ON COLUMNS FROM [EquityDerivativesCube])","contextValues": {},"updateMode": "once","ranges": {"row": {},"column": {}},"configuration": {"featuredValues": {"locations":{"":{"title": "Title with empty location"},"[Measures].[contributors.COUNT]": {"title": "Custom title for contributors.COUNT"}}}}},"containerKey":"featured-values"},"writable": true}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
           },
         },
         i18n: {
@@ -96,6 +109,17 @@ export const smallLegacyUIFolder = {
           },
           children: {
             "158": {
+              entry: {
+                isDirectory: true,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+            kpi: {
               entry: {
                 isDirectory: true,
                 owners: ["admin"],

@@ -40,6 +40,7 @@ describe("migrateKpi", () => {
         ],
         "serverKey": "my-server",
         "titles": {
+          "": "Empty measure title",
           "[Measures].[contributors.COUNT],[Currency].[Currency].[AllMember].[EUR, USD]": "Hello World",
         },
         "widgetKey": "kpi",

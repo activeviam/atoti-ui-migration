@@ -2497,7 +2497,24 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
     "widgets": {
       "children": {
         "content": {
-          "children": {},
+          "children": {
+            "kpi": {
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "content": "{"query":{"mdx":"SELECT NON EMPTY Hierarchize(AddCalculatedMembers(Descendants({[Geography].[City].[ALL].[AllMember]}, 1, SELF_AND_BEFORE))) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["[Geography].[City].[ALL].[AllMember].[New York]"],"queryContext":[],"mapping":{"rows":["[Geography].[City].[City]"],"columns":[],"measures":["[Measures].[contributors.COUNT]"]},"serverKey":"my-server","titles":{"":"Title with empty location","[Measures].[contributors.COUNT]":"Custom title for contributors.COUNT"}}",
+                "isDirectory": false,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
           "entry": {
             "isDirectory": true,
             "owners": [
@@ -2509,7 +2526,41 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
           },
         },
         "structure": {
-          "children": {},
+          "children": {
+            "kpi": {
+              "children": {
+                "kpi_metadata": {
+                  "entry": {
+                    "canRead": true,
+                    "canWrite": true,
+                    "content": "{"name":"KPI","widgetKey":"kpi"}",
+                    "isDirectory": true,
+                    "lastEditor": "admin",
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
+                    "timestamp": 1607879735685,
+                  },
+                },
+              },
+              "entry": {
+                "canRead": true,
+                "canWrite": true,
+                "isDirectory": true,
+                "lastEditor": "admin",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+                "timestamp": 1607879735685,
+              },
+            },
+          },
           "entry": {
             "isDirectory": true,
             "owners": [
@@ -2568,7 +2619,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
     "failed": 0,
     "partial": 0,
     "removed": 0,
-    "success": 0,
+    "success": 1,
   },
 }
 `;

@@ -232,4 +232,43 @@ describe("migrateContentServer", () => {
       undefined,
     );
   });
+
+  it("migrates custom titles for KPIs containing a blank measure in the mdx", async () => {
+    const contentServer: ContentRecord = {
+      children: { ui: smallLegacyUIFolder, pivot: smallLegacyPivotFolder },
+      entry: {
+        owners: [],
+        readers: [],
+        isDirectory: true,
+        canRead: true,
+        canWrite: false,
+        lastEditor: "Freddie Mercury",
+        timestamp: 0xbeef,
+      },
+    };
+
+    await migrateContentServer({
+      contentServer,
+      servers,
+      fromVersion: "4.3",
+      toVersion: "5.1",
+      keysOfWidgetPluginsToRemove: [],
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-original",
+    });
+
+    const migratedKpiContent = JSON.parse(
+      contentServer.children?.ui.children?.widgets.children?.content.children?.[
+        "kpi"
+      ].entry.content,
+    );
+
+    expect(migratedKpiContent?.titles).toMatchInlineSnapshot(`
+      {
+        "": "Title with empty location",
+        "[Measures].[contributors.COUNT]": "Custom title for contributors.COUNT",
+      }
+    `);
+  });
 });

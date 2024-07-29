@@ -43,24 +43,27 @@ function _getLegacyKpiTitles(
     } = {};
     const memberUniqueNames = tupleKey.split(/,(?![^\[]*\])/);
     for (const memberUniqueName of memberUniqueNames) {
-      const compoundIdentifier =
-        parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
-      const specificCompoundIdentifier = getSpecificCompoundIdentifier(
-        compoundIdentifier,
-        { cube },
-      );
-      if (specificCompoundIdentifier.type === "measure") {
-        tuple[`[Measures].[Measures]`] = [
-          specificCompoundIdentifier.measureName,
-        ];
-      } else if (specificCompoundIdentifier.type === "member") {
-        const hierarchyUniqueName = quote(
-          specificCompoundIdentifier.dimensionName,
-          specificCompoundIdentifier.hierarchyName,
+      if (memberUniqueName) {
+        const compoundIdentifier =
+          parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(
+          compoundIdentifier,
+          { cube },
         );
-        tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
+        if (specificCompoundIdentifier.type === "measure") {
+          tuple[`[Measures].[Measures]`] = [
+            specificCompoundIdentifier.measureName,
+          ];
+        } else if (specificCompoundIdentifier.type === "member") {
+          const hierarchyUniqueName = quote(
+            specificCompoundIdentifier.dimensionName,
+            specificCompoundIdentifier.hierarchyName,
+          );
+          tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
+        }
       }
     }
+
     legacyTitles.push({ title, tuple });
   }
 
@@ -125,12 +128,14 @@ export function getMigratedKpiTitles(
     });
 
     if (measuresPositionInTuple > -1) {
-      const measureName = tuple[quote("Measures", "Measures")][0];
-      memberUniqueNames.splice(
-        measuresPositionInTuple,
-        0,
-        quote("Measures", measureName),
-      );
+      const measureName = tuple[quote("Measures", "Measures")]?.[0];
+      if (measureName) {
+        memberUniqueNames.splice(
+          measuresPositionInTuple,
+          0,
+          quote("Measures", measureName),
+        );
+      }
     }
 
     const tupleKey = memberUniqueNames.join(",");
