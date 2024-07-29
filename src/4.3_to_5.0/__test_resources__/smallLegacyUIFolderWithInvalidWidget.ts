@@ -1,6 +1,6 @@
 /**
  * The shortened version of the content of the /ui folder on a Content Server, useful for unit tests.
- * Contains an invalid widget whose `containerKey` is not valid.
+ * Contains a widget whose `containerKey` is not valid and another widget with a filter with an invalid hierarchy.
  */
 export const smallLegacyUIFolderWithInvalidWidget = {
   entry: {

@@ -277,7 +277,7 @@ describe("migrateContentServer", () => {
     );
   });
 
-  it("keeps 5.0 version of the widget, when the there is an error when attempting to migrate it from 5.0 to 5.1 when the `behaviorOnError` flag is set to `keep-last-successful-version`.", async () => {
+  it("keeps 5.0 version of the widget, when there is an error when attempting to migrate the widget from 5.0 to 5.1 when the `behaviorOnError` flag is set to `keep-last-successful-version`.", async () => {
     const contentServer: ContentRecord = {
       children: {
         ui: smallLegacyUIFolderWithInvalidWidget,
@@ -294,6 +294,8 @@ describe("migrateContentServer", () => {
       },
     };
 
+    const contentServerBeforeMigration = _cloneDeep(contentServer);
+
     await migrateContentServer({
       contentServer,
       servers,
@@ -304,6 +306,12 @@ describe("migrateContentServer", () => {
       shouldUpdateFiltersMdx: true,
       behaviorOnError: "keep-last-successful-version",
     });
+
+    const savedWidgetContentBeforeMigration =
+      contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+        ?.content.children?.["1231"].entry.content;
+
+    expect(savedWidgetContentBeforeMigration.filters).not.toBeDefined();
 
     const savedWidgetContentAfterMigration = JSON.parse(
       contentServer?.children?.ui?.children?.widgets?.children?.content
