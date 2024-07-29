@@ -276,4 +276,46 @@ describe("migrateContentServer", () => {
       savedWidgetContentAfterMigration,
     );
   });
+
+  it("keeps 5.0 version of the widget, when the there is an error when attempting to migrate it from 5.0 to 5.1 when the `behaviorOnError` flag is set to `keep-last-successful-version`.", async () => {
+    const contentServer: ContentRecord = {
+      children: {
+        ui: smallLegacyUIFolderWithInvalidWidget,
+        pivot: smallLegacyPivotFolder,
+      },
+      entry: {
+        owners: [],
+        readers: [],
+        isDirectory: true,
+        canRead: true,
+        canWrite: false,
+        lastEditor: "Freddie Mercury",
+        timestamp: 0xbeef,
+      },
+    };
+
+    await migrateContentServer({
+      contentServer,
+      servers,
+      fromVersion: "4.3",
+      toVersion: "5.1",
+      keysOfWidgetPluginsToRemove: [],
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-last-successful-version",
+    });
+
+    const savedWidgetContentAfterMigration = JSON.parse(
+      contentServer?.children?.ui?.children?.widgets?.children?.content
+        ?.children?.["1231"].entry.content,
+    );
+
+    expect(savedWidgetContentAfterMigration.filters).toBeDefined();
+    expect(savedWidgetContentAfterMigration.filters).not.toHaveLength(0);
+
+    const migratedWidgetFilter = savedWidgetContentAfterMigration.filters[0];
+
+    // The filters in 5.0 are represented as strings.
+    expect(typeof migratedWidgetFilter.mdx).toBe("string");
+  });
 });

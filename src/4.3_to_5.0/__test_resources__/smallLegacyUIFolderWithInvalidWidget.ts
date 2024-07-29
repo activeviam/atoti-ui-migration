@@ -48,6 +48,19 @@ export const smallLegacyUIFolderWithInvalidWidget = {
                 canWrite: true,
               },
             },
+            "1231": {
+              entry: {
+                content:
+                  '{"description":"Widget with filter on invalid hierarchy","name":"Invalid widget","type":"container","value":{"style":{},"showTitleBar":false,"containerKey":"pivot-table","body":{"serverUrl":"","mdx":"SELECT NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] WHERE [Geography].[InvalidHierarchy].[ALL].[AllMember].[Member] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues":{},"updateMode":"once","ranges":{}}}}',
+                isDirectory: false,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
             "777": {
               entry: {
                 content:
@@ -110,6 +123,17 @@ export const smallLegacyUIFolderWithInvalidWidget = {
           },
           children: {
             "158": {
+              entry: {
+                isDirectory: true,
+                owners: ["admin"],
+                readers: ["admin"],
+                timestamp: 1607879735685,
+                lastEditor: "admin",
+                canRead: true,
+                canWrite: true,
+              },
+            },
+            "1231": {
               entry: {
                 isDirectory: true,
                 owners: ["admin"],
