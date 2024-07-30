@@ -43,24 +43,25 @@ function _getLegacyKpiTitles(
     } = {};
     const memberUniqueNames = tupleKey.split(/,(?![^\[]*\])/);
     for (const memberUniqueName of memberUniqueNames) {
-      if (memberUniqueName) {
-        const compoundIdentifier =
-          parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
-        const specificCompoundIdentifier = getSpecificCompoundIdentifier(
-          compoundIdentifier,
-          { cube },
+      if (!memberUniqueName) {
+        continue;
+      }
+      const compoundIdentifier =
+        parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
+      const specificCompoundIdentifier = getSpecificCompoundIdentifier(
+        compoundIdentifier,
+        { cube },
+      );
+      if (specificCompoundIdentifier.type === "measure") {
+        tuple[`[Measures].[Measures]`] = [
+          specificCompoundIdentifier.measureName,
+        ];
+      } else if (specificCompoundIdentifier.type === "member") {
+        const hierarchyUniqueName = quote(
+          specificCompoundIdentifier.dimensionName,
+          specificCompoundIdentifier.hierarchyName,
         );
-        if (specificCompoundIdentifier.type === "measure") {
-          tuple[`[Measures].[Measures]`] = [
-            specificCompoundIdentifier.measureName,
-          ];
-        } else if (specificCompoundIdentifier.type === "member") {
-          const hierarchyUniqueName = quote(
-            specificCompoundIdentifier.dimensionName,
-            specificCompoundIdentifier.hierarchyName,
-          );
-          tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
-        }
+        tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
       }
     }
 
