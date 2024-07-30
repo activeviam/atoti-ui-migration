@@ -2502,7 +2502,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
               "entry": {
                 "canRead": true,
                 "canWrite": true,
-                "content": "{"query":{"mdx":"SELECT NON EMPTY Hierarchize(AddCalculatedMembers(Descendants({[Geography].[City].[ALL].[AllMember]}, 1, SELF_AND_BEFORE))) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["[Geography].[City].[ALL].[AllMember].[New York]"],"queryContext":[],"mapping":{"rows":["[Geography].[City].[City]"],"columns":[],"measures":["[Measures].[contributors.COUNT]"]},"serverKey":"my-server","titles":{"":"Title with empty location","[Measures].[contributors.COUNT]":"Custom title for contributors.COUNT"}}",
+                "content": "{"query":{"mdx":"SELECT NON EMPTY Hierarchize(AddCalculatedMembers(Descendants({[Geography].[City].[ALL].[AllMember]}, 1, SELF_AND_BEFORE))) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube]","updateMode":"once"},"filters":["[Geography].[City].[ALL].[AllMember].[New York]"],"queryContext":[],"mapping":{"rows":["[Geography].[City].[City]"],"columns":[],"measures":["[Measures].[contributors.COUNT]"]},"serverKey":"my-server","titles":{"[Measures].[contributors.COUNT]":"Custom title for contributors.COUNT"}}",
                 "isDirectory": false,
                 "lastEditor": "admin",
                 "owners": [

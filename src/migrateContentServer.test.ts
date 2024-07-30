@@ -233,7 +233,7 @@ describe("migrateContentServer", () => {
     );
   });
 
-  it("migrates custom titles for KPIs containing a blank measure in the mdx", async () => {
+  it("migrates the kpi custom titles when the original version contains a custom title with a tupleKey that is empty.", async () => {
     const contentServer: ContentRecord = {
       children: { ui: smallLegacyUIFolder, pivot: smallLegacyPivotFolder },
       entry: {
@@ -266,7 +266,6 @@ describe("migrateContentServer", () => {
 
     expect(migratedKpiContent?.titles).toMatchInlineSnapshot(`
       {
-        "": "Title with empty location",
         "[Measures].[contributors.COUNT]": "Custom title for contributors.COUNT",
       }
     `);

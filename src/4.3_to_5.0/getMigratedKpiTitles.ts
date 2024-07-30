@@ -12,6 +12,7 @@ import {
   getMeasuresPositionOnAxis,
   MdxSelect,
 } from "@activeviam/mdx-5.0";
+import _isEmpty from "lodash/isEmpty";
 
 interface LegacyKpiTitle {
   title: string;
@@ -65,7 +66,9 @@ function _getLegacyKpiTitles(
       }
     }
 
-    legacyTitles.push({ title, tuple });
+    if (!_isEmpty(tuple)) {
+      legacyTitles.push({ title, tuple });
+    }
   }
 
   return legacyTitles;
@@ -130,13 +133,12 @@ export function getMigratedKpiTitles(
 
     if (measuresPositionInTuple > -1) {
       const measureName = tuple[quote("Measures", "Measures")]?.[0];
-      if (measureName) {
-        memberUniqueNames.splice(
-          measuresPositionInTuple,
-          0,
-          quote("Measures", measureName),
-        );
-      }
+
+      memberUniqueNames.splice(
+        measuresPositionInTuple,
+        0,
+        quote("Measures", measureName),
+      );
     }
 
     const tupleKey = memberUniqueNames.join(",");

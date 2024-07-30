@@ -33,7 +33,6 @@ describe("getMigratedKpiTitles", () => {
     });
     expect(migratedKpiTitles).toMatchInlineSnapshot(`
       {
-        "": "Empty measure title",
         "[Measures].[contributors.COUNT],[Currency].[Currency].[AllMember].[EUR, USD]": "Hello World",
       }
     `);
