@@ -132,8 +132,7 @@ export function getMigratedKpiTitles(
     });
 
     if (measuresPositionInTuple > -1) {
-      const measureName = tuple[quote("Measures", "Measures")]?.[0];
-
+      const measureName = tuple[quote("Measures", "Measures")][0];
       memberUniqueNames.splice(
         measuresPositionInTuple,
         0,
