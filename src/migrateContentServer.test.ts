@@ -247,6 +247,8 @@ describe("migrateContentServer", () => {
       },
     };
 
+    const contentServerBeforeMigration = _cloneDeep(contentServer);
+
     await migrateContentServer({
       contentServer,
       servers,
@@ -258,13 +260,32 @@ describe("migrateContentServer", () => {
       behaviorOnError: "keep-original",
     });
 
+    const kpiContentBeforeMigration = JSON.parse(
+      contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+        ?.content.children?.["kpi"].entry.content,
+    );
+
     // The widget with id "kpi" contains a custom title referenced with an empty `tupleKey`.
-    // Because this title doesn't represent any tuple, it is dropped.
-    const kpiContentBeforeMigration = contentServer.children?.ui.children?.widgets.children?.content.children?.[
+    // Because this title doesn't represent any tuple, it is dropped during the migration.
+    expect(
+      kpiContentBeforeMigration.value.body.configuration["featuredValues"]
+        .locations,
+    ).toMatchInlineSnapshot(`
+      {
+        "": {
+          "title": "Title with empty location",
+        },
+        "[Measures].[contributors.COUNT]": {
+          "title": "Custom title for contributors.COUNT",
+        },
+      }
+    `);
+
+    const migratedKpiContent = JSON.parse(
+      contentServer.children?.ui.children?.widgets.children?.content.children?.[
         "kpi"
-      ].entry.content;
-      
-    const migratedKpiContent = JSON.parse(kpiContentBeforeMigration);
+      ].entry.content,
+    );
 
     expect(migratedKpiContent?.titles).toMatchInlineSnapshot(`
       {
