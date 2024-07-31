@@ -325,6 +325,9 @@ describe("migrateContentServer", () => {
 
     const migratedWidgetFilter = savedWidgetContentAfterMigration.filters[0];
 
+    // The widget with id "1231" contains a filter referring to a hierarchy which does not exist in the cube.
+    // This leads to an error in the 5.0 -> 5.1 step.
+    // As `behaviorOnError` is set to "keep-last-successful-version", the output content contains the "5.0" version of this widget.
     // The filters in 5.0 are represented as strings.
     expect(typeof migratedWidgetFilter.mdx).toBe("string");
   });
