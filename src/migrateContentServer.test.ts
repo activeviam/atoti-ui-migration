@@ -233,7 +233,7 @@ describe("migrateContentServer", () => {
     );
   });
 
-  it("migrates the kpi custom titles when the original version contains a custom title with a tupleKey that is empty.", async () => {
+  it("migrates the KPI custom titles while dropping custom titles with an empty `tupleKey` for their location", async () => {
     const contentServer: ContentRecord = {
       children: { ui: smallLegacyUIFolder, pivot: smallLegacyPivotFolder },
       entry: {
@@ -258,11 +258,13 @@ describe("migrateContentServer", () => {
       behaviorOnError: "keep-original",
     });
 
-    const migratedKpiContent = JSON.parse(
-      contentServer.children?.ui.children?.widgets.children?.content.children?.[
+    // The widget with id "kpi" contains a custom title referenced with an empty `tupleKey`.
+    // Because this title doesn't represent any tuple, it is dropped.
+    const kpiContentBeforeMigration = contentServer.children?.ui.children?.widgets.children?.content.children?.[
         "kpi"
-      ].entry.content,
-    );
+      ].entry.content;
+      
+    const migratedKpiContent = JSON.parse(kpiContentBeforeMigration);
 
     expect(migratedKpiContent?.titles).toMatchInlineSnapshot(`
       {
