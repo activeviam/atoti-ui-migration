@@ -279,7 +279,7 @@ describe("migrateContentServer", () => {
     );
   });
 
-  it("keeps 5.0 version of the widget, when there is an error when attempting to migrate the widget from 5.0 to 5.1 when the `behaviorOnError` flag is set to `keep-last-successful-version`.", async () => {
+  it("keeps the 5.0 version of the widget, when migrating from 4.3 to 5.1 with `behaviorOnError` set to `keep-last-successful-version` and the 5.0 to 5.1 step fails", async () => {
     const contentServer: ContentRecord = {
       children: {
         ui: smallLegacyUIFolderWithInvalidWidget,
