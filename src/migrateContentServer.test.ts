@@ -264,9 +264,14 @@ describe("migrateContentServer", () => {
       behaviorOnError: "keep-original",
     });
 
-    const savedWidgetContentBeforeMigration =
-      contentServerBeforeMigration.children?.ui.children?.bookmarks.children
-        ?.content.children?.["158"].entry.content;
+    // In 4.3 the content of the widget is kept in the `body` which is within the bookmark's `content` string.
+    // If the migration of the widget fails, we keep the content of the widget intact but move its location in order to maintain the structure expected in 5.0/5.1
+    const savedWidgetContentBeforeMigration = JSON.stringify(
+      JSON.parse(
+        contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+          ?.content.children?.["158"].entry.content,
+      ).value.body,
+    );
 
     const savedWidgetContentAfterMigration =
       contentServer?.children?.ui?.children?.widgets?.children?.content
