@@ -8,7 +8,7 @@ import { KpiWidgetState } from "@activeviam/activeui-sdk-5.0";
 const cube = dataModelsForTests.sandbox.catalogs[0].cubes[0];
 
 describe("accumulateMigratedKpiTitles", () => {
-  it("returns the migrated KPI titles corresponding to the legacy KPI state, ready to be used in Atoti UI 5.0", () => {
+  it("accumulates the migrated KPI titles corresponding to the legacy KPI state, ready to be used in Atoti UI 5.0", () => {
     const legacyQuery = _getQueryInLegacyWidgetState(legacyKpi);
 
     if (!legacyQuery || !legacyQuery.mdx) {

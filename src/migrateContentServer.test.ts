@@ -269,15 +269,13 @@ describe("migrateContentServer", () => {
         ?.content.children?.["kpi"].entry.content,
     );
 
-    // The widget with id "kpi" contains a custom title referenced with an empty `tupleKey`.
-    // Because this title doesn't represent any tuple, it is dropped during the migration.
     expect(
       kpiContentBeforeMigration.value.body.configuration["featuredValues"]
         .locations,
     ).toMatchInlineSnapshot(`
       {
         "": {
-          "title": "Title with empty location",
+          "title": "Title with empty tupleKey",
         },
         "[Measures].[contributors.COUNT]": {
           "title": "Custom title for contributors.COUNT",
@@ -285,6 +283,8 @@ describe("migrateContentServer", () => {
       }
     `);
 
+    // The widget with id "kpi" contains a custom title referenced with an empty `tupleKey`.
+    // Because this is not a valid `tupleKey`, the title is dropped.
     const migratedKpiContent = JSON.parse(
       contentServer.children?.ui.children?.widgets.children?.content.children?.[
         "kpi"
