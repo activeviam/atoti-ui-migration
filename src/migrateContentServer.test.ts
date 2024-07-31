@@ -272,6 +272,8 @@ describe("migrateContentServer", () => {
       contentServer?.children?.ui?.children?.widgets?.children?.content
         ?.children?.["158"].entry.content;
 
+    // The widget with id "158" has an invalid widget key and its migration will therefore fail.
+    // Since `behaviorOnError` is set to "keep-original", the output content still contains the state of this saved widget exactly as it was before the migration.
     expect(savedWidgetContentBeforeMigration).toBe(
       savedWidgetContentAfterMigration,
     );
