@@ -4,6 +4,7 @@ import { smallLegacyPivotFolder } from "./4.3_to_5.0/__test_resources__/smallLeg
 import { smallLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolder";
 import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
+import { smallLegacyUIFolderWithInvalidKpiTitle } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolderWithInvalidKpiTitle";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -235,7 +236,10 @@ describe("migrateContentServer", () => {
 
   it("migrates the KPI custom titles while dropping custom titles with an empty `tupleKey` for their location", async () => {
     const contentServer: ContentRecord = {
-      children: { ui: smallLegacyUIFolder, pivot: smallLegacyPivotFolder },
+      children: {
+        ui: smallLegacyUIFolderWithInvalidKpiTitle,
+        pivot: smallLegacyPivotFolder,
+      },
       entry: {
         owners: [],
         readers: [],

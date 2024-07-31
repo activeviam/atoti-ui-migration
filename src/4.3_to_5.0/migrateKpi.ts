@@ -29,7 +29,7 @@ import { _getQueryInLegacyWidgetState } from "./_getQueryInLegacyWidgetState";
 import { _getTargetCubeFromServerUrl } from "./_getTargetCubeFromServerUrl";
 import { _migrateQuery } from "./_migrateQuery";
 import { produce } from "immer";
-import { getMigratedKpiTitles } from "./getMigratedKpiTitles";
+import { accumulateMigratedKpiTitles } from "./accumulateMigratedKpiTitles";
 import { PartialMigrationError } from "../PartialMigrationError";
 
 const moveExpressionToWithClause = (
@@ -210,13 +210,15 @@ export function migrateKpi(
     }),
   };
 
+  const migratedTitles: KpiWidgetState["titles"] = {};
   try {
     if (legacyMdx) {
       // Migrate manually entered KPI titles.
-      const migratedTitles = getMigratedKpiTitles(legacyKpiState, {
+      accumulateMigratedKpiTitles(legacyKpiState, {
         cube,
         mapping,
         legacyMdx,
+        migratedTitles,
       });
       if (migratedTitles && Object.keys(migratedTitles).length > 0) {
         migratedWidgetState.titles = migratedTitles;
@@ -224,6 +226,11 @@ export function migrateKpi(
     }
   } catch (error) {
     // Migrating the KPI titles is a best effort.
+    // If there is an error while migrating one of the titles, the successfully migrated titles are still persisted.
+    if (migratedTitles && Object.keys(migratedTitles).length > 0) {
+      migratedWidgetState.titles = migratedTitles;
+    }
+
     // The migration script should not fail if this part errors.
     throw new PartialMigrationError(
       `Could not migrate the titles of the featured values widget named "${legacyKpiState.name}"`,

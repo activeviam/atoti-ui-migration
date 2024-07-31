@@ -31,9 +31,6 @@ export const legacyKpi: LegacyWidgetState = {
       configuration: {
         featuredValues: {
           locations: {
-            "": {
-              title: "Empty measure title",
-            },
             // "EUR, USD" is not a member of the sandbox, but it is used here to check that the script supports member names including ",".
             "[Currency].[Currency].[AllMember].[EUR, USD],[Measures].[contributors.COUNT]":
               {
