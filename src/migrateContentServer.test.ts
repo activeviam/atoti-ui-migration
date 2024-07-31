@@ -234,7 +234,7 @@ describe("migrateContentServer", () => {
     );
   });
 
-  it("migrates the KPI custom titles while dropping custom titles with an empty `tupleKey` for their location", async () => {
+  it("migrates the KPI custom titles while dropping custom titles that could not be successfully migrated", async () => {
     const contentServer: ContentRecord = {
       children: {
         ui: smallLegacyUIFolderWithInvalidKpiTitle,
