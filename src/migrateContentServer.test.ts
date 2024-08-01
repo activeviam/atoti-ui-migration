@@ -5,6 +5,7 @@ import { smallLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/smallLegacy
 import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
 import { smallLegacyUIFolderWithInvalidKpiTitle } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolderWithInvalidKpiTitle";
+import { smallLegacyUIFolderWithInvalidWidget } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolderWithInvalidWidget";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -232,6 +233,109 @@ describe("migrateContentServer", () => {
     expect(contentServer.children?.ui.children?.calculated_measures).toBe(
       undefined,
     );
+  });
+
+  it("keeps the original item untouched, as before the whole migration when the item cannot be migrated due to an error and the `behaviorOnError` flag is set to `keep-original`.", async () => {
+    const contentServer: ContentRecord = {
+      children: {
+        ui: smallLegacyUIFolderWithInvalidWidget,
+        pivot: smallLegacyPivotFolder,
+      },
+      entry: {
+        owners: [],
+        readers: [],
+        isDirectory: true,
+        canRead: true,
+        canWrite: false,
+        lastEditor: "Freddie Mercury",
+        timestamp: 0xbeef,
+      },
+    };
+
+    const contentServerBeforeMigration = _cloneDeep(contentServer);
+
+    await migrateContentServer({
+      contentServer,
+      servers,
+      fromVersion: "4.3",
+      toVersion: "5.1",
+      keysOfWidgetPluginsToRemove: [],
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-original",
+    });
+
+    // In 4.3 the content of the widget is kept in the `body` which is within the bookmark's `content` string.
+    // If the migration of the widget fails, we keep the content of the widget intact but move its location in order to maintain the structure expected in 5.0/5.1.
+    const savedWidgetContentBeforeMigration = JSON.stringify(
+      JSON.parse(
+        contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+          ?.content.children?.["158"].entry.content,
+      ).value.body,
+    );
+
+    const savedWidgetContentAfterMigration =
+      contentServer?.children?.ui?.children?.widgets?.children?.content
+        ?.children?.["158"].entry.content;
+
+    // The widget with id "158" has an invalid widget key and its migration will therefore fail.
+    // Since `behaviorOnError` is set to "keep-original", the output content still contains the state of this saved widget exactly as it was before the migration.
+    expect(savedWidgetContentBeforeMigration).toBe(
+      savedWidgetContentAfterMigration,
+    );
+  });
+
+  it("keeps the 5.0 version of the widget, when migrating from 4.3 to 5.1 with `behaviorOnError` set to `keep-last-successful-version` and the 5.0 to 5.1 step fails", async () => {
+    const contentServer: ContentRecord = {
+      children: {
+        ui: smallLegacyUIFolderWithInvalidWidget,
+        pivot: smallLegacyPivotFolder,
+      },
+      entry: {
+        owners: [],
+        readers: [],
+        isDirectory: true,
+        canRead: true,
+        canWrite: false,
+        lastEditor: "Freddie Mercury",
+        timestamp: 0xbeef,
+      },
+    };
+
+    const contentServerBeforeMigration = _cloneDeep(contentServer);
+
+    await migrateContentServer({
+      contentServer,
+      servers,
+      fromVersion: "4.3",
+      toVersion: "5.1",
+      keysOfWidgetPluginsToRemove: [],
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-last-successful-version",
+    });
+
+    const savedWidgetContentBeforeMigration =
+      contentServerBeforeMigration.children?.ui.children?.bookmarks.children
+        ?.content.children?.["1231"].entry.content;
+
+    expect(savedWidgetContentBeforeMigration.filters).not.toBeDefined();
+
+    const savedWidgetContentAfterMigration = JSON.parse(
+      contentServer?.children?.ui?.children?.widgets?.children?.content
+        ?.children?.["1231"].entry.content,
+    );
+
+    expect(savedWidgetContentAfterMigration.filters).toBeDefined();
+    expect(savedWidgetContentAfterMigration.filters).not.toHaveLength(0);
+
+    const migratedWidgetFilter = savedWidgetContentAfterMigration.filters[0];
+
+    // The widget with id "1231" contains a filter referring to a hierarchy which does not exist in the cube.
+    // This leads to an error in the 5.0 -> 5.1 step.
+    // As `behaviorOnError` is set to "keep-last-successful-version", the output content contains the "5.0" version of this widget.
+    // The filters in 5.0 are represented as strings.
+    expect(typeof migratedWidgetFilter.mdx).toBe("string");
   });
 
   it("migrates the KPI custom titles while dropping custom titles that could not be successfully migrated", async () => {
