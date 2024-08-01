@@ -68,7 +68,7 @@ export const getMigrateSavedWidgets =
 
     for (const fileId in content.children) {
       if (errorReport.widgets?.[fileId] && behaviorOnError !== "keep-going") {
-        return;
+        continue;
       }
 
       if (!filesAncestry[fileId]) {
