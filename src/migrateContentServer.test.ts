@@ -4,7 +4,7 @@ import { smallLegacyPivotFolder } from "./4.3_to_5.0/__test_resources__/smallLeg
 import { smallLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolder";
 import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
-import { addLegacyBookmarkToUIFolder } from "./4.3_to_5.0/addLegacyBookmarkToUIFolder";
+import { addLegacyBookmarkToUIFolder } from "./4.3_to_5.0/__test_resources__/addLegacyBookmarkToUIFolder";
 import { emptyLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/emptyLegacyUIFolder";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
