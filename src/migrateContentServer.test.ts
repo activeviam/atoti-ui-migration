@@ -6,6 +6,7 @@ import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
 import { addLegacyBookmarkToUIFolder } from "./4.3_to_5.0/__test_resources__/addLegacyBookmarkToUIFolder";
 import { emptyLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/emptyLegacyUIFolder";
+import { legacyUIFolderWithInvalidWidgets } from "./4.3_to_5.0/__test_resources__/legacyUIFolderWithInvalidWidgets";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -18,54 +19,6 @@ jest.mock(`./4.3_to_5.0/generateId`, () => {
     }),
   };
 });
-
-/**
- * Contains three legacy bookmark widgets.
- * 1. Widget with an invalid container container key.
- * 2. Widget with a filter on an invalid hierarchy.
- * 3. A valid widget.
- */
-const bookmarkContentWithInvalidWidgets = {
-  "158": {
-    entry: {
-      content:
-        '{"description":"Widget with invalid container key","name":"Invalid widget","type":"container","value":{"style":{},"showTitleBar":false,"containerKey":"invalid-container-key","body":{"serverUrl":"","mdx":"SELECT NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] WHERE [Geography].[City].[ALL].[AllMember].[New York] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues":{},"updateMode":"once","ranges":{}}}}',
-      isDirectory: false,
-      owners: ["admin"],
-      readers: ["admin"],
-      timestamp: 1607879735685,
-      lastEditor: "admin",
-      canRead: true,
-      canWrite: true,
-    },
-  },
-  "1231": {
-    entry: {
-      content:
-        '{"description":"Widget with filter on invalid hierarchy","name":"Invalid widget","type":"container","value":{"style":{},"showTitleBar":false,"containerKey":"pivot-table","body":{"serverUrl":"","mdx":"SELECT NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] WHERE [Geography].[InvalidHierarchy].[ALL].[AllMember].[Member] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues":{},"updateMode":"once","ranges":{}}}}',
-      isDirectory: false,
-      owners: ["admin"],
-      readers: ["admin"],
-      timestamp: 1607879735685,
-      lastEditor: "admin",
-      canRead: true,
-      canWrite: true,
-    },
-  },
-  "777": {
-    entry: {
-      content:
-        '{"description": "Valid widget","name": "Valid widget","type": "container", "value": {"style": {},"showTitleBar": false,"containerKey": "pivot-table","body": {"serverUrl": "","mdx": "SELECT NON EMPTY [Measures].[contributors.COUNT] ON COLUMNS FROM [EquityDerivativesCube] WHERE [Geography].[City].[ALL].[AllMember].[New York] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","contextValues": {},"updateMode": "once", "ranges": {}}}}',
-      isDirectory: false,
-      owners: ["admin"],
-      readers: ["admin"],
-      timestamp: 1607879735685,
-      lastEditor: "admin",
-      canRead: true,
-      canWrite: true,
-    },
-  },
-};
 
 describe("migrateContentServer", () => {
   it("migrates calculated measures from the /pivot folder to the /ui folder when migrating from 4.3 to 5.0", async () => {
@@ -284,11 +237,6 @@ describe("migrateContentServer", () => {
   });
 
   it("keeps the original item untouched, as before the whole migration when the item cannot be migrated due to an error and the `behaviorOnError` flag is set to `keep-original`.", async () => {
-    const legacyUIFolderWithInvalidWidgets = addLegacyBookmarkToUIFolder(
-      emptyLegacyUIFolder,
-      bookmarkContentWithInvalidWidgets,
-    );
-
     const contentServer: ContentRecord = {
       children: {
         ui: legacyUIFolderWithInvalidWidgets,
@@ -339,11 +287,6 @@ describe("migrateContentServer", () => {
   });
 
   it("keeps the 5.0 version of the widget, when migrating from 4.3 to 5.1 with `behaviorOnError` set to `keep-last-successful-version` and the 5.0 to 5.1 step fails", async () => {
-    const legacyUIFolderWithInvalidWidgets = addLegacyBookmarkToUIFolder(
-      emptyLegacyUIFolder,
-      bookmarkContentWithInvalidWidgets,
-    );
-
     const contentServer: ContentRecord = {
       children: {
         ui: legacyUIFolderWithInvalidWidgets,
