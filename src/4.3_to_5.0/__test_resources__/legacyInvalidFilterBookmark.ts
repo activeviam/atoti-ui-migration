@@ -1,5 +1,5 @@
 /**
- * Content entry representing a legacy filter containing an invalid property
+ * The content entry representing a legacy filter containing an invalid property.
  * Useful for unit tests.
  */
 export const legacyInvalidFilterBookmark = {

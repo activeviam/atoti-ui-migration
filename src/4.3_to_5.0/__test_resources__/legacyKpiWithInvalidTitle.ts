@@ -1,5 +1,7 @@
 /**
- * The content entry for a legacy bookmark representing a KPI widget
+ * The content entry for a legacy bookmark representing a KPI widget.
+ * Useful for unit tests.
+ 
  */
 export const legacyKpiWithInvalidTitle = {
   entry: {

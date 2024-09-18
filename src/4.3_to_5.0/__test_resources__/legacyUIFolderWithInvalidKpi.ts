@@ -3,7 +3,8 @@ import { emptyLegacyUIFolder } from "./emptyLegacyUIFolder";
 import { legacyKpiWithInvalidTitle } from "./legacyKpiWithInvalidTitle";
 
 /**
- * Legacy UI folder containing a single kpi bookmark with an invalid kpi title
+ * A legacy UI folder containing a single KPI bookmark with an invalid KPI title.
+ * Useful for unit tests.
  */
 export const legacyUIFolderWithInvalidKpiTitle = addLegacyBookmarkToUIFolder(
   emptyLegacyUIFolder,

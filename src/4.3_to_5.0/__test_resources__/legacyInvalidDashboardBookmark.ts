@@ -1,5 +1,5 @@
 /**
- * Legacy content entry representing a bookmark of an invalid dashboard.
+ * The content entry representing a bookmark of an invalid dashboard.
  * Useful for unit tests.
  */
 export const legacyInvalidDashboardBookmark = {
