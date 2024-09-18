@@ -4,9 +4,8 @@ import { smallLegacyPivotFolder } from "./4.3_to_5.0/__test_resources__/smallLeg
 import { smallLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/smallLegacyUIFolder";
 import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
-import { addLegacyBookmarkToUIFolder } from "./4.3_to_5.0/__test_resources__/addLegacyBookmarkToUIFolder";
-import { emptyLegacyUIFolder } from "./4.3_to_5.0/__test_resources__/emptyLegacyUIFolder";
 import { legacyUIFolderWithInvalidWidgets } from "./4.3_to_5.0/__test_resources__/legacyUIFolderWithInvalidWidgets";
+import { legacyUIFolderWithInvalidKpiTitle } from "./4.3_to_5.0/__test_resources__/legacyUIFolderWithInvalidKpi";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -340,25 +339,6 @@ describe("migrateContentServer", () => {
   });
 
   it("migrates the KPI custom titles while dropping custom titles that could not be successfully migrated", async () => {
-    const legacyUIFolderWithInvalidKpiTitle = addLegacyBookmarkToUIFolder(
-      emptyLegacyUIFolder,
-      {
-        kpi: {
-          entry: {
-            content:
-              '{"description": "A KPI containing a custom title with an empty tupleKey","name":"KPI","type":"container","value": {"style": {},"showTitleBar": true,"body": {"serverUrl": "","mdx": "SELECT NON EMPTY Hierarchize(AddCalculatedMembers(Descendants({[Geography].[City].[ALL].[AllMember]},1,SELF_AND_BEFORE))) ON ROWS,NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM (SELECT[Geography].[City].[ALL].[AllMember].[New York] ON COLUMNS FROM [EquityDerivativesCube])","contextValues": {},"updateMode": "once","ranges": {"row": {},"column": {}},"configuration": {"featuredValues": {"locations":{"":{"title": "Title with empty tupleKey"},"[Measures].[contributors.COUNT]": {"title": "Custom title for contributors.COUNT"}}}}},"containerKey":"featured-values"},"writable": true}',
-            isDirectory: false,
-            owners: ["admin"],
-            readers: ["admin"],
-            timestamp: 1607879735685,
-            lastEditor: "admin",
-            canRead: true,
-            canWrite: true,
-          },
-        },
-      },
-    );
-
     const contentServer: ContentRecord = {
       children: {
         ui: legacyUIFolderWithInvalidKpiTitle,
