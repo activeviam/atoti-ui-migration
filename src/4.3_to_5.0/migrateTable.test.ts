@@ -152,14 +152,16 @@ describe("migrateTable", () => {
           "columns": [
             "ALL_MEASURES",
           ],
-          "measures": [],
+          "measures": [
+            "[Measures].[contributors.COUNT]",
+          ],
           "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Tabular View",
         "query": {
-          "mdx": "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+          "mdx": "SELECT NON EMPTY [Currency].[Currency].[Currency].Members ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
         "queryContext": [],
@@ -182,14 +184,16 @@ describe("migrateTable", () => {
           "columns": [
             "ALL_MEASURES",
           ],
-          "measures": [],
+          "measures": [
+            "[Measures].[contributors.COUNT]",
+          ],
           "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Pivot Table",
         "query": {
-          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
         "queryContext": [],
@@ -211,14 +215,16 @@ describe("migrateTable", () => {
           "columns": [
             "ALL_MEASURES",
           ],
-          "measures": [],
+          "measures": [
+            "[Measures].[contributors.COUNT]",
+          ],
           "rows": [
             "[Currency].[Currency].[Currency]",
           ],
         },
         "name": "Table",
         "query": {
-          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
+          "mdx": "SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS",
           "updateMode": "once",
         },
         "queryContext": [
@@ -296,7 +302,10 @@ describe("migrateTable", () => {
               )
             )
           )
-        ) ON ROWS
+        ) ON ROWS,
+        NON EMPTY {
+          [Measures].[contributors.COUNT]
+        } ON COLUMNS
         FROM [EquityDerivativesCube]
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
     `);
