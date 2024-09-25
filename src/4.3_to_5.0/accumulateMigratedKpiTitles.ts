@@ -43,24 +43,27 @@ function _getLegacyKpiTitles(
     } = {};
     const memberUniqueNames = tupleKey.split(/,(?![^\[]*\])/);
     for (const memberUniqueName of memberUniqueNames) {
-      const compoundIdentifier =
-        parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
-      const specificCompoundIdentifier = getSpecificCompoundIdentifier(
-        compoundIdentifier,
-        { cube },
-      );
-      if (specificCompoundIdentifier.type === "measure") {
-        tuple[`[Measures].[Measures]`] = [
-          specificCompoundIdentifier.measureName,
-        ];
-      } else if (specificCompoundIdentifier.type === "member") {
-        const hierarchyUniqueName = quote(
-          specificCompoundIdentifier.dimensionName,
-          specificCompoundIdentifier.hierarchyName,
+      if (memberUniqueName) {
+        const compoundIdentifier =
+          parse<MdxUnknownCompoundIdentifier>(memberUniqueName);
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(
+          compoundIdentifier,
+          { cube },
         );
-        tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
+        if (specificCompoundIdentifier.type === "measure") {
+          tuple[`[Measures].[Measures]`] = [
+            specificCompoundIdentifier.measureName,
+          ];
+        } else if (specificCompoundIdentifier.type === "member") {
+          const hierarchyUniqueName = quote(
+            specificCompoundIdentifier.dimensionName,
+            specificCompoundIdentifier.hierarchyName,
+          );
+          tuple[hierarchyUniqueName] = specificCompoundIdentifier.path;
+        }
       }
     }
+
     legacyTitles.push({ title, tuple });
   }
 
@@ -68,24 +71,27 @@ function _getLegacyKpiTitles(
 }
 
 /**
- * Returns the migrated KPI widget titles corresponding to legacyKpiState.
+ * Accumulates the migrated KPI widget titles corresponding to legacyKpiState.
+ * Mutates `migratedTitles`.
  */
-export function getMigratedKpiTitles(
+export function accumulateMigratedKpiTitles(
   // Legacy widget states are not typed.
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   legacyKpiState: any,
   {
+    migratedTitles = {},
     legacyMdx,
     mapping,
     cube,
   }: {
+    migratedTitles: KpiWidgetState["titles"];
     legacyMdx: MdxSelect;
     mapping: DataVisualizationWidgetMapping;
     cube: Cube;
   },
-): KpiWidgetState["titles"] {
+): void {
   const legacyTitles = _getLegacyKpiTitles(legacyKpiState, { cube });
-  const migratedTitles: KpiWidgetState["titles"] = {};
+  const errors: Error[] = [];
 
   const numberOfColumnFields = mapping.columns?.length ?? 0;
 
@@ -107,35 +113,44 @@ export function getMigratedKpiTitles(
   const ordinalFields = [...(mapping.columns ?? []), ...(mapping.rows ?? [])];
 
   legacyTitles.forEach(({ title, tuple }) => {
-    const memberUniqueNames: string[] = [];
+    try {
+      const memberUniqueNames: string[] = [];
 
-    ordinalFields.forEach((field) => {
-      if (field.type === "hierarchy") {
-        const hierarchyUniqueName = quote(
-          field.dimensionName,
-          field.hierarchyName,
-        );
-        const namePath = tuple[hierarchyUniqueName];
-        if (namePath) {
-          memberUniqueNames.push(
-            `${hierarchyUniqueName}.${quote(...namePath)}`,
+      ordinalFields.forEach((field) => {
+        if (field.type === "hierarchy") {
+          const hierarchyUniqueName = quote(
+            field.dimensionName,
+            field.hierarchyName,
           );
+          const namePath = tuple[hierarchyUniqueName];
+          if (namePath) {
+            memberUniqueNames.push(
+              `${hierarchyUniqueName}.${quote(...namePath)}`,
+            );
+          }
         }
+      });
+
+      if (measuresPositionInTuple > -1) {
+        const measureName = tuple[quote("Measures", "Measures")][0];
+        memberUniqueNames.splice(
+          measuresPositionInTuple,
+          0,
+          quote("Measures", measureName),
+        );
       }
-    });
 
-    if (measuresPositionInTuple > -1) {
-      const measureName = tuple[quote("Measures", "Measures")][0];
-      memberUniqueNames.splice(
-        measuresPositionInTuple,
-        0,
-        quote("Measures", measureName),
-      );
+      const tupleKey = memberUniqueNames.join(",");
+      migratedTitles[tupleKey] = title;
+    } catch (error) {
+      errors.push(error as Error);
     }
-
-    const tupleKey = memberUniqueNames.join(",");
-    migratedTitles[tupleKey] = title;
   });
 
-  return migratedTitles;
+  if (errors.length > 0) {
+    throw new Error(
+      `One or more errors occurred while migrating the titles for the kpi named ${legacyKpiState.name}: ` +
+        errors.map((e) => e.message).join(", "),
+    );
+  }
 }
