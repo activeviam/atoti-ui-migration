@@ -33,11 +33,12 @@ export function addLegacyBookmarkToUIFolder(
 
     const bookmarkStructureToAdd = keysOfBookmarksToAdd.reduce(
       (acc: { [key: string]: ContentRecord }, key: string) => {
+        const bookmarkEntry = legacyBookmarksToAdd[key].entry;
         acc[key] = {
           entry: {
             isDirectory: true,
-            owners: [],
-            readers: [],
+            owners: bookmarkEntry.owners,
+            readers: bookmarkEntry.readers,
             timestamp: 1607879735685,
             lastEditor: "admin",
             canRead: true,

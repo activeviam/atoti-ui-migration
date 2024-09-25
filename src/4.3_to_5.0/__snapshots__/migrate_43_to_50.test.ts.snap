@@ -2247,8 +2247,12 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
                     "content": "{"name":"hidden grand totals"}",
                     "isDirectory": true,
                     "lastEditor": "admin",
-                    "owners": [],
-                    "readers": [],
+                    "owners": [
+                      "admin",
+                    ],
+                    "readers": [
+                      "admin",
+                    ],
                     "timestamp": 1607879735685,
                   },
                 },
@@ -2258,8 +2262,12 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
                 "canWrite": true,
                 "isDirectory": true,
                 "lastEditor": "admin",
-                "owners": [],
-                "readers": [],
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
                 "timestamp": 1607879735685,
               },
             },
@@ -2349,7 +2357,6 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
     "organization_settings": {
       "entry": {
         "content": "{}",
-        "isDirectory": false,
         "owners": [
           "ROLE_CS_ROOT",
         ],
@@ -2397,6 +2404,86 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a small input 
       },
     },
     "users": {
+      "children": {
+        "admin": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{"userFilters":["[Geography].[City].[ALL].[AllMember].[Berlin]"]}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{"theme":"dark-activeviam","search.maxResults":10,"userFilters.areEnabled":true,"drillthrough.defaultSelectedColumns":{"EquityDerivativesCube":["delta","gamma","pnlVega","Desk","Currency","Date","HostName"],"EquityDerivativesCubeDist":["BumpedMtmDown","ProductQtyMultiplier","vega","rho","productId","pnlVega","pnlDelta","pnl","gamma","delta","TradeId","ProductBaseMtm"]}}",
+                "owners": [
+                  "admin",
+                ],
+                "readers": [
+                  "admin",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "admin",
+            ],
+            "readers": [
+              "admin",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+        "user1": {
+          "children": {
+            "activity": {
+              "entry": {
+                "content": "{}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+            "settings": {
+              "entry": {
+                "content": "{}",
+                "owners": [
+                  "user1",
+                ],
+                "readers": [
+                  "user1",
+                ],
+              },
+            },
+          },
+          "entry": {
+            "canRead": true,
+            "canWrite": true,
+            "isDirectory": true,
+            "lastEditor": "admin",
+            "owners": [
+              "user1",
+            ],
+            "readers": [
+              "user1",
+            ],
+            "timestamp": 1607879735685,
+          },
+        },
+      },
       "entry": {
         "isDirectory": true,
         "owners": [
