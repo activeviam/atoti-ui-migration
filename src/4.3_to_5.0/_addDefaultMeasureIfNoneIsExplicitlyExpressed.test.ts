@@ -43,6 +43,62 @@ describe("_addDefaultMeasureIfNoneIsExplicitlyExpressed", () => {
     `);
   });
 
+  it("adds the default measure when there are no measures expressed and the columns axis contains a sorted hierarchy", () => {
+    const mdx: MdxSelect = parse(`
+      WITH
+        Member [Measures].[[Currency]].[Currency]].[Currency]]_for_order] AS Rank(
+          [Currency].[Currency].CurrentMember,
+          [Currency].[Currency].Members
+        ) 
+        SELECT
+          NON EMPTY Order(
+            Hierarchize(
+              Descendants(
+                {
+                  [Currency].[Currency].[ALL].[AllMember]
+                },
+                1,
+                SELF_AND_BEFORE
+              )
+            ),
+            [Measures].[[Currency]].[Currency]].[Currency]]_for_order],
+            DESC
+          ) ON COLUMNS
+          FROM [EquityDerivativesCube]`);
+
+    expect(
+      stringify(_addDefaultMeasureIfNoneIsExplicitlyExpressed(mdx, { cube }), {
+        indent: true,
+      }),
+    ).toMatchInlineSnapshot(`
+      "WITH
+       Member [Measures].[[Currency]].[Currency]].[Currency]]_for_order] AS Rank(
+        [Currency].[Currency].CurrentMember,
+        [Currency].[Currency].Members
+      ) 
+      SELECT
+        NON EMPTY Order(
+          Crossjoin(
+            Hierarchize(
+              Descendants(
+                {
+                  [Currency].[Currency].[ALL].[AllMember]
+                },
+                1,
+                SELF_AND_BEFORE
+              )
+            ),
+            {
+              [Measures].[contributors.COUNT]
+            }
+          ),
+          [Measures].[[Currency]].[Currency]].[Currency]]_for_order],
+          DESC
+        ) ON COLUMNS
+        FROM [EquityDerivativesCube]"
+    `);
+  });
+
   it("returns the given mdx if there are no axes expressed", () => {
     const mdx: MdxSelect = parse(`
       SELECT
