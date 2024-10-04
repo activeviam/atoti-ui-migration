@@ -14,6 +14,7 @@ import {
 } from "./_migrateContextValues";
 import { _cleanupDescendants } from "./_cleanupDescendants";
 import { _cleanupDrilldownLevel } from "./_cleanupDrilldownLevel";
+import { _addDefaultMeasureIfNoneIsExplicitlyExpressed } from "./_addDefaultMeasureIfNoneIsExplicitlyExpressed";
 
 export interface LegacyQuery {
   mdx?: string;
@@ -78,7 +79,7 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
     ];
   }
 
-  const parsedMdx = parse<T>(mdx);
+  const parsedMdx = parse<MdxSelect | MdxDrillthrough>(mdx);
 
   let improvedMdx = parsedMdx;
   try {
@@ -90,15 +91,20 @@ export const _migrateQuery = <T extends MdxSelect | MdxDrillthrough>({
     // So attempt to improve it, but do not block the migration if the process fails.
   }
 
-  const filters = getFilters(improvedMdx, { cube }).map(
+  const mdxWithMeasures = _addDefaultMeasureIfNoneIsExplicitlyExpressed(
+    improvedMdx,
+    { cube },
+  );
+
+  const filters = getFilters(mdxWithMeasures, { cube }).map(
     ({ mdx: filterMdx }) => filterMdx,
   );
 
   const finalMdx = shouldUpdateFiltersMdx
     ? // The filters part of the MDX is removed from the query and stored in state.filters.
-      setFilters(improvedMdx, { filters: [], cube })
+      setFilters(mdxWithMeasures, { filters: [], cube })
     : // The filters part of the MDX remains stored as is, in state.query.
-      improvedMdx;
+      mdxWithMeasures;
 
   // TODO UI-5036 Migrate query ranges.
   return [
