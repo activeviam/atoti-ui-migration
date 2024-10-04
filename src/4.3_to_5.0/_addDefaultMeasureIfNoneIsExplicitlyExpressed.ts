@@ -21,7 +21,7 @@ export function _addDefaultMeasureIfNoneIsExplicitlyExpressed(
 ): MdxSelect | MdxDrillthrough;
 
 /**
- * When there is any hierarchy expressed on axes, but no measure explicitly expressed, the default measure is:
+ * When there is any hierarchy expressed on the columns axis, but no measure explicitly expressed, the default measure is:
  * - displayed in Atoti UI 4.3
  * - not displayed in Atoti 5.0
  * This function explicitly adds it to the MDX so that it is isofunctional for the user.
@@ -40,6 +40,14 @@ export function _addDefaultMeasureIfNoneIsExplicitlyExpressed(
 
   const doesExplicitlyIncludeAMeasure = getMeasures(mdx).length > 0;
   if (doesExplicitlyIncludeAMeasure) {
+    return mdx;
+  }
+
+  const columnsAxis = mdx.axes.find(({ name }) => {
+    name === "COLUMNS" || name === "0";
+  });
+
+  if (!columnsAxis) {
     return mdx;
   }
 
