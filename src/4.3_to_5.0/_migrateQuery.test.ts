@@ -131,11 +131,11 @@ describe("_migrateQuery", () => {
     `);
   });
 
-  it("adds the default measure on columns when no measure is expressed on axes, but at least one hierarchy is", () => {
+  it("adds the default measure on columns when no measure is expressed on axes, but at least one hierarchy is expressed on the columns axis", () => {
     const legacyQuery: LegacyQuery = {
       mdx: `
         SELECT
-         [Currency].[Currency].Members ON ROWS
+         [Currency].[Currency].Members ON COLUMNS
          FROM [EquityDerivativesCube]`,
     };
     const [
@@ -149,7 +149,12 @@ describe("_migrateQuery", () => {
     });
     expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
-        [Currency].[Currency].Members ON ROWS
+        Crossjoin(
+          [Currency].[Currency].Members,
+          {
+            [Measures].[contributors.COUNT]
+          }
+        ) ON COLUMNS
         FROM [EquityDerivativesCube]"
     `);
   });
