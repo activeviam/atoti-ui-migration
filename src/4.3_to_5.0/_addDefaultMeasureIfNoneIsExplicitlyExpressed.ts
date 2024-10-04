@@ -43,9 +43,9 @@ export function _addDefaultMeasureIfNoneIsExplicitlyExpressed(
     return mdx;
   }
 
-  const columnsAxis = mdx.axes.find(({ name }) => {
-    name === "COLUMNS" || name === "0";
-  });
+  const columnsAxis = mdx.axes.find(
+    ({ name }) => name === "COLUMNS" || name === "0",
+  );
 
   if (!columnsAxis) {
     return mdx;
