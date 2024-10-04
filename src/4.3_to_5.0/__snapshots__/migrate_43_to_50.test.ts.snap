@@ -240,7 +240,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
               "entry": {
                 "canRead": true,
                 "canWrite": true,
-                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY [CounterParty].[CounterParty].[CounterPartyGroup].Members ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[CounterParty].[CounterParty].[CounterPartyGroup]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Tabular View","serverKey":"my-server","widgetKey":"table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY [CounterParty].[CounterParty].[CounterPartyGroup].Members ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[CounterParty].[CounterParty].[CounterPartyGroup]"],"columns":["ALL_MEASURES"],"measures":[]},"name":"Untitled Tabular View","serverKey":"my-server","widgetKey":"table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
                 "isDirectory": false,
                 "lastEditor": "admin",
                 "owners": [
@@ -304,7 +304,7 @@ exports[`migrate_43_to_50 returns a valid ActiveUI5 /ui folder on a real life in
               "entry": {
                 "canRead": true,
                 "canWrite": true,
-                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS, NON EMPTY {[Measures].[contributors.COUNT]} ON COLUMNS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":["[Measures].[contributors.COUNT]"]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
+                "content": "{"pages":{"p-0":{"layout":{"children":[{"leafKey":"0","size":1}],"direction":"row"},"name":"Page 1","filters":[],"content":{"0":{"query":{"mdx":"SELECT NON EMPTY Hierarchize(DrilldownLevel([Currency].[Currency].[ALL].[AllMember])) ON ROWS FROM [EquityDerivativesCube] CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS","updateMode":"once"},"filters":[],"queryContext":[],"mapping":{"rows":["[Currency].[Currency].[Currency]"],"columns":["ALL_MEASURES"],"measures":[]},"name":"Untitled Pivot Table","serverKey":"my-server","widgetKey":"tree-table","columnWidths":{}}},"queryContext":[]}},"pagesOrder":["p-0"],"filters":[],"queryContext":[]}",
                 "isDirectory": false,
                 "lastEditor": "admin",
                 "owners": [

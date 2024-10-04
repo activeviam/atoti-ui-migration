@@ -125,10 +125,7 @@ describe("_migrateQuery", () => {
               )
             )
           )
-        ) ON ROWS,
-        NON EMPTY {
-          [Measures].[contributors.COUNT]
-        } ON COLUMNS
+        ) ON ROWS
         FROM [EquityDerivativesCube]
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
     `);
@@ -152,10 +149,7 @@ describe("_migrateQuery", () => {
     });
     expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
       "SELECT
-        [Currency].[Currency].Members ON ROWS,
-        NON EMPTY {
-          [Measures].[contributors.COUNT]
-        } ON COLUMNS
+        [Currency].[Currency].Members ON ROWS
         FROM [EquityDerivativesCube]"
     `);
   });
