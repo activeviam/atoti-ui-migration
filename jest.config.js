@@ -2,7 +2,13 @@
 const isCI = require("is-ci");
 
 const extensions = ["js", "jsx", "ts", "tsx", "mjs", "json"];
-const esmPackages = ["@activeviam/*", "lodash-es", "monaco-editor"];
+const esmPackages = [
+  "@activeviam/*",
+  "lodash-es",
+  "monaco-editor",
+  "react-dnd-html5-backend",
+  "array-move",
+];
 
 // Note that in addition to the config below, there are several mocked modules under the __mocks__ folder.
 // They correspond to modules that are UI/browser-related and are transitively pulled by @activeviam dependencies, but are not necessary for `activeui-migration` to work in a Node environment.
