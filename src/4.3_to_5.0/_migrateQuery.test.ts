@@ -130,4 +130,32 @@ describe("_migrateQuery", () => {
         CELL PROPERTIES VALUE, FORMATTED_VALUE, BACK_COLOR, FORE_COLOR, FONT_FLAGS"
     `);
   });
+
+  it("adds the default measure on columns when no measure is expressed on axes, but at least one hierarchy is expressed on the columns axis", () => {
+    const legacyQuery: LegacyQuery = {
+      mdx: `
+        SELECT
+         [Currency].[Currency].Members ON COLUMNS
+         FROM [EquityDerivativesCube]`,
+    };
+    const [
+      {
+        query: { mdx },
+      },
+    ] = _migrateQuery({
+      legacyQuery,
+      cube,
+      shouldUpdateFiltersMdx: true,
+    });
+    expect(stringify(mdx!, { indent: true })).toMatchInlineSnapshot(`
+      "SELECT
+        Crossjoin(
+          [Currency].[Currency].Members,
+          {
+            [Measures].[contributors.COUNT]
+          }
+        ) ON COLUMNS
+        FROM [EquityDerivativesCube]"
+    `);
+  });
 });
