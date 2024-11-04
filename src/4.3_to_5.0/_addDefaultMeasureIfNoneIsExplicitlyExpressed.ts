@@ -38,16 +38,16 @@ export function _addDefaultMeasureIfNoneIsExplicitlyExpressed(
     return mdx;
   }
 
-  const doesExplicitlyIncludeAMeasure = getMeasures(mdx).length > 0;
-  if (doesExplicitlyIncludeAMeasure) {
-    return mdx;
-  }
-
   const columnsAxis = mdx.axes.find(
     ({ name }) => name === "COLUMNS" || name === "0",
   );
 
   if (!columnsAxis) {
+    return mdx;
+  }
+
+  const doesExplicitlyIncludeAMeasure = getMeasures(mdx).length > 0;
+  if (doesExplicitlyIncludeAMeasure) {
     return mdx;
   }
 
