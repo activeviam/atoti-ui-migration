@@ -30,6 +30,13 @@
     "@activeviam/dashboard-base" "5.1.23"
     "@types/react" "^18.0.26"
 
+"@activeviam/action@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/action/-/@activeviam/action-5.2.4.tgz#670f13a1a0ed7bb0d9ffa5d4eda3336b3495ddec"
+  integrity sha512-5H9ZpGK33pIh2lKIqg9Hok3kePHug4DkAiEtCPiSXHFlz01O6pSjG2Hznxxu7YErim82xFU22FRFA9BJoAQcsg==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+
 "@activeviam/activepivot-client@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activepivot-client/-/@activeviam/activepivot-client-5.0.41.tgz#19737c4959fe11910e5c543bfbe9984ffed2f1d8"
@@ -298,6 +305,129 @@
     "@activeviam/widget" "5.1.23"
     "@activeviam/wizard" "5.1.23"
 
+"@activeviam/activeui-sdk-5.2@npm:@activeviam/atoti-ui-sdk@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/atoti-ui-sdk/-/@activeviam/atoti-ui-sdk-5.2.4.tgz#45694de3fd1f7c91355997b9251b751cceef5d88"
+  integrity sha512-IXmStxhaZw/DlM8Ut+eHD6QfIjGaeylT9mDVJeBfmJLdp8NGAdQjXemOqMJxURmVPbKPx7yYF0EYWLRh/7woJQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/application-env" "5.2.4"
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/application-menu-about-menu-item" "5.2.4"
+    "@activeviam/application-menu-documentation-menu-item" "5.2.4"
+    "@activeviam/application-menu-help-submenu" "5.2.4"
+    "@activeviam/application-menu-toggle-real-time-menu-item" "5.2.4"
+    "@activeviam/application-state" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/authenticated-clients-and-user" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/configuration" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/content-tree" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/file-list" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/kpi" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/members-tree" "5.2.4"
+    "@activeviam/permissions" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-pivot-table" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-cell-style-drillthrough-table" "5.2.4"
+    "@activeviam/plugin-cell-style-pivot-table" "5.2.4"
+    "@activeviam/plugin-cell-style-table" "5.2.4"
+    "@activeviam/plugin-cell-table" "5.2.4"
+    "@activeviam/plugin-cell-tree-table" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-menu-item-copy-query" "5.2.4"
+    "@activeviam/plugin-menu-item-duplicate-widget" "5.2.4"
+    "@activeviam/plugin-menu-item-export-csv" "5.2.4"
+    "@activeviam/plugin-menu-item-export-drillthrough-csv" "5.2.4"
+    "@activeviam/plugin-menu-item-filter-on-everything-but-selection" "5.2.4"
+    "@activeviam/plugin-menu-item-filter-on-selection" "5.2.4"
+    "@activeviam/plugin-menu-item-full-screen" "5.2.4"
+    "@activeviam/plugin-menu-item-hide-columns" "5.2.4"
+    "@activeviam/plugin-menu-item-investigate" "5.2.4"
+    "@activeviam/plugin-menu-item-open-drillthrough" "5.2.4"
+    "@activeviam/plugin-menu-item-refresh-query" "5.2.4"
+    "@activeviam/plugin-menu-item-remove-sort" "5.2.4"
+    "@activeviam/plugin-menu-item-remove-widget" "5.2.4"
+    "@activeviam/plugin-menu-item-save-widget" "5.2.4"
+    "@activeviam/plugin-menu-item-save-widget-as" "5.2.4"
+    "@activeviam/plugin-menu-item-show-hide-chart-totals" "5.2.4"
+    "@activeviam/plugin-menu-item-show-hide-empty-values" "5.2.4"
+    "@activeviam/plugin-menu-item-show-hide-totals" "5.2.4"
+    "@activeviam/plugin-menu-item-sort-chart" "5.2.4"
+    "@activeviam/plugin-menu-item-sort-drillthrough-table" "5.2.4"
+    "@activeviam/plugin-menu-item-sort-pivot-table" "5.2.4"
+    "@activeviam/plugin-menu-item-sort-table" "5.2.4"
+    "@activeviam/plugin-menu-item-switch-quick-filter-mode" "5.2.4"
+    "@activeviam/plugin-menu-item-switch-widget-type" "5.2.4"
+    "@activeviam/plugin-menu-item-synchronize-saved-widget" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-titlebar-button-edit-text-widget" "5.2.4"
+    "@activeviam/plugin-titlebar-button-full-screen" "5.2.4"
+    "@activeviam/plugin-titlebar-button-remove-widget" "5.2.4"
+    "@activeviam/plugin-titlebar-button-toggle-query-mode" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/plugin-widget-kpi" "5.2.4"
+    "@activeviam/plugin-widget-pivot-table" "5.2.4"
+    "@activeviam/plugin-widget-plotly-100-stacked-area" "5.2.4"
+    "@activeviam/plugin-widget-plotly-100-stacked-bars" "5.2.4"
+    "@activeviam/plugin-widget-plotly-100-stacked-columns" "5.2.4"
+    "@activeviam/plugin-widget-plotly-area" "5.2.4"
+    "@activeviam/plugin-widget-plotly-bullet" "5.2.4"
+    "@activeviam/plugin-widget-plotly-clustered-bars" "5.2.4"
+    "@activeviam/plugin-widget-plotly-clustered-columns" "5.2.4"
+    "@activeviam/plugin-widget-plotly-columns-and-lines" "5.2.4"
+    "@activeviam/plugin-widget-plotly-donut" "5.2.4"
+    "@activeviam/plugin-widget-plotly-gauge" "5.2.4"
+    "@activeviam/plugin-widget-plotly-line" "5.2.4"
+    "@activeviam/plugin-widget-plotly-pie" "5.2.4"
+    "@activeviam/plugin-widget-plotly-radar" "5.2.4"
+    "@activeviam/plugin-widget-plotly-scatter" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-area" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.2.4"
+    "@activeviam/plugin-widget-plotly-treemap" "5.2.4"
+    "@activeviam/plugin-widget-plotly-waterfall" "5.2.4"
+    "@activeviam/plugin-widget-quick-filter" "5.2.4"
+    "@activeviam/plugin-widget-table" "5.2.4"
+    "@activeviam/plugin-widget-text-editor" "5.2.4"
+    "@activeviam/plugin-widget-tree-table" "5.2.4"
+    "@activeviam/plugins" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/tool-behavior-editor" "5.2.4"
+    "@activeviam/tool-content-editor" "5.2.4"
+    "@activeviam/tool-filters-editor" "5.2.4"
+    "@activeviam/tool-query-context-editor" "5.2.4"
+    "@activeviam/tool-query-editor" "5.2.4"
+    "@activeviam/tool-state-editor" "5.2.4"
+    "@activeviam/tool-style-editor" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+
 "@activeviam/activeui-sdk-scripts@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-sdk-scripts/-/@activeviam/activeui-sdk-scripts-5.0.41.tgz#2e5d2b1b257cd5c4310f221da28226edb63f82e1"
@@ -367,6 +497,13 @@
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/activeui-version/-/@activeviam/activeui-version-5.1.23.tgz#b67b0ecee556ef87934ceca679c2341585e20041"
   integrity sha512-O0jPZb7VHKT7N0NMo6jbfPDKTqF/2/gRfP65tLYQpdGpprq5bqRZ3kpLWBZBd4q3/VU16o53fZg/mIs1+I8ohQ==
 
+"@activeviam/application-env@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-env/-/@activeviam/application-env-5.2.4.tgz#69f9e58ffcc5c6d3a747c04824b1f44a040b5534"
+  integrity sha512-m1rzxUcUMSH2GkgDhUekwvTQAxYZBLgH37+bJ6SA7WkStpuQ5FGIPSQZLrLTesNXmqqPnR/osO496t2qf8eWHA==
+  dependencies:
+    "@activeviam/versions" "5.2.4"
+
 "@activeviam/application-menu-about-menu-item@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-about-menu-item/-/@activeviam/application-menu-about-menu-item-5.0.41.tgz#7756e37f290fd609fb783f073bf66c6553531146"
@@ -391,6 +528,29 @@
     "@emotion/react" "^11.10.5"
     lodash-es "^4.17.21"
 
+"@activeviam/application-menu-about-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-about-menu-item/-/@activeviam/application-menu-about-menu-item-5.2.4.tgz#7bc6724bce90c7d12a1d6f3e0d5629f91783922a"
+  integrity sha512-N8+PkPXKRIO8cS4rZ+3dk1zfqtMMyG2eeUjYwcdbNLDtDtIDnchiBqIxqMI9caMJpG3eDSfbkOnLsg8dnBidEQ==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/atoti-ui-version" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/configuration" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
+"@activeviam/application-menu-command-palette-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-command-palette-menu-item/-/@activeviam/application-menu-command-palette-menu-item-5.2.4.tgz#7dc9998ebf42f976a12248b213afd34f045d355f"
+  integrity sha512-9XSolWk23PiFp4oaCJkf+bdib3meDneNnjfqUvxs7Rr6IAcnj6L76CeRsY4yWWaYQ/JyDKVuYIqjjBqKoU0M1w==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/application-state" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+
 "@activeviam/application-menu-documentation-menu-item@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-documentation-menu-item/-/@activeviam/application-menu-documentation-menu-item-5.0.41.tgz#c8a14dc7f98b0b1d135606d25e45ccdf95951f21"
@@ -410,6 +570,15 @@
     "@activeviam/activeui-version" "5.1.23"
     "@activeviam/application-menu" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/application-menu-documentation-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-documentation-menu-item/-/@activeviam/application-menu-documentation-menu-item-5.2.4.tgz#7584f6b32302d934abc225b78ddb671cda147d09"
+  integrity sha512-RKw09YI8CzeAFpq18nbRp1SH+LB3EanjIMhhrtnZWa33MRw01XhZGiN+DOddr7P4EO9BBJ8sV0I2agxZHJ2DyA==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/atoti-ui-version" "5.2.4"
+    "@activeviam/icons" "5.2.4"
 
 "@activeviam/application-menu-help-submenu@5.0.41":
   version "5.0.41"
@@ -434,6 +603,18 @@
     "@activeviam/application-menu-documentation-menu-item" "5.1.23"
     "@activeviam/application-menu-survey-menu-item" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/application-menu-help-submenu@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-help-submenu/-/@activeviam/application-menu-help-submenu-5.2.4.tgz#47ee97481640d4ec4562a94257e9cc0cb86ac825"
+  integrity sha512-tnaDLuJa1O2nYRNlW1kUW6lp7DZL2uU2AHZzXU1NsRTCP6R696qZQSR9CfkEC0cvcdsnM3eO/RHRp1M+f4NynA==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/application-menu-about-menu-item" "5.2.4"
+    "@activeviam/application-menu-command-palette-menu-item" "5.2.4"
+    "@activeviam/application-menu-documentation-menu-item" "5.2.4"
+    "@activeviam/application-menu-survey-menu-item" "5.2.4"
+    "@activeviam/icons" "5.2.4"
 
 "@activeviam/application-menu-item-add-saved-widget@5.0.41":
   version "5.0.41"
@@ -514,6 +695,27 @@
     "@activeviam/icons" "5.1.23"
     "@emotion/react" "^11.10.5"
 
+"@activeviam/application-menu-survey-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-survey-menu-item/-/@activeviam/application-menu-survey-menu-item-5.2.4.tgz#b51a53ad6e2ab144527c3492c09ab4f4e63ad8ac"
+  integrity sha512-4LJufGxi73H/GmS9xT0KJhoD+yBFcNgcd35p4iN83gLyTg8tS1kwt6IhfwwggjE0+T9M3TmM0FgGi9AsDb99Hg==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+
+"@activeviam/application-menu-toggle-real-time-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu-toggle-real-time-menu-item/-/@activeviam/application-menu-toggle-real-time-menu-item-5.2.4.tgz#1582dd3de108488636e2b6a752ca1b8e01621bef"
+  integrity sha512-dUMar87T+GnjF+NReXdpsWdMCfAgWOB5Qmi0VAlqPJXIIOUN6Qr54F7IzU3BJ93Eo3fL5ltpOl6DOiMnjZqPlg==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/application-state" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    immer "^9.0.14"
+
 "@activeviam/application-menu@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu/-/@activeviam/application-menu-5.0.41.tgz#45ecc82a7a903eee8f8ce7ac0a4fb8bb5117a07c"
@@ -527,6 +729,15 @@
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu/-/@activeviam/application-menu-5.1.23.tgz#fcb0ef0c6064afd29da7433bda4d22f87d22ee62"
   integrity sha512-5q1ocgSgxao2e2of9PO7auolaNdfVUAtF/M3bdSpDDSXSmjnNL2IaA0QqQE2Epx0/XR87zyesFhuR5uxv8gJqA==
 
+"@activeviam/application-menu@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-menu/-/@activeviam/application-menu-5.2.4.tgz#0313841cba94b6bc2e92f0b8b4ef69916205c527"
+  integrity sha512-zEZ9Qzay33oeFeuU0W6n8DKKO8IqvxYBzJi4LEbUQlS43LMwzWyNWLCWAEZaMZUbR9wELyrlzwH/5GQzmlY+MA==
+  dependencies:
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+
 "@activeviam/application-state@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-state/-/@activeviam/application-state-5.1.23.tgz#632dd4937a9bc37fbbb03e24a158bf8bf095264a"
@@ -539,6 +750,60 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
     redux-undo "^1.1.0"
+
+"@activeviam/application-state@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/application-state/-/@activeviam/application-state-5.2.4.tgz#c693c9407ed839cab563d2fa96363a530595ae66"
+  integrity sha512-G4AxlhujD5FtgjOJTs1IO/OQCp5eejjJ7wOBaJRtQoike2UxD3dTz4m0GFOoIRh4SSVej+NFzqHYNoNCRdUItA==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    hash-it "^6.0.0"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    redux-undo "^1.1.0"
+
+"@activeviam/atoti-client@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/atoti-client/-/@activeviam/atoti-client-5.2.4.tgz#2bd9ce853f6690594598d14c6f1e8c424e7aceb8"
+  integrity sha512-TQy1kTbFnshOxCEwHP+BavO1FkqTDrEf5c13qSxQNif65EYOVLvcnQu9shf4vrKyp3660Qp4MT11gWQqPWieaw==
+  dependencies:
+    "@activeviam/atoti-ui-version" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/semver" "^7.3.2"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    semver "^7.3.2"
+
+"@activeviam/atoti-ui-version@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/atoti-ui-version/-/@activeviam/atoti-ui-version-5.2.4.tgz#55ff64eb3caedeb526273e1b0f50223c80594c22"
+  integrity sha512-CM2uc2SN5vzK30YSfsa3Zv0H7VoF6Tfivt6DnVzFz3UBisf81NEYvH/LXVUgm67EyenSZAN3qvtjlZhZV7gQSA==
+
+"@activeviam/authenticated-clients-and-user@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/authenticated-clients-and-user/-/@activeviam/authenticated-clients-and-user-5.2.4.tgz#5df37db34da3640e5b1050874673c973bfd77833"
+  integrity sha512-gKfpdC6tnVfpeJsaZJ3ef8s/8zENlmjm9EyxfocUCXCxgWbL3iXlXFi9vaPAZASQFTgXusfo8Nk3DUZ/e8t95A==
+  dependencies:
+    "@activeviam/application-env" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/semver" "^7.3.2"
+    lodash-es "^4.17.21"
+    react-async-hook "^4.0.0"
+    semver "^7.3.2"
 
 "@activeviam/calculated-measures@5.0.41":
   version "5.0.41"
@@ -580,6 +845,28 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
     monaco-editor "^0.31.1"
+
+"@activeviam/calculated-measures@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/calculated-measures/-/@activeviam/calculated-measures-5.2.4.tgz#20d57bb43984700ee4d3699da58eb7c476468744"
+  integrity sha512-Tfe1sl/rApvYz1iiswYoTJHn0sXkXOUqLEDHAWckdMd9x7Q0H5qkaGlEKIgOvtGUqlc64/ugWbaT729nbq/noQ==
+  dependencies:
+    "@activeviam/client" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@rehooks/component-size" "^1.0.3"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    monaco-editor "^0.31.1"
+    react-async-hook "^4.0.0"
 
 "@activeviam/chart@5.0.41":
   version "5.0.41"
@@ -646,6 +933,39 @@
     react-plotly.js "^2.5.1"
     react-use "^15.3.4"
 
+"@activeviam/chart@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/chart/-/@activeviam/chart-5.2.4.tgz#dd5036577f7cc3dca092d8686e5babc9c174772f"
+  integrity sha512-R/D/LYeWAkx0Q56jFcgFKooLfrj0QTa2W+oE9B6mvBaTtgr+whtJLuAdNzPAhvKGLaoAujAYPk6DUL8gXNfvTg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+    react-use "^15.3.4"
+    tree-to-flat-map "^1.0.1"
+
 "@activeviam/client-react@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client-react/-/@activeviam/client-react-5.0.41.tgz#8dc1b18f63c9b74a48e093854d9033fa83b06729"
@@ -683,6 +1003,22 @@
     lodash-es "^4.17.21"
     react-async-hook "^4.0.0"
 
+"@activeviam/client-react@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client-react/-/@activeviam/client-react-5.2.4.tgz#2f3275537fc6f66cabb6ef6c5636280651f39ade"
+  integrity sha512-HQdE3t2L6JLjFabiarm/ZaeMQ+EwzItt6lAnP6FEoLJG1+A5VyGYBGTLy5Tkqwfj9nY/mL9HpLoQTsJ1whwOLQ==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+    react-async-hook "^4.0.0"
+
 "@activeviam/client@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client/-/@activeviam/client-5.0.41.tgz#aa1aeaf73cbc424f2d9cbbf1a421831a246a8a3f"
@@ -699,6 +1035,49 @@
     "@activeviam/utils" "5.1.23"
     "@activeviam/versions" "5.1.23"
     jwt-decode "^3.1.2"
+
+"@activeviam/client@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/client/-/@activeviam/client-5.2.4.tgz#3e37ab0696749aa24bc77c47667de5a0a44bd6b0"
+  integrity sha512-wANOTqD4d7FrscMXmCRbAhEGGzJZfkStsI1MlMgFy399HdzUhiN21kCN/B3nQUWssOSCalZ700FRaizutHk4Jg==
+  dependencies:
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    jwt-decode "^3.1.2"
+
+"@activeviam/conditional-style-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/conditional-style-editor/-/@activeviam/conditional-style-editor-5.2.4.tgz#3840782a12317f6f810466d3e4df340cb2b7ddb3"
+  integrity sha512-k4xu/OF0c39Kw7g++iL2gXMHnjiTqSe/lZ2RzVtsTq9NcBRn+jvqCkRPYu9dhaUqBmzRdomCN8Zn4Z1kxg7Ing==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/configuration@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/configuration/-/@activeviam/configuration-5.2.4.tgz#6458cea1ebf310a3eed1a2358a9fc7f3762c49e0"
+  integrity sha512-tt7C4//nJCPhF8QCUEeM0RM1SVRxstgYdwcyes/st2Lvl2ZOqhneyeLK0AepeL3R5PGRtPlXlxN/gCDC+yZW/g==
+  dependencies:
+    "@activeviam/application-menu" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/plugins" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@module-federation/runtime" "^0.1.12"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-async-hook "^4.0.0"
 
 "@activeviam/content-client@5.0.41":
   version "5.0.41"
@@ -724,6 +1103,22 @@
     "@activeviam/utils" "5.1.23"
     "@activeviam/versions" "5.1.23"
     "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/content-client@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-client/-/@activeviam/content-client-5.2.4.tgz#dcf43868462ca569ffd5b9d8849108d2cffe58fb"
+  integrity sha512-l2hNcnRRexMkIFyaRPj9iv0WsEfEGmmbgjkn+h4cjWgowVtEn1PmPlg/Ms43kyycWdNmLuVMMHqEBZkzDvDCXw==
+  dependencies:
+    "@activeviam/client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/react" "^18.3.3"
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
@@ -776,6 +1171,23 @@
     lodash-es "^4.17.21"
     react-error-boundary "^3.1.4"
 
+"@activeviam/content-tree@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/content-tree/-/@activeviam/content-tree-5.2.4.tgz#abac1439ebb074008d244c738eb7c014931c5c23"
+  integrity sha512-etha8OXyPVl2PqWJkrDyjjJGnLr2Sbst3pvMx/w/q0zX1t8cKl9CtwxPShrEY2yOwf2oin/07MeKKpa9Bk2XJQ==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+    react-error-boundary "^3.1.4"
+
 "@activeviam/dashboard-base-5.0@npm:@activeviam/dashboard-base@5.0.41", "@activeviam/dashboard-base@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.0.41.tgz#8a9bdc790a58b825fd1bed53bfe6382da018f67a"
@@ -809,6 +1221,22 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     dayjs "^1.11.11"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-reverse-portal "2.0.1"
+
+"@activeviam/dashboard-base@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.2.4.tgz#da617ae9efa166abda85ee9ff8c8f40bdada7217"
+  integrity sha512-EjWbZaZC6v74F9V0zTmv2WblTRzMen/ImQwqGRyL1PvWtpkhDMO4BaS+QSHpqCemTyDtGqFmnqUBNldD1CzjcA==
+  dependencies:
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
     react-reverse-portal "2.0.1"
@@ -863,6 +1291,29 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-error-boundary "^3.1.4"
+
+"@activeviam/dashboard@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard/-/@activeviam/dashboard-5.2.4.tgz#b96fb195e789c9385a54781e684284e4528eaef0"
+  integrity sha512-TdeFOKlI2qGOo7L1EBpXpqeFcxd1G99rUDyfyF2EFY0MbA6RuSTxM7DIaahw+KB+JFdmMRkr11yPrHkpdbdr4A==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-titlebar-button-remove-widget" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
     react-error-boundary "^3.1.4"
@@ -926,6 +1377,38 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
     react-error-boundary "^3.1.4"
+
+"@activeviam/data-model-tree@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model-tree/-/@activeviam/data-model-tree-5.2.4.tgz#7177d77ddb4eb972cd60937c53c893aac583b84f"
+  integrity sha512-OuCF9ocMtRSWDzEFhG7MNpX33YXgzEt1jEVtFBoL327rYvQkpn5NRgQ7tXTz9yHO5DvRnEj8eMyJF38jkoNm6w==
+  dependencies:
+    "@activeviam/calculated-measures" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/permissions" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    monaco-editor "^0.31.1"
+    redux-undo "^1.1.0"
+
+"@activeviam/data-model@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-model/-/@activeviam/data-model-5.2.4.tgz#e2d575b8ae96d4860693b12d1de61f424feb3a7f"
+  integrity sha512-3Nm9aLC7mdZWUmP0NbdsVYgjgZubySc7q3Ue/STxkjnX6VlFmwknPT3FsDMblo/7pUhcYs8W8sd4s7qqY8kkiw==
+  dependencies:
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
 
 "@activeviam/data-visualization@5.0.41":
   version "5.0.41"
@@ -997,6 +1480,42 @@
     react-async-hook "^4.0.0"
     react-error-boundary "^3.1.4"
     react-router-dom "^6.8.2"
+    redux-undo "^1.1.0"
+
+"@activeviam/data-visualization@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/data-visualization/-/@activeviam/data-visualization-5.2.4.tgz#222ffa8fd9482bc975f1abdfe6c1fc3d49b695f0"
+  integrity sha512-Wzwm/YbPocH3ek+4UUowp0qGyDLajwadjtEHb/555oLg9SIZh0b8CLQha1PjnC7t0r9CoWlIznTsOcOGcEGx+A==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/content-tree" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/file-list" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    monaco-editor "^0.31.1"
+    react-async-hook "^4.0.0"
+    react-error-boundary "^3.1.4"
     redux-undo "^1.1.0"
 
 "@activeviam/drawer-query-context-editor@5.0.41":
@@ -1097,6 +1616,18 @@
     lodash-es "^4.17.21"
     monaco-editor "^0.31.1"
 
+"@activeviam/editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/editor/-/@activeviam/editor-5.2.4.tgz#ff1111cc65d11cee261cffc6e1bb12801736692b"
+  integrity sha512-l/e0HUbDWvV1wNbFhnRt+aefnuz2Gnl8npZ6gY7+cZHQUgzSzukdXoqiPf1HpHJ1f9Q3eeVwkBGWGXMwqX97KA==
+  dependencies:
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+    monaco-editor "^0.31.1"
+
 "@activeviam/file-list@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/file-list/-/@activeviam/file-list-5.1.23.tgz#fef271a0730e9eb73d7eb7b88b63c921ae5c5def"
@@ -1126,6 +1657,36 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
     react-router-dom "^6.8.2"
+    react-use "^15.3.4"
+    react-virtualized-auto-sizer "^1.0.5"
+    react-window "^1.8.8"
+
+"@activeviam/file-list@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/file-list/-/@activeviam/file-list-5.2.4.tgz#0f4b6d32b2c06ddf4231232ee35096126ba3aa92"
+  integrity sha512-7zzVOs6YUIbr9q4eyTZUid4Oq7Gtq6sk7O0tnmr1e9V3tVW2Mx7BuRKUkqQD5rVacB/rDX/CpbBcr+nrTWFmnA==
+  dependencies:
+    "@activeviam/application-state" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/content-tree" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/permissions" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/status-notifications" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/versions" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/file-saver" "^2.0.1"
+    "@types/lodash-es" "^4.17.6"
+    "@types/react-virtualized-auto-sizer" "^1.0.1"
+    "@types/react-window" "^1.8.5"
+    file-saver "^2.0.2"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
     react-use "^15.3.4"
     react-virtualized-auto-sizer "^1.0.5"
     react-window "^1.8.8"
@@ -1183,6 +1744,30 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/filters@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/filters/-/@activeviam/filters-5.2.4.tgz#a7841f7eb6e7c7a43fc19d99899e5064b9e0b976"
+  integrity sha512-3p36cWpdm3P3NR3y5p8q7y1R8yJitzVICl8cC87d9UPmLNhYGchaFyEXucLgL3176772yNk+lo8FJkQXZaRb1Q==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/file-list" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/members-tree" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/icons@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/icons/-/@activeviam/icons-5.0.41.tgz#51c3a47f6d177ae14ef797a0c744bc8ffe8b95fb"
@@ -1204,6 +1789,14 @@
     "@types/dedent" "^0.7.0"
     "@types/react" "^18.0.26"
     "@types/react-dom" "^18.0.0"
+
+"@activeviam/icons@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/icons/-/@activeviam/icons-5.2.4.tgz#a9ac10bf271f0baffd4e04530b381db7c86cbe28"
+  integrity sha512-PJPk/nGBUTWYgZDJnojiirH6tl1L12ySMG6Cm7ZYU8A3FOzeolmh+znvzd9S96J8egiVjyIRAbAw602ZKo/sJw==
+  dependencies:
+    "@ant-design/icons" "^5.3.7"
+    "@ant-design/icons-svg" "^4.4.2"
 
 "@activeviam/kpi@5.0.41":
   version "5.0.41"
@@ -1243,6 +1836,23 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
 
+"@activeviam/kpi@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/kpi/-/@activeviam/kpi-5.2.4.tgz#7e30e4b441bd9e7d357c79b6f283c18b0d43c4cf"
+  integrity sha512-iRE5b5D7GFS5iLPbSdq1EU4Ylsk4jJdJypFAnpuRO2ojp9rmmK2g5SwLLUEUjvV50gv4Ej2FG81yqrZfF3C/IQ==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
 "@activeviam/mdx-5.0@npm:@activeviam/mdx@5.0.41", "@activeviam/mdx@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.0.41.tgz#2b81efb0efe6a29c34ffe62246d6a8278807d937"
@@ -1280,6 +1890,11 @@
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.1.23.tgz#721aa5db678cc1883bbdac8a13c3dfbb40377606"
   integrity sha512-+wonuxXMSQvx4IsMGSJpMongqje2zUz8e2dZpr+pW+jrTT4FwYkjTVSQ9zPGcVQYseMS40AkoRZ4VatHQmPDhA==
 
+"@activeviam/mdx-lexer@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-lexer/-/@activeviam/mdx-lexer-5.2.4.tgz#376bfb0ed2db84d6c258abc0756d1ffd45ffac26"
+  integrity sha512-wBCkummyIvhjeWqR2Xh3aeU4MIHfdVXzjU82CHMkxBwxqyarB2CgMhxZHhStaQrEY/a2iVPNIo77Z6OrSy36Cg==
+
 "@activeviam/mdx-parser@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.0.41.tgz#1e494897600182cceab727da4b5f819a53f8fdad"
@@ -1289,6 +1904,24 @@
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.1.23.tgz#8870a08d78611d614a8c3d03b546517ea9fa0416"
   integrity sha512-hBzthSzrB9sSz2MJATcqiUIbL3mLptFI8xaz09PksCozPO6fnMI9VufXMXuMd+l5boCo6l/LJzHXAcjoUn/SDg==
+
+"@activeviam/mdx-parser@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx-parser/-/@activeviam/mdx-parser-5.2.4.tgz#4ef7a5ccd24e0eef6d97e6f0595e557e35ded079"
+  integrity sha512-648TM+ykVT4nqAZPpNL+SeeoSQIRUtzH17sraQhQGilfvXdJ2kK+aOThOGS0I0pvwx+T9QJKKqPew/aWclOwsw==
+
+"@activeviam/mdx@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/mdx/-/@activeviam/mdx-5.2.4.tgz#294fb66cdb86ba352ac30e5e6027f980f7cd5411"
+  integrity sha512-64BL+EnXMqQI0aUOp1QrX9A1WF/Xgz7xzUgECQut9yBXUQUEf+/Pwxfnz3AuT5IOSjVTBkhFFVobcxIOUi3Qrg==
+  dependencies:
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx-lexer" "5.2.4"
+    "@activeviam/mdx-parser" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    utility-types "^3.10.0"
 
 "@activeviam/members-tree@5.0.41":
   version "5.0.41"
@@ -1330,6 +1963,26 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/members-tree@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/members-tree/-/@activeviam/members-tree-5.2.4.tgz#1b0bb441746a2a5cdfa837aa7873832f6fdcbc83"
+  integrity sha512-X/giy2+X5tp5lKEg4ebHwobX47L8uuDDiYV5GCy5nDzO4Y0E/eRuhvADztWQUWfdwgygl9RH/CGErbivsyABKg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
@@ -1386,6 +2039,26 @@
     react-virtualized-auto-sizer "^1.0.5"
     react-window "^1.8.8"
 
+"@activeviam/permissions@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/permissions/-/@activeviam/permissions-5.2.4.tgz#95362c1e80a46aee0dd31d38b00426ec7cc8033a"
+  integrity sha512-5TTqg20Y/RwOwYIfIQ0gwhYoQ+Xpl16Apnj0bd9e28feCJaImPiFYy1EeUcRU+wwp6SDAK0jIpeIhayUpwCN0w==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/react-virtualized-auto-sizer" "^1.0.1"
+    "@types/react-window" "^1.8.5"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-use "^15.3.4"
+    react-virtualized-auto-sizer "^1.0.5"
+    react-window "^1.8.8"
+
 "@activeviam/plugin-cell-pivot-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-pivot-table/-/@activeviam/plugin-cell-pivot-table-5.0.41.tgz#c0985c080ea39f88d0e66f578bbf7717419cb51e"
@@ -1426,6 +2099,23 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-cell-pivot-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-pivot-table/-/@activeviam/plugin-cell-pivot-table-5.2.4.tgz#2ab4e1f939a62117abc0660443252c90f5807044"
+  integrity sha512-oxILks0fD0TrUt2C5l5NKl/Kla+b5spe3nnO7kboFJrJLjCiu6yjYijiqzffGrTddsphriGc43h8gU9NnNl+fw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+
 "@activeviam/plugin-cell-style-drillthrough-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style-drillthrough-table/-/@activeviam/plugin-cell-style-drillthrough-table-5.0.41.tgz#0b826259659f38c3622f99a229f583e8a8c76451"
@@ -1451,6 +2141,19 @@
     "@activeviam/theme" "5.1.23"
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-cell-style-drillthrough-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style-drillthrough-table/-/@activeviam/plugin-cell-style-drillthrough-table-5.2.4.tgz#a29e1af47036e18f4aa755476980624408c9ae66"
+  integrity sha512-yEF+leutQiukiIbmISKnFcLaolfldJOWgJUS3G7Le0ekmPbXWR3ybLKfxd83y02Zi93b4S1hMAj7AOzvQmngwA==
+  dependencies:
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-cell-style-table" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/theme" "5.2.4"
 
 "@activeviam/plugin-cell-style-pivot-table@5.0.41":
   version "5.0.41"
@@ -1490,6 +2193,23 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-cell-style-pivot-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style-pivot-table/-/@activeviam/plugin-cell-style-pivot-table-5.2.4.tgz#7516839047d25c6b0a861e0a9d6f991202305336"
+  integrity sha512-K4cN9Rg+ewE5g17BCyQf5+QX76mhxGoQ9mdTxgkVFObdfaOKWRwHnVQU9WW8apxhEaYGEe9VPWoCOjG9kHB0bg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-cell-style-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+
 "@activeviam/plugin-cell-style-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style-table/-/@activeviam/plugin-cell-style-table-5.0.41.tgz#e0b2c93d56a41ff0bf39a13bc660709323be9b0e"
@@ -1526,6 +2246,22 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-cell-style-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style-table/-/@activeviam/plugin-cell-style-table-5.2.4.tgz#23990f073e8909007cbd340c951a1e5eb7d5d9b4"
+  integrity sha512-TSvBY46+x6pMFl7vGgIYNpbCDIW7w4hFjytQxIqNRaxRzGZwn0M4YRHAOx/jbElrbBw6s/dOepv7IY3kbiSjeA==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+
 "@activeviam/plugin-cell-style@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style/-/@activeviam/plugin-cell-style-5.0.41.tgz#9713ac49f1c0cd30169d4f6602694986c38f6858"
@@ -1545,6 +2281,14 @@
     "@activeviam/plugins-core" "5.1.23"
     "@activeviam/table-core" "5.1.23"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-cell-style@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-style/-/@activeviam/plugin-cell-style-5.2.4.tgz#61ee90c2f13a1ea51bcddd17eb6df274faa3bd65"
+  integrity sha512-d3buLOVhJ1NhVCH5fH1VGPm2CnrCjyaWzQ3cLo9tqdhCKidXc4vUIvnHhwb1b2ePkJVzbOTnnFYQYKvDe0CMLw==
+  dependencies:
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
 
 "@activeviam/plugin-cell-table@5.0.41":
   version "5.0.41"
@@ -1592,6 +2336,27 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-cell-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-table/-/@activeviam/plugin-cell-table-5.2.4.tgz#d221f7e2877ae32f561843dcf91b7d06c7b88582"
+  integrity sha512-ItSAwtkPohzEONm9345tjG0MCtYJpgsFsMMt07k7VOAxIJIF4d7CNTcUI/djfEuOrgpGjgxXQ5a+/a7SksiIOg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-cell-tree-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-tree-table/-/@activeviam/plugin-cell-tree-table-5.0.41.tgz#657a2ea3be8997d07e37399aceb29158b9ea3068"
@@ -1637,6 +2402,27 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-cell-tree-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell-tree-table/-/@activeviam/plugin-cell-tree-table-5.2.4.tgz#583d0d239d585b87bf49cdbd5ea3679e813241a3"
+  integrity sha512-lnYwKSdhBqxrFluKUniF8Gjsjh/0cQe8SKCPhroQfnpwVmYuNKTi/Bl3qXQuv0Jd/LHCA2BwV8jPs8OGoe1fPg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-cell@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell/-/@activeviam/plugin-cell-5.0.41.tgz#454ae0c860ae81c3e4813bda51e893dff8c7104b"
@@ -1662,6 +2448,18 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
     react-intl "^6.2.1"
+
+"@activeviam/plugin-cell@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-cell/-/@activeviam/plugin-cell-5.2.4.tgz#688641ea3718760e1ecf9568cc836ebaf7335d8b"
+  integrity sha512-iCpLgolBCDLUW1avxyYyAqyYEfUIQp9WMMrtzLp6rfdlLrEnI0P0fDjuEG5mJPdOIFa6n6ls2g5xcwDKrjVKsw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
 
 "@activeviam/plugin-menu-item-copy-query@5.0.41":
   version "5.0.41"
@@ -1696,6 +2494,23 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-menu-item-copy-query@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-copy-query/-/@activeviam/plugin-menu-item-copy-query-5.2.4.tgz#a754dd4e7fd51a4589811f065814642d698301a1"
+  integrity sha512-YnTnfckXLrHWSsPuCagZZXI4/lSKZMg1L1eSSHzBb+cqg6GveHxPywTrXGpet5aPU13BodZXomM60Nd93HY1Gg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+
 "@activeviam/plugin-menu-item-duplicate-widget@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-duplicate-widget/-/@activeviam/plugin-menu-item-duplicate-widget-5.0.41.tgz#5edf085eb134a58522aa90a4bf3c1cd479dfc835"
@@ -1722,6 +2537,19 @@
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-menu-item-duplicate-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-duplicate-widget/-/@activeviam/plugin-menu-item-duplicate-widget-5.2.4.tgz#386cd763f56bc813f7f3481b61cf661a59bbd2ee"
+  integrity sha512-9pCe0C558wex1jM4w17TIdgGdm+43tTWCSZGdvvwCBfU8n4rbn7XpB0i8w8bsl1oMM1U6yFI573EqZemTagJyA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-menu-item-export-csv@5.0.41":
   version "5.0.41"
@@ -1770,6 +2598,28 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-export-csv@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-export-csv/-/@activeviam/plugin-menu-item-export-csv-5.2.4.tgz#ed53ea24dcdc49a205bce917169f7e13d43d5c97"
+  integrity sha512-S07dgOgE/TqPEjQLaNcmT7/BFydoLNkKk0VKDGcBptTBzmcXEK275vHGL+/9a6+CBAfkhzAeF6UHz4jNpZzYgw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-pivot-table" "5.2.4"
+    "@activeviam/status-notifications" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/file-saver" "^2.0.1"
+    "@types/lodash-es" "^4.17.6"
+    file-saver "^2.0.2"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-export-drillthrough-csv@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-export-drillthrough-csv/-/@activeviam/plugin-menu-item-export-drillthrough-csv-5.0.41.tgz#14ce45682ee609b3455913b35dfc05969bcb7296"
@@ -1808,6 +2658,25 @@
     file-saver "^2.0.2"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-export-drillthrough-csv@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-export-drillthrough-csv/-/@activeviam/plugin-menu-item-export-drillthrough-csv-5.2.4.tgz#dc4baf2326a6121a9956a619e24cedfa646e0fbf"
+  integrity sha512-N+GjqP4EF5RAEfgkCXQbuWFmbW75ZR7fPuD3nq+qs/q5MVYxQdcEjJ06JdOBSqwathgXkofbd9Jie0iGFZSmVw==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/file-saver" "^2.0.1"
+    "@types/lodash-es" "^4.17.6"
+    file-saver "^2.0.2"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-filter-on-everything-but-selection@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-filter-on-everything-but-selection/-/@activeviam/plugin-menu-item-filter-on-everything-but-selection-5.0.41.tgz#d55843001da8875747061caec320e99255d182ae"
@@ -1834,6 +2703,19 @@
     "@activeviam/selection" "5.1.23"
     "@activeviam/widget" "5.1.23"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-menu-item-filter-on-everything-but-selection@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-filter-on-everything-but-selection/-/@activeviam/plugin-menu-item-filter-on-everything-but-selection-5.2.4.tgz#8b82c4fccdcf78df2a8b7bd21b0338327831727d"
+  integrity sha512-KBn7W3u1unqNWZSNYWrdGISS1FVAyVU7TDoHu9oBS2wXaazthNYGTzm312jwPmVf/kqnyzKIfdbQdefYxsa+aA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-menu-item-filter-on-selection" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-menu-item-filter-on-selection@5.0.41":
   version "5.0.41"
@@ -1882,6 +2764,30 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-filter-on-selection@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-filter-on-selection/-/@activeviam/plugin-menu-item-filter-on-selection-5.2.4.tgz#e7316bac725f60aaf7c8482db75776d8913f45e1"
+  integrity sha512-t7cG+cQnR82lNaF54Moygeg99MPkRDQGRU41Qtbhuz4rUepE0m/8xVgz/jpfgi+JWHE2HzLAXXSPpMSUXtBCJQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-full-screen@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-full-screen/-/@activeviam/plugin-menu-item-full-screen-5.0.41.tgz#d899b49b8047d59422b203697851a8710f5eb76a"
@@ -1907,6 +2813,19 @@
     "@activeviam/utils-react" "5.1.23"
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+
+"@activeviam/plugin-menu-item-full-screen@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-full-screen/-/@activeviam/plugin-menu-item-full-screen-5.2.4.tgz#bad1651fcb712d09227fbb3eecf5daa8666b9a40"
+  integrity sha512-z+qgB1tg9qH45KBc/b/fe92aTOr1N70a3EL0nz1piMo9X4Ux7ZmJHOzxbqXE8BW4VNwgbRM7FaYl6euJj7wkrQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
     immer "^9.0.14"
 
 "@activeviam/plugin-menu-item-hide-columns@5.0.41":
@@ -1952,6 +2871,27 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-hide-columns@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-hide-columns/-/@activeviam/plugin-menu-item-hide-columns-5.2.4.tgz#40319cf408c85dc56cc833e6d3af7be05eb498da"
+  integrity sha512-34Qly6tTbRwEr+pI0DDuE06PQrZbQGexvCRbkEndYo6CvVPSMCDoSaMKu4EpwAEmlTU1YiS2e1Mdr0zaSpkA2A==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-investigate@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-investigate/-/@activeviam/plugin-menu-item-investigate-5.1.23.tgz#fdd889d7946fa999da3fb417946545dfbcd13337"
@@ -1969,6 +2909,27 @@
     "@activeviam/selection" "5.1.23"
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item-investigate@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-investigate/-/@activeviam/plugin-menu-item-investigate-5.2.4.tgz#85b0d7cffc6fb76d93e2d0c8b30bfb6f2d38a75f"
+  integrity sha512-rBcG0gymSpfCzyEjBj7/J+dwC81MBBdMVZ/Kf3dUTjUB1Na0DQ6S5Df7JEDpz/A/lMKeLbxQAqYE3wM6ZYVR7w==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-menu-item-filter-on-selection" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/widget" "5.2.4"
     "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
@@ -2018,6 +2979,27 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-open-drillthrough@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-open-drillthrough/-/@activeviam/plugin-menu-item-open-drillthrough-5.2.4.tgz#1eb66d5e017cc933dd5a6a3052225d22bbdb522a"
+  integrity sha512-KxBsPfnw6MSqXIopoKh0b3KCzPWtaFbBvWtkORtBo6LcCkMCXkya8hEv6P+3zHFcY2eDwaadzaohp6YLb+2CPA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-refresh-query@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-refresh-query/-/@activeviam/plugin-menu-item-refresh-query-5.0.41.tgz#13381e5129590092f61132c484a274cd0b534887"
@@ -2045,6 +3027,20 @@
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-menu-item-refresh-query@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-refresh-query/-/@activeviam/plugin-menu-item-refresh-query-5.2.4.tgz#8550150b02882f8bd6c8c354c8c9c29e45089dce"
+  integrity sha512-orDQeGseko0o5ycpvZ+5Te9+4+glWLdBaKS2aIoAf4RCeMfDJfs2Cs1khYf9oKwmCX60h0bTNhQ+zt3/yVYrWg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-menu-item-remove-sort@5.0.41":
   version "5.0.41"
@@ -2077,6 +3073,20 @@
     "@types/react" "^18.0.26"
     immer "^9.0.14"
 
+"@activeviam/plugin-menu-item-remove-sort@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-remove-sort/-/@activeviam/plugin-menu-item-remove-sort-5.2.4.tgz#609217b70f89da4db942a238bbda6ff27353bcaa"
+  integrity sha512-EkAa3goxVuwtpf73GTOfCJu9DUobl+3LI8xLKEPhB7gJKF5TfnifOlsduepPAtzHVeDLQ0M2XVBJwofsaItjsA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    immer "^9.0.14"
+
 "@activeviam/plugin-menu-item-remove-widget@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-remove-widget/-/@activeviam/plugin-menu-item-remove-widget-5.0.41.tgz#de22a09edd6a0956b9dd93018fd08a896b00f42f"
@@ -2105,6 +3115,20 @@
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-menu-item-remove-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-remove-widget/-/@activeviam/plugin-menu-item-remove-widget-5.2.4.tgz#02ed9f0aad6ca0f0e32a97232c811d4861d964a2"
+  integrity sha512-GvjUKDagpmj6haacO39PjGuwb0UjapgYsiUyuTfiCRL7iJtIYfIFPRzIUoLAyAY8V6RgKbpmXFVEHqprSGJRTg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-menu-item-save-widget-as@5.0.41":
   version "5.0.41"
@@ -2142,6 +3166,26 @@
     "@activeviam/utils-react" "5.1.23"
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item-save-widget-as@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-save-widget-as/-/@activeviam/plugin-menu-item-save-widget-as-5.2.4.tgz#98dab3f85246c1efd05e3d2e33cd7f28f6a96c9b"
+  integrity sha512-1040LojzSJ7vsHggWOM+IklUcgK12NI0WSYNNkUQ0n5HlWKzwSTkmYBfVUW0DpEfhZ61c+s2/zI2VcAwl8QBFA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/file-list" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/permissions" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
     "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
@@ -2184,6 +3228,24 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-save-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-save-widget/-/@activeviam/plugin-menu-item-save-widget-5.2.4.tgz#d364351aa218ed5f1c7d51be7e99ffc72af5724c"
+  integrity sha512-F50bQmhaJSLZjg5pE9Y1VQEDOvZEwj/Za3jG+CUizpVwByPZWOpyWcI2Rdfiw7m+ZGWYIrJsy4nwoZMsicJZ7g==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-show-hide-chart-totals@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-show-hide-chart-totals/-/@activeviam/plugin-menu-item-show-hide-chart-totals-5.0.41.tgz#3666ba40d5842f2188c2388637df0d5643aba1fa"
@@ -2223,6 +3285,26 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-show-hide-chart-totals@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-show-hide-chart-totals/-/@activeviam/plugin-menu-item-show-hide-chart-totals-5.2.4.tgz#85f4a5fc973ffbfb3b01f2b80c814295fa421693"
+  integrity sha512-HDSnVwrwovhRFFZRPGPYggOGtQ/6AU2HxtvlSg/YXsMog56TC26ZMDNN6eofFYuSdHvL87DFrH8OrAb1GhlrBQ==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-menu-item-show-hide-totals" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-show-hide-empty-values@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-show-hide-empty-values/-/@activeviam/plugin-menu-item-show-hide-empty-values-5.1.23.tgz#aac9662a164d97e76842659db44a9ed39d6a4197"
@@ -2235,6 +3317,21 @@
     "@activeviam/plugin-widget" "5.1.23"
     "@activeviam/theme" "5.1.23"
     "@emotion/react" "^11.10.5"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item-show-hide-empty-values@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-show-hide-empty-values/-/@activeviam/plugin-menu-item-show-hide-empty-values-5.2.4.tgz#942d73495b7177e519b4dbd34b40edfd2bf0d305"
+  integrity sha512-EShKOZvKpX0fqK9PXOcYrEL5jfi/qTA4YUzK1ERw/EyOOhE3tAFR5ACS8Gud5EhfK76IEVPSQZ+LU2E63f0Rvg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/theme" "5.2.4"
     "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
@@ -2281,6 +3378,28 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item-show-hide-totals@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-show-hide-totals/-/@activeviam/plugin-menu-item-show-hide-totals-5.2.4.tgz#51b281fed061016a00755ed874814ca90cb25086"
+  integrity sha512-RCeOplCPlbh8M0sRaQhxNetB/y2uSodb4SCzqAMAj/QrlZGDMu/VlZIlEHxAPRnCjFAP7fAF9PZLoOYe7zvI2Q==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
@@ -2331,6 +3450,28 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-sort-chart@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-chart/-/@activeviam/plugin-menu-item-sort-chart-5.2.4.tgz#effc440a9ffa27d102dfbb9e1cc980d7d663cc78"
+  integrity sha512-tMNcV+11g3ganoG+YYyixjt6ZPcaAKQA6xZZwnzRZ7+JqC5YJAJWJl0JHoK2cOPLLh6R9JA3yDuvIxd+R/w8GA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-titlebar-button-full-screen" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-sort-drillthrough-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-drillthrough-table/-/@activeviam/plugin-menu-item-sort-drillthrough-table-5.0.41.tgz#ad7be40fc56ed8067ed8bea5c900f59c82bf76e9"
@@ -2360,6 +3501,21 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item-sort-drillthrough-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-drillthrough-table/-/@activeviam/plugin-menu-item-sort-drillthrough-table-5.2.4.tgz#3c5bcf4b6e23dd25564d2cefb4512eba31411f89"
+  integrity sha512-Rby6dbiVwMQBCyLFuLyNz2nkGT0Pzomal3lZNBKqk6cnfkw+ri7WxG/7IsYoaXhj+wiqECaH71vdJeEI8IjFHg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget-drillthrough-table" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
@@ -2411,6 +3567,29 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-menu-item-sort-pivot-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-pivot-table/-/@activeviam/plugin-menu-item-sort-pivot-table-5.2.4.tgz#bfd2019bff7d37be115847e78bbf68c57237b31c"
+  integrity sha512-K9s8sqohfXJxVYkBe8IJLdjdeoaYS9yujEd8mlNfxIocvatAmirT6HgKjmBHxRyP53ZAPhCijTSw+oyBJjprPw==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-menu-item-sort-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-table/-/@activeviam/plugin-menu-item-sort-table-5.0.41.tgz#2902448206ebf9f11bb96d9f3c85720c67eab0d6"
@@ -2431,6 +3610,16 @@
     "@activeviam/plugin-menu-item-sort-pivot-table" "5.1.23"
     "@activeviam/plugin-widget" "5.1.23"
     "@activeviam/selection" "5.1.23"
+
+"@activeviam/plugin-menu-item-sort-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-sort-table/-/@activeviam/plugin-menu-item-sort-table-5.2.4.tgz#2f5449fa246986536c43080362052c6f642a725d"
+  integrity sha512-KEVRQqVznRJGMxioaCm4k5HCwmoytd2jh4MhJLiopaX4eRWs5f/xQjaqEZMcEwr+vGJGB8s/mKnustTIqs8psQ==
+  dependencies:
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-menu-item-sort-pivot-table" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
 
 "@activeviam/plugin-menu-item-switch-quick-filter-mode@5.0.41":
   version "5.0.41"
@@ -2466,6 +3655,22 @@
     "@types/react" "^18.0.26"
     immer "^9.0.14"
 
+"@activeviam/plugin-menu-item-switch-quick-filter-mode@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-switch-quick-filter-mode/-/@activeviam/plugin-menu-item-switch-quick-filter-mode-5.2.4.tgz#7d4afb71188bb8247b5e591c66a2193504532da9"
+  integrity sha512-chAhpg4OsifgRPA/Gsnbj9wrqNexcyBoFoChfBJKVAiSxzlSW0gdC7SIU6rolshdAkyPMpAHqRmrQhBnZs3skQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget-quick-filter" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    immer "^9.0.14"
+
 "@activeviam/plugin-menu-item-switch-widget-type@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-switch-widget-type/-/@activeviam/plugin-menu-item-switch-widget-type-5.1.23.tgz#bd7d3aa42b7fa3e15e1a4469da6c13e5f3356a8d"
@@ -2476,6 +3681,16 @@
     "@activeviam/plugin-menu-item" "5.1.23"
     "@activeviam/theme" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/plugin-menu-item-switch-widget-type@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-switch-widget-type/-/@activeviam/plugin-menu-item-switch-widget-type-5.2.4.tgz#eb9dab1c9a9754b614213e80fb6e0a1f41ba206a"
+  integrity sha512-EUnG3uvCx0tuDW6qQ5FI0KlBbz08nEMQJXdCQOzwkTJ4AbqD9adlXVuDiD5jiGaYjB3ckqywIU1btLuRARdhmg==
+  dependencies:
+    "@activeviam/application-state" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/theme" "5.2.4"
 
 "@activeviam/plugin-menu-item-synchronize-saved-widget@5.0.41":
   version "5.0.41"
@@ -2509,6 +3724,20 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-menu-item-synchronize-saved-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item-synchronize-saved-widget/-/@activeviam/plugin-menu-item-synchronize-saved-widget-5.2.4.tgz#b6b614836833ae12a98636bb7283fb657528a84b"
+  integrity sha512-kd6dfXsv9Z8/QT9qfVlV6MzwlYTe5vfwB7qIXaueQu5muoal2RH+KAQPTMrZK1pF7Yz4dCOOg9Rr3IQKWMYP5Q==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+
 "@activeviam/plugin-menu-item@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item/-/@activeviam/plugin-menu-item-5.0.41.tgz#6e9e584e7666660065e38b1ec4f0eed013a19a16"
@@ -2534,6 +3763,18 @@
     "@emotion/react" "^11.10.5"
     "@types/lodash-es" "^4.17.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+
+"@activeviam/plugin-menu-item@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-menu-item/-/@activeviam/plugin-menu-item-5.2.4.tgz#2ce3fb59dad70e4bac3d0e3c8b03a43d416ffb85"
+  integrity sha512-yXhrY5jgbAjRjMLMRl4gL7G6RNbIvGdTXa3F+tAf2PV5BwaW9DhgdTroQjfI603aCj6NlYna3WxD6R001NU8TQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     lodash-es "^4.17.21"
 
 "@activeviam/plugin-selection-listener-filter-other-widgets@5.0.41":
@@ -2604,6 +3845,21 @@
     immer "^9.0.14"
     react-intl "^6.2.1"
 
+"@activeviam/plugin-titlebar-button-edit-text-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button-edit-text-widget/-/@activeviam/plugin-titlebar-button-edit-text-widget-5.2.4.tgz#c4f351cddce22cadf4f76da288c07044c55a9016"
+  integrity sha512-aYe+0bJ5QiX1xk7QVFZniOzdswuoknAMpkd8hE0aHR6BmeZVPGlcrtEmCkpNcFaEFeTzqRciZS05QcCOgKMv2g==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-widget-text-editor" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    immer "^9.0.14"
+
 "@activeviam/plugin-titlebar-button-full-screen@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button-full-screen/-/@activeviam/plugin-titlebar-button-full-screen-5.0.41.tgz#e7c5eee39763dbfe0502a60745eecbf5729c99f3"
@@ -2633,6 +3889,19 @@
     "@types/react" "^18.0.26"
     immer "^9.0.14"
     react-intl "^6.2.1"
+
+"@activeviam/plugin-titlebar-button-full-screen@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button-full-screen/-/@activeviam/plugin-titlebar-button-full-screen-5.2.4.tgz#bb796b052cd8823cb20ec59dfe8329612cf689bb"
+  integrity sha512-/kzrvgdJyAktrY7y86XWKl3apejNFVt9NvmWjiHorliLwC0DC7hDry1PSS3HFBy1tAc4OW/X5M4sPDEn4kdDkQ==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    immer "^9.0.14"
 
 "@activeviam/plugin-titlebar-button-remove-widget@5.0.41":
   version "5.0.41"
@@ -2665,6 +3934,20 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
     react-intl "^6.2.1"
+
+"@activeviam/plugin-titlebar-button-remove-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button-remove-widget/-/@activeviam/plugin-titlebar-button-remove-widget-5.2.4.tgz#4654a1b469dba23f04e005466d917378ca7e4dcd"
+  integrity sha512-twO1rYV0bHTGEOwOrgZrI95jNuXD1ZiKuPJyleizHSH2nN+5Bc4k5GDMzQy2PSYfSnpMb2hKD1/YBrsiMH+U8A==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-titlebar-button-toggle-query-mode@5.0.41":
   version "5.0.41"
@@ -2700,6 +3983,21 @@
     immer "^9.0.14"
     react-intl "^6.2.1"
 
+"@activeviam/plugin-titlebar-button-toggle-query-mode@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button-toggle-query-mode/-/@activeviam/plugin-titlebar-button-toggle-query-mode-5.2.4.tgz#47b5b489089ef164f98111a744979d86dc9b06ae"
+  integrity sha512-lWEUuYePfsCqC0kHlI30fWcCRveu6dw3VrqZo1+IwqElYjXAcPfaDrWxEE18KT0ii1Pxi3Z/Kx9JATDX0Gmpvg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    immer "^9.0.14"
+
 "@activeviam/plugin-titlebar-button@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button/-/@activeviam/plugin-titlebar-button-5.0.41.tgz#56ccd2b3a2aff62df7ece4bf488401fbfbd7dd46"
@@ -2721,6 +4019,16 @@
     "@activeviam/mdx" "5.1.23"
     "@activeviam/plugins-core" "5.1.23"
     "@types/react" "^18.0.26"
+
+"@activeviam/plugin-titlebar-button@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-titlebar-button/-/@activeviam/plugin-titlebar-button-5.2.4.tgz#8e5561f24c78661c5bb4da00fd88a9b5b744e392"
+  integrity sha512-VgzkCLBtmS0+u0OMJewaNB409zo314AXf8Ci4Jfw4HS7OqWQrXgL3D7J4BGQmo/LxaOVLE7oSY2lBcDOkvBnmA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
 
 "@activeviam/plugin-widget-drillthrough-table@5.0.41":
   version "5.0.41"
@@ -2787,6 +4095,40 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-widget-drillthrough-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-drillthrough-table/-/@activeviam/plugin-widget-drillthrough-table-5.2.4.tgz#10e267afe10315eee361c24fdc771e3bac398bbc"
+  integrity sha512-WtctnXeUbWaMalTFNYTVD4QJ3L9pZcKHpPsW3SV0kx2Y+hGsfvSWbOUwfV88UWEZEXtqmoC3DU53QvWbLk9Tvw==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    array-move "^4.0.0"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-widget-kpi@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-kpi/-/@activeviam/plugin-widget-kpi-5.0.41.tgz#ab28ac0fc689383c66664fc222883aa25f18b9ae"
@@ -2847,6 +4189,34 @@
     lodash-es "^4.17.21"
     react-error-boundary "^3.1.4"
 
+"@activeviam/plugin-widget-kpi@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-kpi/-/@activeviam/plugin-widget-kpi-5.2.4.tgz#2203eaea438afa59d82dd94f5e385d71eb3721da"
+  integrity sha512-7WaMQAQ0fXi2bX8CZbQtgsC1kRo7MYblxLofY0UxO1RBAIZu6yOvhS/MgiyuyhcvPIQKDqibQf1cK6zq5BSYrQ==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/kpi" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-widget-pivot-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-pivot-table/-/@activeviam/plugin-widget-pivot-table-5.0.41.tgz#f67a708912d51b77293b4b3923e6ed7a10938cf8"
@@ -2904,6 +4274,34 @@
     lodash-es "^4.17.21"
     shallowequal "^1.1.0"
 
+"@activeviam/plugin-widget-pivot-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-pivot-table/-/@activeviam/plugin-widget-pivot-table-5.2.4.tgz#17b65e47e57a160a5289384a67035937f7cce574"
+  integrity sha512-qlFaHdvxgf5cdgXzmWzfyk5WuoSWrsp4Um7z9OuUVh9eyVeo10YctZdcqiIRkeNijy/zfANLz5oWfl35reHcYQ==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool-style-editor" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/shallowequal" "^1.1.1"
+    lodash-es "^4.17.21"
+    shallowequal "^1.1.0"
+
 "@activeviam/plugin-widget-plotly-100-stacked-area@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-area/-/@activeviam/plugin-widget-plotly-100-stacked-area-5.0.41.tgz#7d86e97c73e8ec646e71059b1f5bea3f112fec92"
@@ -2943,6 +4341,28 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-100-stacked-area@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-area/-/@activeviam/plugin-widget-plotly-100-stacked-area-5.2.4.tgz#0a43c36a65f4b04161b713f626edbaaf0bccad72"
+  integrity sha512-hTlW+ljVYygjqGP3Acvul7zYzBNGkL+Bj7I0Cc/Sc7Y1A9MoO/IV66isXJ6ihlC8njR0LYZSjjSIuyZPE/jTQw==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-100-stacked-columns" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-area" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -2992,6 +4412,28 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-100-stacked-bars@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-bars/-/@activeviam/plugin-widget-plotly-100-stacked-bars-5.2.4.tgz#661395b994930be6342c0e6d36c3b3b539293060"
+  integrity sha512-zLnl7HRy7YXRpOEQ7C0XMgy5zN7XrDf3GVZQ7E1sctJE+2UbPLsKXHN9QIjB2xddr5t3qF6yR71bI6p7UDQHKQ==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-100-stacked-columns@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-columns/-/@activeviam/plugin-widget-plotly-100-stacked-columns-5.0.41.tgz#b37d32b1998ef3ca255df7cd06852a929d911b33"
@@ -3037,6 +4479,28 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-100-stacked-columns@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-100-stacked-columns/-/@activeviam/plugin-widget-plotly-100-stacked-columns-5.2.4.tgz#061468db09863f31d906063d04e671b7cd9f400d"
+  integrity sha512-NyIEQrMavjIshZIaHBQ8/NWVgcNJKLpJWYw7Eo9tY+rmvmaf6tgnmF3A9+53SG6MDP0rEx/UQFLj2bgrkh8sfA==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-area@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-area/-/@activeviam/plugin-widget-plotly-area-5.0.41.tgz#19ccae1b9863c28285616888808761c4e929bce3"
@@ -3076,6 +4540,25 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-area@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-area/-/@activeviam/plugin-widget-plotly-area-5.2.4.tgz#8229732e7af7a50e709b399b680eee56a3a4512b"
+  integrity sha512-LWKUOUxFxcz4g4NV7Ff1SOblTJu0aeRFjrCSnhdysWuvK1HPNq/+rlydlHaxt5N7yi2ZUfzMIwbgky9RRD4vWA==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-line" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/plotly.js" "^1.54.6"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-bullet@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-bullet/-/@activeviam/plugin-widget-plotly-bullet-5.0.41.tgz#ca0ea28c0a6d456a323dc394189d1fcd843ad134"
@@ -3112,6 +4595,25 @@
     "@emotion/react" "^11.10.5"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-bullet@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-bullet/-/@activeviam/plugin-widget-plotly-bullet-5.2.4.tgz#8125fa11eb12f98b9627cc458b5bcf86f23a4597"
+  integrity sha512-RuRmYTNeN8xa+YOZJx/h+W+kDP84Cl0TiFOk7ETT//TlAt0AqQ7Wkt4dnTISfdg5Z3zeMiaLOqUPwpaKZSbwvw==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-gauge" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3159,6 +4661,26 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-clustered-bars@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-bars/-/@activeviam/plugin-widget-plotly-clustered-bars-5.2.4.tgz#894fba15e2a468d92199c46a4588d0c9ef390c56"
+  integrity sha512-Eo7ogDqrOa/T4zoZKu70kqeadXPdrUq7Lh2MCOmheN/q/LF0cEbulEY2+jrL+HsDx1QQ1tQkOv89QybDN7rKOg==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-bars" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/plotly.js" "^1.54.6"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-clustered-columns@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-columns/-/@activeviam/plugin-widget-plotly-clustered-columns-5.0.41.tgz#3f55792b604da246ab5283bcb4849f4418316ab5"
@@ -3202,6 +4724,26 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-clustered-columns@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-clustered-columns/-/@activeviam/plugin-widget-plotly-clustered-columns-5.2.4.tgz#6b8a4957b0c9ddd5b61a5af1496c1f7cc6f4183a"
+  integrity sha512-SzHyauTDSszcYxJkvgJ0pp5fJ8g5f1XpL/w3XNdv/An/n2EuIZI/19RmNY/VY4jqL8k4TWdkZ2irfNJTX9SFiw==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/plotly.js" "^1.54.6"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-columns-and-lines@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-columns-and-lines/-/@activeviam/plugin-widget-plotly-columns-and-lines-5.1.23.tgz#2b44945e7665a9139217bd1376b68825871bc6c5"
@@ -3220,6 +4762,27 @@
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
     immer "^9.0.14"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-columns-and-lines@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-columns-and-lines/-/@activeviam/plugin-widget-plotly-columns-and-lines-5.2.4.tgz#dd29e8f97a502fae399f911701f52be9f2933e62"
+  integrity sha512-DanDMWmsqZSMISnElZD9HmL0YfPdr0g9U/DaqrtQoMkr2/V5y4wNAjCOEonNa+8bzqlWmoXxCk+16Ojx2b8bNw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3283,6 +4846,25 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-donut@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-donut/-/@activeviam/plugin-widget-plotly-donut-5.2.4.tgz#dca35bb86038e1fd5312122f7d20219aa0838c50"
+  integrity sha512-xyxuuo8SDWHDVPfx8iCQAYQenZwtLNlkXUl5B/FTrf+t9ML058a/D8xlgi+UYjGiBl+ngiVpzcp5Ts+0AufvBg==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-pie" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/plotly.js" "^1.54.6"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-gauge@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-gauge/-/@activeviam/plugin-widget-plotly-gauge-5.0.41.tgz#6f82e6c17f651cecba6f16a9c21fe8c292729709"
@@ -3324,6 +4906,27 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-gauge@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-gauge/-/@activeviam/plugin-widget-plotly-gauge-5.2.4.tgz#be22db3289f8c677131e1973db537cbd40743e1c"
+  integrity sha512-bcyEcJk+VfnOlXxWQDc30MIcztr2UEuUrb0PxwZeed2cUmgY1mlFMq4oB93y4e4nsE36i+0OrEKe03Oidcutaw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3380,6 +4983,31 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-line@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-line/-/@activeviam/plugin-widget-plotly-line-5.2.4.tgz#0f9e8d151cdf2b4adc43df112a7de51c9ea97d2f"
+  integrity sha512-R+lx1AE/lN1+5C66yFCqjxn0AQL1jmYEJYY4vtbOC/nnvhpYma085ZJrvx3y0E67Ej3qskidcAC9vmrKlt+sCg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/tool-style-editor" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-pie@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-pie/-/@activeviam/plugin-widget-plotly-pie-5.0.41.tgz#45f342d55aa644b409d07564c1c0dd6384d2866b"
@@ -3421,6 +5049,28 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-pie@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-pie/-/@activeviam/plugin-widget-plotly-pie-5.2.4.tgz#dd6e837afca85cccae640522d4533611f2cc5254"
+  integrity sha512-eT9pG6dLkCzORxfccgV5oRWJ90Zt2AJMGLyuMvEL+Co5GQilvX82n+LA1YhgF57+0HyEgn64BlAWmr/329BIEw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3470,6 +5120,28 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-radar@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-radar/-/@activeviam/plugin-widget-plotly-radar-5.2.4.tgz#e8d628f34fa2f61ba2dda883edcd4d56098bceb6"
+  integrity sha512-ScACHWLyeZuF1yGIHxjocybTQeQ6PcaZFaX4LS0Ellw0YiWGH8qRN0BS+uea6F4Ug5RCcyntXtb/KfEXdaFjNg==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-scatter@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-scatter/-/@activeviam/plugin-widget-plotly-scatter-5.0.41.tgz#b06f8ea0d1744b5d024fda1df571e5a708895933"
@@ -3515,6 +5187,29 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-scatter@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-scatter/-/@activeviam/plugin-widget-plotly-scatter-5.2.4.tgz#359b8a289325f688080eaf065bbc62ef208da82b"
+  integrity sha512-FTTfqnvc24ewzqG5UbJZsMO1ANjMwqwa9HVtLgtL7lYuiCRBQLoNa/Rp5LRfSRfKmf31YPYZDEGky2gLhFG8SA==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-stacked-area@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-area/-/@activeviam/plugin-widget-plotly-stacked-area-5.0.41.tgz#8db7dc32184e097700c47da6b23371fd77428c1c"
@@ -3552,6 +5247,27 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-stacked-area@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-area/-/@activeviam/plugin-widget-plotly-stacked-area-5.2.4.tgz#34e29e0d76a0ec5530dbff9754fc0d424038b12a"
+  integrity sha512-1szfr4vZl2nudjwpjM0ojaVi3ZQqNHoY8muvegcyynogozdFd/J0/HE7jxV29fo3weOevZJtIshWbvYH7oJCfQ==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-line" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3599,6 +5315,28 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-stacked-bars@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-bars/-/@activeviam/plugin-widget-plotly-stacked-bars-5.2.4.tgz#9e9852d3434f2de8bea0e132781591d13255c290"
+  integrity sha512-Uj63Eq8h9/D2HDE9vQ9YDmE48MeeEGYVSG8Zo7FZVTrhb/2FFP91SCTHrqt+BwD+YDH/YaNHSM+I2Ics+1pCsA==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-stacked-columns@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-columns/-/@activeviam/plugin-widget-plotly-stacked-columns-5.0.41.tgz#88692dcfd16702b9c01afe63d1bad2e9ab9c0584"
@@ -3638,6 +5376,31 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-stacked-columns@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-stacked-columns/-/@activeviam/plugin-widget-plotly-stacked-columns-5.2.4.tgz#6cbb069135baeb1db72f2c0659976cb29f5154e0"
+  integrity sha512-uL3moyb4PcBcOfaOkcoXaMF037A+Ogef+b1kxt2l2ELsYbji7ZlRhEispkycV1f1k0EegUJby8StKrKIKjt/Ww==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    immer "^9.0.14"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
@@ -3686,6 +5449,27 @@
     plotly.js "^2.17.1"
     react-plotly.js "^2.5.1"
 
+"@activeviam/plugin-widget-plotly-treemap@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-treemap/-/@activeviam/plugin-widget-plotly-treemap-5.2.4.tgz#63547f4fcc620720f4a2c943afc2cc1be6a87eb2"
+  integrity sha512-wgG4GYn1+yIpV2eNlXY2DAwqZNW5DdkydN5KIcbJs7lOGdpLc2LOr2tS44+zQvmp3EarHf+k37dxCnSQiPtnng==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
 "@activeviam/plugin-widget-plotly-waterfall@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-waterfall/-/@activeviam/plugin-widget-plotly-waterfall-5.0.41.tgz#aa76617d379f37147c836c402ad373d41aaccd27"
@@ -3728,6 +5512,30 @@
     "@types/lodash-es" "^4.17.6"
     "@types/plotly.js" "^1.54.6"
     "@types/react" "^18.0.26"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    plotly.js "^2.17.1"
+    react-plotly.js "^2.5.1"
+
+"@activeviam/plugin-widget-plotly-waterfall@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-plotly-waterfall/-/@activeviam/plugin-widget-plotly-waterfall-5.2.4.tgz#96ba5e50df99ee3daafc9cf6ae7b946413031c61"
+  integrity sha512-1RPecF354Z8UVzZFlT35m0eKNETgh8KUVeNyGnQmyGgSEIyBhmwK8UTTmdIigfQQijW67ZJIp9cPZ4iyt6iCTw==
+  dependencies:
+    "@activeviam/chart" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-plotly-stacked-columns" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/plotly.js" "^1.54.6"
     immer "^9.0.14"
     lodash-es "^4.17.21"
     plotly.js "^2.17.1"
@@ -3788,6 +5596,32 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/plugin-widget-quick-filter@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-quick-filter/-/@activeviam/plugin-widget-quick-filter-5.2.4.tgz#65f9621a42d7e38d4de7f57ccf9b74382867af92"
+  integrity sha512-dAw1mzNah2OcJ1YM5HY1W9rDtFV7kIDgACWxv0pyDLxzvR0JMgi/zGfNPU2GxW7/cl6GJAJGXK6sXdOztxhqLA==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/members-tree" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/plugin-widget-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-table/-/@activeviam/plugin-widget-table-5.0.41.tgz#e8d5f7cd9c05dfa9ee5b00bef411a08424d2887d"
@@ -3809,6 +5643,18 @@
     "@activeviam/table" "5.1.23"
     "@activeviam/widget" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/plugin-widget-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-table/-/@activeviam/plugin-widget-table-5.2.4.tgz#d35c55286fb09c5662e873b0dd9bf0c93d406c53"
+  integrity sha512-B51rqXK768C6INLxEJr6PioArDkMvUlvaPULzu9q/N7dD4Ao18m2tRAR1r+SZMLclzOB5dHI5pH4gJ8Zc7uBaQ==
+  dependencies:
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-pivot-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/widget" "5.2.4"
 
 "@activeviam/plugin-widget-text-editor@5.0.41":
   version "5.0.41"
@@ -3844,6 +5690,23 @@
     marked "^4.0.12"
     react-intl "^6.2.1"
 
+"@activeviam/plugin-widget-text-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-text-editor/-/@activeviam/plugin-widget-text-editor-5.2.4.tgz#11b59c5da018bfa879fbeb54d4921bf05b36e422"
+  integrity sha512-uPLDLiPxUE1C3scleOwRsvUeFVouBQy6E3JoLzmMVVHW5h3JMsxUzGi9MDN8i0VoS7s+aNmZPkWDkGvOllq3zw==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/katex" "^0.11.0"
+    "@types/marked" "^4.0.2"
+    katex "^0.16.10"
+    marked "^4.0.12"
+
 "@activeviam/plugin-widget-tree-table@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-tree-table/-/@activeviam/plugin-widget-tree-table-5.0.41.tgz#2acfcc964825daad149db60e39f651e37cece41f"
@@ -3875,6 +5738,20 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/plugin-widget-tree-table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget-tree-table/-/@activeviam/plugin-widget-tree-table-5.2.4.tgz#094ca0b68ea0bf3ffe05eac8a08f1e31f3635f46"
+  integrity sha512-/8mytoj9NlJXwNYl0UZzCf5OPkzXDlYa80REpYCj/qetm/eR2gixVfZdKESqv0/SeCXwYP+Psr0bLva/ewdfiA==
+  dependencies:
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugin-widget-pivot-table" "5.2.4"
+    "@activeviam/table" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+
 "@activeviam/plugin-widget@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget/-/@activeviam/plugin-widget-5.0.41.tgz#bd4c47c3f58f1a17a935bf0940b9fcfb81d231ff"
@@ -3905,6 +5782,21 @@
     "@activeviam/selection" "5.1.23"
     "@emotion/react" "^11.10.5"
 
+"@activeviam/plugin-widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugin-widget/-/@activeviam/plugin-widget-5.2.4.tgz#860b002e22e481dfc1c5a2e631650ae4d0edd442"
+  integrity sha512-rNCDXVWJKlLEFdph6j6XAWa4242wH+jqWTtHhpFUHkjVDFrea1MX57++7hnKdgCtvkcWjTuREHmqC7Je302VRw==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+
 "@activeviam/plugins-core@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugins-core/-/@activeviam/plugins-core-5.0.41.tgz#7e101a4279a10f6f8cc47fc0ca41ce1f51eef48d"
@@ -3922,6 +5814,13 @@
   dependencies:
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
+    tree-to-flat-map "^1.0.1"
+
+"@activeviam/plugins-core@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugins-core/-/@activeviam/plugins-core-5.2.4.tgz#95c6640fa11f22944a78db6f7ef89a6a8cee7e3c"
+  integrity sha512-NgBSjF5p6dFCNu+oyHJnYGdF2J89+xUqNxO3SZkcT5jmuCYqcG4joj8M13EpBsy/DemOI6QWyE4ze4PLzJMH4g==
+  dependencies:
     tree-to-flat-map "^1.0.1"
 
 "@activeviam/plugins@5.0.41":
@@ -3956,6 +5855,18 @@
     "@activeviam/plugins-core" "5.1.23"
     "@emotion/react" "^11.10.5"
 
+"@activeviam/plugins@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/plugins/-/@activeviam/plugins-5.2.4.tgz#f327be3416a29d42a537c26a54ee6475b70aa650"
+  integrity sha512-3nNuLqOVEPD7UcmwzutL58rCB0DdEUKE3O1LNo1vpnaqsHTjcd64cc2Ztx7x6r/u/D79ei8rzluoKOjU6AcJNA==
+  dependencies:
+    "@activeviam/plugin-cell" "5.2.4"
+    "@activeviam/plugin-cell-style" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-titlebar-button" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+
 "@activeviam/search@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/search/-/@activeviam/search-5.0.41.tgz#262bb959d23326e4e87eb9ada4b0beb2fc081f43"
@@ -3983,6 +5894,17 @@
     lodash-es "^4.17.21"
     talisman "^0.21.0"
 
+"@activeviam/search@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/search/-/@activeviam/search-5.2.4.tgz#a7d2107ac0029035e48acf859eab563a2a3788e1"
+  integrity sha512-WdLlLaj49FV3habUL0uEnewzv9KMcWUKDSQPUFWt9lJwvDiMx3oicZglE7PvYSq6hd0EGpkZV2Gq4YYvoug7Iw==
+  dependencies:
+    "@activeviam/theme" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    fuse.js "^3.4.6"
+    lodash-es "^4.17.21"
+    talisman "^0.21.0"
+
 "@activeviam/selection@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/selection/-/@activeviam/selection-5.0.41.tgz#ba18a0b16b69a2dd58e740e7b6d029771f572d62"
@@ -4001,6 +5923,15 @@
     "@activeviam/data-model" "5.1.23"
     "@activeviam/mdx" "5.1.23"
     "@types/react" "^18.0.26"
+
+"@activeviam/selection@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/selection/-/@activeviam/selection-5.2.4.tgz#c16ac318ef759c5e30642002c7954676fd5a6f1c"
+  integrity sha512-riaJtxYbUFt88gVp6yBPa83JfIP6D5HoM8GQQRib1Q/d71/DXGCvR73GpI/qfKnJplRCLqLCIZHfRkhxMtG2NA==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
 
 "@activeviam/state@5.0.41":
   version "5.0.41"
@@ -4023,6 +5954,11 @@
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/status-notifications/-/@activeviam/status-notifications-5.1.23.tgz#95e97ecbff29eb165104882ee49357adf551635d"
   integrity sha512-WGrUFzzbbZmWyx/3ApIkAXkNF9bPkvbqo8dMbfVv+PBBMF1U4Ws04+WTg5RIBwF8/NiZp7B/mRAKepjLiHjmFw==
 
+"@activeviam/status-notifications@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/status-notifications/-/@activeviam/status-notifications-5.2.4.tgz#352c6a911b4f097bc6156fe7cfd4b624fdd8ed2b"
+  integrity sha512-trxnaRbX69hb3eX6LjJpPd8B79vSmuARn7sDZaheRGGabGNicwkFNoHNwlsLO33qyCJ+gD+3L2cyi3dwmvQnhQ==
+
 "@activeviam/table-core@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table-core/-/@activeviam/table-core-5.0.41.tgz#a6838a544fec330f1513caf07b867e5baf4c7956"
@@ -4042,6 +5978,19 @@
     "@activeviam/data-model" "5.1.23"
     "@activeviam/mdx" "5.1.23"
     "@activeviam/plugin-widget" "5.1.23"
+    lodash-es "^4.17.21"
+
+"@activeviam/table-core@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table-core/-/@activeviam/table-core-5.2.4.tgz#1da5b51b6ff69d566236c195def81b56d60f145e"
+  integrity sha512-w/ztK7HP7Laxr2qgUw/R7Kynkkz+QbzgJ43XLvCMBMOBLCM2D+ckMbI/n3gOA9gNu1qJYHgeJzEj0wiNLvzjqw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
     lodash-es "^4.17.21"
 
 "@activeviam/table@5.0.41":
@@ -4105,6 +6054,36 @@
     react-scroll-sync "0.10.0"
     react-use "^15.3.4"
 
+"@activeviam/table@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/table/-/@activeviam/table-5.2.4.tgz#e6574f461806f7cd4187736c74d33f7688e77e41"
+  integrity sha512-9TK4fEwCOYB20ZdVhi1CaPCGJXDG2ct/6SS/Oqw0D4UTeoQDda1aLAVtNPhyNykVoSstY11uWC6PtlmyoFoQUw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/conditional-style-editor" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-visualization" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/table-core" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/react-scroll-sync" "^0.8.4"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-async-hook "^4.0.0"
+    react-scroll-sync "0.10.0"
+    react-use "^15.3.4"
+
 "@activeviam/tabs@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tabs/-/@activeviam/tabs-5.0.41.tgz#451b211d2e31a802f7f6c0df535ae90354033f44"
@@ -4152,6 +6131,14 @@
     "@emotion/react" "^11.10.5"
     "@types/react" "^18.0.26"
 
+"@activeviam/theme@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/theme/-/@activeviam/theme-5.2.4.tgz#db830a46f63fdbd26389017fcf684cc6525e3f8b"
+  integrity sha512-8+fkgVY9oqhotqMgi4MDpdAlP8v3fiDJJ80zBbZrlcpWthMaYutKjyJ3X2Q5wqp6G4TQgP6B9lUkeWfliz4E6w==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@ant-design/colors" "^6.0.0"
+
 "@activeviam/tool-behavior-editor@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-behavior-editor/-/@activeviam/tool-behavior-editor-5.1.23.tgz#0cc7c2d87245ec64ba073b60061f6b08233f0923"
@@ -4169,6 +6156,21 @@
     lodash-es "^4.17.21"
     react-async-hook "^4.0.0"
 
+"@activeviam/tool-behavior-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-behavior-editor/-/@activeviam/tool-behavior-editor-5.2.4.tgz#b48357c429237dd97f108d142dd10007c6fe9e5b"
+  integrity sha512-3aIU2afohYbeKC4M2B7ueoSRhhkDVpPWd9n+T4VgNwkCITcFYrwtf01rntjI4IlV/L6B3rxICz/DkpsSJJAFvQ==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-async-hook "^4.0.0"
+
 "@activeviam/tool-content-editor@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-content-editor/-/@activeviam/tool-content-editor-5.1.23.tgz#03ba24757483caf406302e651494f898d06bbf4b"
@@ -4180,6 +6182,16 @@
     "@activeviam/utils-react" "5.1.23"
     "@emotion/react" "^11.10.5"
 
+"@activeviam/tool-content-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-content-editor/-/@activeviam/tool-content-editor-5.2.4.tgz#fb3937117ff3798a9b01191766ac43cb2726ad20"
+  integrity sha512-g4Up5uirbZ7bY4v2YRNzEPrstfQLU23J1Zp0hJvO7lDjdKnmAduP8O9NdthG3MBPc15dnLJw3sY6VtZtVPt+VA==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+
 "@activeviam/tool-filters-editor@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-filters-editor/-/@activeviam/tool-filters-editor-5.1.23.tgz#a56c416d68cbb246d112826c6ff0c5a90da14bc6"
@@ -4189,6 +6201,16 @@
     "@activeviam/tool" "5.1.23"
     "@activeviam/utils-react" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/tool-filters-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-filters-editor/-/@activeviam/tool-filters-editor-5.2.4.tgz#53bed1fc475b79e83b2353d4c32512d0eb9aecda"
+  integrity sha512-knlJKy5U4vNZiLDlMvARFOwuH3t3wCtYXGrRlUJQWcL6bb1e5bzfPtP+zQHWTQBI82/grZ0Ulin4zaFS53uWng==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
 
 "@activeviam/tool-query-context-editor@5.1.23":
   version "5.1.23"
@@ -4214,6 +6236,29 @@
     immer "^9.0.14"
     lodash-es "^4.17.21"
 
+"@activeviam/tool-query-context-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-query-context-editor/-/@activeviam/tool-query-context-editor-5.2.4.tgz#98e3c0aec6700d00c58fd4a23928d26ee0bb72a8"
+  integrity sha512-TRsuk5gpqXvURj2FgHvFLq36pf4G7RSI0Nir10TwRw7/lB2cbkJLOOMjGd8pLuUHzxCokFWMlYvkWGJRiCgjwA==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+
 "@activeviam/tool-query-editor@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-query-editor/-/@activeviam/tool-query-editor-5.1.23.tgz#79b6c8436424c6e1e327aff2b281a6a73524b630"
@@ -4223,6 +6268,16 @@
     "@activeviam/tool" "5.1.23"
     "@activeviam/utils-react" "5.1.23"
     "@emotion/react" "^11.10.5"
+
+"@activeviam/tool-query-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-query-editor/-/@activeviam/tool-query-editor-5.2.4.tgz#4ccdc90e55c2d54585ff0ded352e7c7ab3d67561"
+  integrity sha512-TtfyNCljdy/rGPhbNq4AK5uuixUit/+kgmgKtnmuQ/nSuMX8elv0cIC4YW6CPMjHmQLOTXpslaQusWWSh6a2jw==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
 
 "@activeviam/tool-state-editor@5.1.23":
   version "5.1.23"
@@ -4241,6 +6296,21 @@
     "@types/react" "^18.0.26"
     lodash-es "^4.17.21"
 
+"@activeviam/tool-state-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-state-editor/-/@activeviam/tool-state-editor-5.2.4.tgz#fe7da6f027705832b99b99a3f3ae15b289df08aa"
+  integrity sha512-erKdsU5F1HuCTnfgiRmOgzFS/FPYqjvhr173v/UNXvI3SCDyDJLr4Vq2BwphuSxMxtbvZiIuuc7lqpXSJbsgDA==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/widget" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    lodash-es "^4.17.21"
+
 "@activeviam/tool-style-editor@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-style-editor/-/@activeviam/tool-style-editor-5.1.23.tgz#5f7638570226c12463d4aafc47708f70952a8318"
@@ -4253,6 +6323,17 @@
     "@activeviam/utils-react" "5.1.23"
     "@emotion/react" "^11.10.5"
 
+"@activeviam/tool-style-editor@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool-style-editor/-/@activeviam/tool-style-editor-5.2.4.tgz#d3afcaafe2d995f8ddcbec599265e6fb8c2eb736"
+  integrity sha512-txvqv0QRfgOyhcJk1yzr/1F22pEXC37DDhPLWRNix2raNn7/MbHVoUFSBCPquYkHUfhLUFPKTsBcA8GhbjD9Fw==
+  dependencies:
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+
 "@activeviam/tool@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool/-/@activeviam/tool-5.1.23.tgz#fd727481a0968590d274ddde025a8cf6389f7f36"
@@ -4261,6 +6342,18 @@
     "@activeviam/plugin-widget" "5.1.23"
     "@emotion/react" "^11.10.5"
     react "^18.0.0"
+    tree-to-flat-map "^1.0.1"
+
+"@activeviam/tool@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tool/-/@activeviam/tool-5.2.4.tgz#b15dd4a2fc86432e116a1e03a871a8ae3136bc44"
+  integrity sha512-eeE9xTZXwgwTJkhggR85fa/yeMvwaorllt5ROTM3/cX63TqJcCreWBMCyfHbE69NqlOUghWbW8RDPL6mrNuYaw==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    react-error-boundary "^3.1.4"
     tree-to-flat-map "^1.0.1"
 
 "@activeviam/translation@5.0.41":
@@ -4282,6 +6375,14 @@
   integrity sha512-yuJeG/OAoaZtUnbQ9AcSLD5liZWy6SBh3INF6WFebTu6Cq3ibwaM5KDbEgN8tY++37qjc0eosaVlQNSqsZXUsw==
   dependencies:
     "@activeviam/utils" "5.1.23"
+    tree-to-flat-map "^1.0.1"
+
+"@activeviam/translation@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/translation/-/@activeviam/translation-5.2.4.tgz#867b99a39f90c516fe1c9e7ceaa621a8ae619e3d"
+  integrity sha512-j2Yc8wEbhX71yc1LUA3eVqnTgWcCnbCz7hEh0DgnXVOzqS6cPgo7T2jdzQCn28Kh293ucxKI/EoHX+bxDta8Eg==
+  dependencies:
+    "@activeviam/utils" "5.2.4"
     tree-to-flat-map "^1.0.1"
 
 "@activeviam/tree@5.0.41":
@@ -4321,6 +6422,23 @@
     lodash-es "^4.17.21"
     react-window "^1.8.8"
 
+"@activeviam/tree@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/tree/-/@activeviam/tree-5.2.4.tgz#b49875ffd1d85c355d170904a3582abd8cd6c100"
+  integrity sha512-emagDuYMBh6o7hKpAD6ve1rwDADIXm/X88BOcg5IAm54WXavFxdZcUttVkgeyCQogB6rq+0ZGJtIjZrSwj4sug==
+  dependencies:
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/translation" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/react-window" "^1.8.5"
+    lodash-es "^4.17.21"
+    react-window "^1.8.8"
+
 "@activeviam/utils-react@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils-react/-/@activeviam/utils-react-5.0.41.tgz#f3869fde6ec58786a691f86c71af2bd5f99c9168"
@@ -4355,6 +6473,22 @@
     react-use "^15.3.4"
     shallowequal "^1.1.0"
 
+"@activeviam/utils-react@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils-react/-/@activeviam/utils-react-5.2.4.tgz#15c2c62ceb0d045a0e67239fa05db02035e87357"
+  integrity sha512-/xy4agjjrrw+38arnC4Rm3m/dHvFP/UFGVAnZDv36G0iK2bKE6dDGlt5/LDjX6WJ9Wq8G2qRwRc2fGvrRSaIlw==
+  dependencies:
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    "@types/shallowequal" "^1.1.1"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-use "^15.3.4"
+    shallowequal "^1.1.0"
+
 "@activeviam/utils@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils/-/@activeviam/utils-5.0.41.tgz#a1c286ef4b10536493c438683ec5a56b904d7cc3"
@@ -4377,12 +6511,31 @@
     lodash-es "^4.17.21"
     ts-essentials "^6.0.5"
 
+"@activeviam/utils@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/utils/-/@activeviam/utils-5.2.4.tgz#04838f6980f21de4ddaa5c7b88e19b6fbd04beee"
+  integrity sha512-aKVaAezaEQN5ykpOl9CcHMfJlKthzJNzau+9lRXW5rSllbJAh6u5gODyN8vBfo16ROsVD86TxOmNb+ELZs48rQ==
+  dependencies:
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    ts-essentials "^6.0.5"
+
 "@activeviam/versions@5.1.23":
   version "5.1.23"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/versions/-/@activeviam/versions-5.1.23.tgz#edb65a251aaf6dd2cb88b3247d19267b3cb7fece"
   integrity sha512-u+HVEkq3sJuFdt9Jvlry1QkhcukIaY+b+f/p4l7DTfTtHBK+1LfCV7FzVAoPPCscxML1L1p5dPkYbT/VjaybdQ==
   dependencies:
     "@activeviam/utils" "5.1.23"
+    semver "^7.3.2"
+
+"@activeviam/versions@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/versions/-/@activeviam/versions-5.2.4.tgz#7586a73cfb8fb0e4aff7dbd1c7fce39884c39a22"
+  integrity sha512-3FJiy9bynRf15w764qukU3mI/h/dijVAiacgrgoD54yIhBbvQdHu+/WqsxZ90Am2EuuV4pRKiH9gBSf1F4D0TA==
+  dependencies:
+    "@activeviam/utils" "5.2.4"
+    "@types/semver" "^7.3.2"
     semver "^7.3.2"
 
 "@activeviam/widget@5.0.41":
@@ -4457,6 +6610,43 @@
     react-error-boundary "^3.1.4"
     react-use "^15.3.4"
 
+"@activeviam/widget@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/widget/-/@activeviam/widget-5.2.4.tgz#8846bef1fc7b9cba297a95b4a1691f7b068a143a"
+  integrity sha512-Cq2O0410TAAHiqECyllrJBr4AM1NAO+nsp89r3dBKmLwyBUBSd1vsoUgAFhSOF1kkBKwvU0le9o0ejyC0CaXKg==
+  dependencies:
+    "@activeviam/action" "5.2.4"
+    "@activeviam/atoti-client" "5.2.4"
+    "@activeviam/client-react" "5.2.4"
+    "@activeviam/content-client" "5.2.4"
+    "@activeviam/dashboard-base" "5.2.4"
+    "@activeviam/data-model" "5.2.4"
+    "@activeviam/data-model-tree" "5.2.4"
+    "@activeviam/editor" "5.2.4"
+    "@activeviam/file-list" "5.2.4"
+    "@activeviam/filters" "5.2.4"
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/mdx" "5.2.4"
+    "@activeviam/members-tree" "5.2.4"
+    "@activeviam/plugin-menu-item" "5.2.4"
+    "@activeviam/plugin-widget" "5.2.4"
+    "@activeviam/plugins" "5.2.4"
+    "@activeviam/plugins-core" "5.2.4"
+    "@activeviam/search" "5.2.4"
+    "@activeviam/selection" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/tool" "5.2.4"
+    "@activeviam/tree" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@activeviam/wizard" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    react-dnd-html5-backend "^16.0.0"
+    react-error-boundary "^3.1.4"
+    react-use "^15.3.4"
+
 "@activeviam/wizard@5.0.41":
   version "5.0.41"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/wizard/-/@activeviam/wizard-5.0.41.tgz#d1ed1cfcbb111a42b99cd014ee4b372b841c52d1"
@@ -4487,6 +6677,20 @@
     lodash-es "^4.17.21"
     use-force-update "^1.0.7"
 
+"@activeviam/wizard@5.2.4":
+  version "5.2.4"
+  resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/wizard/-/@activeviam/wizard-5.2.4.tgz#13da8f8ec13f9440c2537ebe237019a84e823c13"
+  integrity sha512-vpQ49rQJECgzTDqj5DbGZ2cV8PkvgW9Ma3akrLN/mfjxvI7Nuj0Wv34jUAcdcWpv3bFWQyIwAoPeiccJwp0Nwg==
+  dependencies:
+    "@activeviam/icons" "5.2.4"
+    "@activeviam/theme" "5.2.4"
+    "@activeviam/utils" "5.2.4"
+    "@activeviam/utils-react" "5.2.4"
+    "@types/lodash-es" "^4.17.6"
+    immer "^9.0.14"
+    lodash-es "^4.17.21"
+    use-force-update "^1.0.7"
+
 "@ampproject/remapping@^2.1.0":
   version "2.1.2"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.1.2.tgz"
@@ -4508,10 +6712,29 @@
   dependencies:
     "@ctrl/tinycolor" "^3.4.0"
 
+"@ant-design/colors@^7.0.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-7.2.0.tgz#80d7325d20463f09c7839d28da630043dd5c263a"
+  integrity sha512-bjTObSnZ9C/O8MB/B4OUtd/q9COomuJAR2SYfhxLyHvCKn4EKwCN3e+fWGMo7H5InAyV0wL17jdE9ALrdOW/6A==
+  dependencies:
+    "@ant-design/fast-color" "^2.0.6"
+
+"@ant-design/fast-color@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@ant-design/fast-color/-/fast-color-2.0.6.tgz#ab4d4455c1542c9017d367c2fa8ca3e4215d0ba2"
+  integrity sha512-y2217gk4NqL35giHl72o6Zzqji9O7vHh9YmhUVkPtAOpoTCH4uWxo/pr4VE8t0+ChEPs0qo4eJRC5Q1eXWo3vA==
+  dependencies:
+    "@babel/runtime" "^7.24.7"
+
 "@ant-design/icons-svg@^4.0.0":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz"
   integrity sha512-Fi03PfuUqRs76aI3UWYpP864lkrfPo0hluwGqh7NJdLhvH4iRDc3jbJqZIvRDLHKbXrvAfPPV3+zjUccfFvWOQ==
+
+"@ant-design/icons-svg@^4.4.0", "@ant-design/icons-svg@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.4.2.tgz#ed2be7fb4d82ac7e1d45a54a5b06d6cecf8be6f6"
+  integrity sha512-vHbT+zJEVzllwP+CM+ul7reTEfBR0vgxFe7+lREAsAA7YGsYpboiq2sQNeQeRvh09GfQgs/GyFEvZpJ9cLXpXA==
 
 "@ant-design/icons@^4.4.0":
   version "4.6.3"
@@ -4523,6 +6746,17 @@
     "@babel/runtime" "^7.11.2"
     classnames "^2.2.6"
     rc-util "^5.9.4"
+
+"@ant-design/icons@^5.3.7":
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-5.6.1.tgz#7290fcdc3d96ff3fca793ed399053cd29ad5dbd3"
+  integrity sha512-0/xS39c91WjPAZOWsvi1//zjx6kAp4kxWwctR6kuU6p133w8RU0D2dSCvZC19uQyharg/sAvYxGYWl01BbZZfg==
+  dependencies:
+    "@ant-design/colors" "^7.0.0"
+    "@ant-design/icons-svg" "^4.4.0"
+    "@babel/runtime" "^7.24.8"
+    classnames "^2.2.6"
+    rc-util "^5.31.1"
 
 "@ant-design/react-slick@~0.28.1":
   version "0.28.4"
@@ -6755,6 +8989,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.24.7", "@babel/runtime@^7.24.8":
+  version "7.26.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.9.tgz#aa4c6facc65b9cb3f87d75125ffd47781b475433"
+  integrity sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.10.4", "@babel/template@^7.16.7":
   version "7.16.7"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.16.7.tgz"
@@ -7770,6 +10011,18 @@
   resolved "https://registry.npmjs.org/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
+"@module-federation/runtime@^0.1.12":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@module-federation/runtime/-/runtime-0.1.21.tgz#1d233b29dd136488f2ba682017b53f13e015788a"
+  integrity sha512-/p4BhZ0SnjJuiL0wwu+FebFgIUJ9vM+oCY7CyprUHImyi/Y23ulI61WNWMVrKQGgdMoXQDQCL8RH4EnrVP2ZFw==
+  dependencies:
+    "@module-federation/sdk" "0.1.21"
+
+"@module-federation/sdk@0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@module-federation/sdk/-/sdk-0.1.21.tgz#adb15c38ddfea65f45bd989a94c3a575c8df6991"
+  integrity sha512-r7xPiAm+O4e+8Zvw+8b4ToeD0D0VJD004nHmt+Y8r/l98J2eA6di72Vn1FeyjtQbCrFtiMw3ts/dlqtcmIBipw==
+
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
   resolved "https://registry.npmjs.org/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8-no-fsevents.2.tgz"
@@ -8539,6 +10792,11 @@
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/katex@^0.11.0":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.11.1.tgz#34de04477dcf79e2ef6c8d23b41a3d81f9ebeaf5"
+  integrity sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==
+
 "@types/lodash-es@^4.17.6":
   version "4.17.6"
   resolved "https://registry.npmjs.org/@types/lodash-es/-/lodash-es-4.17.6.tgz"
@@ -8689,6 +10947,14 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/react@^18.3.3":
+  version "18.3.18"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.18.tgz#9b382c4cd32e13e463f97df07c2ee3bbcd26904b"
+  integrity sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^3.0.2"
+
 "@types/resolve@0.0.8":
   version "0.0.8"
   resolved "https://registry.npmjs.org/@types/resolve/-/resolve-0.0.8.tgz"
@@ -8717,6 +10983,11 @@
   version "7.5.8"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.8.tgz#8268a8c57a3e4abd25c165ecd36237db7948a55e"
   integrity sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==
+
+"@types/shallowequal@^1.1.1":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@types/shallowequal/-/shallowequal-1.1.5.tgz#37e4871c464981b4abee74990c73c8f414cd13dd"
+  integrity sha512-8afr1hbNqvZ/FBMY2mcfkkbk7xhlTZN4lVCgQf55YdjUQpWLemmrcvcHg94vjw+ZVIfPa3UZz/sOE6CkaMlDnQ==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -11189,6 +13460,11 @@ commander@^7.0.0, commander@^7.2.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
+
+commander@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
+  integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
 
 common-tags@^1.8.0:
   version "1.8.2"
@@ -16868,6 +19144,13 @@ katex@^0.13.11:
   dependencies:
     commander "^6.0.0"
 
+katex@^0.16.10:
+  version "0.16.21"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.21.tgz#8f63c659e931b210139691f2cc7bb35166b792a3"
+  integrity sha512-XvqR7FgOHtWupfMiigNzmh+MgUVmDGU2kXZm899ZkPfcuoPuFxyHmXsgATDpFZDAXCI8tvinaVcDo8PIIJSo4A==
+  dependencies:
+    commander "^8.3.0"
+
 kdbush@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/kdbush/-/kdbush-3.0.0.tgz"
@@ -20662,6 +22945,14 @@ rc-util@^5.2.1, rc-util@^5.3.0, rc-util@^5.5.0, rc-util@^5.7.0, rc-util@^5.9.4:
     react-is "^16.12.0"
     shallowequal "^1.1.0"
 
+rc-util@^5.31.1:
+  version "5.44.4"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.44.4.tgz#89ee9037683cca01cd60f1a6bbda761457dd6ba5"
+  integrity sha512-resueRJzmHG9Q6rI/DfK6Kdv9/Lfls05vzMs1Sk3M2P+3cJa+MakaZyWY8IPfehVuhPJFKrIY1IK4GqbiaiY5w==
+  dependencies:
+    "@babel/runtime" "^7.18.3"
+    react-is "^18.2.0"
+
 rc-virtual-list@^3.0.1, rc-virtual-list@^3.2.0:
   version "3.4.13"
   resolved "https://registry.npmjs.org/rc-virtual-list/-/rc-virtual-list-3.4.13.tgz"
@@ -20829,6 +23120,11 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-is@^18.2.0:
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
+  integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
 react-plotly.js@^2.5.1:
   version "2.5.1"

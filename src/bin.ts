@@ -4,8 +4,6 @@ import path from "path";
 import { BehaviorOnError } from "./migration.types";
 import { migrateNotebook } from "./migrateNotebook";
 import {
-  convertFromVersion,
-  convertToVersion,
   convertVersions,
   validFromVersions,
   validToVersions,
@@ -210,12 +208,12 @@ yargs
       }
     },
   )
-  .check(({ fromVersion, toVersion }) => {
-    if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
-      throw new Error("--to-version must be greater than --from-version");
-    }
-    return true;
-  })
+  // .check(({ fromVersion, toVersion }) => {
+  //   if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
+  //     throw new Error("--to-version must be greater than --from-version");
+  //   }
+  //   return true;
+  // })
   .demandCommand(1)
   .strict()
   .parse();

@@ -6,6 +6,8 @@ import { migrateContentServer } from "./migrateContentServer";
 import _cloneDeep from "lodash/cloneDeep";
 import { legacyUIFolderWithInvalidWidgets } from "./4.3_to_5.0/__test_resources__/legacyUIFolderWithInvalidWidgets";
 import { legacyUIFolderWithInvalidKpiTitle } from "./4.3_to_5.0/__test_resources__/legacyUIFolderWithInvalidKpi";
+import { signoffBusinessContentServer } from "./so-5.x_to_so-6.x/__test_resources__/signoffBusinessContentServer";
+import { servers as signoffServers } from "./so-5.x_to_so-6.x/__test_resources__/servers";
 
 jest.mock(`./4.3_to_5.0/generateId`, () => {
   let counter = 0;
@@ -400,5 +402,38 @@ describe("migrateContentServer", () => {
         "[Measures].[contributors.COUNT]": "Custom title for contributors.COUNT",
       }
     `);
+  });
+
+  it("removes obsolete widgets", async () => {
+    const keysOfWidgetPluginsToRemove = [
+      "signoff_adjustments-table",
+      "signoff_daily-progress-widget",
+      "signoff_tasks-activities",
+      "signoff_tasks-details-table",
+    ];
+    await migrateContentServer({
+      contentServer: signoffBusinessContentServer,
+      servers: signoffServers,
+      fromVersion: "5.x",
+      toVersion: "6.x",
+      keysOfWidgetPluginsToRemove,
+      doesReportIncludeStacks: false,
+      shouldUpdateFiltersMdx: true,
+      behaviorOnError: "keep-original",
+    });
+
+    const serializedWidgetContentAndStructure = JSON.stringify(
+      signoffBusinessContentServer.children?.ui.children?.widgets.children!,
+    );
+
+    const serializedDashboardContent = JSON.stringify(
+      signoffBusinessContentServer.children?.ui.children?.dashboards.children
+        ?.content.children,
+    );
+
+    keysOfWidgetPluginsToRemove.forEach((key) => {
+      expect(serializedWidgetContentAndStructure).not.toContain(key);
+      expect(serializedDashboardContent).not.toContain(key);
+    });
   });
 });
