@@ -7,8 +7,8 @@ const versionMapping: { [atotiVersion: string]: string } = {
 const atotiPythonValidFromVersions = ["0.7"];
 const atotiPythonValidToVersions = ["0.8"];
 
-const atotiUIValidFromVersions = ["4.3", "5.0"] as const;
-const atotiUIValidToVersions = ["5.0", "5.1"] as const;
+const atotiUIValidFromVersions = ["4.3", "5.0", "5.x"] as const;
+const atotiUIValidToVersions = ["5.0", "5.1", "6.x"] as const;
 
 export const validFromVersions = [
   ...atotiUIValidFromVersions,

@@ -210,12 +210,12 @@ yargs
       }
     },
   )
-  .check(({ fromVersion, toVersion }) => {
-    if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
-      throw new Error("--to-version must be greater than --from-version");
-    }
-    return true;
-  })
+  // .check(({ fromVersion, toVersion }) => {
+  //   if (convertFromVersion(fromVersion) >= convertToVersion(toVersion)) {
+  //     throw new Error("--to-version must be greater than --from-version");
+  //   }
+  //   return true;
+  // })
   .demandCommand(1)
   .strict()
   .parse();

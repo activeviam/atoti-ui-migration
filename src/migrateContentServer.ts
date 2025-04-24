@@ -17,12 +17,16 @@ import {
   AtotiUIFromVersion,
   AtotiUIToVersion,
 } from "./convertAtotiToAUIVersions";
+import { renameTradeAttributes } from "./mr_rename_tradeattributes";
 
 const migrationSteps: {
   from: string;
   to: string;
   migrate: MigrationFunction;
-}[] = [{ from: "5.0", to: "5.1", migrate: migrate_50_to_51 }];
+}[] = [
+  { from: "5.0", to: "5.1", migrate: migrate_50_to_51 },
+  { from: "5.x", to: "6.x", migrate: renameTradeAttributes },
+];
 
 const fromVersions = migrationSteps.map(({ from }) => from);
 const toVersions = migrationSteps.map(({ to }) => to);
