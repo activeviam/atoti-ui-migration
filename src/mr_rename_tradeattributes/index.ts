@@ -99,9 +99,9 @@ export const renameTradeAttributes: MigrationFunction<
   { migrateDashboards, migrateSavedFilters, migrateSavedWidgets },
 ) => {
   migrateSavedFilters(
-    (filter) => filter,
+    (filter) => deserializeFilter(filter),
     updateFilter,
-    (filter) => filter,
+    (filter) => serializeFilter(filter),
   );
 
   migrateSavedWidgets(
