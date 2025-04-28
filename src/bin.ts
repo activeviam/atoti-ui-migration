@@ -4,8 +4,6 @@ import path from "path";
 import { BehaviorOnError } from "./migration.types";
 import { migrateNotebook } from "./migrateNotebook";
 import {
-  convertFromVersion,
-  convertToVersion,
   convertVersions,
   validFromVersions,
   validToVersions,

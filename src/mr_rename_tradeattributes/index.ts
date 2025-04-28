@@ -15,9 +15,16 @@ import {
   deserializeFilter,
   serializeFilter,
   parse,
+  Cube,
+  getCube,
+  DataModel,
 } from "@activeviam/activeui-sdk-5.2";
 import { MigrationFunction } from "../migration.types";
 import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
+import {
+  getCubeName,
+  getSpecificCompoundIdentifier,
+} from "@activeviam/mdx-5.2";
 
 function updateHierarchy(hierarchy: HierarchyCoordinates) {
   if (
@@ -39,24 +46,50 @@ function updateLevel(level: LevelCoordinates) {
   }
 }
 
-function updateMdx(mdx?: Mdx) {
+function updateMdx({ mdx, cube }: { mdx?: Mdx; cube?: Cube }) {
   traverseMdx(mdx, (mdx) => {
     if (mdx.elementType === "CompoundIdentifier") {
-      if (mdx.type === "hierarchy") {
-        updateHierarchy(mdx);
-      } else if (mdx.type === "level") {
-        updateLevel(mdx);
+      if (cube) {
+        // Enriches the parsed mdx using the cube, helps identify what is a hierarchy/dimension/level within the identifier.
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
+          cube,
+        });
+
+        if (specificCompoundIdentifier.type === "hierarchy") {
+          updateHierarchy(specificCompoundIdentifier);
+        } else if (specificCompoundIdentifier.type === "level") {
+          updateLevel(specificCompoundIdentifier);
+        }
+      } else {
+        // When the cube is not available, best effort with simple token replacement.
+        mdx.identifiers.forEach((identifier) => {
+          if (identifier.value === "MaturityDates") {
+            identifier.value = "TradeMaturityDates";
+          } else if (identifier.value === "MaturityDate") {
+            identifier.value = "TradeMaturityDate";
+          }
+        });
       }
     }
   });
 }
 
-function updateWidget(widget: AWidgetState) {
+function updateWidget(
+  widget: AWidgetState,
+  dataModels: Record<string, DataModel<"indexed">>,
+) {
   if (isWidgetWithQueryState(widget)) {
-    const { query, filters } = widget;
+    const { query, filters, serverKey } = widget;
 
-    (filters || []).forEach(updateHierarchy);
-    updateMdx(query.mdx);
+    if (query.mdx !== undefined && serverKey !== undefined) {
+      const dataModel = dataModels[serverKey];
+
+      (filters || []).forEach(updateHierarchy);
+      updateMdx({
+        mdx: query.mdx,
+        cube: getCube(dataModel, getCubeName(query.mdx)),
+      });
+    }
   }
 }
 
@@ -66,7 +99,7 @@ function updateFilter(filter: Filter<"deserialized">) {
 
   // Some special filters also have mdx in them
   if (filter.type === "custom") {
-    updateMdx(filter.mdx);
+    updateMdx({ mdx: filter.mdx, cube: undefined });
   } else if ("levelName" in filter) {
     // Some filters have a levelName property in them.
     updateLevel(filter);
@@ -96,7 +129,7 @@ export const renameTradeAttributes: MigrationFunction<
   DashboardState<"serialized">
 > = (
   contentServer,
-  { migrateDashboards, migrateSavedFilters, migrateSavedWidgets },
+  { migrateDashboards, migrateSavedFilters, migrateSavedWidgets, dataModels },
 ) => {
   migrateSavedFilters(
     (filter) => deserializeFilter(filter),
@@ -106,7 +139,9 @@ export const renameTradeAttributes: MigrationFunction<
 
   migrateSavedWidgets(
     (widget) => deserializeWidgetState(widget),
-    updateWidget,
+    (widget: AWidgetState<"deserialized">) => {
+      updateWidget(widget, dataModels);
+    },
     (widget) => serializeWidgetState(widget),
   );
 
@@ -122,11 +157,17 @@ export const renameTradeAttributes: MigrationFunction<
         (page.filters || []).forEach(updateFilter);
       });
 
-      migrateWidgetsWithinDashboard(dashboard, updateWidget, {
-        dataModels,
-        keysOfWidgetPluginsToRemove,
-        onError: onErrorWhileMigratingWidget,
-      });
+      migrateWidgetsWithinDashboard(
+        dashboard,
+        (widget: AWidgetState<"deserialized">) => {
+          updateWidget(widget, dataModels);
+        },
+        {
+          dataModels,
+          keysOfWidgetPluginsToRemove,
+          onError: onErrorWhileMigratingWidget,
+        },
+      );
     },
     (dashboard) => serializeDashboardState(dashboard),
   );
