@@ -18,12 +18,16 @@ import {
   Cube,
   getCube,
   DataModel,
+  LevelName,
+  DataVisualizationWidgetState,
+  // MdxHierarchyCompoundIdentifier,
+  // MdxLevelCompoundIdentifier,
 } from "@activeviam/activeui-sdk-5.2";
 import { MigrationFunction } from "../migration.types";
 import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
 import {
   getCubeName,
-  getSpecificCompoundIdentifier,
+  // getSpecificCompoundIdentifier,
 } from "@activeviam/mdx-5.2";
 
 function updateHierarchy(hierarchy: HierarchyCoordinates) {
@@ -36,42 +40,57 @@ function updateHierarchy(hierarchy: HierarchyCoordinates) {
 }
 
 function updateLevel(level: LevelCoordinates) {
+  // Update the hierarchy separately in case the identifier level is AllMember
+  updateHierarchy(level);
+
   if (
     level.dimensionName === "TradeAttributes" &&
-    level.hierarchyName === "MaturityDates" &&
+    // /!\ Now has the new hierarchy name
+    level.hierarchyName === "TradeMaturityDates" &&
     level.levelName === "MaturityDate"
   ) {
     level.levelName = "TradeMaturityDate";
-    level.hierarchyName = "TradeMaturityDates";
   }
 }
 
-function updateMdx({ mdx, cube }: { mdx?: Mdx; cube?: Cube }) {
+function updateMdx({ mdx }: { mdx?: Mdx; cube?: Cube }) {
   traverseMdx(mdx, (mdx) => {
     if (mdx.elementType === "CompoundIdentifier") {
-      if (cube) {
-        // Enriches the parsed mdx using the cube, helps identify what is a hierarchy/dimension/level within the identifier.
-        const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
-          cube,
-        });
+      // if (cube) {
+      //   // Enriches the parsed mdx using the cube, helps identify what is a hierarchy/dimension/level within the identifier.
+      //   const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
+      //     cube,
+      //   });
 
-        if (specificCompoundIdentifier.type === "hierarchy") {
-          updateHierarchy(specificCompoundIdentifier);
-        } else if (specificCompoundIdentifier.type === "level") {
-          updateLevel(specificCompoundIdentifier);
+      //   if (specificCompoundIdentifier.type === "hierarchy") {
+      //     updateHierarchy(mdx as MdxHierarchyCompoundIdentifier);
+      //   } else if (
+      //     specificCompoundIdentifier.type === "level" ||
+      //     specificCompoundIdentifier.type === "member"
+      //   ) {
+      //     updateLevel(mdx as MdxLevelCompoundIdentifier);
+      //   }
+      // } else {
+      // When the cube is not available, best effort with simple token replacement.
+      mdx.identifiers.forEach((identifier) => {
+        if (identifier.value === "MaturityDates") {
+          identifier.value = "TradeMaturityDates";
+        } else if (identifier.value === "MaturityDate") {
+          identifier.value = "TradeMaturityDate";
         }
-      } else {
-        // When the cube is not available, best effort with simple token replacement.
-        mdx.identifiers.forEach((identifier) => {
-          if (identifier.value === "MaturityDates") {
-            identifier.value = "TradeMaturityDates";
-          } else if (identifier.value === "MaturityDate") {
-            identifier.value = "TradeMaturityDate";
-          }
-        });
-      }
+      });
     }
+    // }
   });
+}
+
+function updateMappingHierarchyField(
+  mappingHierarchyField: LevelCoordinates & { expandedDownTo?: LevelName },
+) {
+  updateLevel(mappingHierarchyField);
+  if (mappingHierarchyField.expandedDownTo === "MaturityDate") {
+    mappingHierarchyField.expandedDownTo = "TradeMaturityDate";
+  }
 }
 
 function updateWidget(
@@ -90,6 +109,21 @@ function updateWidget(
         cube: getCube(dataModel, getCubeName(query.mdx)),
       });
     }
+
+    if ("mapping" in widget) {
+      const mapping = (widget as DataVisualizationWidgetState).mapping;
+      Object.values(mapping).forEach((mappingFields) => {
+        mappingFields.forEach((mappingField) => {
+          if (mappingField.type === "hierarchy") {
+            updateMappingHierarchyField(mappingField);
+          } else if (mappingField.type === "compositeHierarchy") {
+            mappingField.hierarchies.forEach((mappingHierarchyField) => {
+              updateMappingHierarchyField(mappingHierarchyField);
+            });
+          }
+        });
+      });
+    }
   }
 }
 
@@ -103,6 +137,9 @@ function updateFilter(filter: Filter<"deserialized">) {
   } else if ("levelName" in filter) {
     // Some filters have a levelName property in them.
     updateLevel(filter);
+  } else if ("hierarchyName" in filter) {
+    // Some filters have a hierarchyName property in them.
+    updateHierarchy(filter);
   }
 }
 
@@ -118,7 +155,7 @@ function updateFilter(filter: Filter<"deserialized">) {
  * - saved filters
  * - saved widgets
  * - filters within dashboards/pages/widgets.
- * - widgets within a dashboard
+ * - widgets within a dashboard (query and mapping)
  * - user filters
  * - calculated measures
  */
