@@ -20,14 +20,13 @@ import {
   DataModel,
   LevelName,
   DataVisualizationWidgetState,
-  // MdxHierarchyCompoundIdentifier,
-  // MdxLevelCompoundIdentifier,
+  stringify,
 } from "@activeviam/activeui-sdk-5.2";
 import { MigrationFunction } from "../migration.types";
 import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
 import {
   getCubeName,
-  // getSpecificCompoundIdentifier,
+  getSpecificCompoundIdentifier,
 } from "@activeviam/mdx-5.2";
 
 function updateHierarchy(hierarchy: HierarchyCoordinates) {
@@ -53,34 +52,36 @@ function updateLevel(level: LevelCoordinates) {
   }
 }
 
-function updateMdx({ mdx }: { mdx?: Mdx; cube?: Cube }) {
+function updateMdx({ mdx, cube }: { mdx?: Mdx; cube?: Cube }) {
   traverseMdx(mdx, (mdx) => {
     if (mdx.elementType === "CompoundIdentifier") {
-      // if (cube) {
-      //   // Enriches the parsed mdx using the cube, helps identify what is a hierarchy/dimension/level within the identifier.
-      //   const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
-      //     cube,
-      //   });
+      if (cube) {
+        // Enriches the parsed mdx using the cube, helps identify what is a hierarchy/dimension/level within the identifier.
+        const specificCompoundIdentifier = getSpecificCompoundIdentifier(mdx, {
+          cube,
+        });
 
-      //   if (specificCompoundIdentifier.type === "hierarchy") {
-      //     updateHierarchy(mdx as MdxHierarchyCompoundIdentifier);
-      //   } else if (
-      //     specificCompoundIdentifier.type === "level" ||
-      //     specificCompoundIdentifier.type === "member"
-      //   ) {
-      //     updateLevel(mdx as MdxLevelCompoundIdentifier);
-      //   }
-      // } else {
-      // When the cube is not available, best effort with simple token replacement.
-      mdx.identifiers.forEach((identifier) => {
-        if (identifier.value === "MaturityDates") {
-          identifier.value = "TradeMaturityDates";
-        } else if (identifier.value === "MaturityDate") {
-          identifier.value = "TradeMaturityDate";
+        if (specificCompoundIdentifier.type === "hierarchy") {
+          updateHierarchy(specificCompoundIdentifier);
+          Object.assign(mdx, specificCompoundIdentifier);
+        } else if (
+          specificCompoundIdentifier.type === "level" ||
+          specificCompoundIdentifier.type === "member"
+        ) {
+          updateLevel(specificCompoundIdentifier);
+          Object.assign(mdx, specificCompoundIdentifier);
         }
-      });
+      } else {
+        // When the cube is not available, best effort with simple token replacement.
+        mdx.identifiers.forEach((identifier) => {
+          if (identifier.value === "MaturityDates") {
+            identifier.value = "TradeMaturityDates";
+          } else if (identifier.value === "MaturityDate") {
+            identifier.value = "TradeMaturityDate";
+          }
+        });
+      }
     }
-    // }
   });
 }
 
@@ -247,7 +248,12 @@ export const renameTradeAttributes: MigrationFunction<
         const calculatedMeasureDescription: { expression: string } = JSON.parse(
           calculatedMeasureRecord.entry.content,
         );
-        updateMdx(parse(calculatedMeasureDescription.expression));
+        const calculatedMeasureMdx = parse(
+          calculatedMeasureDescription.expression,
+        );
+        updateMdx({ mdx: calculatedMeasureMdx });
+        calculatedMeasureDescription.expression =
+          stringify(calculatedMeasureMdx);
         calculatedMeasureRecord.entry.content = JSON.stringify(
           calculatedMeasureDescription,
         );
