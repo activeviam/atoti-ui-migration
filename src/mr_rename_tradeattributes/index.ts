@@ -21,6 +21,9 @@ import {
   LevelName,
   DataVisualizationWidgetState,
   stringify,
+  MdxHierarchyCompoundIdentifier,
+  MdxLevelCompoundIdentifier,
+  MdxMemberCompoundIdentifier,
 } from "@activeviam/activeui-sdk-5.2";
 import { MigrationFunction } from "../migration.types";
 import { migrateWidgetsWithinDashboard } from "../migrateWidgetsWithinDashboard";
@@ -38,6 +41,25 @@ function updateHierarchy(hierarchy: HierarchyCoordinates) {
   }
 }
 
+function updateHierarchyCompoundIdentifier(
+  hierarchyIdentifier:
+    | MdxHierarchyCompoundIdentifier
+    | MdxLevelCompoundIdentifier
+    | MdxMemberCompoundIdentifier,
+) {
+  if (
+    hierarchyIdentifier.dimensionName === "TradeAttributes" &&
+    hierarchyIdentifier.hierarchyName === "MaturityDates"
+  ) {
+    hierarchyIdentifier.hierarchyName = "TradeMaturityDates";
+    hierarchyIdentifier.identifiers.forEach((identifier) => {
+      if (identifier.value === "MaturityDates") {
+        identifier.value = "TradeMaturityDates";
+      }
+    });
+  }
+}
+
 function updateLevel(level: LevelCoordinates) {
   // Update the hierarchy separately in case the identifier level is AllMember
   updateHierarchy(level);
@@ -52,6 +74,24 @@ function updateLevel(level: LevelCoordinates) {
   }
 }
 
+function updateLevelCompoundIdentifier(
+  identifier: MdxLevelCompoundIdentifier | MdxMemberCompoundIdentifier,
+) {
+  updateHierarchyCompoundIdentifier(identifier);
+  if (
+    identifier.dimensionName === "TradeAttributes" &&
+    identifier.hierarchyName === "TradeMaturityDates" &&
+    identifier.levelName === "MaturityDate"
+  ) {
+    identifier.levelName = "TradeMaturityDate";
+    identifier.identifiers.forEach((identifier) => {
+      if (identifier.value === "MaturityDate") {
+        identifier.value = "TradeMaturityDate";
+      }
+    });
+  }
+}
+
 function updateMdx({ mdx, cube }: { mdx?: Mdx; cube?: Cube }) {
   traverseMdx(mdx, (mdx) => {
     if (mdx.elementType === "CompoundIdentifier") {
@@ -62,13 +102,13 @@ function updateMdx({ mdx, cube }: { mdx?: Mdx; cube?: Cube }) {
         });
 
         if (specificCompoundIdentifier.type === "hierarchy") {
-          updateHierarchy(specificCompoundIdentifier);
+          updateHierarchyCompoundIdentifier(specificCompoundIdentifier);
           Object.assign(mdx, specificCompoundIdentifier);
         } else if (
           specificCompoundIdentifier.type === "level" ||
           specificCompoundIdentifier.type === "member"
         ) {
-          updateLevel(specificCompoundIdentifier);
+          updateLevelCompoundIdentifier(specificCompoundIdentifier);
           Object.assign(mdx, specificCompoundIdentifier);
         }
       } else {
