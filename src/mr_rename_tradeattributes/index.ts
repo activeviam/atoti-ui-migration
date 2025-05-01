@@ -144,7 +144,7 @@ function updateWidget(
     if (query.mdx !== undefined && serverKey !== undefined) {
       const dataModel = dataModels[serverKey];
 
-      (filters || []).forEach(updateHierarchy);
+      (filters || []).forEach(updateFilter);
       updateMdx({
         mdx: query.mdx,
         cube: getCube(dataModel, getCubeName(query.mdx)),
@@ -169,17 +169,15 @@ function updateWidget(
 }
 
 function updateFilter(filter: Filter<"deserialized">) {
-  // All filters inherit from AFilter/HierarchyCoordinates
-  updateHierarchy(filter);
-
   // Some special filters also have mdx in them
   if (filter.type === "custom") {
+    updateHierarchy(filter);
     updateMdx({ mdx: filter.mdx, cube: undefined });
   } else if ("levelName" in filter) {
     // Some filters have a levelName property in them.
     updateLevel(filter);
-  } else if ("hierarchyName" in filter) {
-    // Some filters have a hierarchyName property in them.
+  } else {
+    // All filters inherit from AFilter/HierarchyCoordinates
     updateHierarchy(filter);
   }
 }
