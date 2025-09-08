@@ -141,7 +141,7 @@ export async function logMigrationReport({
 
   if (errorReport && debug) {
     await fs.writeJSON(
-      path.join(...migrationOutputDirectory, "report.json"),
+      path.join(migrationOutputDirectory, "report.json"),
       errorReport,
       {
         spaces: 2,
