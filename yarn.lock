@@ -1225,7 +1225,7 @@
     lodash-es "^4.17.21"
     react-reverse-portal "2.0.1"
 
-"@activeviam/dashboard-base@5.2.4":
+"@activeviam/dashboard-base-5.2@npm:@activeviam/dashboard-base@5.2.4", "@activeviam/dashboard-base@5.2.4":
   version "5.2.4"
   resolved "https://activeviam.jfrog.io/artifactory/api/npm/npm-internal/@activeviam/dashboard-base/-/@activeviam/dashboard-base-5.2.4.tgz#da617ae9efa166abda85ee9ff8c8f40bdada7217"
   integrity sha512-EjWbZaZC6v74F9V0zTmv2WblTRzMen/ImQwqGRyL1PvWtpkhDMO4BaS+QSHpqCemTyDtGqFmnqUBNldD1CzjcA==

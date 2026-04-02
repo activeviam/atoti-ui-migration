@@ -404,7 +404,7 @@ describe("migrateContentServer", () => {
     `);
   });
 
-  it("removes obsolete widgets", async () => {
+  it("removes obsolete signoff widgets", async () => {
     const keysOfWidgetPluginsToRemove = [
       "signoff_adjustments-table",
       "signoff_daily-progress-widget",
@@ -435,5 +435,48 @@ describe("migrateContentServer", () => {
       expect(serializedWidgetContentAndStructure).not.toContain(key);
       expect(serializedDashboardContent).not.toContain(key);
     });
+
+    expect(
+      JSON.parse(
+        signoffBusinessContentServer.children?.ui.children?.dashboards.children
+          ?.content.children["xR07SN"].entry.content,
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "filters": [],
+        "pages": {
+          "p-0": {
+            "content": {
+              "0": {
+                "mapping": {
+                  "columns": [
+                    "ALL_MEASURES",
+                  ],
+                  "measures": [],
+                  "rows": [],
+                },
+                "query": {
+                  "updateMode": "once",
+                },
+                "widgetKey": "pivot-table",
+              },
+            },
+            "layout": {
+              "children": [
+                {
+                  "leafKey": "0",
+                  "size": 1,
+                },
+              ],
+              "direction": "row",
+            },
+            "name": "Page 1",
+          },
+        },
+        "pagesOrder": [
+          "p-0",
+        ],
+      }
+    `);
   });
 });

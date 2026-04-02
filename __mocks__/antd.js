@@ -18,4 +18,7 @@ module.exports = {
   ConfigProvider: {
     ConfigContext: {},
   },
+  DatePicker: {
+    RangePicker: {},
+  },
 };

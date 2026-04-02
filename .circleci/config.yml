@@ -41,3 +41,4 @@ workflows:
             branches:
               ignore:
                 - main
+                - migrate_signoff_5_to_6

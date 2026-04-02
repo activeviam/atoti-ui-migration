@@ -33,6 +33,7 @@
     "@activeviam/content-server-initialization-5.0": "npm:@activeviam/content-server-initialization@5.0.41",
     "@activeviam/dashboard-base-5.0": "npm:@activeviam/dashboard-base@5.0.41",
     "@activeviam/dashboard-base-5.1": "npm:@activeviam/dashboard-base@5.1.23",
+    "@activeviam/dashboard-base-5.2": "npm:@activeviam/dashboard-base@5.2.4",
     "@activeviam/data-model-5.0": "npm:@activeviam/data-model@5.0.41",
     "@activeviam/data-model-5.1": "npm:@activeviam/data-model@5.1.23",
     "@activeviam/mdx-5.0": "npm:@activeviam/mdx@5.0.41",
