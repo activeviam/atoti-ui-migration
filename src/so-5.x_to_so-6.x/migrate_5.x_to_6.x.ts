@@ -1,4 +1,11 @@
-import { ContentRecord, DashboardState } from "@activeviam/activeui-sdk-5.2";
+import type {
+  ContentRecord,
+  DashboardState,
+} from "@activeviam/activeui-sdk-5.2";
+import {
+  _removeWidgetFromPage,
+  getLayoutPath,
+} from "@activeviam/dashboard-base-5.2";
 import { MigrationFunction } from "../migration.types";
 
 /**
@@ -59,7 +66,35 @@ export const migrate_5x_to_6x: MigrationFunction<
       Object.values(dashboardState.pages).forEach((page) => {
         Object.entries(page.content).forEach(([leafKey, widget]) => {
           if (keysOfWidgetPluginsToRemove.includes(widget.widgetKey)) {
-            delete page.content[leafKey];
+            const layoutPath = getLayoutPath(page.layout, leafKey);
+            _removeWidgetFromPage(page, layoutPath, leafKey);
+            const isPageEmpty = Object.keys(page.content).length === 0;
+            // _removeWidgetFromPage puts the page in an incorrect state if the last widget was removed.
+            // A page cannot have no widget, a dashboard cannot have no page.
+            if (isPageEmpty) {
+              page.content = {
+                "0": {
+                  mapping: {
+                    rows: [],
+                    columns: ["ALL_MEASURES"],
+                    measures: [],
+                  },
+                  query: {
+                    updateMode: "once",
+                  },
+                  widgetKey: "pivot-table",
+                },
+              };
+              page.layout = {
+                children: [
+                  {
+                    leafKey: "0",
+                    size: 1,
+                  },
+                ],
+                direction: "row",
+              };
+            }
             counters.widgets.removed++;
           }
         });

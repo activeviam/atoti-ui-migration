@@ -4,10 +4,13 @@ const isCI = require("is-ci");
 const extensions = ["js", "jsx", "ts", "tsx", "mjs", "json"];
 const esmPackages = [
   "@activeviam/*",
+  "@ant-design/*",
+  "@babel/runtime",
   "lodash-es",
   "monaco-editor",
   "react-dnd-html5-backend",
   "array-move",
+  "rc-util",
 ];
 
 // Note that in addition to the config below, there are several mocked modules under the __mocks__ folder.
